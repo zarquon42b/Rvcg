@@ -29,6 +29,7 @@ vcgClost <- function(mesh,mesh2,sign=TRUE)
     dimit <- dim(it)[2]
     dimvb <- dim(vb)[2]
     storage.mode(it) <- "integer"
+
     clost <- mesh$vb[1:3,]
     normals <- clost
     clostDim <- ncol(clost)
@@ -38,6 +39,6 @@ vcgClost <- function(mesh,mesh2,sign=TRUE)
     mesh$vb[1:3,] <- tmp[[5]]
     mesh$normals <- rbind(tmp[[7]],1)
     mesh$quality <- tmp[[8]]
-    return(mesh)
+    invisible(mesh)
   }
     

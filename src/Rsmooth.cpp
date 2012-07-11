@@ -201,7 +201,7 @@ using namespace std;
     VertexPointer ivref[dref];
     
     vi=refmesh.vert.begin();
-    for (i=0; i<d; i++) 
+    for (i=0; i < dref; i++) 
       {
 	ivref[i]=&*vi;
 	x = clost[i*3];
@@ -221,25 +221,24 @@ using namespace std;
     vcg::tri::FaceTmark<MyMesh> mf; 
     mf.SetMesh( &m );
     vcg::face::PointDistanceBaseFunctor<float> PDistFunct;
-    //tri::UpdateFlags<MyMesh>::FaceProjection(mesh);
     TriMeshGrid static_grid;    
     static_grid.Set(m.face.begin(), m.face.end());
     
     
-    for(int i=0; i<refmesh.vn; i++)
+    for(int i=0; i < refmesh.vn; i++)
       {
 	
 	Point3f& currp = refmesh.vert[i].P();
-	Point3f& clost = outmesh.vert[i].P();
-	MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
-	
+	Point3f& clostmp = outmesh.vert[i].P();
+	MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clostmp);
+		
 	int f_i = vcg::tri::Index(m, f_ptr);
 	MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;
 	tt=tt/sqrt(tt.dot(tt));
 	dis[i] = minDist;
 	if (signo == 1)
 	  {
-	    Point3f dif = clost - currp;
+	    Point3f dif = clostmp - currp;
 	    float sign = dif.dot(tt);	
 	    if (sign < 0)
 	      { 
@@ -247,11 +246,13 @@ using namespace std;
 	      }	
 	  }
 
-	outmesh.vert[i].N() = tt;
+	  outmesh.vert[i].N() = tt;
+
       }
     //write back output
+    
       vi=outmesh.vert.begin();
-      for (i=0; i<d; i++) 
+      for (i=0; i<dref; i++) 
       {
 	clost[i*3] = (*vi).P()[0];
 	clost[i*3+1] = (*vi).P()[1];
@@ -259,8 +260,10 @@ using namespace std;
 	normals[i*3] = (*vi).N()[0];
 	normals[i*3+1] = (*vi).N()[1];
 	normals[i*3+2] = (*vi).N()[2];
+	
 	++vi;
-      }
+	}
+   
     //tri::io::ExporterPLY<MyMesh>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
   }
    
