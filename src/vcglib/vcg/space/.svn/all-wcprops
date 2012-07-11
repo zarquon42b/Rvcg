@@ -1,0 +1,221 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/vcg/!svn/ver/4431/trunk/vcglib/vcg/space
+END
+point.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/point.h
+END
+intersection3.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4293/trunk/vcglib/vcg/space/intersection3.h
+END
+normal_extrapolation.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/normal_extrapolation.h
+END
+poly_packer.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4328/trunk/vcglib/vcg/space/poly_packer.h
+END
+line2.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/line2.h
+END
+planar_polygon_tessellation.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/planar_polygon_tessellation.h
+END
+line3.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/line3.h
+END
+ray2.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/ray2.h
+END
+ray3.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/ray3.h
+END
+rect_packer.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4218/trunk/vcglib/vcg/space/rect_packer.h
+END
+smallest_enclosing.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/smallest_enclosing.h
+END
+triangle2.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/triangle2.h
+END
+fitting3.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/fitting3.h
+END
+triangle3.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4226/trunk/vcglib/vcg/space/triangle3.h
+END
+box.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/box.h
+END
+obox3.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/obox3.h
+END
+colorspace.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4219/trunk/vcglib/vcg/space/colorspace.h
+END
+space.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/space.h
+END
+deprecated_point2.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/deprecated_point2.h
+END
+deprecated_point3.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4213/trunk/vcglib/vcg/space/deprecated_point3.h
+END
+deprecated_point4.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/deprecated_point4.h
+END
+color4.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4387/trunk/vcglib/vcg/space/color4.h
+END
+tetra3.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/tetra3.h
+END
+texcoord2.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/texcoord2.h
+END
+sphere3.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vcg/!svn/ver/4431/trunk/vcglib/vcg/space/sphere3.h
+END
+deprecated_point.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/deprecated_point.h
+END
+box2.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/box2.h
+END
+point2.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/point2.h
+END
+box3.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4323/trunk/vcglib/vcg/space/box3.h
+END
+point3.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/point3.h
+END
+distance3.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4419/trunk/vcglib/vcg/space/distance3.h
+END
+point4.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/point4.h
+END
+plane3.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4292/trunk/vcglib/vcg/space/plane3.h
+END
+segment2.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/segment2.h
+END
+segment3.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4398/trunk/vcglib/vcg/space/segment3.h
+END
+intersection2.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4285/trunk/vcglib/vcg/space/intersection2.h
+END

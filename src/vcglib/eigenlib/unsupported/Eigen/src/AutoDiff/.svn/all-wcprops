@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/AutoDiff
+END
+AutoDiffVector.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/AutoDiff/AutoDiffVector.h
+END
+AutoDiffScalar.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/AutoDiff/AutoDiffScalar.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/AutoDiff/CMakeLists.txt
+END
+AutoDiffJacobian.h
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/AutoDiff/AutoDiffJacobian.h
+END

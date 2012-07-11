@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/vcg/!svn/ver/4436/trunk/vcglib/wrap/glw
+END
+type.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vcg/!svn/ver/4409/trunk/vcglib/wrap/glw/type.h
+END
+geometryshader.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4407/trunk/vcglib/wrap/glw/geometryshader.h
+END
+framebuffer.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4428/trunk/vcglib/wrap/glw/framebuffer.h
+END
+context.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4436/trunk/vcglib/wrap/glw/context.h
+END
+texture2d.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4426/trunk/vcglib/wrap/glw/texture2d.h
+END
+common.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4407/trunk/vcglib/wrap/glw/common.h
+END
+glw.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vcg/!svn/ver/4393/trunk/vcglib/wrap/glw/glw.h
+END
+fragmentshader.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4407/trunk/vcglib/wrap/glw/fragmentshader.h
+END
+bookkeeping.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4409/trunk/vcglib/wrap/glw/bookkeeping.h
+END
+glheaders.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4393/trunk/vcglib/wrap/glw/glheaders.h
+END
+texture.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4415/trunk/vcglib/wrap/glw/texture.h
+END
+renderable.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4407/trunk/vcglib/wrap/glw/renderable.h
+END
+utility.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4415/trunk/vcglib/wrap/glw/utility.h
+END
+vertexshader.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4407/trunk/vcglib/wrap/glw/vertexshader.h
+END
+config.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4412/trunk/vcglib/wrap/glw/config.h
+END
+object.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4409/trunk/vcglib/wrap/glw/object.h
+END
+shader.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4408/trunk/vcglib/wrap/glw/shader.h
+END
+program.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4429/trunk/vcglib/wrap/glw/program.h
+END
+renderbuffer.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4410/trunk/vcglib/wrap/glw/renderbuffer.h
+END
+noncopyable.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4393/trunk/vcglib/wrap/glw/noncopyable.h
+END
+buffer.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4407/trunk/vcglib/wrap/glw/buffer.h
+END
+objectdeleter.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vcg/!svn/ver/4407/trunk/vcglib/wrap/glw/objectdeleter.h
+END

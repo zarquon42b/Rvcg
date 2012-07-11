@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues
+END
+RealSchur.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/RealSchur.h
+END
+ComplexEigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/ComplexEigenSolver.h
+END
+Tridiagonalization.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/Tridiagonalization.h
+END
+ComplexSchur.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/ComplexSchur.h
+END
+GeneralizedSelfAdjointEigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h
+END
+EigenvaluesCommon.h
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/EigenvaluesCommon.h
+END
+EigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/EigenSolver.h
+END
+HessenbergDecomposition.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/HessenbergDecomposition.h
+END
+SelfAdjointEigenSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/CMakeLists.txt
+END
+MatrixBaseEigenvalues.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
+END

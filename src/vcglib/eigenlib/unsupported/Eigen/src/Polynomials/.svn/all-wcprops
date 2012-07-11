@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/Polynomials
+END
+Companion.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/Polynomials/Companion.h
+END
+PolynomialUtils.h
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/Polynomials/PolynomialUtils.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/Polynomials/CMakeLists.txt
+END
+PolynomialSolver.h
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/Polynomials/PolynomialSolver.h
+END

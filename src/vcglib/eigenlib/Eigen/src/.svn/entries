@@ -1,0 +1,104 @@
+10
+
+dir
+4436
+https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src
+https://vcg.svn.sourceforge.net/svnroot/vcg
+
+
+
+2012-06-14T13:31:05.191445Z
+4432
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e8973e21-934d-0410-ac44-de4585f5606d
+
+Jacobi
+dir
+
+Core
+dir
+
+Geometry
+dir
+
+misc
+dir
+
+SVD
+dir
+
+Sparse
+dir
+
+StlSupport
+dir
+
+Eigen2Support
+dir
+
+Eigenvalues
+dir
+
+CMakeLists.txt
+file
+
+
+
+
+2012-03-29T11:44:15.580781Z
+2ebef3f13165f24e7bc3f09b782f73b2
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+308
+
+LU
+dir
+
+Cholesky
+dir
+
+Householder
+dir
+
+plugins
+dir
+
+QR
+dir
+

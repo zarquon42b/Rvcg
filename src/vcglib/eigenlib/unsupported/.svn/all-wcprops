@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/README.txt
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/CMakeLists.txt
+END

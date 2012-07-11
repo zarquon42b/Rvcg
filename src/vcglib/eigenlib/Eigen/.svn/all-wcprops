@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen
+END
+StdList
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/StdList
+END
+Eigen
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Eigen
+END
+Jacobi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Jacobi
+END
+Core
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/Core
+END
+Geometry
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Geometry
+END
+SVD
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/SVD
+END
+Sparse
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Sparse
+END
+Dense
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Dense
+END
+QtAlignedMalloc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/QtAlignedMalloc
+END
+Eigen2Support
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Eigen2Support
+END
+Eigenvalues
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Eigenvalues
+END
+LeastSquares
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/LeastSquares
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/CMakeLists.txt
+END
+StdVector
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/StdVector
+END
+Array
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Array
+END
+StdDeque
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/StdDeque
+END
+LU
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/LU
+END
+Cholesky
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Cholesky
+END
+Householder
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Householder
+END
+QR
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/QR
+END

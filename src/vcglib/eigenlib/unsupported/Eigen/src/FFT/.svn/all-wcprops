@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/FFT
+END
+ei_fftw_impl.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/FFT/ei_fftw_impl.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/FFT/CMakeLists.txt
+END
+ei_kissfft_impl.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/FFT/ei_kissfft_impl.h
+END

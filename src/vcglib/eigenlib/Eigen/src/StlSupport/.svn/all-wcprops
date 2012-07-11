@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/StlSupport
+END
+StdVector.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/StlSupport/StdVector.h
+END
+StdDeque.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/StlSupport/StdDeque.h
+END
+details.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/StlSupport/details.h
+END
+StdList.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/StlSupport/StdList.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/StlSupport/CMakeLists.txt
+END

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4371/trunk/vcglib/vcg/simplex/face
+END
+pos.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4349/trunk/vcglib/vcg/simplex/face/pos.h
+END
+component.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4371/trunk/vcglib/vcg/simplex/face/component.h
+END
+component_occ.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/face/component_occ.h
+END
+component_rt.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/face/component_rt.h
+END
+base_old.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/face/base_old.h
+END
+component_ocf.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4362/trunk/vcglib/vcg/simplex/face/component_ocf.h
+END
+component_polygon.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vcg/!svn/ver/4371/trunk/vcglib/vcg/simplex/face/component_polygon.h
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4371/trunk/vcglib/vcg/simplex/face/base.h
+END
+distance.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4347/trunk/vcglib/vcg/simplex/face/distance.h
+END
+jumping_pos.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/face/jumping_pos.h
+END
+face_old.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/face/face_old.h
+END
+topology.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4359/trunk/vcglib/vcg/simplex/face/topology.h
+END

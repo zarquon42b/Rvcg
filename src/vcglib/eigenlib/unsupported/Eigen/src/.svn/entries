@@ -1,0 +1,95 @@
+10
+
+dir
+4436
+https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported/Eigen/src
+https://vcg.svn.sourceforge.net/svnroot/vcg
+
+
+
+2012-06-14T13:31:05.191445Z
+4432
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e8973e21-934d-0410-ac44-de4585f5606d
+
+MoreVectorization
+dir
+
+Polynomials
+dir
+
+NumericalDiff
+dir
+
+IterativeSolvers
+dir
+
+NonLinearOptimization
+dir
+
+MatrixFunctions
+dir
+
+CMakeLists.txt
+file
+
+
+
+
+2012-03-29T11:44:16.552785Z
+0fbe872d844071404785b679688b6d51
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+334
+
+Skyline
+dir
+
+BVH
+dir
+
+FFT
+dir
+
+AutoDiff
+dir
+
+SparseExtra
+dir
+

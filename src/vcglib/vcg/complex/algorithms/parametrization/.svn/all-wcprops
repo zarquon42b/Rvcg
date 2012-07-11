@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4417/trunk/vcglib/vcg/complex/algorithms/parametrization
+END
+distorsion.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/vcg/!svn/ver/4368/trunk/vcglib/vcg/complex/algorithms/parametrization/distorsion.h
+END
+tangent_field_operators.h
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/vcg/!svn/ver/4417/trunk/vcglib/vcg/complex/algorithms/parametrization/tangent_field_operators.h
+END
+poisson_solver.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/vcg/!svn/ver/4343/trunk/vcglib/vcg/complex/algorithms/parametrization/poisson_solver.h
+END
+uv_utils.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/vcg/!svn/ver/4344/trunk/vcglib/vcg/complex/algorithms/parametrization/uv_utils.h
+END

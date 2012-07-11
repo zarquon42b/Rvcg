@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vcg/!svn/ver/4270/trunk/vcglib/wrap/system/multithreading
+END
+mt.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4266/trunk/vcglib/wrap/system/multithreading/mt.h
+END
+rw_lock.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/system/multithreading/rw_lock.h
+END
+scoped_read_lock.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/system/multithreading/scoped_read_lock.h
+END
+atomic_int_generic.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/vcg/!svn/ver/4270/trunk/vcglib/wrap/system/multithreading/atomic_int_generic.h
+END
+mutex.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/system/multithreading/mutex.h
+END
+semaphore.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4258/trunk/vcglib/wrap/system/multithreading/semaphore.h
+END
+atomic_int.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4260/trunk/vcglib/wrap/system/multithreading/atomic_int.h
+END
+condition.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/system/multithreading/condition.h
+END
+atomic_int_apple.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/vcg/!svn/ver/4269/trunk/vcglib/wrap/system/multithreading/atomic_int_apple.h
+END
+scoped_mutex_lock.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/vcg/!svn/ver/4258/trunk/vcglib/wrap/system/multithreading/scoped_mutex_lock.h
+END
+thread.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4258/trunk/vcglib/wrap/system/multithreading/thread.h
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/system/multithreading/base.h
+END
+util.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/system/multithreading/util.h
+END
+scoped_write_lock.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/system/multithreading/scoped_write_lock.h
+END

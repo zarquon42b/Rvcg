@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/arch/AltiVec
+END
+PacketMath.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/arch/AltiVec/PacketMath.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/arch/AltiVec/CMakeLists.txt
+END
+Complex.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/arch/AltiVec/Complex.h
+END

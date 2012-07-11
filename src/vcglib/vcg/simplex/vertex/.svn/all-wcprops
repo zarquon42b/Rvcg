@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4416/trunk/vcglib/vcg/simplex/vertex
+END
+component_occ.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/vertex/component_occ.h
+END
+base_old.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/vertex/base_old.h
+END
+component_ocf.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4381/trunk/vcglib/vcg/simplex/vertex/component_ocf.h
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/vertex/base.h
+END
+distance.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4278/trunk/vcglib/vcg/simplex/vertex/distance.h
+END
+vertex_old.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/vertex/vertex_old.h
+END
+component_sph.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/vertex/component_sph.h
+END
+component.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4416/trunk/vcglib/vcg/simplex/vertex/component.h
+END

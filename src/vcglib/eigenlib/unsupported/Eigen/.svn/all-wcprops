@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/Eigen
+END
+CholmodSupport
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/CholmodSupport
+END
+UmfPackSupport
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/UmfPackSupport
+END
+MoreVectorization
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/MoreVectorization
+END
+SuperLUSupport
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/SuperLUSupport
+END
+NonLinearOptimization
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/NonLinearOptimization
+END
+MatrixFunctions
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/MatrixFunctions
+END
+AutoDiff
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/AutoDiff
+END
+SparseExtra
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/SparseExtra
+END
+Polynomials
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/Polynomials
+END
+AdolcForward
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/AdolcForward
+END
+NumericalDiff
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/NumericalDiff
+END
+AlignedVector3
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/AlignedVector3
+END
+IterativeSolvers
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/IterativeSolvers
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/CMakeLists.txt
+END
+MPRealSupport
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/Eigen/MPRealSupport
+END
+Skyline
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/Skyline
+END
+BVH
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/BVH
+END
+FFT
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/Eigen/FFT
+END
+OpenGLSupport
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/OpenGLSupport
+END

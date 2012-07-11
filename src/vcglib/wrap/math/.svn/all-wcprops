@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/math
+END
+system_interface_ldl.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/math/system_interface_ldl.h
+END
+sparse_matrix.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/math/sparse_matrix.h
+END

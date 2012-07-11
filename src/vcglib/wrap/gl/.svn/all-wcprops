@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svnroot/vcg/!svn/ver/4418/trunk/vcglib/wrap/gl
+END
+camera.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/camera.h
+END
+gl_object.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/gl_object.h
+END
+math.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/math.h
+END
+shaders.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4246/trunk/vcglib/wrap/gl/shaders.h
+END
+space.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/space.h
+END
+glu_tessellator_cap.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4296/trunk/vcglib/wrap/gl/glu_tessellator_cap.h
+END
+glu_tesselator.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vcg/!svn/ver/4414/trunk/vcglib/wrap/gl/glu_tesselator.h
+END
+tetramesh.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/tetramesh.h
+END
+pos.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/pos.h
+END
+gl_field.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4418/trunk/vcglib/wrap/gl/gl_field.h
+END
+fbo.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/fbo.h
+END
+addons.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/addons.h
+END
+deprecated_math.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4254/trunk/vcglib/wrap/gl/deprecated_math.h
+END
+gl_surface.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/gl_surface.h
+END
+trimesh.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4311/trunk/vcglib/wrap/gl/trimesh.h
+END
+deprecated_space.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/deprecated_space.h
+END
+gl_geometry.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/gl_geometry.h
+END
+shot.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vcg/!svn/ver/4185/trunk/vcglib/wrap/gl/shot.h
+END
+picking.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/vcg/!svn/ver/4414/trunk/vcglib/wrap/gl/picking.h
+END
+pick.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/pick.h
+END

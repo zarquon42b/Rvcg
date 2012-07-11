@@ -1,0 +1,353 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core
+END
+VectorBlock.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/VectorBlock.h
+END
+Transpose.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Transpose.h
+END
+Array.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/Array.h
+END
+GenericPacketMath.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/GenericPacketMath.h
+END
+Select.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Select.h
+END
+DenseCoeffsBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/DenseCoeffsBase.h
+END
+DiagonalProduct.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/DiagonalProduct.h
+END
+SolveTriangular.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/SolveTriangular.h
+END
+CwiseUnaryView.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/CwiseUnaryView.h
+END
+NumTraits.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/NumTraits.h
+END
+NoAlias.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/NoAlias.h
+END
+SelfCwiseBinaryOp.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/SelfCwiseBinaryOp.h
+END
+GlobalFunctions.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/GlobalFunctions.h
+END
+Flagged.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Flagged.h
+END
+BandMatrix.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/BandMatrix.h
+END
+PermutationMatrix.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/PermutationMatrix.h
+END
+TriangularMatrix.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/TriangularMatrix.h
+END
+CommaInitializer.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/CommaInitializer.h
+END
+DiagonalMatrix.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/DiagonalMatrix.h
+END
+Matrix.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/Matrix.h
+END
+ForceAlignedAccess.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/ForceAlignedAccess.h
+END
+StableNorm.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/StableNorm.h
+END
+IO.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/IO.h
+END
+ArrayBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/ArrayBase.h
+END
+Reverse.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Reverse.h
+END
+Map.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/Map.h
+END
+Diagonal.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Diagonal.h
+END
+CwiseBinaryOp.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/CwiseBinaryOp.h
+END
+ArrayWrapper.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/ArrayWrapper.h
+END
+CwiseNullaryOp.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/CwiseNullaryOp.h
+END
+Product.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Product.h
+END
+Random.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Random.h
+END
+MathFunctions.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/MathFunctions.h
+END
+EigenBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/EigenBase.h
+END
+DenseStorage.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/DenseStorage.h
+END
+Assign.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Assign.h
+END
+PlainObjectBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/PlainObjectBase.h
+END
+Dot.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Dot.h
+END
+Fuzzy.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/Fuzzy.h
+END
+BooleanRedux.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/BooleanRedux.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/CMakeLists.txt
+END
+Redux.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Redux.h
+END
+CwiseUnaryOp.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/CwiseUnaryOp.h
+END
+DenseBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/DenseBase.h
+END
+VectorwiseOp.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/VectorwiseOp.h
+END
+Block.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/Block.h
+END
+Stride.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Stride.h
+END
+SelfAdjointView.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/SelfAdjointView.h
+END
+MatrixBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/MatrixBase.h
+END
+Transpositions.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Transpositions.h
+END
+Visitor.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Visitor.h
+END
+NestByValue.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/NestByValue.h
+END
+Functors.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Functors.h
+END
+ReturnByValue.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/ReturnByValue.h
+END
+Replicate.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Replicate.h
+END
+MapBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/MapBase.h
+END
+Swap.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/Core/Swap.h
+END
+ProductBase.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/src/Core/ProductBase.h
+END

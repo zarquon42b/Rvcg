@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/index/aabb_binary_tree
+END
+closest.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/index/aabb_binary_tree/closest.h
+END
+frustum_cull.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/index/aabb_binary_tree/frustum_cull.h
+END
+kclosest.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/index/aabb_binary_tree/kclosest.h
+END
+aabb_binary_tree.h
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/index/aabb_binary_tree/aabb_binary_tree.h
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/index/aabb_binary_tree/base.h
+END
+ray.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/space/index/aabb_binary_tree/ray.h
+END

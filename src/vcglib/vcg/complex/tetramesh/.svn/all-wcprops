@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4302/trunk/vcglib/vcg/complex/tetramesh
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/tetramesh/base.h
+END
+visit.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/tetramesh/visit.h
+END
+edge_split.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/tetramesh/edge_split.h
+END
+allocate.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/tetramesh/allocate.h
+END
+subset.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/tetramesh/subset.h
+END
+edge_collapse.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/tetramesh/edge_collapse.h
+END

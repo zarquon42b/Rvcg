@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/misc
+END
+Kernel.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/misc/Kernel.h
+END
+Image.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/misc/Image.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/misc/CMakeLists.txt
+END
+Solve.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/src/misc/Solve.h
+END

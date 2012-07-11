@@ -1,0 +1,3 @@
+#PKG_FCFLAGS=-fopenmp
+PKG_CPPFLAGS=-I./vcglib
+

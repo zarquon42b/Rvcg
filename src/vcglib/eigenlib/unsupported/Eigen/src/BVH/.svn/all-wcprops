@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/Eigen/src/BVH
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/BVH/CMakeLists.txt
+END
+KdBVH.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/BVH/KdBVH.h
+END
+BVAlgorithms.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/Eigen/src/BVH/BVAlgorithms.h
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/doc
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/CMakeLists.txt
+END
+Overview.dox
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/doc/Overview.dox
+END
+Doxyfile.in
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/Doxyfile.in
+END

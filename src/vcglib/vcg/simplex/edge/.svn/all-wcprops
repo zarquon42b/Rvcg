@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/vcg/!svn/ver/4402/trunk/vcglib/vcg/simplex/edge
+END
+component.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4249/trunk/vcglib/vcg/simplex/edge/component.h
+END
+edge_old.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/edge/edge_old.h
+END
+base_old.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/edge/base_old.h
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/edge/base.h
+END
+distance.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/simplex/edge/distance.h
+END
+topology.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/vcg/!svn/ver/4392/trunk/vcglib/vcg/simplex/edge/topology.h
+END
+pos.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4402/trunk/vcglib/vcg/simplex/edge/pos.h
+END

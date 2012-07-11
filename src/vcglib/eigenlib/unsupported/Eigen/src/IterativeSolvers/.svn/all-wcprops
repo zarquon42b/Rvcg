@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers/CMakeLists.txt
+END
+ConstrainedConjGrad.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers/ConstrainedConjGrad.h
+END
+IterationController.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers/IterationController.h
+END

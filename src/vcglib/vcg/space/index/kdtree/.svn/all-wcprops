@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4334/trunk/vcglib/vcg/space/index/kdtree
+END
+kdtree.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4334/trunk/vcglib/vcg/space/index/kdtree/kdtree.h
+END
+priorityqueue.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4334/trunk/vcglib/vcg/space/index/kdtree/priorityqueue.h
+END
+mlsutils.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4334/trunk/vcglib/vcg/space/index/kdtree/mlsutils.h
+END
