@@ -1,13 +1,12 @@
 Package: Rvcg
 Type: Package
-Title: Calculations and visualizations related to Geometric Morphometrics
-Version: 0.16
-Date: 2012-06-22
+Title: Interface between R and the vcglib mesh library.
+Version: 0.1
+Date: 2012-07-11
 Author: Stefan Schlager
-Maintainer: Stefan Schlager <stefan.schlager@uniklinik-freiburg.de>
+Maintainer: Stefan Schlager <zarquon42@gmail.com>
 Description: Meshing operation based on vcglib.
-SystemRequirements: trimesh_project, rayproject, ply2ascii (http://sourceforge.net/projects/morpho-rpackage/files/Auxiliaries/)
-Suggests: car, lattice
+SystemRequirements: 
 Depends: R (>= 2.14.0)
 License: GPL-2
 LazyLoad: yes
