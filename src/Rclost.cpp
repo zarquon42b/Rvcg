@@ -31,7 +31,6 @@ using namespace std;
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>*/
 #include <../typedef.h>
-
   
   
 extern "C" {
@@ -42,6 +41,7 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *clost, int *clost
     typedef typename MyMesh::ScalarType ScalarType;
     typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;*/
     
+
     ScalarType x,y,z;
     int i;
     
@@ -148,6 +148,6 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *clost, int *clost
 	++vi;
 	}
    
-    //tri::io::ExporterPLY<MyMesh>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
+      //tri::io::ExporterPLY<MyMesh>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
   }
 }
