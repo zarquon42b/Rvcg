@@ -34,20 +34,23 @@ using namespace std;
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>*/
 #include <../typedef.h>
+#include <R.h>
+#include <Rdefines.h> 
+//#include <Rcpp.h>
 
+//using namespace std;
+ extern "C" {
 
-  extern "C" {
-  void vert2file(double *data ,int *dim)
+   void testfield(double *data ,int *dim)
   {
-    /*typedef typename MyMesh::CoordType CoordType;
-      typedef typename MyMesh::ScalarType ScalarType;*/
+    
     ScalarType x,y,z;
     int i;
     const int d = *dim;
     MyMesh m;
     int n = 5;
     vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
-    // vcg::tri::Dodecahedron(m);
+    
     VertexPointer ivp[n];
     VertexIterator vi=m.vert.begin();
     for (i=0; i<d; i++) 
@@ -59,17 +62,33 @@ using namespace std;
       (*vi).P() = CoordType(x,y,z);
       ++vi;
     }
+    
+    // SEXP tmp;
+    //(tmp = allocVector(REALSXP, 27));
+ 
+    //SET_LENGTH(tmp,27);
+    //PROTECT(tmp = NEW_NUMERIC(27)) ; 
     // update output
-    vi=m.vert.begin();
-    for (i=0; i<d; i++) 
-      {
+       double tmp[27];
+     vi=m.vert.begin();
+    for (i = 0;i<8;i++)
+      {	
 	
 	data[i*3] = (*vi).P()[0];
-	/* data[i*3+1];
-	   data[i*3+2]+1;
-	   (*vi).P() = CoordType(x,y,z);*/
+	data[i*3+1];
+	data[i*3+2]+1;	
 	++vi;
+	}
+    for (i = 9;i < d;i++)
+      {data[i*3]=0;
+	  data[i*3+1]=0;
+	  data[i*3+2]=0;
       }
+    //delete data;
+    //data = tmp;
+    //SEXP tt = 5;
+    // Rcpp::wrap(tmp);
+    
   }
 
 
@@ -114,9 +133,13 @@ using namespace std;
       {
 	tri::Smooth<MyMesh>::VertexCoordTaubin(m,iter,0.5,-0.53);
       }
-    else if (method > 0)
+    else if (method == 1)
       {
 	tri::Smooth<MyMesh>::VertexCoordLaplacian(m,iter);
+      }
+    else if (method == 2)
+      {
+	tri::Smooth<MyMesh>::VertexCoordLaplacianHC(m,iter);
       }
     tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
     tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
