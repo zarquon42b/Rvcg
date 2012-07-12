@@ -1,4 +1,4 @@
 #PKG_FCFLAGS=-fopenmp
-PKG_CPPFLAGS=-I./vcglib 
+PKG_CPPFLAGS=-I./vcglib
 #-I/usr/lib/R/site-library/Rcpp/include/
 

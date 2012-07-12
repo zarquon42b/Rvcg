@@ -1,8 +1,8 @@
 #include <string.h>
 #include <vector>
-using namespace std;
 #include <stdio.h>
 #include <cstddef>
+using namespace std;
 
 // VCG headers for triangular mesh processing
 #include<vcg/simplex/edge/base.h>
@@ -30,7 +30,7 @@ using namespace std;
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>
 
-    using namespace vcg;
+using namespace vcg;
 
     class MyFace;
     class MyEdge;
@@ -48,5 +48,4 @@ typedef typename MyMesh::VertexPointer  VertexPointer;
 typedef typename MyMesh::FaceIterator   FaceIterator;
 typedef typename MyMesh::CoordType CoordType;
 typedef typename MyMesh::ScalarType ScalarType;
-typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
 
