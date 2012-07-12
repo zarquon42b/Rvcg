@@ -111,7 +111,7 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
     //--------------------------------------------------------------------------------------//
     vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
     tri::UpdateBounding<MyMesh>::Box(m);
-    tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);
+    tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
     tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
     tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
     float maxDist = m.bbox.Diag();
@@ -123,15 +123,14 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
     static_grid.Set(m.face.begin(), m.face.end());
     
     
-     for(int j=0; j < refmesh.vn; j++)
+     for(i=0; i < refmesh.vn; i++)
        {
-	 
-	 Point3f& currp = refmesh.vert[j].P();
-	 Point3f& clost = outmesh.vert[j].P();
+	 Point3f& currp = refmesh.vert[i].P();
+	 Point3f& clost = outmesh.vert[i].P();
 	 MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
 	 
 	 int f_i = vcg::tri::Index(m, f_ptr);
-	 MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;
+	 MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N());
 	 tt=tt/sqrt(tt.dot(tt));
 	 dis[i] = minDist;
 	 if (signo == 1)
@@ -140,13 +139,19 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
 	     float sign = dif.dot(tt);	
 	     if (sign < 0)
 	       { 
-		 dis[j] = -dis[j] ;
+		 dis[i] = -dis[i] ;
 	       }	
 	  }
-	  outmesh.vert[j].N() = tt;
+	 //write back output
+	  ioclost[i*3] = clost[0];
+	  ioclost[i*3+1] =clost[1];
+	  ioclost[i*3+2] =clost[2];
+	  normals[i*3] = tt[0];
+	  normals[i*3+1] = tt[1];
+	  normals[i*3+2] = tt[2];
        }
     //write back output
-    
+    /*
       vi=outmesh.vert.begin();
       for (i=0; i< dref; i++) 
       {
@@ -159,6 +164,6 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
 	++vi;
 	}
    
-     
+    */
   }
 }
