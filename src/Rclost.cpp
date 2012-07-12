@@ -40,7 +40,7 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *clost, int *clost
     /*typedef typename MyMesh::CoordType CoordType;
     typedef typename MyMesh::ScalarType ScalarType;
     typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;*/
-    
+    //typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; ## spacial hashing
 
     ScalarType x,y,z;
     int i;
