@@ -53,6 +53,10 @@ vcgClost <- function(x,mesh,sign=TRUE)
     tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,normals,dis,sign)
     x$vb[1:3,] <- tmp[[5]]
     x$normals <- rbind(tmp[[7]],1)
+    chcknorm <- which(is.nan(x$normals))
+    if (length(chcknorm) > 0)
+      x$normals[checknorm] <- 0
+                      
     x$quality <- tmp[[8]]
 
     invisible(x)
