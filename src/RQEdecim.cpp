@@ -24,7 +24,7 @@
 #include <wrap/io_trimesh/export_ply.h>
 #include <wrap/io_trimesh/export_ply.h>
 
-#include <wrap/ply/plylib.cpp>
+//#include <wrap/ply/plylib.cpp>
 // update
 #include <vcg/complex/algorithms/update/topology.h>
 
