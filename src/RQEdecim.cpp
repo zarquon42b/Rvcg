@@ -3,31 +3,23 @@
 
 #include <vector>
 #include <limits>
-
 #include <stdio.h>
 #include <stdlib.h>
-
-
 // stuff to define the mesh
 #include <vcg/simplex/vertex/base.h>
 #include <vcg/simplex/face/base.h>
 #include <vcg/simplex/edge/base.h>
 #include <vcg/complex/complex.h>
-
 #include <vcg/math/quadric.h>
 #include <vcg/complex/algorithms/clean.h>
-
 // io
 #include <wrap/io_trimesh/import.h>
 #include <wrap/io_trimesh/export.h>
-
 #include <wrap/io_trimesh/export_ply.h>
 #include <wrap/io_trimesh/export_ply.h>
-
 //#include <wrap/ply/plylib.cpp>
 // update
 #include <vcg/complex/algorithms/update/topology.h>
-
 //using namespace std;
 #include <vcg/complex/algorithms/local_optimization.h>
 #include <vcg/complex/algorithms/local_optimization/tri_edge_collapse_quadric.h>
@@ -39,13 +31,13 @@
 using namespace vcg;
 using namespace tri;
 // The class prototypes.
-class MyVertex;
-class MyEdge;
-class MyFace;
+class CVertex;
+class CEdge;
+class CFace;
 
-struct MyUsedTypes: public UsedTypes<Use<MyVertex>::AsVertexType,Use<MyEdge>::AsEdgeType,Use<MyFace>::AsFaceType>{};
+struct CUsedTypes: public UsedTypes<Use<CVertex>::AsVertexType,Use<CEdge>::AsEdgeType,Use<CFace>::AsFaceType>{};
 
-class MyVertex  : public Vertex< MyUsedTypes,
+class CVertex  : public Vertex< CUsedTypes,
   vertex::VFAdj,
   vertex::Coord3f,
   vertex::Normal3f,
@@ -57,53 +49,49 @@ private:
   math::Quadric<double> q;
   };
 
-class MyEdge : public Edge< MyUsedTypes> {};
+class CEdge : public Edge< CUsedTypes> {};
 
-typedef BasicVertexPair<MyVertex> VertexPair;
+typedef BasicVertexPair<CVertex> VertexPair;
 
-class MyFace    : public Face< MyUsedTypes,
+class CFace    : public Face< CUsedTypes,
   face::VFAdj,
   face::VertexRef,
   face::BitFlags > {};
 
 // the main mesh class
-class MyMesh    : public vcg::tri::TriMesh<std::vector<MyVertex>, std::vector<MyFace> > {};
+class CMeshO    : public vcg::tri::TriMesh<std::vector<CVertex>, std::vector<CFace> > {};
 
 
-class MyTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< MyMesh, VertexPair, MyTriEdgeCollapse, QInfoStandard<MyVertex>  > {
+class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > {
             public:
-            typedef  vcg::tri::TriEdgeCollapseQuadric< MyMesh,  VertexPair, MyTriEdgeCollapse, QInfoStandard<MyVertex>  > TECQ;
-            typedef  MyMesh::VertexType::EdgeType EdgeType;
-            inline MyTriEdgeCollapse(  const VertexPair &p, int i, BaseParameterClass *pp) :TECQ(p,i,pp){}
+            typedef  vcg::tri::TriEdgeCollapseQuadric< CMeshO,  VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > TECQ;
+            typedef  CMeshO::VertexType::EdgeType EdgeType;
+            inline CTriEdgeCollapse(  const VertexPair &p, int i, BaseParameterClass *pp) :TECQ(p,i,pp){}
 
 };
 
-  
  extern "C" {
-
- 
- 
 
    void RQEdecim(double *vb ,int *dim, int *it, int *dimit,int *Finsize,double *normals)
   {
     // typedefs
-    typedef typename MyMesh::VertexIterator VertexIterator;
-    typedef typename MyMesh::VertexPointer  VertexPointer;
-    typedef typename MyMesh::FacePointer  FacePointer;
-    typedef typename MyMesh::FaceIterator   FaceIterator;
-    typedef typename MyMesh::CoordType CoordType;
-    typedef typename MyMesh::ScalarType ScalarType;
+    typedef typename CMeshO::VertexIterator VertexIterator;
+    typedef typename CMeshO::VertexPointer  VertexPointer;
+    typedef typename CMeshO::FacePointer  FacePointer;
+    typedef typename CMeshO::FaceIterator   FaceIterator;
+    typedef typename CMeshO::CoordType CoordType;
+    typedef typename CMeshO::ScalarType ScalarType;
     //set local variables
     ScalarType x,y,z;
     int i;
     int FinalSize=*Finsize;
     int d = *dim;
     int faced = *dimit;
-    MyMesh m;
+    CMeshO m;
    
     // fill mesh with data from R workspace
-    vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
-    vcg::tri::Allocator<MyMesh>::AddFaces(m,faced);
+    vcg::tri::Allocator<CMeshO>::AddVertices(m,d);
+    vcg::tri::Allocator<CMeshO>::AddFaces(m,faced);
     VertexPointer ivp[d];
     VertexIterator vi=m.vert.begin();
     for (i=0; i<d; i++) 
@@ -135,41 +123,41 @@ class MyTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< MyMesh, Vertex
     qparams.OptimalPlacement = true; 
     qparams.PreserveTopology	= true;
     qparams.PreserveBoundary	= true;
-    int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
-    int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+    int dup = tri::Clean<CMeshO>::RemoveDuplicateVertex(m);
+    int unref =  tri::Clean<CMeshO>::RemoveUnreferencedVertex(m);
    
     
-    printf("reducing it to %i\n",FinalSize);
+    printf("reducing it to %i faces\n",FinalSize);
     
-    vcg::tri::UpdateBounding<MyMesh>::Box(m);
+    vcg::tri::UpdateBounding<CMeshO>::Box(m);
     
     // decimator initialization
-    vcg::LocalOptimization<MyMesh> DeciSession(m,&qparams);
+    vcg::LocalOptimization<CMeshO> DeciSession(m,&qparams);
     
     int t1=clock();
-    DeciSession.Init<MyTriEdgeCollapse>();
+    DeciSession.Init<CTriEdgeCollapse>();
     int t2=clock();
-    printf("Initial Heap Size %i\n",int(DeciSession.h.size()));
+    //printf("Initial Heap Size %i\n",int(DeciSession.h.size()));
     
     DeciSession.SetTargetSimplices(FinalSize);
     DeciSession.SetTimeBudget(0.5f);
     if(TargetError< std::numeric_limits<float>::max() ) DeciSession.SetTargetMetric(TargetError);
     
     while(DeciSession.DoOptimization() && m.fn>FinalSize && DeciSession.currMetric < TargetError)
-      printf("Current Mesh size %7i heap sz %9i err %9g \r",m.fn, int(DeciSession.h.size()),DeciSession.currMetric);
+      // printf("Final Mesh size: %7i heap sz %9i err %9g \r",m.fn, int(DeciSession.h.size()),DeciSession.currMetric);
     
     int t3=clock();
-    printf("m  %d %d Error %g \n",m.vn,m.fn,DeciSession.currMetric);
+    printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
     //printf("\nCompleted in (%i+%i) msec\n",t2-t1,t3-t2);
   
     
     //update mesh structure and write back output
   
-  vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
-  vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
-  SimpleTempData<typename MyMesh::VertContainer,int> indices(m.vert);
-  tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-  tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
+  vcg::tri::Allocator< CMeshO >::CompactVertexVector(m);
+  vcg::tri::Allocator< CMeshO >::CompactFaceVector(m);
+  SimpleTempData<typename CMeshO::VertContainer,int> indices(m.vert);
+  tri::UpdateNormals<CMeshO>::PerVertexAngleWeighted(m);
+  tri::UpdateNormals<CMeshO>::NormalizeVertex(m);
   ivp[m.vn];
   vi=m.vert.begin();
   for (i=0;  i < m.vn; i++) 
@@ -185,7 +173,7 @@ class MyTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< MyMesh, Vertex
       ++vi;
     }
   
-  //SimpleTempData<MyMesh,3> indices(m.vn);
+  //SimpleTempData<CMeshO,3> indices(m.vn);
   FacePointer fp;
   int vv[3];
   *dim = m.vn;
@@ -210,7 +198,7 @@ class MyTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< MyMesh, Vertex
   *dimit=m.fn;
   //  printf("%i %i\n",m.vn,m.fn);
   
-  // tri::io::ExporterPLY<MyMesh>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
+  // tri::io::ExporterPLY<CMeshO>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
   }
    
  }
