@@ -1,5 +1,7 @@
 // Author: Stefan Schlager
-// Date: 15 September 2010
+// This is basically an adaption 
+// of tridecimator included in the vcglib sources
+// to work with R
 
 #include <vector>
 #include <limits>
@@ -60,7 +62,6 @@ class CFace    : public Face< CUsedTypes,
 
 // the main mesh class
 class CMeshO    : public vcg::tri::TriMesh<std::vector<CVertex>, std::vector<CFace> > {};
-
 
 class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > {
             public:
@@ -149,40 +150,38 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     int t3=clock();
     printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
     //printf("\nCompleted in (%i+%i) msec\n",t2-t1,t3-t2);
-  
     
     //update mesh structure and write back output
-  
-  vcg::tri::Allocator< CMeshO >::CompactVertexVector(m);
-  vcg::tri::Allocator< CMeshO >::CompactFaceVector(m);
-  SimpleTempData<typename CMeshO::VertContainer,int> indices(m.vert);
-  tri::UpdateNormals<CMeshO>::PerVertexAngleWeighted(m);
-  tri::UpdateNormals<CMeshO>::NormalizeVertex(m);
-  ivp[m.vn];
-  vi=m.vert.begin();
-  for (i=0;  i < m.vn; i++) 
-    {
-      indices[vi] = i;//important: updates vertex indices
-      ivp[i]=&*vi;
-      vb[i*3] = (*vi).P()[0];
-      vb[i*3+1] = (*vi).P()[1];
-      vb[i*3+2] = (*vi).P()[2];
-      normals[i*3] = (*vi).N()[0];
-      normals[i*3+1] = (*vi).N()[1];
-      normals[i*3+2] = (*vi).N()[2];
-      ++vi;
-    }
-  
-  //SimpleTempData<CMeshO,3> indices(m.vn);
-  FacePointer fp;
-  int vv[3];
-  *dim = m.vn;
-  fi=m.face.begin();
-  faced=m.fn;
-  
-  for (i=0; i < faced;i++) 
-    {
-      fp=&(*fi);
+    
+    vcg::tri::Allocator< CMeshO >::CompactVertexVector(m);
+    vcg::tri::Allocator< CMeshO >::CompactFaceVector(m);
+    SimpleTempData<typename CMeshO::VertContainer,int> indices(m.vert);
+    tri::UpdateNormals<CMeshO>::PerVertexAngleWeighted(m);
+    tri::UpdateNormals<CMeshO>::NormalizeVertex(m);
+    ivp[m.vn];
+    vi=m.vert.begin();
+    for (i=0;  i < m.vn; i++) 
+      {
+	indices[vi] = i;//important: updates vertex indices
+	ivp[i]=&*vi;
+	vb[i*3] = (*vi).P()[0];
+	vb[i*3+1] = (*vi).P()[1];
+	vb[i*3+2] = (*vi).P()[2];
+	normals[i*3] = (*vi).N()[0];
+	normals[i*3+1] = (*vi).N()[1];
+	normals[i*3+2] = (*vi).N()[2];
+	++vi;
+      }
+    
+    FacePointer fp;
+    int vv[3];
+    *dim = m.vn;
+    fi=m.face.begin();
+    faced=m.fn;
+    
+    for (i=0; i < faced;i++) 
+      {
+	fp=&(*fi);
 	if( ! fp->IsD() )
 	  {
 	    vv[0]=indices[fp->cV(0)];
@@ -193,12 +192,11 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
 	    it[i*3+2]=vv[2];
 	    ++fi;
 	  }
-    }
-  
-  *dimit=m.fn;
-  //  printf("%i %i\n",m.vn,m.fn);
-  
-  // tri::io::ExporterPLY<CMeshO>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
+      }
+    *dimit=m.fn;
+    //  printf("%i %i\n",m.vn,m.fn);
+    
+    // tri::io::ExporterPLY<CMeshO>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
   }
    
  }
