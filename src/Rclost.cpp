@@ -131,7 +131,9 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
 	 
 	 int f_i = vcg::tri::Index(m, f_ptr);
 	 MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N());
-	 tt=tt/sqrt(tt.dot(tt));
+	 float vl = sqrt(tt.dot(tt));
+	 if (vl > 0)//check for zero length normals
+	   tt=tt/vl;
 	 dis[i] = minDist;
 	 if (signo == 1)
 	   {
