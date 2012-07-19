@@ -55,16 +55,19 @@ extern "C" {
     int importNorm = *getNorm;
     int updateNorm = *updNorm;
     //load file
-    int err2 = tri::io::Importer<MyMesh>::Open(m,file);
+    int err2 = tri::io::ImporterPLY<MyMesh>::Open(m,file);
     if(err2) {
      printf("Error in reading %s: '%s'\n",file,tri::io::Importer<MyMesh>::ErrorMsg(err2));
      //exit(-1);  
      }
-    if (updateNorm == 1)
+    //printf("%i",err2);
+    if (err2 == 0)
       {
-	tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-	tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
-      }
+	if (updateNorm == 1)
+	  {
+	    tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
+	    tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
+	  }
     //--------------------------------------------------------------------------------------//
     //
     //                                   WRITE BACK
@@ -72,51 +75,53 @@ extern "C" {
     // Update the bounding box and initialize max search distance
     // Remove duplicates and update mesh properties
     //--------------------------------------------------------------------------------------//
-    SimpleTempData<typename MyMesh::VertContainer,int> indices(m.vert);
-
-    //VertexPointer ivp[d];
-    if (m.vn > 0)
-      {
-	VertexIterator vi=m.vert.begin();
+	SimpleTempData<typename MyMesh::VertContainer,int> indices(m.vert);
 	
-	for (i=0;  i < m.vn; i++) 
+	//VertexPointer ivp[d];
+	if (m.vn > 0)
 	  {
-	    indices[vi] = i;//important: updates vertex indices
-	    //	ivp[i]=&*vi;
-	    vb[i*3] = (*vi).P()[0];
-	    vb[i*3+1] = (*vi).P()[1];
-	    vb[i*3+2] = (*vi).P()[2];
-	    if (importNorm == 1)
+	    VertexIterator vi=m.vert.begin();
+	    
+	    for (i=0;  i < m.vn; i++) 
 	      {
-		normals[i*3] = (*vi).N()[0];
-		normals[i*3+1] = (*vi).N()[1];
-		normals[i*3+2] = (*vi).N()[2];
+		indices[vi] = i;//important: updates vertex indices
+		//	ivp[i]=&*vi;
+		vb[i*3] = (*vi).P()[0];
+		vb[i*3+1] = (*vi).P()[1];
+		vb[i*3+2] = (*vi).P()[2];
+		if (importNorm == 1)
+		  {
+		    normals[i*3] = (*vi).N()[0];
+		    normals[i*3+1] = (*vi).N()[1];
+		    normals[i*3+2] = (*vi).N()[2];
+		  }
+		++vi;
 	      }
-	    ++vi;
 	  }
-      }
-  
-    FacePointer fp;
-    int vv[3];
-    *dim = m.vn;
-    FaceIterator fi=m.face.begin();
-    faced=m.fn;
-    
-    for (i=0; i < faced;i++) 
-      {
-	fp=&(*fi);
-	if( ! fp->IsD() )
+	
+	FacePointer fp;
+	int vv[3];
+	*dim = m.vn;
+	FaceIterator fi=m.face.begin();
+	faced=m.fn;
+	if (m.fn > 0)
 	  {
-	    vv[0]=indices[fp->cV(0)];
-	    vv[1]=indices[fp->cV(1)];
-	    vv[2]=indices[fp->cV(2)];
-	    it[i*3]=vv[0];
-	    it[i*3+1]=vv[1];
-	    it[i*3+2]=vv[2];
-	    ++fi;
+	    for (i=0; i < faced;i++) 
+	      {
+		fp=&(*fi);
+		if( ! fp->IsD() )
+		  {
+		    vv[0]=indices[fp->cV(0)];
+		    vv[1]=indices[fp->cV(1)];
+		    vv[2]=indices[fp->cV(2)];
+		    it[i*3]=vv[0];
+		    it[i*3+1]=vv[1];
+		    it[i*3+2]=vv[2];
+		    ++fi;
+		  }
+	      }
 	  }
+	*dimit=m.fn;
       }
-    *dimit=m.fn;
-    
-}
+  }
 }
