@@ -43,11 +43,11 @@ class MyVertex  : public Vertex< MyUsedTypes, vertex::Coord3f, vertex::BitFlags,
 class MyFace    : public Face  <MyUsedTypes, face::VertexRef,face::BitFlags,face::Mark, face::Normal3f> {};
 class MyMesh : public tri::TriMesh< vector<MyVertex>, vector<MyFace > >{};
 typedef MyMesh::ScalarType ScalarType;
-typedef typename MyMesh::VertexIterator VertexIterator;
-typedef typename MyMesh::VertexPointer  VertexPointer;
-typedef typename MyMesh::FaceIterator   FaceIterator;
-typedef typename MyMesh::FacePointer   FacePointer;
+typedef  MyMesh::VertexIterator VertexIterator;
+typedef  MyMesh::VertexPointer  VertexPointer;
+typedef  MyMesh::FaceIterator   FaceIterator;
+typedef  MyMesh::FacePointer   FacePointer;
 
-typedef typename MyMesh::CoordType CoordType;
-typedef typename MyMesh::ScalarType ScalarType;
+typedef  MyMesh::CoordType CoordType;
+typedef  MyMesh::ScalarType ScalarType;
 

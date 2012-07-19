@@ -94,8 +94,8 @@ using namespace std;
 
   void Rsmooth(double *vb ,int *dim, int *it, int *dimit, int *iteration, int *stype, double *normals)
   {
-    typedef typename MyMesh::CoordType CoordType;
-    typedef typename MyMesh::ScalarType ScalarType;
+    typedef MyMesh::CoordType CoordType;
+    typedef MyMesh::ScalarType ScalarType;
     ScalarType x,y,z;
     int i;
     const int d = *dim;

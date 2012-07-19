@@ -76,12 +76,12 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
    void RQEdecim(double *vb ,int *dim, int *it, int *dimit,int *Finsize,double *normals)
   {
     // typedefs
-    typedef typename CMeshO::VertexIterator VertexIterator;
-    typedef typename CMeshO::VertexPointer  VertexPointer;
-    typedef typename CMeshO::FacePointer  FacePointer;
-    typedef typename CMeshO::FaceIterator   FaceIterator;
-    typedef typename CMeshO::CoordType CoordType;
-    typedef typename CMeshO::ScalarType ScalarType;
+    typedef CMeshO::VertexIterator VertexIterator;
+    typedef CMeshO::VertexPointer  VertexPointer;
+    typedef CMeshO::FacePointer  FacePointer;
+    typedef CMeshO::FaceIterator   FaceIterator;
+    typedef CMeshO::CoordType CoordType;
+    typedef CMeshO::ScalarType ScalarType;
     //set local variables
     ScalarType x,y,z;
     int i;
@@ -155,7 +155,7 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     
     vcg::tri::Allocator< CMeshO >::CompactVertexVector(m);
     vcg::tri::Allocator< CMeshO >::CompactFaceVector(m);
-    SimpleTempData<typename CMeshO::VertContainer,int> indices(m.vert);
+    SimpleTempData<CMeshO::VertContainer,int> indices(m.vert);
     tri::UpdateNormals<CMeshO>::PerVertexAngleWeighted(m);
     tri::UpdateNormals<CMeshO>::NormalizeVertex(m);
     ivp[m.vn];

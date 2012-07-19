@@ -75,7 +75,7 @@ extern "C" {
     // Update the bounding box and initialize max search distance
     // Remove duplicates and update mesh properties
     //--------------------------------------------------------------------------------------//
-	SimpleTempData<typename MyMesh::VertContainer,int> indices(m.vert);
+	SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
 	
 	//VertexPointer ivp[d];
 	if (m.vn > 0)

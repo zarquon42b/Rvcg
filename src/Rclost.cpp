@@ -39,8 +39,8 @@ extern "C" {
 
 void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign)
   {
-    /*typedef typename MyMesh::CoordType CoordType;
-    typedef typename MyMesh::ScalarType ScalarType;
+    /*typedef MyMesh::CoordType CoordType;
+    typedef  MyMesh::ScalarType ScalarType;
     */
     //typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
     typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
