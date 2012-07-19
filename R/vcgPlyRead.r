@@ -6,7 +6,7 @@ vcgPlyRead <-function (file,updateNormals=TRUE)
     stop("please select PLY file")
 ### get infos from file header
   x <- file
-  A <- readLines(x, n = 100)
+  A <- readLines(x, n = 100, warn=FALSE)
   end <- which(A == "end_header")
   infos <- A[1:end]
   vertinfo <- strsplit(A[grep("element vertex", infos)], " ")
