@@ -58,7 +58,7 @@ extern "C" {
     int err2 = tri::io::Importer<MyMesh>::Open(m,file);
     if(err2) {
      printf("Error in reading %s: '%s'\n",file,tri::io::Importer<MyMesh>::ErrorMsg(err2));
-     exit(-1);  
+     //exit(-1);  
      }
     if (updateNorm == 1)
       {

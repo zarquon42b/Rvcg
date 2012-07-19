@@ -1,4 +1,4 @@
-vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace"),iteration=10,sign=F)
+vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace"),iteration=10)
   {
     type <- substring(type[1],1L,1L)
     vb <- mesh$vb[1:3,]

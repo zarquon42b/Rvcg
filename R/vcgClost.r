@@ -28,7 +28,7 @@ vcgClost <- function(x,mesh,sign=TRUE)
     x$normals <- rbind(tmp[[7]],1)
     chcknorm <- which(is.nan(x$normals))
     if (length(chcknorm) > 0)
-      x$normals[checknorm] <- 0
+      x$normals[chcknorm] <- 0
                       
     x$quality <- tmp[[8]]
 

@@ -33,25 +33,16 @@ This is basically an adaption of the cli tridecimator from vcglib}
 \value{
 Returns a reduced mesh of class mesh3d.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Stefan Schlager}
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-data(nose)
-redMesh <- vcgQEdecim(shortnose.mesh,percent=0.3)
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+  \code{\link{vcgSmooth}}
+  }
+
+
 \keyword{ ~kwd1 }
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
