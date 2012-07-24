@@ -1,4 +1,4 @@
-vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace"),iteration=10)
+vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace"),iteration=10,lambda=0.5,mu=-0.53)
   {
     type <- substring(type[1],1L,1L)
     vb <- mesh$vb[1:3,]
@@ -20,7 +20,7 @@ vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace"),iteration=10)
     storage.mode(iter) <- "integer"
     normals <- vb
 
-    tmp <- .C("Rsmooth",vb,ncol(vb),it,ncol(it),iter,method,normals)
+    tmp <- .C("Rsmooth",vb,ncol(vb),it,ncol(it),iter,method,normals,lambda,mu)
     mesh$vb[1:3,] <- tmp[[1]]
     mesh$normals <- rbind(tmp[[7]],1)
     invisible(mesh)

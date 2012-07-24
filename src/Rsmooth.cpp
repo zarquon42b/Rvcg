@@ -92,7 +92,7 @@ using namespace std;
   }
 
 
-  void Rsmooth(double *vb ,int *dim, int *it, int *dimit, int *iteration, int *stype, double *normals)
+   void Rsmooth(double *vb ,int *dim, int *it, int *dimit, int *iteration, int *stype, double *normals,double *lam,double *mu)
   {
     typedef MyMesh::CoordType CoordType;
     typedef MyMesh::ScalarType ScalarType;
@@ -102,6 +102,8 @@ using namespace std;
     const int faced = *dimit;
     int iter = *iteration;
     int method = *stype;
+    double lambda=*lam;
+    double my=*mu;
     MyMesh m;
     //int n = 5;
     vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
@@ -131,7 +133,7 @@ using namespace std;
       }
     if (method == 0)
       {
-	tri::Smooth<MyMesh>::VertexCoordTaubin(m,iter,0.5,-0.53);
+	tri::Smooth<MyMesh>::VertexCoordTaubin(m,iter,lambda,my);
       }
     else if (method == 1)
       {
