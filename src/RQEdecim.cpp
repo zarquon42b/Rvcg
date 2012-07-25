@@ -77,11 +77,11 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
   {
     // typedefs
     typedef CMeshO::VertexIterator VertexIterator;
-    typedef CMeshO::VertexPointer  VertexPointer;
     typedef CMeshO::FacePointer  FacePointer;
     typedef CMeshO::FaceIterator   FaceIterator;
     typedef CMeshO::CoordType CoordType;
     typedef CMeshO::ScalarType ScalarType;
+    typedef CMeshO::VertexPointer VertexPointer;
     //set local variables
     ScalarType x,y,z;
     int i;
@@ -93,7 +93,9 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     // fill mesh with data from R workspace
     vcg::tri::Allocator<CMeshO>::AddVertices(m,d);
     vcg::tri::Allocator<CMeshO>::AddFaces(m,faced);
-    VertexPointer ivp[d];
+    //VertexPointer ivp[d];
+    std::vector<VertexPointer> ivp;
+    ivp.resize(d);
     VertexIterator vi=m.vert.begin();
     for (i=0; i<d; i++) 
       {
@@ -158,12 +160,11 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     SimpleTempData<CMeshO::VertContainer,int> indices(m.vert);
     tri::UpdateNormals<CMeshO>::PerVertexAngleWeighted(m);
     tri::UpdateNormals<CMeshO>::NormalizeVertex(m);
-    ivp[m.vn];
+    
     vi=m.vert.begin();
     for (i=0;  i < m.vn; i++) 
       {
 	indices[vi] = i;//important: updates vertex indices
-	ivp[i]=&*vi;
 	vb[i*3] = (*vi).P()[0];
 	vb[i*3+1] = (*vi).P()[1];
 	vb[i*3+2] = (*vi).P()[2];

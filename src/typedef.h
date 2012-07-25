@@ -44,9 +44,9 @@ class MyFace    : public Face  <MyUsedTypes, face::VertexRef,face::BitFlags,face
 class MyMesh : public tri::TriMesh< vector<MyVertex>, vector<MyFace > >{};
 typedef MyMesh::ScalarType ScalarType;
 typedef  MyMesh::VertexIterator VertexIterator;
-typedef  MyMesh::VertexPointer  VertexPointer;
-typedef  MyMesh::FaceIterator   FaceIterator;
-typedef  MyMesh::FacePointer   FacePointer;
+typedef  MyMesh::VertexPointer VertexPointer;
+typedef  MyMesh::FaceIterator FaceIterator;
+typedef  MyMesh::FacePointer FacePointer;
 
 typedef  MyMesh::CoordType CoordType;
 typedef  MyMesh::ScalarType ScalarType;

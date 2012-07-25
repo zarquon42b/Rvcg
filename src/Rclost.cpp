@@ -66,7 +66,10 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
     //Allocate target
     vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
     vcg::tri::Allocator<MyMesh>::AddFaces(m,faced);
-    VertexPointer ivp[d];
+    typedef MyMesh::VertexPointer VertexPointer;
+    std::vector<VertexPointer> ivp;
+    ivp.resize(d);
+    
     VertexIterator vi=m.vert.begin();
     for (i=0; i < d; i++) 
       {
@@ -90,12 +93,13 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
 	++fi;
       }
     vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
-    VertexPointer ivref[dref];
+    
+    //VertexPointer ivref[dref];
     vi=refmesh.vert.begin();
      
     for (i=0; i < dref; i++) 
       {
-	ivref[i]=&*vi;
+	
 	x = ioclost[i*3];
 	y = ioclost[i*3+1];
 	z = ioclost[i*3+2];

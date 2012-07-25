@@ -64,7 +64,9 @@ extern "C" {
     //--------------------------------------------------------------------------------------//
     vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
     vcg::tri::Allocator<MyMesh>::AddFaces(m,faced);
-    VertexPointer ivp[d];
+    std::vector<VertexPointer> ivp;
+    ivp.resize(d);
+   
     VertexIterator vi=m.vert.begin();
     for (i=0; i < d; i++) 
       {
