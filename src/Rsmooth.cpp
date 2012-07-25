@@ -92,7 +92,7 @@ using namespace std;
   }
 
 
-  void Rsmooth(double *vb ,int *dim, int *it, int *dimit, int *iteration, int *stype, double *normals)
+   void Rsmooth(double *vb ,int *dim, int *it, int *dimit, int *iteration, int *stype, double *normals,double *delt)
   {
     typedef MyMesh::CoordType CoordType;
     typedef MyMesh::ScalarType ScalarType;
@@ -102,6 +102,7 @@ using namespace std;
     const int faced = *dimit;
     int iter = *iteration;
     int method = *stype;
+    ScalarType delta=0.01;
     MyMesh m;
     //int n = 5;
     vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
@@ -141,6 +142,14 @@ using namespace std;
       {
 	tri::Smooth<MyMesh>::VertexCoordLaplacianHC(m,iter);
       }
+ else if (method == 3)
+      {tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+	tri::UpdateFlags<MyMesh>::FaceClearB(m);
+	tri::Smooth<MyMesh>::VertexCoordScaleDependentLaplacian_Fujiwara(m,iter,delta);
+	
+      }
+     vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
+    vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
     tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
     tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
    
