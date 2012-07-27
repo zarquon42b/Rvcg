@@ -6,13 +6,16 @@ Import ascii of binary PLY files.}
 Reads Polygon File Format (PLY) files and stores the results in an
 object of class "mesh3d" - momentarily only triangular meshes are supported.}
 \usage{
-vcgPlyRead(file, updateNormals = TRUE)
+vcgPlyRead(file, updateNormals = TRUE, clean = TRUE)
 }
 \arguments{
   \item{file}{character: file to be read.
 }
   \item{updateNormals}{logical: if TRUE and the imported file contais
     faces, vertex normals will be (re)calculated.
+  }
+   \item{clean}{logical: if TRUE, duplicated and unreference vertices will
+     be removed.
 }
 }
 \value{

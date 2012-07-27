@@ -39,7 +39,7 @@ using namespace std;
   
 extern "C" {
 
-  void RPlyRead(char **filename, double *vb ,int *dim, int *it, int *dimit, double *normals, int *getNorm, int *updNorm, double *quality)
+  void RPlyRead(char **filename, double *vb ,int *dim, int *it, int *dimit, double *normals, int *getNorm, int *updNorm, double *quality,int *col, int *colvec, int *clean)
   {
 
     ScalarType x,y,z;
@@ -68,6 +68,15 @@ extern "C" {
 	    tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
 	    tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
 	  }
+	if (*clean == 1)
+	  {
+	    int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
+	    int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+	  }
+	vcg::tri::Allocator<MyMesh>::CompactVertexVector(m);
+	vcg::tri::Allocator<MyMesh>::CompactFaceVector(m);
+	*dim=m.vn;
+	*dimit=m.fn;
     //--------------------------------------------------------------------------------------//
     //
     //                                   WRITE BACK
@@ -94,6 +103,12 @@ extern "C" {
 		    normals[i*3] = (*vi).N()[0];
 		    normals[i*3+1] = (*vi).N()[1];
 		    normals[i*3+2] = (*vi).N()[2];
+		  }
+		if (*col == 1)
+		  {
+		    colvec[i*3] = (*vi).C()[0];
+		    colvec[i*3+1] = (*vi).C()[1];
+		    colvec[i*3+2] = (*vi).C()[2];
 		  }
 		++vi;
 	      }
