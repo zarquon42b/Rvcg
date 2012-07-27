@@ -47,8 +47,7 @@ vcgPlyRead <-function (file,updateNormals=TRUE,clean=TRUE)
       storage.mode(colvec) <- "integer"
       
     }
-  print(hasColor)
-### initialize mesh elements in R
+ ### initialize mesh elements in R
   texinfo<-NULL
   colmat <- NULL
   material <- NULL
