@@ -17,13 +17,14 @@ vcgClost <- function(x,mesh,sign=TRUE)
       {
         clost <- x$vb[1:3,]
       }
-    
+    border <- rep(0,ncol(vb))
+    storage.mode(border) <- "integer"
     normals <- clost
     clostDim <- ncol(clost)
     dis <- rep(0,clostDim)
     storage.mode(clost) <- "double"
     sign <- as.integer(sign)
-    tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,normals,dis,sign)
+    tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,normals,dis,sign,border)
     x$vb[1:3,] <- tmp[[5]]
     x$normals <- rbind(tmp[[7]],1)
     chcknorm <- which(is.nan(x$normals))
@@ -31,7 +32,7 @@ vcgClost <- function(x,mesh,sign=TRUE)
       x$normals[chcknorm] <- 0
                       
     x$quality <- tmp[[8]]
-
+x$border <- tmp[[10]]
     invisible(x)
   }
     

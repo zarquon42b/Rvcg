@@ -41,76 +41,7 @@ using namespace std;
 //using namespace std;
  extern "C" {
 
-   void testfield(double *data ,int *dim,int *it,int *dimit)
-  {
-    typedef MyMesh::VertexPointer VertexPointer;
-    ScalarType x,y,z;
-    int i;
-    const int d = *dim;
-    MyMesh m;
-    const int faced=*dimit;
-    vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
-    vcg::tri::Allocator<MyMesh>::AddFaces(m,faced);
-    printf("%i\n",faced);
-    long test = 10000000;
-    int b = test;
-    //VertexPointer ivp[test];
-    std::vector<VertexPointer> ivp;
-    ivp.resize(test);
-    
-    VertexIterator vi=m.vert.begin();
-    for (i=0; i<d; i++) 
-    {
-      // ivp[i]=&*vi;
-      x = data[i*3];
-      y = data[i*3+1];
-      z=  data[i*3+2];
-      (*vi).P() = CoordType(x,y,z);
-      ++vi;
-    }
-     int itx,ity,itz;
-    FaceIterator fi=m.face.begin();
-    for (i=0; i < faced; i++) 
-      {
-	itx = it[i*3];
-	ity = it[i*3+1];
-	itz = it[i*3+2];
-	/*	(*fi).V(0)=ivp[itx];
-	(*fi).V(1)=ivp[ity];
-	(*fi).V(2)=ivp[itz];
-	++fi;*/
-      }
-    // SEXP tmp;
-    //(tmp = allocVector(REALSXP, 27));
- 
-    //SET_LENGTH(tmp,27);
-    //PROTECT(tmp = NEW_NUMERIC(27)) ; 
-    // update output
-    /*   double tmp[27];
-     vi=m.vert.begin();
-    for (i = 0;i<8;i++)
-      {	
-	
-	data[i*3] = (*vi).P()[0];
-	data[i*3+1];
-	data[i*3+2]+1;	
-	++vi;
-	}
-    for (i = 9;i < d;i++)
-      {data[i*3]=0;
-	  data[i*3+1]=0;
-	  data[i*3+2]=0;
-      }
-    //delete data;
-    //data = tmp;
-    //SEXP tt = 5;
-    // Rcpp::wrap(tmp);
-    */
-    
-  }
-
-
-  	void Rsmooth(double *vb ,int *dim, int *it, int *dimit, int *iteration, int *stype, double *normals,double *lam,double *mu, double *delt)
+     	void Rsmooth(double *vb ,int *dim, int *it, int *dimit, int *iteration, int *stype, double *normals,double *lam,double *mu, double *delt)
   {
     typedef MyMesh::CoordType CoordType;
     typedef MyMesh::ScalarType ScalarType;

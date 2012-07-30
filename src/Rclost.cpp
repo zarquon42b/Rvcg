@@ -37,7 +37,7 @@ using namespace std;
   
 extern "C" {
 
-void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign)
+  void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign,int *border)
   {
     /*typedef MyMesh::CoordType CoordType;
     typedef  MyMesh::ScalarType ScalarType;
@@ -113,6 +113,8 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
     // Update the FaceProjection flags needed for projection/distance queries
     // Create a static grid (for fast indexing) and fill it 
     //--------------------------------------------------------------------------------------//
+    tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+    tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
     vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
     tri::UpdateBounding<MyMesh>::Box(m);
     tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
@@ -129,9 +131,13 @@ void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clo
     
      for(i=0; i < refmesh.vn; i++)
        {
+	 border[i]=0;
 	 Point3f& currp = refmesh.vert[i].P();
 	 Point3f& clost = outmesh.vert[i].P();
 	 MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
+	 
+	 if ((*f_ptr).IsS())
+	   border[i]=1;
 	 
 	 int f_i = vcg::tri::Index(m, f_ptr);
 	 MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N());
