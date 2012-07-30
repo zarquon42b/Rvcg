@@ -17,7 +17,7 @@ vcgClost <- function(x,mesh,sign=TRUE)
       {
         clost <- x$vb[1:3,]
       }
-    border <- rep(0,ncol(vb))
+    border <- rep(0,ncol(x$vb))
     storage.mode(border) <- "integer"
     normals <- clost
     clostDim <- ncol(clost)
