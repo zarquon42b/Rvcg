@@ -37,7 +37,7 @@ using namespace std;
   
 extern "C" {
 
-  void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign,int *border)
+  void Rborder(double *vb ,int *dim, int *it, int *dimit, int *bordervb, int *borderit)
   {
     /*typedef MyMesh::CoordType CoordType;
     typedef  MyMesh::ScalarType ScalarType;
@@ -53,8 +53,7 @@ extern "C" {
     // section read from input
     const int d = *dim;
     const int faced = *dimit;
-    const int dref = *clostDim;
-    int signo = *sign;
+    
    
     //--------------------------------------------------------------------------------------//
     //
@@ -92,20 +91,7 @@ extern "C" {
 	(*fi).V(2)=ivp[itz];
 	++fi;
       }
-    vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
-    
-    //VertexPointer ivref[dref];
-    vi=refmesh.vert.begin();
-     
-    for (i=0; i < dref; i++) 
-      {
-	
-	x = ioclost[i*3];
-	y = ioclost[i*3+1];
-	z = ioclost[i*3+2];
-	(*vi).P() = CoordType(x,y,z);
-	++vi;
-      }
+   
     //--------------------------------------------------------------------------------------//
     //
     //                              INITIALIZE SEARCH STRUCTURES
@@ -115,69 +101,30 @@ extern "C" {
     //--------------------------------------------------------------------------------------//
     tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
     tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
-    vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
-    tri::UpdateBounding<MyMesh>::Box(m);
-    tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
-    tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-    tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
-    float maxDist = m.bbox.Diag();
-    float minDist = 1e-10;
-    vcg::tri::FaceTmark<MyMesh> mf; 
-    mf.SetMesh( &m );
-    vcg::face::PointDistanceBaseFunctor<float> PDistFunct;
-    TriMeshGrid static_grid;    
-    static_grid.Set(m.face.begin(), m.face.end());
+ tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
+    tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
     
-    
-     for(i=0; i < refmesh.vn; i++)
-       {
-	 border[i]=0;
-	 Point3f& currp = refmesh.vert[i].P();
-	 Point3f& clost = outmesh.vert[i].P();
-	 MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
-	 if (f_ptr)
-	   {
-	     if ((*f_ptr).IsS())
-	       border[i]=1;
-	     
-	     int f_i = vcg::tri::Index(m, f_ptr);
-	     MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N());
-	     float vl = sqrt(tt.dot(tt));
-	     if (vl > 0)//check for zero length normals
-	       tt=tt/vl;
-	     dis[i] = minDist;
-	     if (signo == 1)
-	       {
-		 Point3f dif = clost - currp;
-		 float sign = dif.dot(tt);	
-		 if (sign < 0)
-		   { 
-		     dis[i] = -dis[i] ;
-		   }	
-	       }
-	     //write back output
-	     ioclost[i*3] = clost[0];
-	     ioclost[i*3+1] =clost[1];
-	     ioclost[i*3+2] =clost[2];
-	     normals[i*3] = tt[0];
-	     normals[i*3+1] = tt[1];
-	     normals[i*3+2] = tt[2];
-	   }
-       }
-    //write back output
-    /*
-      vi=outmesh.vert.begin();
-      for (i=0; i< dref; i++) 
+    //write back border vertices
+    vi=m.vert.begin();
+    for(i=0; i < m.vn; i++)
       {
-	ioclost[i*3] = (*vi).P()[0];
-	ioclost[i*3+1] = (*vi).P()[1];
-	ioclost[i*3+2] = (*vi).P()[2];
-	normals[i*3] = (*vi).N()[0];
-	normals[i*3+1] = (*vi).N()[1];
-	normals[i*3+2] = (*vi).N()[2];
-	++vi;
-	}
-   
-    */
+	
+	bordervb[i]=0;
+	
+	if ((*vi).IsS())
+	  bordervb[i]=1;
+	
+	++vi;    
+      }
+    fi=m.face.begin();
+    for(i=0; i < m.fn; i++)
+      { 
+	borderit[i]=0;
+	
+	if ((*fi).IsS())
+	  borderit[i]=1;
+	    
+	 ++fi;    
+      }
   }
 }
