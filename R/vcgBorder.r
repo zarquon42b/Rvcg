@@ -15,5 +15,5 @@ vcgBorder <- function(mesh)
     
     tmp <- .C("Rborder",vb,ncol(vb),it,ncol(it),bordervb,borderit)
    
-    invisible(list(bordervb=as.logical(tmp[[5]]),borderit=as.lgocical(tmp[[6]])))
+    invisible(list(bordervb=as.logical(tmp[[5]]),borderit=as.logical(tmp[[6]])))
   }
