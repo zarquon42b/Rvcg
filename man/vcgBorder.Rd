@@ -26,7 +26,7 @@ vcgBorder(mesh)
 
 }
 
-}
+
 \author{
 Stefan Schlager}
 
