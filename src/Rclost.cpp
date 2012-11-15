@@ -118,6 +118,7 @@ extern "C" {
     tri::UpdateBounding<MyMesh>::Box(m);
     tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
     tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
+    //tri::UpdateNormals<MyMesh>::PerVertexNormalized(m);
     tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
     float maxDist = m.bbox.Diag()*2;
     float minDist = 1e-10;
