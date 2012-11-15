@@ -113,8 +113,7 @@ extern "C" {
     // Update the FaceProjection flags needed for projection/distance queries
     // Create a static grid (for fast indexing) and fill it 
     //--------------------------------------------------------------------------------------//
-    tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
-    tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
+    
     vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
     tri::UpdateBounding<MyMesh>::Box(m);
     tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
@@ -127,7 +126,8 @@ extern "C" {
     vcg::face::PointDistanceBaseFunctor<float> PDistFunct;
     TriMeshGrid static_grid;    
     static_grid.Set(m.face.begin(), m.face.end());
-    
+    tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+    tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
     
      for(i=0; i < refmesh.vn; i++)
        {
