@@ -19,11 +19,10 @@ vcgClost <- function(x,mesh,sign=TRUE)
       }
     border <- rep(0,ncol(x$vb))
     storage.mode(border) <- "integer"
-    normals <- clost
     clostDim <- ncol(clost)
     dis <- rep(0,clostDim)
     storage.mode(clost) <- "double"
-   
+    normals <- clost*0
     sign <- as.integer(sign)
     tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,clost,dis,sign,border)
     x$vb[1:3,] <- tmp[[5]]

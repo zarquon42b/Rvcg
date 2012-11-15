@@ -32,7 +32,7 @@ using namespace std;
 #include <vcg/complex/algorithms/update/color.h>*/
 #include <../typedef.h>
 //#include <wrap/ply/plylib.cpp>
-
+#include <cmath>
   
   
 extern "C" {
@@ -132,6 +132,7 @@ extern "C" {
      for(i=0; i < refmesh.vn; i++)
        {
 	 border[i]=0;
+	
 	 Point3f& currp = refmesh.vert[i].P();
 	 Point3f& clost = outmesh.vert[i].P();
 	 MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
@@ -141,10 +142,19 @@ extern "C" {
 	       border[i]=1;
 	     
 	     int f_i = vcg::tri::Index(m, f_ptr);
-	     MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N());
-	     double vl = sqrt(tt[0]*tt[0]+tt[1]*tt[1]+tt[2]*tt[2]);
-	     if (vl > 0)//check for zero length normals
-	       tt=tt/vl;
+	     MyMesh::CoordType tt;
+	     for (int j=0; j <3;j++)
+	       {
+		 if (&(m.face[f_i].V(j)->N()))
+		   tt = tt+m.face[f_i].V(j)->N();
+	       }
+	     
+	     float vl = sqrt(tt.dot(tt));
+	     if (vl > 0 && &vl)//check for zero length normals
+	       {
+		 tt=tt/vl;
+	       }   
+		 	    
 	     dis[i] = minDist;
 	     if (signo == 1)
 	       {
@@ -155,12 +165,13 @@ extern "C" {
 		     dis[i] = -dis[i] ;
 		   }	
 	       }
+	    
 	     //write back output
 	     ioclost[i*3] = clost[0];
 	     ioclost[i*3+1] =clost[1];
 	     ioclost[i*3+2] =clost[2];
 	     normals[i*3] = tt[0];
-	     normals[i*3+1] = tt[1];
+	     normals[i*3+1] = tt[1];    
 	     normals[i*3+2] = tt[2];
 	   }
        }
