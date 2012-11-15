@@ -120,7 +120,7 @@ extern "C" {
     tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
     tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
     tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
-    float maxDist = m.bbox.Diag();
+    float maxDist = m.bbox.Diag()*2;
     float minDist = 1e-10;
     vcg::tri::FaceTmark<MyMesh> mf; 
     mf.SetMesh( &m );
