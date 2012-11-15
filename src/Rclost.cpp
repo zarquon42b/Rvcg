@@ -142,7 +142,7 @@ extern "C" {
 	     
 	     int f_i = vcg::tri::Index(m, f_ptr);
 	     MyMesh::CoordType tt = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N());
-	     float vl = sqrt(tt.dot(tt));
+	     double vl = sqrt(tt[0]*tt[0]+tt[1]*tt[1]+tt[2]*tt[2]);
 	     if (vl > 0)//check for zero length normals
 	       tt=tt/vl;
 	     dis[i] = minDist;
