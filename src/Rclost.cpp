@@ -133,7 +133,8 @@ extern "C" {
      for(i=0; i < refmesh.vn; i++)
        {
 	 border[i]=0;
-	
+	 std::vector<float> xdif(3,0);
+	 float xsum =0;
 	 Point3f& currp = refmesh.vert[i].P();
 	 Point3f& clost = outmesh.vert[i].P();
 	 MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
@@ -143,11 +144,23 @@ extern "C" {
 	       border[i]=1;
 	     
 	     int f_i = vcg::tri::Index(m, f_ptr);
-	     MyMesh::CoordType tt;
+	     MyMesh::CoordType tt , normtmp;
 	     for (int j=0; j <3;j++)
 	       {
 		 if (&(m.face[f_i].V(j)->N()))
-		   tt = tt+m.face[f_i].V(j)->N();
+		   {
+		     Point3f vdist = m.face[f_i].V(j)->P() - clost;
+		     xdif[j] = sqrt(vdist.dot(vdist));
+		   }
+		 xsum = xsum+xdif[j];
+	       }
+	     
+	     for (int j=0; j <3;j++)
+	       {
+		 if (&(m.face[f_i].V(j)->N()))
+		   {
+		     tt = tt+(m.face[f_i].V(j)->N())*(1-(xdif[j]/xsum));
+		   }
 	       }
 	     
 	     float vl = sqrt(tt.dot(tt));
