@@ -1,46 +1,46 @@
 /*#include <string.h>
-#include <vector>
-using namespace std;
-#include <stdio.h>
-#include <cstddef>
+  #include <vector>
+  using namespace std;
+  #include <stdio.h>
+  #include <cstddef>
 
-// VCG headers for triangular mesh processing
-#include<vcg/simplex/edge/base.h>
-#include<vcg/simplex/vertex/base.h>
-#include<vcg/simplex/face/base.h>
-#include <vcg/complex/complex.h>
-#include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/create/platonic.h>
-#include <vcg/complex/algorithms/update/edges.h>
-#include <vcg/complex/algorithms/update/bounding.h>
-#include <vcg/complex/algorithms/update/quality.h>
-#include <vcg/complex/algorithms/update/flag.h>
-#include <vcg/complex/algorithms/clean.h>
-#include <vcg/complex/algorithms/intersection.h>
-#include <vcg/space/index/grid_static_ptr.h>
-#include <vcg/space/index/spatial_hashing.h>
-#include <vcg/complex/algorithms/closest.h>
-#include <vcg/complex/algorithms/smooth.h>
-#include<vcg/complex/allocate.h>
-#include <wrap/callback.h>
-#include <vcg/complex/append.h>
+  // VCG headers for triangular mesh processing
+  #include<vcg/simplex/edge/base.h>
+  #include<vcg/simplex/vertex/base.h>
+  #include<vcg/simplex/face/base.h>
+  #include <vcg/complex/complex.h>
+  #include <vcg/complex/algorithms/update/topology.h>
+  #include <vcg/complex/algorithms/create/platonic.h>
+  #include <vcg/complex/algorithms/update/edges.h>
+  #include <vcg/complex/algorithms/update/bounding.h>
+  #include <vcg/complex/algorithms/update/quality.h>
+  #include <vcg/complex/algorithms/update/flag.h>
+  #include <vcg/complex/algorithms/clean.h>
+  #include <vcg/complex/algorithms/intersection.h>
+  #include <vcg/space/index/grid_static_ptr.h>
+  #include <vcg/space/index/spatial_hashing.h>
+  #include <vcg/complex/algorithms/closest.h>
+  #include <vcg/complex/algorithms/smooth.h>
+  #include<vcg/complex/allocate.h>
+  #include <wrap/callback.h>
+  #include <vcg/complex/append.h>
 
-// VCG File Format Importer/Exporter
-#include <wrap/io_trimesh/import.h>
-#include <wrap/io_trimesh/export.h>
-#include <wrap/io_trimesh/export_ply.h>
-#include <vcg/complex/algorithms/update/color.h>*/
+  // VCG File Format Importer/Exporter
+  #include <wrap/io_trimesh/import.h>
+  #include <wrap/io_trimesh/export.h>
+  #include <wrap/io_trimesh/export_ply.h>
+  #include <vcg/complex/algorithms/update/color.h>*/
 #include <../typedef.h>
 //#include <wrap/ply/plylib.cpp>
 #include <cmath>
-  
-  
+//#include <utility>  
+//#include <algorithm>
 extern "C" {
 
   void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign,int *border)
   {
     /*typedef MyMesh::CoordType CoordType;
-    typedef  MyMesh::ScalarType ScalarType;
+      typedef  MyMesh::ScalarType ScalarType;
     */
     //typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
     typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
@@ -117,8 +117,8 @@ extern "C" {
     vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
     tri::UpdateBounding<MyMesh>::Box(m);
     tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
-    tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-    //tri::UpdateNormals<MyMesh>::PerVertexNormalized(m);
+    //tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
+    tri::UpdateNormals<MyMesh>::PerVertexNormalized(m);
     tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
     float maxDist = m.bbox.Diag()*2;
     float minDist = 1e-10;
@@ -130,79 +130,82 @@ extern "C" {
     tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
     tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
     
-     for(i=0; i < refmesh.vn; i++)
-       {
-	 border[i]=0;
-	 std::vector<float> xdif(3,0);
-	 float xsum =0;
-	 Point3f& currp = refmesh.vert[i].P();
-	 Point3f& clost = outmesh.vert[i].P();
-	 MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
-	 if (f_ptr)
-	   {
-	     if ((*f_ptr).IsS())
-	       border[i]=1;
-	     
-	     int f_i = vcg::tri::Index(m, f_ptr);
-	     MyMesh::CoordType tt , normtmp;
-	     for (int j=0; j <3;j++)
-	       {
-		 if (&(m.face[f_i].V(j)->N()))
-		   {
-		     Point3f vdist = m.face[f_i].V(j)->P() - clost;
-		     xdif[j] = sqrt(vdist.dot(vdist));
-		   }
-		 xsum = xsum+xdif[j];
-	       }
-	     
-	     for (int j=0; j <3;j++)
-	       {
-		 if (&(m.face[f_i].V(j)->N()))
-		   {
-		     tt = tt+(m.face[f_i].V(j)->N())*(1-(xdif[j]/xsum));
-		   }
-	       }
-	     
-	     float vl = sqrt(tt.dot(tt));
-	     if (vl > 0 && &vl)//check for zero length normals
-	       {
-		 tt=tt/vl;
-	       }   
-		 	    
-	     dis[i] = minDist;
-	     if (signo == 1)
-	       {
-		 Point3f dif = clost - currp;
-		 float sign = dif.dot(tt);	
-		 if (sign < 0)
-		   { 
-		     dis[i] = -dis[i] ;
-		   }	
-	       }
-	    
-	     //write back output
-	     ioclost[i*3] = clost[0];
-	     ioclost[i*3+1] =clost[1];
-	     ioclost[i*3+2] =clost[2];
-	     normals[i*3] = tt[0];
-	     normals[i*3+1] = tt[1];    
-	     normals[i*3+2] = tt[2];
-	   }
-       }
-    //write back output
-    /*
-      vi=outmesh.vert.begin();
-      for (i=0; i< dref; i++) 
+    for(i=0; i < refmesh.vn; i++)
       {
-	ioclost[i*3] = (*vi).P()[0];
-	ioclost[i*3+1] = (*vi).P()[1];
-	ioclost[i*3+2] = (*vi).P()[2];
-	normals[i*3] = (*vi).N()[0];
-	normals[i*3+1] = (*vi).N()[1];
-	normals[i*3+2] = (*vi).N()[2];
-	++vi;
-	}
-   
-    */
+	border[i]=0;
+	
+	Point3f& currp = refmesh.vert[i].P();
+	Point3f& clost = outmesh.vert[i].P();
+	MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
+	if (f_ptr)
+	  {
+	    if ((*f_ptr).IsS())
+	      border[i]=1;
+	     
+	    int f_i = vcg::tri::Index(m, f_ptr);
+	    MyMesh::CoordType tt;
+	    /* ////weighting part momentarily not used because flawed ///
+	       std::vector<std::pair<float,int> > xdif;
+	       std::vector<float> nweigh(3,0);
+	       for (int j=0; j <3;j++)
+	       {
+	       std::pair <float,int> tmp;
+	       tmp=make_pair(0,j);
+	       xdif.push_back(tmp);
+	       }
+		
+	       float xsum =0;
+	       for (int j=0; j <3;j++)
+	       {
+	       if (&(m.face[f_i].V(j)->P()))
+	       {
+	       Point3f vdist = m.face[f_i].V(j)->P() - clost;
+	       xdif[j].first = sqrt(vdist.dot(vdist));
+	       }
+	       xsum = xsum+xdif[j].first;
+		
+	       }
+	       for (int j=0; j <3;j++)
+	       {
+	       nweigh[j] = xdif[j].first/xsum;//contains weights
+	       if (nweigh[j] == 0
+	       }
+	       //std::sort(nweigh.begin(),nweigh.end(),std::greater<float>());
+	       //std::sort(xdif.begin(),xdif.end());*/
+	     
+	    for (int j=0; j <3;j++)
+	      {
+		if (&(m.face[f_i].V(j)->N()))
+		  {
+		    tt +=(m.face[f_i].V(j)->N());
+		  }
+	      }
+	     
+	    float vl = sqrt(tt.dot(tt));
+	    if (vl > 0 && &vl)//check for zero length normals
+	      {
+		tt=tt/vl;
+	      }   
+		 	    
+	    dis[i] = minDist;
+	    if (signo == 1)
+	      {
+		Point3f dif = clost - currp;
+		float sign = dif.dot(tt);	
+		if (sign < 0)
+		  { 
+		    dis[i] = -dis[i] ;
+		  }	
+	      }
+	    
+	    //write back output
+	    ioclost[i*3] = clost[0];
+	    ioclost[i*3+1] =clost[1];
+	    ioclost[i*3+2] =clost[2];
+	    normals[i*3] = tt[0];
+	    normals[i*3+1] = tt[1];    
+	    normals[i*3+2] = tt[2];
+	  }
+      }
   }
 }
