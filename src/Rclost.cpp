@@ -177,7 +177,14 @@ extern "C" {
 	      {
 		if (&(m.face[f_i].V(j)->N()))
 		  {
-		    tt +=(m.face[f_i].V(j)->N());
+		    Point3f vdist = m.face[f_i].V(j)->P() - clost;
+		    float weight = sqrt(vdist.dot(vdist));
+		    if (weight > 0)
+		      weight = 1/weight;
+		    else 
+		      weight = 1e12;
+		      
+		    tt +=(m.face[f_i].V(j)->N()*weight);
 		  }
 	      }
 	     
