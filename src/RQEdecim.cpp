@@ -118,14 +118,15 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
 	(*fi).V(2)=ivp[itz];
 	++fi;
       }
+    //tri::io::ExporterPLY<CMeshO>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
     //initiate decimation process
     TriEdgeCollapseQuadricParameter qparams;
     float TargetError=std::numeric_limits<float>::max();
-    qparams.QualityThr =.3;
-    qparams.QualityCheck = false;
-    qparams.OptimalPlacement = true; 
+    /*qparams.QualityThr =.3;
+    qparams.QualityCheck = true;
+    qparams.OptimalPlacement = true;
     qparams.PreserveTopology	= true;
-    qparams.PreserveBoundary	= true;
+    qparams.PreserveBoundary	= true; */
     int dup = tri::Clean<CMeshO>::RemoveDuplicateVertex(m);
     int unref =  tri::Clean<CMeshO>::RemoveUnreferencedVertex(m);
    
@@ -150,7 +151,7 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
       // printf("Final Mesh size: %7i heap sz %9i err %9g \r",m.fn, int(DeciSession.h.size()),DeciSession.currMetric);
     
     int t3=clock();
-    printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
+   
     //printf("\nCompleted in (%i+%i) msec\n",t2-t1,t3-t2);
     
     //update mesh structure and write back output
@@ -160,6 +161,7 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     SimpleTempData<CMeshO::VertContainer,int> indices(m.vert);
     tri::UpdateNormals<CMeshO>::PerVertexAngleWeighted(m);
     tri::UpdateNormals<CMeshO>::NormalizeVertex(m);
+     printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
     
     vi=m.vert.begin();
     for (i=0;  i < m.vn; i++) 
@@ -197,7 +199,7 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     *dimit=m.fn;
     //  printf("%i %i\n",m.vn,m.fn);
     
-    // tri::io::ExporterPLY<CMeshO>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
+    
   }
    
  }

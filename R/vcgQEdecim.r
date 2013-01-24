@@ -1,4 +1,4 @@
-vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL)
+vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,quality=TRUE)
   {
     doit <- TRUE
     vb <- mesh$vb[1:3,]
