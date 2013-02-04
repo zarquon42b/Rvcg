@@ -143,7 +143,7 @@ extern "C" {
 	      border[i]=1;
 	     
 	    int f_i = vcg::tri::Index(m, f_ptr);
-	    MyMesh::CoordType tt;
+	    MyMesh::CoordType tt = currp*0;
 	    /* ////weighting part momentarily not used because flawed ///
 	       std::vector<std::pair<float,int> > xdif;
 	       std::vector<float> nweigh(3,0);
