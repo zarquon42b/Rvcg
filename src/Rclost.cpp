@@ -42,8 +42,8 @@ extern "C" {
     /*typedef MyMesh::CoordType CoordType;
       typedef  MyMesh::ScalarType ScalarType;
     */
-    //typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
-    typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
+    typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
+    //typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
     ScalarType x,y,z;
     int i;
     
@@ -144,35 +144,7 @@ extern "C" {
 	     
 	    int f_i = vcg::tri::Index(m, f_ptr);
 	    MyMesh::CoordType tt = currp*0;
-	    /* ////weighting part momentarily not used because flawed ///
-	       std::vector<std::pair<float,int> > xdif;
-	       std::vector<float> nweigh(3,0);
-	       for (int j=0; j <3;j++)
-	       {
-	       std::pair <float,int> tmp;
-	       tmp=make_pair(0,j);
-	       xdif.push_back(tmp);
-	       }
-		
-	       float xsum =0;
-	       for (int j=0; j <3;j++)
-	       {
-	       if (&(m.face[f_i].V(j)->P()))
-	       {
-	       Point3f vdist = m.face[f_i].V(j)->P() - clost;
-	       xdif[j].first = sqrt(vdist.dot(vdist));
-	       }
-	       xsum = xsum+xdif[j].first;
-		
-	       }
-	       for (int j=0; j <3;j++)
-	       {
-	       nweigh[j] = xdif[j].first/xsum;//contains weights
-	       if (nweigh[j] == 0
-	       }
-	       //std::sort(nweigh.begin(),nweigh.end(),std::greater<float>());
-	       //std::sort(xdif.begin(),xdif.end());*/
-	     
+	    	     
 	    for (int j=0; j <3;j++)
 	      {
 		if (&(m.face[f_i].V(j)->N()))
@@ -212,6 +184,7 @@ extern "C" {
 	    normals[i*3] = tt[0];
 	    normals[i*3+1] = tt[1];    
 	    normals[i*3+2] = tt[2];
+
 	  }
       }
   }
