@@ -2,7 +2,6 @@
 // This is basically an adaption 
 // of tridecimator included in the vcglib sources
 // to work with R
-
 #include <vector>
 #include <limits>
 #include <stdio.h>
@@ -76,7 +75,7 @@ typedef CMesh1::FaceContainer FaceContainer;
 
 
 extern "C" {
-  void Risolated(double *vb ,int *dim, int *it, int *dimit,double *diam, double *normals)
+  void Risolated(double *vb ,int *dim, int *it, int *dimit,double *diam, double *normals,int *facenum)
   {
     // typedefs
    
@@ -86,13 +85,14 @@ extern "C" {
     int d = *dim;
     int faced = *dimit;
     float diameter = *diam;
+    int connect = *facenum;
     //create mesh
     vcg::tri::Allocator<CMesh1>::AddVertices(m,d);
     vcg::tri::Allocator<CMesh1>::AddFaces(m,faced);
     typedef CMesh1::VertexPointer VertexPointer;
     std::vector<VertexPointer> ivp;
     ivp.resize(d);
-    printf("%f\n",diameter);
+   
     VertexIterator vi=m.vert.begin();
     for (i=0; i < d; i++) 
       {
@@ -118,11 +118,50 @@ extern "C" {
     //tri::Clean<CMesh1>::RemoveDuplicateVertex(m);
     tri::UpdateTopology<CMesh1>::FaceFace(m);
     tri::UpdateTopology<CMesh1>::VertexFace(m);
-    std::pair<int,int> delInfo= tri::Clean<CMesh1>::RemoveSmallConnectedComponentsDiameter(m,diameter);
-    	printf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
+    std::pair<int,int> delInfo;
+      std::vector< std::pair<int,CMesh1::FacePointer> > CCV;
+    int TotalCC=tri::Clean<CMesh1>::ConnectedComponents(m, CCV);
+    //printf("%i\n",TotalCC);
+    std::vector<float> chunks;
+    std::vector<int> chunkface;
+    //int CCm = tri::Clean<CMesh1>::ConnectedComponents(m);
+    tri::ConnectedIterator<CMesh1> ci;
+    for(unsigned int i1=0;i1<CCV.size();++i1)
+      {
+	Box3f bb;
+	std::vector<CMesh1::FacePointer> FPV;
+	for(ci.start(m,CCV[i1].second);!ci.completed();++ci)
+	  {
+	    FPV.push_back(*ci);
+	    bb.Add((*ci)->P(0));
+	    bb.Add((*ci)->P(1));
+	    bb.Add((*ci)->P(2));
+	  } 
+	float diag = bb.Diag();
+	chunks.push_back(diag);
+	chunkface.push_back(CCV[i1].first);
+      }
+    // int myints[] = {3,7,2,5,6,4,9};
+    //int ppp = *std::max_element(myints,myints+7);
+    if (diameter == 0)
+      diameter = *std::max_element(chunks.begin(),chunks.end());
+    
+    if (connect < 0)
+      delInfo= tri::Clean<CMesh1>::RemoveSmallConnectedComponentsDiameter(m,diameter);
+     
+    else 
+//if (connect == 0)
+      {
+	if (connect == 0)
+	  connect = *std::max_element(chunkface.begin(),chunkface.end());
+	delInfo = tri::Clean<CMesh1>::RemoveSmallConnectedComponentsSize(m,connect);
+      }
+      
+    printf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
 	//int unref =  tri::Clean<CMesh1>::RemoveUnreferencedVertex(m);
-	int out=tri::Clean<CMesh1>::CountConnectedComponents(m);
-	printf("%i\n",out);
+    
+      
+	
     vcg::tri::Allocator< CMesh1 >::CompactVertexVector(m);
     vcg::tri::Allocator< CMesh1 >::CompactFaceVector(m);
     SimpleTempData<CMesh1::VertContainer,int> indices(m.vert);
