@@ -1,6 +1,7 @@
 // Author: Stefan Schlager
-// This is basically an adaption 
-// of tridecimator included in the vcglib sources
+// This is based on code from 
+// of trimeshinfo
+// included in the vcglib sources
 // to work with R
 #include <vector>
 #include <limits>
