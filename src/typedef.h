@@ -47,7 +47,8 @@ typedef  MyMesh::VertexIterator VertexIterator;
 typedef  MyMesh::VertexPointer VertexPointer;
 typedef  MyMesh::FaceIterator FaceIterator;
 typedef  MyMesh::FacePointer FacePointer;
-
 typedef  MyMesh::CoordType CoordType;
 typedef  MyMesh::ScalarType ScalarType;
 
+typedef MyMesh::ConstVertexIterator ConstVertexIterator;
+typedef MyMesh::ConstFaceIterator   ConstFaceIterator;
