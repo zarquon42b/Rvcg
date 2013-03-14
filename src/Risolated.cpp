@@ -37,23 +37,23 @@
 using namespace vcg;
 using namespace tri;
 // The class prototypes.
-class CVertex;
-class CEdge;
-class CFace;
+class CVertex1;
+class CEdge1;
+class CFace1;
 
-struct CUsedTypes: public UsedTypes<Use<CVertex>::AsVertexType,Use<CEdge>::AsEdgeType,Use<CFace>::AsFaceType>{};
+struct CUsedTypes1: public UsedTypes<Use<CVertex1>::AsVertexType,Use<CEdge1>::AsEdgeType,Use<CFace1>::AsFaceType>{};
 
-class CVertex  : public Vertex< CUsedTypes,
+class CVertex1  : public Vertex< CUsedTypes1,
   vertex::VFAdj,
   vertex::Coord3f,
   vertex::Normal3f,
   vertex::Mark,
 				vertex::BitFlags  >{};
 
-class CEdge : public Edge< CUsedTypes> {};
+class CEdge1 : public Edge< CUsedTypes1> {};
 
 
-class CFace    : public Face< CUsedTypes,
+class CFace1    : public Face< CUsedTypes1,
   face::VFAdj,
   face::VertexRef,
   face::FFAdj,
@@ -61,7 +61,7 @@ class CFace    : public Face< CUsedTypes,
   face::BitFlags > {};
 
 // the main mesh class
-class CMesh1    : public vcg::tri::TriMesh<std::vector<CVertex>, std::vector<CFace> > {};
+class CMesh1    : public vcg::tri::TriMesh<std::vector<CVertex1>, std::vector<CFace1> > {};
  typedef CMesh1::VertexIterator VertexIterator;
     typedef CMesh1::FacePointer  FacePointer;
     typedef CMesh1::FaceIterator   FaceIterator;
@@ -142,8 +142,7 @@ extern "C" {
 	chunks.push_back(diag);
 	chunkface.push_back(CCV[i1].first);
       }
-    // int myints[] = {3,7,2,5,6,4,9};
-    //int ppp = *std::max_element(myints,myints+7);
+   
     if (diameter == 0)
       diameter = *std::max_element(chunks.begin(),chunks.end());
     
@@ -151,7 +150,6 @@ extern "C" {
       delInfo= tri::Clean<CMesh1>::RemoveSmallConnectedComponentsDiameter(m,diameter);
      
     else 
-//if (connect == 0)
       {
 	if (connect == 0)
 	  connect = *std::max_element(chunkface.begin(),chunkface.end());
@@ -159,7 +157,7 @@ extern "C" {
       }
       
     printf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
-	//int unref =  tri::Clean<CMesh1>::RemoveUnreferencedVertex(m);
+    int unref =  tri::Clean<CMesh1>::RemoveUnreferencedVertex(m);
     
       
 	

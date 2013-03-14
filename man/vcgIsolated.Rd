@@ -28,7 +28,7 @@ vcgIsolated(mesh, facenum = NULL, diameter = NULL)
 \value{returns the reduced mesh.
 }
 
-}
+
 \author{Stefan Schlager
 %%  ~~who you are~~
 }
