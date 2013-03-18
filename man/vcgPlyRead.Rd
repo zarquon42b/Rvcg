@@ -1,7 +1,7 @@
 \name{vcgPlyRead}
 \alias{vcgPlyRead}
 \title{
-Import ascii of binary PLY files.}
+Import ascii or binary PLY files.}
 \description{
 Reads Polygon File Format (PLY) files and stores the results in an
 object of class "mesh3d" - momentarily only triangular meshes are supported.}
