@@ -25,7 +25,10 @@ vcgPlyRead(file, updateNormals = TRUE, clean = TRUE)
 
   \item{vb }{4xn matrix containing n vertices as homolougous coordinates.}
   \item{normals }{4xn matrix containing vertex normals.}
-  \item{it }{4xm matrix containing vertex indices forming triangular faces.}
+  \item{it }{4xm matrix containing vertex indices forming triangular
+    faces.}
+  \item{material$color }{Per vertex colors if specified in the imported file
+}
   
 }
 

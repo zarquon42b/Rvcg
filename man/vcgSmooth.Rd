@@ -6,7 +6,8 @@ Smooth a triangular mesh}
 \description{
 Apply different smoothing algorithms to a triangular mesh.}
 \usage{
-vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace"), iteration = 10)
+vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace", "fujiLaplace", 
+    "angWeight"), iteration = 10)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -14,7 +15,8 @@ vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace"), iteration = 10)
 %%     ~~Describe \code{mesh} here~~
 }
   \item{type}{character: select smoothing algorithm. Available are
-    "taubin", "laplace", "HClaplace" (and any sensible abbreviations).
+    "taubin", "laplace", "HClaplace", "fujiLaplace", 
+    "angWeight" (and any sensible abbreviations).
 }
   \item{iteration}{integer: number of iterations to run.
 }
@@ -22,7 +24,8 @@ vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace"), iteration = 10)
 }
 \details{
 The algorithms available are Taubin smoothing, Laplacian smoothing and
-an improved version of Laplacian smoothing ("HClaplace").}
+an improved version of Laplacian smoothing ("HClaplace"). Also available
+are Scale dependent laplacian smoothing ("fujiLaplace") and Laplacian angle weighted smoothing ("angWeight")}
 \value{ returns an object of class "mesh3d"
   with:
 
@@ -41,6 +44,7 @@ Vision, 1995. Proceedings., Fifth International Conference on, pages 852 -
 Vollmer J., Mencl R. and Mueller H. 1999. Improved Laplacian Smoothing of
 Noisy Surface Meshes. Computer Graphics Forum, 18(3):131-138.
 
+Desbrun, M.; Meyer, M.; Schröder, P. and Barr, A. H. (1999). Implicit fairing of irregular meshes using diffusion and curvature flow,   : 317-324.
 
 }
 \author{
