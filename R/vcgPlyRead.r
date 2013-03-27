@@ -84,7 +84,7 @@ vcgPlyRead <-function (file,updateNormals=TRUE,clean=TRUE)
 ### check if actual vertices or faces exceed numbers read from file header
   if (out[[13]] == 1)
     {
-      warning("mesh converted to triangular mesh (maybe Quads involved). Please check result\n")
+      warning("mesh converted to triangular mesh (maybe Quads involved). Please check result!")
       ## allocate empty mesh with correct numbers 
       vn <- out[[3]]
       fn <- out[[5]]
