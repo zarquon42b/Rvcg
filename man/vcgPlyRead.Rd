@@ -16,8 +16,10 @@ vcgPlyRead(file, updateNormals = TRUE, clean = TRUE)
   }
    \item{clean}{logical: if TRUE, duplicated and unreference vertices will
      be removed.
+   }
+  
 }
-}
+
 \value{
   Object of class "mesh3d"
 
