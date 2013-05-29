@@ -77,7 +77,7 @@ typedef CMesh1::FaceContainer FaceContainer;
 
 extern "C" {
 
-  void RgetEdge(double *vb ,int *dim, int *it, int *dimit, int *edgecount, int *edges)
+  void RgetEdge(double *vb ,int *dim, int *it, int *dimit, int *edgecount, int *edges,int *unique)
   {
     /*typedef MyMesh::CoordType CoordType;
       typedef  MyMesh::ScalarType ScalarType;
@@ -102,6 +102,7 @@ extern "C" {
     std::vector<VertexPointer> ivp;
     ivp.resize(d);
     SimpleTempData<CMesh1::VertContainer,int> indices(m.vert);
+    SimpleTempData<CMesh1::FaceContainer,int> indicesf(m.face);
 
     VertexIterator vi=m.vert.begin();
     for (i=0; i < d; i++) 
@@ -118,6 +119,7 @@ extern "C" {
     FaceIterator fi=m.face.begin();
     for (i=0; i < faced ; i++) 
       {
+	indicesf[fi] = i;
 	itx = it[i*3];
 	ity = it[i*3+1];
 	itz = it[i*3+2];
@@ -129,7 +131,10 @@ extern "C" {
     std::vector<SimpleEdge> Edges;
     typename std::vector< SimpleEdge >::iterator ei;
     typename std::vector< SimpleEdge >::size_type size;
-    tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
+    if (*unique == 1)
+      tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
+    else
+      tri::UpdateTopology<CMesh1>::FillEdgeVector(m,Edges,true);
     EdgePointer ep;
     VertexPointer vp , vp1;
    i=0;
