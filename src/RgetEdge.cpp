@@ -43,25 +43,25 @@ class CFace1;
 struct CUsedTypes1: public UsedTypes<Use<CVertex1>::AsVertexType,Use<CEdge1>::AsEdgeType,Use<CFace1>::AsFaceType>{};
 
 class CVertex1  : public Vertex< CUsedTypes1,
-  vertex::VFAdj,
-  vertex::Coord3f,
-  vertex::Normal3f,
-  vertex::Mark,
-				vertex::BitFlags  >{};
+				 vertex::VFAdj,
+				 vertex::Coord3f,
+				 vertex::Normal3f,
+				 vertex::Mark,
+				 vertex::BitFlags  >{};
 
 class CEdge1 : public Edge< CUsedTypes1> {};
 
 
 class CFace1    : public Face< CUsedTypes1,
-  face::VFAdj,
-  face::VertexRef,
-  face::FFAdj,
-  face::Mark,
-  face::BitFlags > {};
+			       face::VFAdj,
+			       face::VertexRef,
+			       face::FFAdj,
+			       face::Mark,
+			       face::BitFlags > {};
 
 // the main mesh class
 class CMesh1    : public vcg::tri::TriMesh<std::vector<CVertex1>, std::vector<CFace1> > {};
- typedef CMesh1::VertexIterator VertexIterator;
+typedef CMesh1::VertexIterator VertexIterator;
 typedef CMesh1::FacePointer  FacePointer;
 typedef CMesh1::FaceIterator   FaceIterator;
 typedef CMesh1::EdgePointer   EdgePointer;
@@ -77,18 +77,19 @@ typedef CMesh1::FaceContainer FaceContainer;
 
 extern "C" {
 
-  void RgetEdge(double *vb ,int *dim, int *it, int *dimit, int *edgecount, int *edges,int *unique)
+  void RgetEdge(double *vb ,int *dim, int *it, int *dimit, int *edgecount, int *edges,int *facept, int *border,int *unique)
   {
     /*typedef MyMesh::CoordType CoordType;
       typedef  MyMesh::ScalarType ScalarType;
     
-    typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;*/ 
+      typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;*/ 
     //typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
     ScalarType x,y,z;
     int i;
     
     CMesh1 m;
-        // section read from input
+    *border=*border*0;
+    // section read from input
     const int d = *dim;
     const int faced = *dimit;
    
@@ -131,22 +132,27 @@ extern "C" {
     std::vector<SimpleEdge> Edges;
     typename std::vector< SimpleEdge >::iterator ei;
     typename std::vector< SimpleEdge >::size_type size;
+    tri::UpdateFlags<CMesh1>::VertexBorderFromNone(m);
+    tri::UpdateSelection<CMesh1>::VertexFromBorderFlag(m);
     if (*unique == 1)
       tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
     else
       tri::UpdateTopology<CMesh1>::FillEdgeVector(m,Edges,true);
     EdgePointer ep;
     VertexPointer vp , vp1;
-   i=0;
-   size=Edges.size();
-   // for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
-   for (i=0;i<size;i++)
+    i=0;
+    size=Edges.size();
+    // for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
+    for (i=0;i<size;i++)
       {
-    vp=Edges[i].v[0];
-    vp1=Edges[i].v[1];
-    edges[i*2]=indices[vp];
-    edges[i*2+1]=indices[vp1];
-   	
+	vp=Edges[i].v[0];
+	vp1=Edges[i].v[1];
+	if ((*vp).IsS() &&(*vp1).IsS())
+	  border[i] = 1;
+	edges[i*2]=indices[vp];
+	edges[i*2+1]=indices[vp1];
+	facept[i] = indicesf[Edges[i].f[0]];
+	//printf("%d\n",facept[i]);	
       }
    
     *edgecount= size;
