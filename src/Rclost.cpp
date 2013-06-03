@@ -37,7 +37,7 @@
 //#include <algorithm>
 extern "C" {
 
-  void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign,int *border)
+  void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign,int *border, int *barycentric, double *barycoord,int *faceptr)
   {
     /*typedef MyMesh::CoordType CoordType;
       typedef  MyMesh::ScalarType ScalarType;
@@ -50,6 +50,7 @@ extern "C" {
     MyMesh m;
     MyMesh refmesh;
     MyMesh outmesh;
+    MyMesh::CoordType baryco;
     // section read from input
     const int d = *dim;
     const int faced = *dimit;
@@ -67,6 +68,7 @@ extern "C" {
     vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
     vcg::tri::Allocator<MyMesh>::AddFaces(m,faced);
     typedef MyMesh::VertexPointer VertexPointer;
+    SimpleTempData<MyMesh::FaceContainer,int> indices(m.face);
     std::vector<VertexPointer> ivp;
     ivp.resize(d);
     
@@ -84,6 +86,7 @@ extern "C" {
     FaceIterator fi=m.face.begin();
     for (i=0; i < faced ; i++) 
       {
+	indices[fi] = i;
 	itx = it[i*3];
 	ity = it[i*3+1];
 	itz = it[i*3+2];
@@ -129,7 +132,7 @@ extern "C" {
     static_grid.Set(m.face.begin(), m.face.end());
     tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
     tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
-    
+    MyMesh::CoordType tt;
     for(i=0; i < refmesh.vn; i++)
       {
 	border[i]=0;
@@ -142,8 +145,9 @@ extern "C" {
 	    if ((*f_ptr).IsS())
 	      border[i]=1;
 	     
+	    faceptr[i] = indices[f_ptr];
 	    int f_i = vcg::tri::Index(m, f_ptr);
-	    MyMesh::CoordType tt = currp*0;
+	    tt = currp*0;
 	    	     
 	    for (int j=0; j <3;j++)
 	      {
@@ -158,34 +162,48 @@ extern "C" {
 		      
 		    tt +=(m.face[f_i].V(j)->N()*weight);
 		  }
-	      }
-	     
-	    float vl = sqrt(tt.dot(tt));
-	    if (vl > 0 && &vl)//check for zero length normals
-	      {
-		tt=tt/vl;
-	      }   
-		 	    
-	    dis[i] = minDist;
-	    if (signo == 1)
-	      {
-		Point3f dif = clost - currp;
-		float sign = dif.dot(tt);	
-		if (sign < 0)
-		  { 
-		    dis[i] = -dis[i] ;
-		  }	
-	      }
-	    
-	    //write back output
-	    ioclost[i*3] = clost[0];
-	    ioclost[i*3+1] =clost[1];
-	    ioclost[i*3+2] =clost[2];
-	    normals[i*3] = tt[0];
-	    normals[i*3+1] = tt[1];    
-	    normals[i*3+2] = tt[2];
 
+		
+		   
+		  
+	      }
+	    if (*barycentric == 1)
+	      {
+		baryco = currp*0;
+		InterpolationParameters<MyFace,ScalarType>(*f_ptr,f_ptr->N(),clost,baryco);
+	      }
+	  }
+	float vl = sqrt(tt.dot(tt));
+	if (vl > 0 && &vl)//check for zero length normals
+	  {
+	    tt=tt/vl;
+	  }   
+		 	    
+	dis[i] = minDist;
+	if (signo == 1)
+	  {
+	    Point3f dif = clost - currp;
+	    float sign = dif.dot(tt);	
+	    if (sign < 0)
+	      { 
+		dis[i] = -dis[i] ;
+	      }	
+	  }
+	    
+	//write back output
+	ioclost[i*3] = clost[0];
+	ioclost[i*3+1] =clost[1];
+	ioclost[i*3+2] =clost[2];
+	normals[i*3] = tt[0];
+	normals[i*3+1] = tt[1];    
+	normals[i*3+2] = tt[2];
+	if(*barycentric ==1)
+	  {
+	    barycoord[i*3] = baryco[0];
+	    barycoord[i*3+1] = baryco[1];
+	    barycoord[i*3+2] = baryco[2];
 	  }
       }
   }
+
 }

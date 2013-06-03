@@ -1,4 +1,4 @@
-vcgClost <- function(x,mesh,sign=TRUE)
+vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE)
   
   {
     vb <- mesh$vb[1:3,]
@@ -17,14 +17,17 @@ vcgClost <- function(x,mesh,sign=TRUE)
       {
         clost <- x$vb[1:3,]
       }
+    
     border <- rep(0,ncol(x$vb))
     storage.mode(border) <- "integer"
     clostDim <- ncol(clost)
-    dis <- rep(0,clostDim)
+    faceptr <- dis <- rep(0,clostDim)
     storage.mode(clost) <- "double"
-    normals <- clost*0
+    storage.mode(faceptr) <- "integer"
+    barycoord <- normals <- clost*0
     sign <- as.integer(sign)
-    tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,clost,dis,sign,border)
+    barycentric <- as.integer(barycentric)
+    tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,clost,dis,sign,border,barycentric,barycoord,faceptr=faceptr)
     x$vb[1:3,] <- tmp[[5]]
     x$normals <- rbind(tmp[[7]],1)
     chcknorm <- which(is.nan(x$normals))
@@ -33,6 +36,9 @@ vcgClost <- function(x,mesh,sign=TRUE)
                       
     x$quality <- tmp[[8]]
 x$border <- tmp[[10]]
+    if(barycentric==1)
+        x$barycoords <- tmp[[12]]
+    x$faceptr=tmp$faceptr+1
     invisible(x)
   }
     
