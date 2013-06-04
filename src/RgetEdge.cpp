@@ -32,6 +32,8 @@
 #include<vcg/complex/allocate.h>
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
+#include <vcg/simplex/face/pos.h>
+
 #include <iostream>
 using namespace vcg;
 using namespace tri;
@@ -71,7 +73,8 @@ typedef CMesh1::ScalarType ScalarType;
 typedef CMesh1::VertexPointer VertexPointer;
 typedef Point3<CMesh1::ScalarType> Point3x;
 typedef std::vector<Point3x> Hole;
-
+//typedef face::Pos<CFace1>    PosType;
+//typedef vcg::face::Pos<CFace1> PsType;
 
 typedef CMesh1::FaceContainer FaceContainer;
 
@@ -96,7 +99,8 @@ extern "C" {
    
    
     //Allocate mesh
-    typedef typename UpdateTopology<CMesh1>::PEdge SimpleEdge;
+
+    typedef UpdateTopology<CMesh1>::PEdge SimpleEdge;
     vcg::tri::Allocator<CMesh1>::AddVertices(m,d);
     vcg::tri::Allocator<CMesh1>::AddFaces(m,faced);
     typedef CMesh1::VertexPointer VertexPointer;
@@ -134,12 +138,15 @@ extern "C" {
     typename std::vector< SimpleEdge >::size_type size;
     tri::UpdateFlags<CMesh1>::VertexBorderFromNone(m);
     tri::UpdateSelection<CMesh1>::VertexFromBorderFlag(m);
+    tri::UpdateTopology<CMesh1>::FaceFace(m);
+    tri::UpdateFlags<CMesh1>::FaceBorderFromNone(m); 
     if (*unique == 1)
       tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
     else
       tri::UpdateTopology<CMesh1>::FillEdgeVector(m,Edges,true);
     EdgePointer ep;
     VertexPointer vp , vp1;
+    FacePointer fp;
     i=0;
     size=Edges.size();
     // for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
@@ -147,11 +154,14 @@ extern "C" {
       {
 	vp=Edges[i].v[0];
 	vp1=Edges[i].v[1];
-	if ((*vp).IsS() &&(*vp1).IsS())
+	//if ((*vp).IsS() &&(*vp1).IsS())
+	//  border[i] = 1;
+	fp=Edges[i].f;
+	if( (*fp).IsB(Edges[i].z)==true )
 	  border[i] = 1;
 	edges[i*2]=indices[vp];
 	edges[i*2+1]=indices[vp1];
-	facept[i] = indicesf[Edges[i].f[0]];
+	facept[i] = indicesf[Edges[i].f];
 	//printf("%d\n",facept[i]);	
       }
    
