@@ -52,6 +52,7 @@ class CFace2    : public Face< CUsedTypes2,
 			       face::VFAdj,
 			       face::VertexRef,
 			       face::FFAdj,
+                               face::Normal3f,
 			       face::Mark,
 			       face::BitFlags > {};
 
@@ -73,19 +74,16 @@ typedef CMesh2::FaceContainer FaceContainer;
 
 extern "C" {
 
-  void Rclean(double *vb ,int *dim, int *it, int *dimit,double *normals)
+  void Rclean(double *vb ,int *dim, int *it, int *dimit,double *normals,int *select)
   {
     ScalarType x,y,z;
     int i;
     
     CMesh2 m;
-    
     // section read from input
     int d = *dim;
     int faced = *dimit;
-   
-   
-   
+
     //Allocate mesh
 
     typedef UpdateTopology<CMesh2>::PEdge SimpleEdge;
@@ -94,9 +92,9 @@ extern "C" {
     typedef CMesh2::VertexPointer VertexPointer;
     std::vector<VertexPointer> ivp;
     ivp.resize(d);
-    SimpleTempData<CMesh2::VertContainer,int> indices(m.vert);
+    
     SimpleTempData<CMesh2::FaceContainer,int> indicesf(m.face);
-
+    SimpleTempData<CMesh2::VertContainer,int> indices(m.vert);
     VertexIterator vi=m.vert.begin();
     for (i=0; i < d; i++) 
       {
@@ -121,38 +119,45 @@ extern "C" {
 	(*fi).V(2)=ivp[itz];
 	++fi;
       }
-    
-    tri::UpdateFlags<CMesh2>::VertexBorderFromNone(m);
-    tri::UpdateSelection<CMesh2>::VertexFromBorderFlag(m);
+    //tri::UpdateFlags<CMesh2>::VertexBorderFromNone(m);
+    //tri::UpdateSelection<CMesh2>::VertexFromBorderFlag(m);
+    tri::Clean<CMesh2>::RemoveDuplicateVertex(m);
+    tri::Clean<CMesh2>::RemoveDuplicateFace(m);
     tri::UpdateTopology<CMesh2>::FaceFace(m);
     tri::UpdateTopology<CMesh2>::VertexFace(m);
+    vcg::tri::UpdateFlags<CMesh2>::FaceBorderFromFF(m);
+    vcg::tri::UpdateFlags<CMesh2>::VertexBorderFromFace(m);
+
     //tri::UpdateFlags<CMesh2>::FaceBorderFromNone(m); 
    
     // do all the cleaning
-    //tri::Clean<CMesh2>::SplitNonManifoldVertex(m,0.1);
-    tri::Clean<CMesh2>::RemoveNonManifoldFace(m);
-    tri::Clean<CMesh2>::RemoveDegenerateFace(m);
-    tri::Clean<CMesh2>::RemoveDuplicateVertex(m);
-    tri::Clean<CMesh2>::RemoveDuplicateFace(m);
-    tri::Clean<CMesh2>::RemoveUnreferencedVertex(m);
-    tri::Clean<CMesh2>::RemoveNonManifoldVertex(m);
     
-
-   
-
+	// if (*select ==1)
+	//tri::Clean<CMesh2>::SplitNonManifoldVertex(m,0.1);
+ if (*select == 1)
+   tri::Clean<CMesh2>::RemoveUnreferencedVertex(m);
+ if (*select == 2)
+   tri::Clean<CMesh2>::RemoveNonManifoldFace(m);
+ if (*select == 3)
+   tri::Clean<CMesh2>::RemoveDegenerateFace(m);
+ if (*select == 4)
+   tri::Clean<CMesh2>::RemoveNonManifoldVertex(m);
+ 
+ /*tri::Clean<CMesh2>::RemoveDuplicateVertex(m);
+    if (*select == 5)
+    tri::Clean<CMesh2>::RemoveDuplicateFace(m);*/
+ // write back
     vcg::tri::Allocator< CMesh2 >::CompactVertexVector(m);
     vcg::tri::Allocator< CMesh2 >::CompactFaceVector(m);
-    //SimpleTempData<CMesh2::VertContainer,int> indices(m.vert);
     tri::UpdateNormal<CMesh2>::PerVertexAngleWeighted(m);
     tri::UpdateNormal<CMesh2>::NormalizePerVertex(m);
-    i=0;
-    //size=Edges.size();
-    // for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
     
+
     vi=m.vert.begin();
     for (i=0;  i < m.vn; i++) 
       {
-	indices[vi] = i;//important: updates vertex indices
+	if( ! (&(*vi))->IsD() )
+	  indices[vi] = i;//important: updates vertex indices
 	vb[i*3] = (*vi).P()[0];
 	vb[i*3+1] = (*vi).P()[1];
 	vb[i*3+2] = (*vi).P()[2];
@@ -182,7 +187,7 @@ extern "C" {
 	    ++fi;
 	  }
       }
-    *dimit=m.fn;
+      *dimit=m.fn;
   }
 
 }
