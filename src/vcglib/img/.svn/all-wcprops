@@ -3,30 +3,6 @@ svn:wc:ra_dav:version-url
 V 43
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/img
 END
-img_attributes.h
-K 25
-svn:wc:ra_dav:version-url
-V 60
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_attributes.h
-END
-img_io.h
-K 25
-svn:wc:ra_dav:version-url
-V 52
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_io.h
-END
-img_base.h
-K 25
-svn:wc:ra_dav:version-url
-V 54
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_base.h
-END
-img_info.h
-K 25
-svn:wc:ra_dav:version-url
-V 54
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_info.h
-END
 img_cs_base.h
 K 25
 svn:wc:ra_dav:version-url
@@ -62,4 +38,28 @@ K 25
 svn:wc:ra_dav:version-url
 V 56
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_scalar.h
+END
+img_attributes.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_attributes.h
+END
+img_io.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_io.h
+END
+img_base.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_base.h
+END
+img_info.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/img/img_info.h
 END

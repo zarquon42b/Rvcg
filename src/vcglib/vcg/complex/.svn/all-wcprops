@@ -1,35 +1,47 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/svnroot/vcg/!svn/ver/4434/trunk/vcglib/vcg/complex
-END
-allocate.h
-K 25
-svn:wc:ra_dav:version-url
-V 62
-/svnroot/vcg/!svn/ver/4361/trunk/vcglib/vcg/complex/allocate.h
-END
-used_types.h
-K 25
-svn:wc:ra_dav:version-url
-V 64
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/used_types.h
+/svnroot/vcg/!svn/ver/4884/trunk/vcglib/vcg/complex
 END
 append.h
 K 25
 svn:wc:ra_dav:version-url
 V 60
-/svnroot/vcg/!svn/ver/4373/trunk/vcglib/vcg/complex/append.h
+/svnroot/vcg/!svn/ver/4829/trunk/vcglib/vcg/complex/append.h
 END
 complex.h
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svnroot/vcg/!svn/ver/4367/trunk/vcglib/vcg/complex/complex.h
+/svnroot/vcg/!svn/ver/4767/trunk/vcglib/vcg/complex/complex.h
+END
+base.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4881/trunk/vcglib/vcg/complex/base.h
 END
 all_types.h
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/all_types.h
+/svnroot/vcg/!svn/ver/4538/trunk/vcglib/vcg/complex/all_types.h
+END
+exception.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4773/trunk/vcglib/vcg/complex/exception.h
+END
+allocate.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4850/trunk/vcglib/vcg/complex/allocate.h
+END
+used_types.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vcg/!svn/ver/4593/trunk/vcglib/vcg/complex/used_types.h
 END

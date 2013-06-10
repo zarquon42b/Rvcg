@@ -9,8 +9,6 @@
 #include <limits>
 #include <iostream>
 
-
-
 template<typename _DataType>
 class ConstDataWrapper
 {
@@ -31,6 +29,15 @@ protected:
 		const unsigned char* mpData;
 		int mStride;
 		size_t mSize;
+};
+
+template<class MeshType>
+class VertexConstDataWrapper :public  ConstDataWrapper<typename MeshType::CoordType>
+{
+public:
+  inline VertexConstDataWrapper(MeshType &m):
+    ConstDataWrapper<typename MeshType::CoordType> ( &(m.vert[0].P()), m.vert.size(), sizeof(typename MeshType::VertexType))
+     {}
 };
 
 /**
@@ -158,7 +165,7 @@ void KdTree<Scalar>::setMaxNofNeighbors(unsigned int k)
         * a simple stack is by far much faster.
   *
   * The result of the query, the k-nearest neighbors, are internally stored into a stack, where the
-  * topmost element
+  * topmost element [0] is NOT the nearest but the farthest!! (they are not sorted but arranged into a heap)
         */
 template<typename Scalar>
 void KdTree<Scalar>::doQueryK(const VectorType& queryPoint)

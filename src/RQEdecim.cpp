@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 // stuff to define the mesh
-#include <vcg/simplex/vertex/base.h>
+/*#include <vcg/simplex/vertex/base.h>
 #include <vcg/simplex/face/base.h>
-#include <vcg/simplex/edge/base.h>
+#include <vcg/simplex/edge/base.h>*/
 #include <vcg/complex/complex.h>
 #include <vcg/math/quadric.h>
 #include <vcg/complex/algorithms/clean.h>
@@ -40,59 +40,60 @@ class CFace;
 struct CUsedTypes: public UsedTypes<Use<CVertex>::AsVertexType,Use<CEdge>::AsEdgeType,Use<CFace>::AsFaceType>{};
 
 class CVertex  : public Vertex< CUsedTypes,
-  vertex::VFAdj,
-  vertex::Coord3f,
-  vertex::Normal3f,
-  vertex::Mark,
-  vertex::BitFlags  >{
+				vertex::VFAdj,
+				vertex::Coord3f,
+				vertex::Normal3f,
+				vertex::Mark,
+				vertex::BitFlags  >{
 public:
   vcg::math::Quadric<double> &Qd() {return q;}
 private:
   math::Quadric<double> q;
-  };
+};
 
 class CEdge : public Edge< CUsedTypes> {};
 
 typedef BasicVertexPair<CVertex> VertexPair;
 
 class CFace    : public Face< CUsedTypes,
-  face::VFAdj,
-  face::VertexRef,
-  face::BitFlags > {};
+			      face::VFAdj,
+			      //face::FFAdj,
+			      face::VertexRef,
+			      face::BitFlags > {};
 
 // the main mesh class
-class CMeshO    : public vcg::tri::TriMesh<std::vector<CVertex>, std::vector<CFace> > {};
+class CMeshDec    : public vcg::tri::TriMesh<std::vector<CVertex>, std::vector<CFace> > {};
 
-class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > {
-            public:
-            typedef  vcg::tri::TriEdgeCollapseQuadric< CMeshO,  VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > TECQ;
-            typedef  CMeshO::VertexType::EdgeType EdgeType;
-            inline CTriEdgeCollapse(  const VertexPair &p, int i, BaseParameterClass *pp) :TECQ(p,i,pp){}
+class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshDec, VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > {
+public:
+  typedef  vcg::tri::TriEdgeCollapseQuadric< CMeshDec,  VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > TECQ;
+  typedef  CMeshDec::VertexType::EdgeType EdgeType;
+  inline CTriEdgeCollapse(  const VertexPair &p, int i, BaseParameterClass *pp) :TECQ(p,i,pp){}
 
 };
 
- extern "C" {
+extern "C" {
 
-   void RQEdecim(double *vb ,int *dim, int *it, int *dimit,int *Finsize,double *normals)
+  void RQEdecim(double *vb ,int *dim, int *it, int *dimit,int *Finsize,double *normals,int *topo,int *qual,int *bound)
   {
     // typedefs
-    typedef CMeshO::VertexIterator VertexIterator;
-    typedef CMeshO::FacePointer  FacePointer;
-    typedef CMeshO::FaceIterator   FaceIterator;
-    typedef CMeshO::CoordType CoordType;
-    typedef CMeshO::ScalarType ScalarType;
-    typedef CMeshO::VertexPointer VertexPointer;
+    typedef CMeshDec::VertexIterator VertexIterator;
+    typedef CMeshDec::FacePointer  FacePointer;
+    typedef CMeshDec::FaceIterator   FaceIterator;
+    typedef CMeshDec::CoordType CoordType;
+    typedef CMeshDec::ScalarType ScalarType;
+    typedef CMeshDec::VertexPointer VertexPointer;
     //set local variables
     ScalarType x,y,z;
     int i;
     int FinalSize=*Finsize;
     int d = *dim;
     int faced = *dimit;
-    CMeshO m;
+    CMeshDec m;
    
     // fill mesh with data from R workspace
-    vcg::tri::Allocator<CMeshO>::AddVertices(m,d);
-    vcg::tri::Allocator<CMeshO>::AddFaces(m,faced);
+    vcg::tri::Allocator<CMeshDec>::AddVertices(m,d);
+    vcg::tri::Allocator<CMeshDec>::AddFaces(m,faced);
     //VertexPointer ivp[d];
     std::vector<VertexPointer> ivp;
     ivp.resize(d);
@@ -118,25 +119,34 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
 	(*fi).V(2)=ivp[itz];
 	++fi;
       }
-    //tri::io::ExporterPLY<CMeshO>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
+    //tri::io::ExporterPLY<CMeshDec>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
     //initiate decimation process
     TriEdgeCollapseQuadricParameter qparams;
     float TargetError=std::numeric_limits<float>::max();
-    /*qparams.QualityThr =.3;
+    ///qparams.QualityThr =.3;
     qparams.QualityCheck = true;
     qparams.OptimalPlacement = true;
     qparams.PreserveTopology	= true;
-    qparams.PreserveBoundary	= true; */
-    int dup = tri::Clean<CMeshO>::RemoveDuplicateVertex(m);
-    int unref =  tri::Clean<CMeshO>::RemoveUnreferencedVertex(m);
+    qparams.PreserveBoundary	= true;
+    if (*topo == 0)
+      qparams.PreserveTopology	= false;
+    if (*qual == 0)
+      qparams.OptimalPlacement = true;
+    if (*bound == 0)
+      qparams.PreserveBoundary	= false;
+   
+   
+   
+    int dup = tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
+    int unref =  tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);
    
     
     printf("reducing it to %i faces\n",FinalSize);
     
-    vcg::tri::UpdateBounding<CMeshO>::Box(m);
+    vcg::tri::UpdateBounding<CMeshDec>::Box(m);
     
     // decimator initialization
-    vcg::LocalOptimization<CMeshO> DeciSession(m,&qparams);
+    vcg::LocalOptimization<CMeshDec> DeciSession(m,&qparams);
     
     int t1=clock();
     DeciSession.Init<CTriEdgeCollapse>();
@@ -150,18 +160,16 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     while(DeciSession.DoOptimization() && m.fn>FinalSize && DeciSession.currMetric < TargetError)
       // printf("Final Mesh size: %7i heap sz %9i err %9g \r",m.fn, int(DeciSession.h.size()),DeciSession.currMetric);
     
-    int t3=clock();
+      int t3=clock();
    
     //printf("\nCompleted in (%i+%i) msec\n",t2-t1,t3-t2);
     
-    //update mesh structure and write back output
-    
-    vcg::tri::Allocator< CMeshO >::CompactVertexVector(m);
-    vcg::tri::Allocator< CMeshO >::CompactFaceVector(m);
-    SimpleTempData<CMeshO::VertContainer,int> indices(m.vert);
-    tri::UpdateNormals<CMeshO>::PerVertexAngleWeighted(m);
-    tri::UpdateNormals<CMeshO>::NormalizeVertex(m);
-     printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
+    vcg::tri::Allocator< CMeshDec >::CompactVertexVector(m);
+    vcg::tri::Allocator< CMeshDec >::CompactFaceVector(m);
+    SimpleTempData<CMeshDec::VertContainer,int> indices(m.vert);
+    tri::UpdateNormal<CMeshDec>::PerVertexAngleWeighted(m);
+    tri::UpdateNormal<CMeshDec>::NormalizePerVertex(m);
+    printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
     
     vi=m.vert.begin();
     for (i=0;  i < m.vn; i++) 
@@ -202,6 +210,6 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshO, VertexP
     
   }
    
- }
+}
  
   

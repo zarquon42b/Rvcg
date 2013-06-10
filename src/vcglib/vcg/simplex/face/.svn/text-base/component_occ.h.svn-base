@@ -20,37 +20,15 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-/****************************************************************************
-  History
-
-$Log: not supported by cvs2svn $
-Revision 1.6  2007/03/12 15:37:19  tarini
-Texture coord name change!  "TCoord" and "Texture" are BAD. "TexCoord" is GOOD.
-
-Revision 1.5  2007/01/18 01:29:48  cignoni
-commented UberP access method (syntax errors)
-
-Revision 1.4  2006/12/04 10:59:15  ganovelli
-aggiunte funzioni di override per Has*
-
-Revision 1.3  2006/06/08 20:32:10  ganovelli
-aggiunte wedge coord
-
-Revision 1.2  2005/10/18 14:27:22  ganovelli
-EdgePLaneType added (_RT)
-
-Revision 1.1  2005/10/15 16:23:39  ganovelli
-Working release (compilata solo su MSVC), component_occ � migrato da component_opt
-
-
-****************************************************************************/
 
 /* 
-Note
 OCC = Optional Component Compact
 compare with OCF(Optional Component Fast)
+*/
 
-****************************************************************************/
+#ifndef __VCG_MESH
+#error "This file should not be included alone. It is automatically included by complex.h"
+#endif
 #ifndef __VCG_FACE_PLUS_COMPONENT_OCC
 #define __VCG_FACE_PLUS_COMPONENT_OCC
 
@@ -245,8 +223,6 @@ public:
 	inline const 	CoordType & cP1( const int j ) const { return cV((j+1)%3)->P();}
 	inline const 	CoordType & cP2( const int j ) const { return cV((j+2)%3)->P();}
 
-	//inline       typename T::VertexType *       & UberV( const int j )	      { assert(j>=0 && j<3); return v[j]; }
-	//inline const typename T::VertexType * const & UberV( const int j ) const	{ assert(j>=0 && j<3);	return v[j];	}
   static bool HasVertexRef()   { return true; }
 };
   } // end namespace face

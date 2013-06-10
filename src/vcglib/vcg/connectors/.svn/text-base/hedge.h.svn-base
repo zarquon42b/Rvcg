@@ -20,17 +20,10 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
+#include <vcg/complex/complex.h>
 
 #ifndef __VCG_HEDGE_ 
 #define __VCG_HEDGE_ 
-
-//#include <vcg/space/point3.h>
-//#include <vcg/space/texcoord2.h>
-//#include <vcg/space/color4.h>
-#include <vcg/complex/all_types.h>
-//#include <vcg/complex/used_types.h>
-#include <vcg/connectors/hedge_component.h>
-#include <vcg/container/derivation_chain.h>
 
 namespace vcg {
 
@@ -107,9 +100,6 @@ public:
 		USER0      = 0x0200			// First user bit
 			};
 
-	inline int & UberFlags () { return this->Flags();	}
-        inline int UberFlags() const 	{		return this->Flags();	}
- 	
 	bool IsD() const {return (this->Flags() & DELETED) != 0;} ///  checks if the vertex is deleted
 	bool IsR() const {return (this->Flags() & NOTREAD) == 0;} ///  checks if the vertex is readable
 	bool IsW() const {return (this->Flags() & NOTWRITE)== 0;}///  checks if the vertex is modifiable
@@ -141,34 +131,40 @@ public:
 	void SetV()		{this->Flags() |=VISITED;}
 	void ClearV()	{this->Flags() &=~VISITED;}
 	
-///  Return the first bit that is not still used
-static int &LastBitFlag()
-		{
-			static int b =USER0;
-			return b;
-		}
+	///  Return the first bit that is not still used
+	static int &FirstUnusedBitFlag()
+	{
+	  static int b =USER0;
+	  return b;
+	}
 
-/// allocate a bit among the flags that can be used by user.
-static inline int NewBitFlag()
-		{
-			LastBitFlag()=LastBitFlag()<<1;
-			return LastBitFlag();
-		}
-// de-allocate a bit among the flags that can be used by user.
-static inline bool DeleteBitFlag(int bitval)
-		{	
-			if(LastBitFlag()==bitval) {
-					LastBitFlag()= LastBitFlag()>>1;
-					return true;
-			}
-			assert(0);
-			return false;
-		}
+	/// Allocate a bit among the flags that can be used by user. It updates the FirstUnusedBitFlag.
+	static inline int NewBitFlag()
+	{
+	  int bitForTheUser = FirstUnusedBitFlag();
+	  FirstUnusedBitFlag()=FirstUnusedBitFlag()<<1;
+	  return bitForTheUser;
+	}
+
+	/// De-allocate a pre allocated bit. It updates the FirstUnusedBitFlag.
+	// Note you must deallocate bit in the inverse order of the allocation (as in a stack)
+	static inline bool DeleteBitFlag(int bitval)
+	{
+	  if(FirstUnusedBitFlag()>>1==bitval) {
+		FirstUnusedBitFlag() = FirstUnusedBitFlag()>>1;
+		return true;
+	  }
+	  assert(0);
+	  return false;
+	}
+
 	/// This function checks if the given user bit is true
 	bool IsUserBit(int userBit){return (this->Flags() & userBit) != 0;}
-	/// This function set  the given user bit 
+
+	/// This function set the given user bit
 	void SetUserBit(int userBit){this->Flags() |=userBit;}
-	/// This function clear the given user bit 
+
+	/// This function clear the given user bit
 	void ClearUserBit(int userBit){this->Flags() &= (~userBit);}
 
  template<class BoxType>

@@ -119,10 +119,10 @@ extern "C" {
     
     vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
     tri::UpdateBounding<MyMesh>::Box(m);
-    tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
-    //tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-    tri::UpdateNormals<MyMesh>::PerVertexNormalized(m);
-    tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
+    tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
+    //tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+    tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
+    tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
     float maxDist = m.bbox.Diag()*2;
     float minDist = 1e-10;
     vcg::tri::FaceTmark<MyMesh> mf; 

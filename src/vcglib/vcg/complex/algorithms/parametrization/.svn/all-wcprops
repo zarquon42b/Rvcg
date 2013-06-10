@@ -1,29 +1,35 @@
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svnroot/vcg/!svn/ver/4417/trunk/vcglib/vcg/complex/algorithms/parametrization
+/svnroot/vcg/!svn/ver/4879/trunk/vcglib/vcg/complex/algorithms/parametrization
 END
-distorsion.h
+distortion.h
 K 25
 svn:wc:ra_dav:version-url
 V 91
-/svnroot/vcg/!svn/ver/4368/trunk/vcglib/vcg/complex/algorithms/parametrization/distorsion.h
+/svnroot/vcg/!svn/ver/4733/trunk/vcglib/vcg/complex/algorithms/parametrization/distortion.h
+END
+voronoi_atlas.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/vcg/!svn/ver/4879/trunk/vcglib/vcg/complex/algorithms/parametrization/voronoi_atlas.h
 END
 tangent_field_operators.h
 K 25
 svn:wc:ra_dav:version-url
 V 104
-/svnroot/vcg/!svn/ver/4417/trunk/vcglib/vcg/complex/algorithms/parametrization/tangent_field_operators.h
+/svnroot/vcg/!svn/ver/4799/trunk/vcglib/vcg/complex/algorithms/parametrization/tangent_field_operators.h
 END
 poisson_solver.h
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/svnroot/vcg/!svn/ver/4343/trunk/vcglib/vcg/complex/algorithms/parametrization/poisson_solver.h
+/svnroot/vcg/!svn/ver/4876/trunk/vcglib/vcg/complex/algorithms/parametrization/poisson_solver.h
 END
 uv_utils.h
 K 25
 svn:wc:ra_dav:version-url
 V 89
-/svnroot/vcg/!svn/ver/4344/trunk/vcglib/vcg/complex/algorithms/parametrization/uv_utils.h
+/svnroot/vcg/!svn/ver/4817/trunk/vcglib/vcg/complex/algorithms/parametrization/uv_utils.h
 END

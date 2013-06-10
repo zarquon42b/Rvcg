@@ -20,86 +20,14 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-/****************************************************************************
-  History
-
-$Log: not supported by cvs2svn $
-Revision 1.12  2008/03/17 11:39:14  ganovelli
-added curvature and curvatruredir (compiled .net 2005 and gcc)
-
-Revision 1.11  2008/02/04 21:26:49  ganovelli
-added ImportData which imports all local attributes into vertexplus and faceplus.
-A local attribute is everything (N(), C(), Q()....) except pointers to other simplices
-(i.e. FFAdj, VFAdj, VertexRef) which are set to NULL.
-Added some function for const attributes
-
-Revision 1.10  2007/03/12 15:37:21  tarini
-Texture coord name change!  "TCoord" and "Texture" are BAD. "TexCoord" is GOOD.
-
-Revision 1.9  2007/02/12 19:00:56  ganovelli
-added Name(std:vector<std::string>& n) that fills n with the names of the attribute of the vertex type
-
-Revision 1.8  2006/09/28 17:34:11  cignoni
-Added Missing GetBBox function
-
-Revision 1.7  2006/02/27 17:42:43  ponchio
-Added some documentation.
-
-Revision 1.6  2005/12/05 15:58:10  cignoni
-Removed spurious definition of flags in Aritymax that was overriding the correct definition in EmplyBitFlags and BitFlags classes
-
-Revision 1.5  2005/12/02 00:44:41  cignoni
-Reformatted and compacted flags code.
-
-Revision 1.4  2005/11/16 22:59:35  cignoni
-Standardized name of flags. It is plural becouse each simplex has many flag.
-
-Revision 1.3  2005/11/12 18:36:51  cignoni
-Added 'Visited' flag functions
-
-Revision 1.2  lags2004/04/03 13:33:55  cignoni
-Missing include
-
-Revision 1.1  2004/03/29 08:36:26  cignoni
-First working version!
-
-
-****************************************************************************/
+#ifndef __VCG_MESH
+#error "This file should not be included alone. It is automatically included by complex.h"
+#endif
 #ifndef __VCG_VERTEX_PLUS
 #define __VCG_VERTEX_PLUS
 
-//#include <vcg/space/point3.h>
-#include <vcg/space/texcoord2.h>
-#include <vcg/space/color4.h>
-#include <vcg/complex/all_types.h>
-#include <vcg/simplex/vertex/component.h>
-//#include <vcg/complex/used_types.h>
-#include <vcg/container/derivation_chain.h>
-
 namespace vcg {
 
-/*------------------------------------------------------------------*/ 
-/* 
-The base class of all the recusive definition chain. It is just a container of the typenames of the various simplexes.
-These typenames must be known form all the derived classes.
-*/
-//
-//template <class BVT, class BET, class BFT, class BTT>
-//class VertexTypeHolder{
-//  public:
-//  typedef BVT VertType;
-//  typedef BET EdgeType;
-//  typedef BFT FaceType;
-//  typedef BTT TetraType;
-//  typedef BVT *VertPointer;
-//  typedef BET *EdgePointer;
-//  typedef BFT *FacePointer;
-//  typedef BTT *TetraPointer;
-//	template < class LeftV>
-//	void ImportData(const LeftV  & /* left */ ) { }
-//    static void Name(std::vector<std::string> & /* name */){}
-//
-//};
 
 /* The base class form which we start to add our components.
 it has the empty definition for all the standard members (coords, color flags)
@@ -111,14 +39,7 @@ In other words we cannot derive and add in a single derivation step
 (with multiple ancestor), both the real (non-empty) normal and color but 
 we have to build the type a step a time (deriving from a single ancestor at a time). 
 
-
-*/ 
-//template <class UserUsedTypes>
-//class VertexBase: public vertex::EmptyCore< UserUsedTypes >{
-//};
-
-
-/* The Real Big Vertex class;
+ The Real Big Vertex class;
 
 The class __VertexArityMax__ is the one that is the Last to be derived,
 and therefore is the only one to know the real members 
@@ -135,8 +56,8 @@ template <class UserTypes,
           template <typename> class C, template <typename> class D,
           template <typename> class E, template <typename> class F,
           template <typename> class G, template <typename> class H,
-					template <typename> class I, template <typename> class J,
-					template <typename> class K, template <typename> class L> 
+          template <typename> class I, template <typename> class J,
+          template <typename> class K, template <typename> class L>
 class VertexArityMax: public Arity12<vertex::EmptyCore<UserTypes>, A, B, C, D, E, F, G, H, I, J, K, L> {
 
 // ----- Flags stuff -----
@@ -155,17 +76,14 @@ public:
 		BORDER     = 0x0100,    // Border Flag
 		USER0      = 0x0200			// First user bit
   };
-
-	inline int & UberFlags () { return this->Flags();	}
-        inline int UberFlags() const 	{		return this->Flags();	}
  	
-	bool IsD() const {return (this->Flags() & DELETED) != 0;} ///  checks if the vertex is deleted
-	bool IsR() const {return (this->Flags() & NOTREAD) == 0;} ///  checks if the vertex is readable
-	bool IsW() const {return (this->Flags() & NOTWRITE)== 0;}///  checks if the vertex is modifiable
-	bool IsRW() const {return (this->Flags() & (NOTREAD | NOTWRITE)) == 0;}/// This funcion checks whether the vertex is both readable and modifiable
-	bool IsS() const {return (this->Flags() & SELECTED) != 0;}///  checks if the vertex is Selected
-	bool IsB() const {return (this->Flags() & BORDER) != 0;}///  checks if the vertex is a border one
-	bool IsV() const {return (this->Flags() & VISITED) != 0;}///  checks if the vertex Has been visited
+    bool IsD() const {return (this->cFlags() & DELETED) != 0;} ///  checks if the vertex is deleted
+    bool IsR() const {return (this->cFlags() & NOTREAD) == 0;} ///  checks if the vertex is readable
+    bool IsW() const {return (this->cFlags() & NOTWRITE)== 0;}///  checks if the vertex is modifiable
+    bool IsRW() const {return (this->cFlags() & (NOTREAD | NOTWRITE)) == 0;}/// This funcion checks whether the vertex is both readable and modifiable
+    bool IsS() const {return (this->cFlags() & SELECTED) != 0;}///  checks if the vertex is Selected
+    bool IsB() const {return (this->cFlags() & BORDER) != 0;}///  checks if the vertex is a border one
+    bool IsV() const {return (this->cFlags() & VISITED) != 0;}///  checks if the vertex Has been visited
 	
 
 	/** Set the flag value
@@ -190,39 +108,45 @@ public:
 	void SetV()		{this->Flags() |=VISITED;}
 	void ClearV()	{this->Flags() &=~VISITED;}
 	
-///  Return the first bit that is not still used
-static int &LastBitFlag()
-		{
-			static int b =USER0;
-			return b;
-		}
+	///  Return the first bit that is not still used
+	static int &FirstUnusedBitFlag()
+	{
+	  static int b =USER0;
+	  return b;
+	}
 
-/// allocate a bit among the flags that can be used by user.
-static inline int NewBitFlag()
-		{
-			LastBitFlag()=LastBitFlag()<<1;
-			return LastBitFlag();
-		}
-// de-allocate a bit among the flags that can be used by user.
-static inline bool DeleteBitFlag(int bitval)
-		{	
-			if(LastBitFlag()==bitval) {
-					LastBitFlag()= LastBitFlag()>>1;
-					return true;
-			}
-			assert(0);
-			return false;
-		}
+	/// Allocate a bit among the flags that can be used by user. It updates the FirstUnusedBitFlag.
+	static inline int NewBitFlag()
+	{
+	  int bitForTheUser = FirstUnusedBitFlag();
+	  FirstUnusedBitFlag()=FirstUnusedBitFlag()<<1;
+	  return bitForTheUser;
+	}
+
+	/// De-allocate a pre allocated bit. It updates the FirstUnusedBitFlag.
+	// Note you must deallocate bit in the inverse order of the allocation (as in a stack)
+	static inline bool DeleteBitFlag(int bitval)
+	{
+	  if(FirstUnusedBitFlag()>>1==bitval) {
+		FirstUnusedBitFlag() = FirstUnusedBitFlag()>>1;
+		return true;
+	  }
+	  assert(0);
+	  return false;
+	}
+
 	/// This function checks if the given user bit is true
 	bool IsUserBit(int userBit){return (this->Flags() & userBit) != 0;}
-	/// This function set  the given user bit 
+
+	/// This function set the given user bit
 	void SetUserBit(int userBit){this->Flags() |=userBit;}
-	/// This function clear the given user bit 
+
+	/// This function clear the given user bit
 	void ClearUserBit(int userBit){this->Flags() &= (~userBit);}
 
  template<class BoxType>
   void GetBBox( BoxType & bb ) const
-  {	  bb.Set(this->P());  }
+  {	  bb.Set(this->cP());  }
 
           };
 

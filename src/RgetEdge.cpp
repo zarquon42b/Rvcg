@@ -7,12 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 // stuff to define the mesh
-#include <vcg/simplex/vertex/base.h>
-#include <vcg/simplex/face/base.h>
-#include <vcg/simplex/edge/base.h>
 #include <vcg/complex/complex.h>
 #include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/update/edges.h>
+
 #include <vcg/complex/algorithms/update/bounding.h>
 #include <vcg/complex/algorithms/update/flag.h>
 #include <vcg/math/quadric.h>

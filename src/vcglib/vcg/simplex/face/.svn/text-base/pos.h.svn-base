@@ -73,7 +73,12 @@ public:
 	/// Default constructor
 	Pos(){}
 	/// Constructor which associates the half-edge element with a face, its edge and its vertex
-	Pos(FaceType * const fp, int const zp, VertexType * const vp){f=fp; z=zp; v=vp;}
+	/// \note that the input must be consistent, e.g. it should hold that \c vp==fp->V0(zp) or \c vp==fp->V1(zp)
+	Pos(FaceType * const fp, int const zp, VertexType * const vp)
+	{
+	  f=fp; z=zp; v=vp;
+	  assert((vp==fp->V0(zp))||(vp==fp->V1(zp)));
+	}
 	Pos(FaceType * const fp, int const zp){f=fp; z=zp; v=f->V(zp);}
 	Pos(FaceType * const fp, VertexType * const vp)
 	{
@@ -206,24 +211,16 @@ public:
 		assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
 	}
 	
-	// return the vertex that it should have if we make FlipV;
-	VertexType *VFlip()
-	{
-		assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
-		if(f->V(f->Next(z))==v)	return f->V(z);
-								else			return f->V(f->Next(z));
-	}
-
-  // return the vertex that it should have if we make FlipV;
-	const VertexType *VFlip() const 
+  /// return the vertex that it should have if we make FlipV;
+    VertexType *VFlip() const
 	{
 		assert(f->cV(f->Prev(z))!=v && (f->cV(f->Next(z))==v || f->cV(z)==v));
 		if(f->cV(f->Next(z))==v)	return f->cV(z);
 								else			return f->cV(f->Next(z));
 	}
 
-  // return the face that it should have if we make FlipF;
-	const FaceType *FFlip() const 
+  /// return the face that it should have if we make FlipF;
+    FaceType *FFlip() const
 	{
 		assert( f->FFp(z)->FFp(f->FFi(z))==f );
 		assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z+0)%f->VN())==v));
@@ -367,20 +364,6 @@ public:
 			} while (ht != *this);
 		}
 };
-
-template <class FaceType>
-/** Class PosN.
-	This structure is equivalent to a Pos, but it contains a normal.
-	@param FaceType (Template-Parameter) Specifies the type of the faces
- */ 
-class PosN : public Pos<FaceType>
-{
-public:
-	typedef typename FaceType::CoordType CoordType;
-	//normale per visualizzazione creaseangle
-	CoordType normal;
-};
-
 
 /** Class VFIterator.
 	This class is used as an iterator over the VF adjacency. 

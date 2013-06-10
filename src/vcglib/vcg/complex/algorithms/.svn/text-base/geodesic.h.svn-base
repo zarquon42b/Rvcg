@@ -20,29 +20,11 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-#include <assert.h>
-#include <vcg/math/base.h>
-#include <vcg/container/simple_temporary_data.h>
 #include <vcg/simplex/face/pos.h>
 #include <vcg/simplex/face/topology.h>
 #include <vcg/complex/algorithms/update/quality.h>
 #include <deque>
-#include <vector>
-#include <list>
 #include <functional>
-
-/*
-class for computing approximated geodesic distances on a mesh.
-
-basic example: farthest vertex from a specified one
-MyMesh m;
-MyMesh::VertexPointer seed,far;
-MyMesh::ScalarType dist;
-
-vcg::Geo<MyMesh> g;
-g.FarthestVertex(m,seed,far,d);
-
-*/
 #ifndef __VCGLIB_GEODESIC
 #define __VCGLIB_GEODESIC
 
@@ -53,20 +35,32 @@ template <class MeshType>
 struct EuclideanDistance{
   typedef typename MeshType::VertexType VertexType;
   typedef typename MeshType::ScalarType  ScalarType;
+  typedef typename MeshType::FacePointer FacePointer;
 
   EuclideanDistance(){}
+
   ScalarType operator()(const VertexType * v0, const VertexType * v1) const
   {return vcg::Distance(v0->cP(),v1->cP());}
+
+  ScalarType operator()(const FacePointer f0, const FacePointer f1) const
+  {return vcg::Distance(Barycenter(*f0),Barycenter(*f1));}
 };
 
+/*! \brief class for computing approximate geodesic distances on a mesh
+
+  require VF Adjacency relation
+\sa trimesh_geodesic.cpp
+*/
+
 template <class MeshType, class DistanceFunctor = EuclideanDistance<MeshType> >
-class Geo{
+class Geodesic{
 
 public:
 
   typedef typename MeshType::VertexType VertexType;
   typedef typename MeshType::VertexIterator VertexIterator;
   typedef typename MeshType::VertexPointer VertexPointer;
+  typedef typename MeshType::FacePointer FacePointer;
   typedef typename MeshType::FaceType  FaceType;
   typedef typename MeshType::CoordType  CoordType;
   typedef typename MeshType::ScalarType  ScalarType;
@@ -82,6 +76,30 @@ public:
     ScalarType d;
   };
 
+
+  struct DIJKDist{
+    DIJKDist(VertexPointer _v):v(_v){}
+    VertexPointer v;
+
+    bool operator < (const DIJKDist &o) const
+    {
+      if( v->Q() != o.v->Q())
+        return v->Q() > o.v->Q();
+      return v<o.v;
+    }
+   };
+
+  /* Auxiliary class for keeping the heap of vertices to visit and their estimated distance */
+    struct FaceDist{
+      FaceDist(FacePointer _f):f(_f){}
+      FacePointer f;
+      bool operator < (const FaceDist &o) const
+      {
+        if( f->Q() != o.f->Q())
+          return f->Q() > o.f->Q();
+        return f<o.f;
+      }
+    };
 
   /* Temporary data to associate to all the vertices: estimated distance and boolean flag */
   struct TempData{
@@ -174,7 +192,8 @@ wrapping function.
     VertexPointer farthest=0,pw,pw1;
 
     //Requirements
-    assert(HasPerVertexVFAdjacency(m) && HasPerFaceVFAdjacency(m));
+    if(!HasVFAdjacency(m)) throw vcg::MissingComponentException("VFAdjacency");
+    if(!HasPerVertexQuality(m)) throw vcg::MissingComponentException("VertexQuality");
     assert(!seedVec.empty());
 
     TempDataType TD(m.vert, std::numeric_limits<ScalarType>::max());
@@ -206,7 +225,7 @@ wrapping function.
       frontier.pop_back();
 
       assert(TD[curr].d <= d_heap);
-      if(TD[curr].d < d_heap )// a vertex whose distance has been improved after it was inserted in the queue
+      if(TD[curr].d < d_heap ) // a vertex whose distance has been improved after it was inserted in the queue
         continue;
       assert(TD[curr].d == d_heap);
 
@@ -277,97 +296,217 @@ wrapping function.
 
 
 public:
-  /*
-      Given a mesh and a vector of pointers to seed vertices, this function assigns the approximated geodesic
-      distance from the closest source to all the mesh vertices  within the
-      specified interval and returns the found vertices writing on their Quality field the distance.
-      Optionally for each vertex it can store, in a passed attribute, its corresponding seed vertex.
-      To allocate such an attribute:
+  /*! \brief Given a set of source vertices compute the approximate geodesic distance to all the other vertices
 
-      typename MeshType::template PerVertexAttributeHandle<VertexPointer> sources;
-      sources =  tri::Allocator<CMeshO>::AddPerVertexAttribute<VertexPointer> (m,"sources");
+\param m the mesh
+\param seedVec a vector of Vertex pointers with the \em sources of the flood fill
+\param maxDistanceThr max distance that we travel on the mesh starting from the sources
+\param withinDistanceVec a pointer to a vector for storing the vertexes reached within the passed maxDistanceThr
+\param sourceSeed pointer to the handle to keep for each vertex its seed
+\param parentSeed pointer to the handle to keep for each vertex its parent in the closest tree
 
+Given a mesh and a vector of pointers to seed vertices, this function compute the approximated geodesic
+distance from the given sources to all the mesh vertices within the given maximum distance threshold.
+The computed distance is stored in the vertex::Quality component.
+Optionally for each vertex it can store, in a passed attribute, the corresponding seed vertex
+(e.g. the vertex of the source set closest to him) and the 'parent' in a tree forest that connects each vertex to the closest source.
+
+To allocate the attributes:
+\code
+      typename MeshType::template PerVertexAttributeHandle<VertexPointer> sourcesHandle;
+      sourcesHandle =  tri::Allocator<CMeshO>::AddPerVertexAttribute<MeshType::VertexPointer> (m,"sources");
+
+      typename MeshType::template PerVertexAttributeHandle<VertexPointer> parentHandle;
+      parentHandle =  tri::Allocator<CMeshO>::AddPerVertexAttribute<MeshType::VertexPointer> (m,"parent");
+\endcode
+
+It requires VF adjacency relation (e.g. vertex::VFAdj and face::VFAdj components)
+It requires per vertex Quality (e.g. vertex::Quality component)
+
+\warning that this function has ALWAYS at least a linear cost (it use additional attributes that have a linear initialization)
+\todo make it O(output) by using incremental mark and persistent attributes.
             */
-  static bool FarthestVertex( MeshType & m,
-                              std::vector<VertexPointer> & seedVec,
-                              VertexPointer & farthest_vert,
-                              ScalarType distance_thr  = std::numeric_limits<ScalarType>::max(),
-                              typename MeshType::template PerVertexAttributeHandle<VertexPointer> * sourceSeed = NULL,
-                              typename MeshType::template PerVertexAttributeHandle<VertexPointer> * parentSeed = NULL,
-                              std::vector<VertexPointer> *InInterval=NULL)
+  static bool Compute( MeshType & m,
+                       const std::vector<VertexPointer> & seedVec,
+                       ScalarType maxDistanceThr  = std::numeric_limits<ScalarType>::max(),
+                       std::vector<VertexPointer> *withinDistanceVec=NULL,
+                       typename MeshType::template PerVertexAttributeHandle<VertexPointer> * sourceSeed = NULL,
+                       typename MeshType::template PerVertexAttributeHandle<VertexPointer> * parentSeed = NULL
+                       )
   {
-    typename std::vector<VertexPointer>::iterator fi;
-    std::vector<VertDist> vdSeedVec;
     if(seedVec.empty())	return false;
+    std::vector<VertDist> vdSeedVec;
+    typename std::vector<VertexPointer>::const_iterator fi;
     for( fi  = seedVec.begin(); fi != seedVec.end() ; ++fi)
         vdSeedVec.push_back(VertDist(*fi,0.0));
-    farthest_vert = Visit(m, vdSeedVec, false, distance_thr, sourceSeed, parentSeed, InInterval);
+
+    Visit(m, vdSeedVec, false, maxDistanceThr, sourceSeed, parentSeed, withinDistanceVec);
     return true;
   }
-  /*
-  Given a mesh and  a  pointers to a vertex-source (source), assigns the approximated geodesic
-  distance from the vertex-source to all the mesh vertices and returns the pointer to the farthest
-  Note: it updates the field Q() of the vertices
-  */
-  static bool FarthestVertex( MeshType & m, VertexPointer seed, ScalarType distance_thr  = std::numeric_limits<ScalarType>::max())
-  {
-    std::vector<VertexPointer>  seedVec(1,seed);
-    VertexPointer v0;
-    return FarthestVertex(m,seedVec,v0,distance_thr);
-  }
 
+  /* \brief Assigns to each vertex of the mesh its distance to the closest vertex on the boundary
 
-  /*
-  Same as FarthestPoint but the returned pointer is to a border vertex
-  Note: update the field Q() of the vertices
-  */
-  static void FarthestBVertex(MeshType & m,
-                              std::vector<VertexPointer> & seedVec,
-                              VertexPointer & farthest,
-                              ScalarType & distance,
-                              typename MeshType::template PerVertexAttributeHandle<VertexPointer> * sources = NULL
-      )
-  {
-    std::vector<VertDist>fr;
-    for(typename std::vector<VertexPointer>::iterator fi  = seedVec.begin(); fi != seedVec.end() ; ++fi)
-      fr.push_back(VertDist(*fi,0));
-    farthest =  Visit(m,fr,distance,true,sources);
-  }
-  /*
-            Same as FarthestPoint but the returned pointer is to a border vertex
-            Note: update the field Q() of the vertices
-            */
-  static void FarthestBVertex(	MeshType & m,
-                                VertexPointer seed,
-                                VertexPointer & farthest,
-                                ScalarType & distance,
-                                typename MeshType::template PerVertexAttributeHandle<VertexPointer> * sources = NULL)
-  {
-    std::vector<VertexPointer>  fro(1,seed);
-    VertexPointer v0;
-    FarthestBVertex(m,fro,v0,distance,sources);
-    farthest = v0;
-  }
+It is just a simple wrapper of the basic Compute()
 
-  /*
-            Assigns to each vertex of the mesh its distance to the closest vertex on the border
             Note: update the field Q() of the vertices
             Note: it needs the border bit set.
             */
-  static bool DistanceFromBorder(	MeshType & m, typename MeshType::template PerVertexAttributeHandle<VertexPointer> * sources = NULL
-      ){
+  static bool DistanceFromBorder(	MeshType & m, typename MeshType::template PerVertexAttributeHandle<VertexPointer> * sources = NULL)
+  {
     std::vector<VertexPointer> fro;
-    VertexIterator vi;
-    VertexPointer farthest;
-    for(vi = m.vert.begin(); vi != m.vert.end(); ++vi)
+    for(VertexIterator vi = m.vert.begin(); vi != m.vert.end(); ++vi)
       if( (*vi).IsB())
         fro.push_back(&(*vi));
     if(fro.empty()) return false;
 
     tri::UpdateQuality<MeshType>::VertexConstant(m,0);
-
-    return FarthestVertex(m,fro,farthest,std::numeric_limits<ScalarType>::max(),sources);
+    return Compute(m,fro,std::numeric_limits<ScalarType>::max(),0,sources);
   }
+
+
+  static bool ConvertPerVertexSeedToPerFaceSeed(MeshType &m, const std::vector<VertexPointer> &vertexSeedVec,
+                                                 std::vector<FacePointer> &faceSeedVec)
+  {
+    tri::RequireVFAdjacency(m);
+    tri::RequirePerFaceMark(m);
+
+    faceSeedVec.clear();
+    tri::UnMarkAll(m);
+    for(size_t i=0;i<vertexSeedVec.size();++i)
+    {
+      for(face::VFIterator<FaceType> vfi(vertexSeedVec[i]);!vfi.End();++vfi)
+      {
+        if(tri::IsMarked(m,vfi.F())) return false;
+        faceSeedVec.push_back(vfi.F());
+        tri::Mark(m,vfi.F());
+      }
+    }
+    return true;
+  }
+
+
+  static void PerFaceDijsktraCompute(MeshType &m, const std::vector<FacePointer> &seedVec,
+                                     ScalarType maxDistanceThr  = std::numeric_limits<ScalarType>::max(),
+                                     std::vector<FacePointer> *InInterval=NULL,
+                                     FacePointer FaceTarget=NULL,
+                                     bool avoid_selected=false)
+  {
+    tri::RequireFFAdjacency(m);
+    tri::RequirePerFaceMark(m);
+    tri::RequirePerFaceQuality(m);
+
+    typename MeshType::template PerFaceAttributeHandle<FacePointer> sourceHandle
+        = tri::Allocator<MeshType>::template GetPerFaceAttribute<FacePointer> (m,"sources");
+
+    typename MeshType::template PerFaceAttributeHandle<FacePointer> parentHandle
+        = tri::Allocator<MeshType>::template GetPerFaceAttribute<FacePointer> (m,"parent");
+
+    std::vector<FaceDist> Heap;
+    tri::UnMarkAll(m);
+    for(size_t i=0;i<seedVec.size();++i)
+    {
+      tri::Mark(m,seedVec[i]);
+      seedVec[i]->Q()=0;
+      sourceHandle[seedVec[i]]=seedVec[i];
+      parentHandle[seedVec[i]]=seedVec[i];
+      Heap.push_back(FaceDist(seedVec[i]));
+      if (InInterval!=NULL) InInterval->push_back(seedVec[i]);
+    }
+
+    std::make_heap(Heap.begin(),Heap.end());
+    while(!Heap.empty())
+    {
+      pop_heap(Heap.begin(),Heap.end());
+      FacePointer curr = (Heap.back()).f;
+      if ((FaceTarget!=NULL)&&(curr==FaceTarget))return;
+      Heap.pop_back();
+
+      for(int i=0;i<3;++i)
+      {
+        if(!face::IsBorder(*curr,i) )
+        {
+          FacePointer nextF = curr->FFp(i);
+          ScalarType nextDist = curr->Q() + DistanceFunctor()(curr,nextF);
+          if( (nextDist < maxDistanceThr) &&
+              (!tri::IsMarked(m,nextF) ||  nextDist < nextF->Q()) )
+          {
+            nextF->Q() = nextDist;
+            if ((avoid_selected)&&(nextF->IsS()))continue;
+            tri::Mark(m,nextF);
+            Heap.push_back(FaceDist(nextF));
+            push_heap(Heap.begin(),Heap.end());
+            if (InInterval!=NULL) InInterval->push_back(nextF);
+            sourceHandle[nextF] = sourceHandle[curr];
+            parentHandle[nextF] = curr;
+//            printf("Heapsize %i nextDist = %f curr face %i next face %i \n",Heap.size(), nextDist, tri::Index(m,curr), tri::Index(m,nextF));
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+  static void PerVertexDijsktraCompute(MeshType &m, const std::vector<VertexPointer> &seedVec,
+                                     ScalarType maxDistanceThr  = std::numeric_limits<ScalarType>::max(),
+                                     std::vector<VertexPointer> *InInterval=NULL,bool avoid_selected=false,
+                                     VertexPointer target=NULL)
+  {
+    tri::RequireVFAdjacency(m);
+    tri::RequirePerVertexMark(m);
+    tri::RequirePerVertexQuality(m);
+
+    typename MeshType::template PerVertexAttributeHandle<VertexPointer> sourceHandle
+        = tri::Allocator<MeshType>::template GetPerVertexAttribute<VertexPointer> (m,"sources");
+
+    typename MeshType::template PerVertexAttributeHandle<VertexPointer> parentHandle
+        = tri::Allocator<MeshType>::template GetPerVertexAttribute<VertexPointer> (m,"parent");
+
+    std::vector<DIJKDist> Heap;
+    tri::UnMarkAll(m);
+
+    for(size_t i=0;i<seedVec.size();++i)
+    {
+      assert(!tri::IsMarked(m,seedVec[i]));
+      tri::Mark(m,seedVec[i]);
+      seedVec[i]->Q()=0;
+      sourceHandle[seedVec[i]]=seedVec[i];
+      parentHandle[seedVec[i]]=seedVec[i];
+      Heap.push_back(DIJKDist(seedVec[i]));
+      if (InInterval!=NULL) InInterval->push_back(seedVec[i]);
+    }
+
+    std::make_heap(Heap.begin(),Heap.end());
+    while(!Heap.empty())
+    {
+      pop_heap(Heap.begin(),Heap.end());
+      VertexPointer curr = (Heap.back()).v;
+      if ((target!=NULL)&&(target==curr))return;
+      Heap.pop_back();
+      std::vector<VertexPointer> vertVec;
+      face::VVStarVF<FaceType>(curr,vertVec);
+      for(size_t i=0;i<vertVec.size();++i)
+      {
+        VertexPointer nextV = vertVec[i];
+        if ((avoid_selected)&&(nextV->IsS()))continue;
+        ScalarType nextDist = curr->Q() + DistanceFunctor()(curr,nextV);
+        if( (nextDist < maxDistanceThr) &&
+            (!tri::IsMarked(m,nextV) ||  nextDist < nextV->Q()) )
+        {
+          nextV->Q() = nextDist;
+          tri::Mark(m,nextV);
+          Heap.push_back(DIJKDist(nextV));
+          push_heap(Heap.begin(),Heap.end());
+          if (InInterval!=NULL) InInterval->push_back(nextV);
+          sourceHandle[nextV] = sourceHandle[curr];
+          parentHandle[nextV] = curr;
+//          printf("Heapsize %i nextDist = %f curr vert %i next vert %i \n",Heap.size(), nextDist, tri::Index(m,curr), tri::Index(m,nextV));
+        }
+      }
+    }
+  }
+
 
 };// end class
 }// end namespace tri

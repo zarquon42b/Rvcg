@@ -2,7 +2,6 @@
 #define VCG_BITQUAD_SUPPORT
 #include <vector>
 #include <set>
-#include <vcg/complex/algorithms/subset.h>
 #include <vcg/simplex/face/jumping_pos.h>
 #include <vcg/simplex/face/topology.h>
 #include <vcg/space/planar_polygon_tessellation.h>
@@ -71,7 +70,7 @@ public:
   typedef typename VertexType::ScalarType ScalarType;
   static void Apply( const VertexType &a,  const VertexType &b, ScalarType t, VertexType &res){
     /*assert (&a != &b);*/
-    res.P() = a.P()*(1-t) + b.P()*(t);
+    res.P() = a.cP()*(1-t) + b.cP()*(t);
     if (a.IsB()||b.IsB()) res.SetB();
   }
 };
@@ -204,7 +203,7 @@ static void FlipDiag(FaceType &f){
 
 
 // given a vertex (i.e. a face and a wedge), 
-// this function tells us how the totale edge lenght around a vertex would change
+// this function tells us how the totale edge length around a vertex would change
 // if that vertex is rotated
 static ScalarType EdgeLenghtVariationIfVertexRotated(const FaceType &f, int w0)
 {
@@ -239,7 +238,7 @@ static ScalarType EdgeLenghtVariationIfVertexRotated(const FaceType &f, int w0)
 }
 
 // given a vertex (i.e. a face and a wedge), 
-// this function tells us how the totale edge lenght around a vertex would change
+// this function tells us how the totale edge length around a vertex would change
 // if that vertex is rotated
 static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
 {
@@ -640,7 +639,7 @@ static bool IsSingletFF(const FaceType& f, int wedge){
 
 // version that uses vertex valency
 static bool IsSinglet(const FaceType& f, int wedge){
-  return (GetValency( f.V(wedge) ) == 1) && (!f.V(wedge)->IsB() ) ;
+  return (GetValency( f.cV(wedge) ) == 1) && (!f.cV(wedge)->IsB() ) ;
 }
 
 static bool CollapseEdgeDirect(FaceType &f, int w0, MeshType& m){
@@ -911,7 +910,7 @@ static void SetValency(VertexType *v, int n){
 
 static int GetValency(const VertexType *v){
   //return (int)(v->cQ());
-  return ( v->Flags() >> (VALENCY_FLAGS) ) & 255;
+  return ( v->cFlags() >> (VALENCY_FLAGS) ) & 255;
 }
 
 static void IncreaseValency(VertexType *v, int dv=1){

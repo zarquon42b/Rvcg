@@ -1,49 +1,37 @@
 K 25
 svn:wc:ra_dav:version-url
 V 54
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen
-END
-StdList
-K 25
-svn:wc:ra_dav:version-url
-V 62
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/StdList
-END
-Eigen
-K 25
-svn:wc:ra_dav:version-url
-V 60
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Eigen
-END
-Jacobi
-K 25
-svn:wc:ra_dav:version-url
-V 61
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Jacobi
-END
-Core
-K 25
-svn:wc:ra_dav:version-url
-V 59
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/Core
+/svnroot/vcg/!svn/ver/4823/trunk/vcglib/eigenlib/Eigen
 END
 Geometry
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Geometry
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Geometry
 END
 SVD
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/Eigen/SVD
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/SVD
+END
+SuperLUSupport
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/SuperLUSupport
+END
+OrderingMethods
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/OrderingMethods
 END
 Sparse
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Sparse
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Sparse
 END
 Dense
 K 25
@@ -51,29 +39,59 @@ svn:wc:ra_dav:version-url
 V 60
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Dense
 END
+PardisoSupport
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/PardisoSupport
+END
+SparseCholesky
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/SparseCholesky
+END
 QtAlignedMalloc
 K 25
 svn:wc:ra_dav:version-url
 V 70
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/QtAlignedMalloc
 END
+IterativeLinearSolvers
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/IterativeLinearSolvers
+END
+PaStiXSupport
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/PaStiXSupport
+END
 Eigen2Support
 K 25
 svn:wc:ra_dav:version-url
 V 68
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Eigen2Support
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Eigen2Support
+END
+SparseCore
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/SparseCore
 END
 Eigenvalues
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Eigenvalues
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Eigenvalues
 END
 LeastSquares
 K 25
 svn:wc:ra_dav:version-url
 V 67
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/LeastSquares
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/LeastSquares
 END
 CMakeLists.txt
 K 25
@@ -85,7 +103,7 @@ StdVector
 K 25
 svn:wc:ra_dav:version-url
 V 64
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/StdVector
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/StdVector
 END
 Array
 K 25
@@ -97,29 +115,65 @@ StdDeque
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/StdDeque
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/StdDeque
 END
 LU
 K 25
 svn:wc:ra_dav:version-url
 V 57
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/LU
-END
-Cholesky
-K 25
-svn:wc:ra_dav:version-url
-V 63
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Cholesky
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/LU
 END
 Householder
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Householder
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Householder
+END
+Cholesky
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Cholesky
+END
+CholmodSupport
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/CholmodSupport
 END
 QR
 K 25
 svn:wc:ra_dav:version-url
 V 57
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/QR
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/QR
+END
+UmfPackSupport
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/UmfPackSupport
+END
+StdList
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/StdList
+END
+Jacobi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Jacobi
+END
+Eigen
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/Eigen/Eigen
+END
+Core
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/Eigen/Core
 END

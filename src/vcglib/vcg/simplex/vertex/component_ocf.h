@@ -20,81 +20,19 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-/****************************************************************************
-	History
-
-$Log: not supported by cvs2svn $
-Revision 1.16  2008/04/03 23:15:40  cignoni
-added optional mark and cleaned up some nasty type bugs.
-
-Revision 1.15  2008/03/17 11:39:15  ganovelli
-added curvature and curvatruredir (compiled .net 2005 and gcc)
-
-Revision 1.14  2008/03/11 09:22:07  cignoni
-Completed the garbage collecting functions CompactVertexVector and CompactFaceVector.
-
-Revision 1.13  2008/02/05 20:42:43  cignoni
-Other small typos
-
-Revision 1.12  2008/02/04 21:26:49  ganovelli
-added ImportData which imports all local attributes into vertexplus and faceplus.
-A local attribute is everything (N(), C(), Q()....) except pointers to other simplices
-(i.e. FFAdj, VFAdj, VertexRef) which are set to NULL.
-Added some function for const attributes
-
-Revision 1.11  2007/12/11 18:25:31  cignoni
-added missing include limits
-
-Revision 1.10  2007/12/11 11:36:03  cignoni
-Added the CompactVertexVector garbage collecting function.
-
-Revision 1.9  2006/12/11 23:42:00  ganovelli
-bug Index()() instead of Index()
-
-Revision 1.8  2006/12/04 11:17:42  ganovelli
-added forward declaration of TriMesh
-
-Revision 1.7  2006/11/07 17:22:52  cignoni
-many gcc compiling issues
-
-Revision 1.6  2006/11/07 15:13:57  zifnab1974
-Necessary changes for compilation with gcc 3.4.6. Especially the hash function is a problem
-
-Revision 1.5  2006/11/07 11:29:24  cignoni
-Corrected some errors in the reflections Has*** functions
-
-Revision 1.4  2006/10/31 16:02:59  ganovelli
-vesione 2005 compliant
-
-Revision 1.3  2006/02/28 11:59:55  ponchio
-g++ compliance:
-
-begin() -> (*this).begin() and for end(), size(), Base(), Index()
-
-Revision 1.2  2005/12/12 11:17:32  cignoni
-Corrected update function, now only the needed simplexes should be updated.
-
-Revision 1.1  2005/10/14 15:07:59  cignoni
-First Really Working version
-
-
-****************************************************************************/
 
 /*
-Note
 OCF = Optional Component Fast (hopefully)
 compare with OCC(Optional Component Compact)
-
-Mainly the trick here is to store a base pointer in each simplex...
-
-****************************************************************************/
+*/
+#ifndef __VCG_MESH
+#error "This file should not be included alone. It is automatically included by complex.h"
+#endif
 #ifndef __VCG_VERTEX_PLUS_COMPONENT_OCF
 #define __VCG_VERTEX_PLUS_COMPONENT_OCF
-
-#include <vcg/simplex/vertex/component.h>
-
-#include <vector>
-#include <limits>
+#ifndef __VCG_MESH
+#error "This file should not be included alone. It is automatically included by complex.h"
+#endif
 
 namespace vcg {
 	namespace vertex {
@@ -108,21 +46,23 @@ class vector_ocf: public std::vector<VALUE_TYPE> {
 	typedef typename vector_ocf<VALUE_TYPE>::iterator ThisTypeIterator;
 
 public:
-	vector_ocf():std::vector<VALUE_TYPE>(){
-		ColorEnabled = false;
+  vector_ocf():std::vector<VALUE_TYPE>()
+  {
+    ColorEnabled = false;
     CurvatureEnabled = false;
     CurvatureDirEnabled = false;
     MarkEnabled = false;
-		NormalEnabled = false;
+    NormalEnabled = false;
     QualityEnabled = false;
     RadiusEnabled = false;
     TexCoordEnabled = false;
-		VFAdjacencyEnabled = false;
-	}
+    VFAdjacencyEnabled = false;
+  }
 
-	// override di tutte le funzioni che possono spostare
-	// l'allocazione in memoria del container
-	void push_back(const VALUE_TYPE & v)
+////////////////////////////////////////
+// All the standard methods of std::vector that can change the reallocation are
+// redefined in order to manage the additional data.
+  void push_back(const VALUE_TYPE & v)
 	{
 		BaseType::push_back(v);
 		BaseType::back()._ovp = this;
@@ -135,7 +75,9 @@ public:
 		if (CurvatureDirEnabled)  CuDV.push_back(typename VALUE_TYPE::CurvatureDirType());
 		if (RadiusEnabled)        RadiusV.push_back(typename VALUE_TYPE::RadiusType());
 	}
+
 	void pop_back();
+
 	void resize(const unsigned int & _size)
 	{
 		const unsigned int oldsize = BaseType::size();
@@ -184,7 +126,6 @@ void EnableQuality() {
 	QualityEnabled=true;
 	QV.resize((*this).size());
 }
-
 void DisableQuality() {
 	assert(VALUE_TYPE::HasQualityOcf());
 	QualityEnabled=false;
@@ -197,7 +138,6 @@ void EnableColor() {
 	ColorEnabled=true;
 	CV.resize((*this).size());
 }
-
 void DisableColor() {
 	assert(VALUE_TYPE::HasColorOcf());
 	ColorEnabled=false;
@@ -208,9 +148,8 @@ bool IsMarkEnabled() const {return MarkEnabled;}
 void EnableMark() {
 	assert(VALUE_TYPE::HasMarkOcf());
 	MarkEnabled=true;
-	MV.resize((*this).size());
+	MV.resize((*this).size(),0);
 }
-
 void DisableMark() {
 	assert(VALUE_TYPE::HasMarkOcf());
 	MarkEnabled=false;
@@ -223,7 +162,6 @@ void EnableNormal() {
 	NormalEnabled=true;
 	NV.resize((*this).size());
 }
-
 void DisableNormal() {
 	assert(VALUE_TYPE::HasNormalOcf());
 	NormalEnabled=false;
@@ -237,7 +175,6 @@ void EnableVFAdjacency() {
 	VFAdjType zero; zero._fp=0; zero._zp=-1;
 	AV.resize((*this).size(),zero);
 }
-
 void DisableVFAdjacency() {
 	assert(VALUE_TYPE::HasVFAdjacencyOcf());
 	VFAdjacencyEnabled=false;
@@ -250,7 +187,6 @@ void EnableCurvature() {
 	CurvatureEnabled=true;
 	CuV.resize((*this).size());
 }
-
 void DisableCurvature() {
 	assert(VALUE_TYPE::HasCurvatureOcf());
 	CurvatureEnabled=false;
@@ -263,7 +199,6 @@ void EnableCurvatureDir() {
 	CurvatureDirEnabled=true;
 	CuDV.resize((*this).size());
 }
-
 void DisableCurvatureDir() {
 	assert(VALUE_TYPE::HasCurvatureDirOcf());
 	CurvatureDirEnabled=false;
@@ -276,7 +211,6 @@ void EnableRadius() {
 	RadiusEnabled=true;
 	RadiusV.resize((*this).size());
 }
-
 void DisableRadius() {
 	assert(VALUE_TYPE::HasRadiusOcf());
 	RadiusEnabled=false;
@@ -290,12 +224,12 @@ void EnableTexCoord() {
 	TexCoordEnabled=true;
 	TV.resize((*this).size());
 }
-
 void DisableTexCoord() {
 	assert(VALUE_TYPE::HasTexCoordOcf());
 	TexCoordEnabled=false;
 	TV.clear();
 }
+
 struct VFAdjType {
 	typename VALUE_TYPE::FacePointer _fp ;
 	int _zp ;
@@ -304,21 +238,21 @@ struct VFAdjType {
 public:
   std::vector<typename VALUE_TYPE::ColorType> CV;
   std::vector<typename VALUE_TYPE::CurvatureType> CuV;
-	std::vector<typename VALUE_TYPE::CurvatureDirType> CuDV;
+  std::vector<typename VALUE_TYPE::CurvatureDirType> CuDV;
   std::vector<int> MV;
   std::vector<typename VALUE_TYPE::NormalType> NV;
   std::vector<typename VALUE_TYPE::QualityType> QV;
-	std::vector<typename VALUE_TYPE::RadiusType> RadiusV;
-	std::vector<typename VALUE_TYPE::TexCoordType> TV;
-	std::vector<struct VFAdjType> AV;
+  std::vector<typename VALUE_TYPE::RadiusType> RadiusV;
+  std::vector<typename VALUE_TYPE::TexCoordType> TV;
+  std::vector<struct VFAdjType> AV;
 
   bool ColorEnabled;
-	bool CurvatureEnabled;
-	bool CurvatureDirEnabled;
+  bool CurvatureEnabled;
+  bool CurvatureDirEnabled;
   bool MarkEnabled;
   bool NormalEnabled;
   bool QualityEnabled;
-	bool RadiusEnabled;
+  bool RadiusEnabled;
   bool TexCoordEnabled;
   bool VFAdjacencyEnabled;
 };
@@ -332,17 +266,16 @@ public:
 
 template <class T> class VFAdjOcf: public T {
 public:
-	typename T::FacePointer &VFp() {
+	typename T::FacePointer &VFp()       {
 		assert((*this).Base().VFAdjacencyEnabled);
 		return (*this).Base().AV[(*this).Index()]._fp;
 	}
-
 	typename T::FacePointer cVFp() const {
 		if(! (*this).Base().VFAdjacencyEnabled ) return 0;
 		else return (*this).Base().AV[(*this).Index()]._fp;
 	}
 
-    int &VFi() {
+    int &VFi()       {
         assert((*this).Base().VFAdjacencyEnabled);
         return (*this).Base().AV[(*this).Index()]._zp;
     }
@@ -350,16 +283,17 @@ public:
         if(! (*this).Base().VFAdjacencyEnabled ) return -1;
         return (*this).Base().AV[(*this).Index()]._zp;
     }
-    template <class LeftV>
-	void ImportData(const LeftV & leftV)
+    template <class RightVertexType>
+    void ImportData(const RightVertexType & rightV)
 	{
-		T::ImportData(leftV);
+		T::ImportData(rightV);
 	}
 
   static bool HasVFAdjacency()   {   return true; }
   static bool HasVFAdjacencyOcf()   {   return true; }
-	static bool IsVFAdjacencyEnabled(const typename T::VertexType *vp)   {return vp->Base().VFAdjacencyEnabled;}
+  bool IsVFAdjacencyEnabled(const typename T::VertexType *vp)   {return vp->Base().VFAdjacencyEnabled;}
 
+   static void Name(std::vector<std::string> & name){name.push_back(std::string("VFAdjOcf"));T::Name(name);}
 private:
 };
 
@@ -367,77 +301,74 @@ private:
 
 template <class A, class T> class NormalOcf: public T {
 public:
-	typedef A NormalType;
-	static bool HasNormal()   { return true; }
-	static bool HasNormalOcf()   { return true; }
+  typedef A NormalType;
+  inline bool IsNormalEnabled( )       const  { return this->Base().IsNormalEnabled(); }
+  static bool HasNormal()   { return true; }
+  static bool HasNormalOcf()   { return true; }
 
-	NormalType &N() {
-		// you cannot use Normals before enabling them with: yourmesh.vert.EnableNormal()
-		assert((*this).Base().NormalEnabled);
-		return (*this).Base().NV[(*this).Index()];  }
-	const NormalType &N() const {
-		// you cannot use Normals before enabling them with: yourmesh.vert.EnableNormal()
-		assert((*this).Base().NormalEnabled);
-		return (*this).Base().NV[(*this).Index()];  }
+  const NormalType &N() const { assert((*this).Base().NormalEnabled); return (*this).Base().NV[(*this).Index()];  }
+        NormalType &N()       { assert((*this).Base().NormalEnabled); return (*this).Base().NV[(*this).Index()];  }
+        NormalType cN() const { assert((*this).Base().NormalEnabled); return (*this).Base().NV[(*this).Index()];  }
 
-	const NormalType &cN() const {
-		// you cannot use Normals before enabling them with: yourmesh.vert.EnableNormal()
-		assert((*this).Base().NormalEnabled);
-		return (*this).Base().NV[(*this).Index()];  }
-
-	template <class LeftV>
-	void ImportData(const LeftV & leftV){
-			if((*this).Base().NormalEnabled && leftV.Base().NormalEnabled ) // copy the data only if they are enabled in both vertices
-				N().Import(leftV.cN());
-			T::ImportData(leftV);}
+  template <class RightVertexType>
+  void ImportData(const RightVertexType & rightV){
+    if((*this).IsNormalEnabled() && rightV.IsNormalEnabled() )
+      N().Import(rightV.cN());
+    T::ImportData(rightV);}
 };
 
-template <class T> class Normal3sOcf: public NormalOcf<vcg::Point3s, T> {};
-template <class T> class Normal3fOcf: public NormalOcf<vcg::Point3f, T> {};
-template <class T> class Normal3dOcf: public NormalOcf<vcg::Point3d, T> {};
+template <class T> class Normal3sOcf: public NormalOcf<vcg::Point3s, T> {public: static void Name(std::vector<std::string> & name){name.push_back(std::string("Normal3sOcf"));T::Name(name);}};
+template <class T> class Normal3fOcf: public NormalOcf<vcg::Point3f, T> {public: static void Name(std::vector<std::string> & name){name.push_back(std::string("Normal3fOcf"));T::Name(name);}};
+template <class T> class Normal3dOcf: public NormalOcf<vcg::Point3d, T> {public: static void Name(std::vector<std::string> & name){name.push_back(std::string("Normal3dOcf"));T::Name(name);}};
 
 ///*-------------------------- COLOR ----------------------------------*/
 
 template <class A, class T> class ColorOcf: public T {
 public:
-	typedef A ColorType;
-	ColorType &C() { assert((*this).Base().ColorEnabled); return (*this).Base().CV[(*this).Index()]; }
-	const ColorType &C() const { return this->cC(); }
-	const ColorType &cC() const { assert((*this).Base().ColorEnabled); return (*this).Base().CV[(*this).Index()]; }
-	template <class LeftV>
-	void ImportData(const LeftV & leftV)
-		{
-			if((*this).Base().ColorEnabled && leftV.Base().ColorEnabled ) // copy the data only if they are enabled in both vertices
-					C() = leftV.cC();
-			T::ImportData(leftV);
-		}
+  typedef A ColorType;
+  const ColorType &C() const { assert((*this).Base().ColorEnabled); return (*this).Base().CV[(*this).Index()]; }
+        ColorType &C()       { assert((*this).Base().ColorEnabled); return (*this).Base().CV[(*this).Index()]; }
+        ColorType cC() const { assert((*this).Base().ColorEnabled); return (*this).Base().CV[(*this).Index()]; }
+  template <class RightVertexType>
+  void ImportData(const RightVertexType & rightV)
+  {
+    if((*this).IsColorEnabled() && rightV.IsColorEnabled() )
+      C() = rightV.cC();
+    T::ImportData(rightV);
+  }
 
-	static bool HasColor()   { return true; }
-	static bool HasColorOcf()   { assert(!T::HasColorOcf()); return true; }
+  inline bool IsColorEnabled()         const  { return this->Base().IsColorEnabled();}
+  static bool HasColor()   { return true; }
+  static bool HasColorOcf()   { assert(!T::HasColorOcf()); return true; }
 };
 
-template <class T> class Color4bOcf: public ColorOcf<vcg::Color4b, T> {};
+template <class T> class Color4bOcf: public ColorOcf<vcg::Color4b, T> {
+public: static void Name(std::vector<std::string> & name){name.push_back(std::string("Color4bOcf"));T::Name(name);}
+};
 
 ///*-------------------------- QUALITY  ----------------------------------*/
 
 template <class A, class T> class QualityOcf: public T {
 public:
-	typedef A QualityType;
-	QualityType &Q() { assert((*this).Base().QualityEnabled); return (*this).Base().QV[(*this).Index()]; }
-	const QualityType &cQ() const { assert((*this).Base().QualityEnabled); return (*this).Base().QV[(*this).Index()]; }
-	template <class LeftV>
-	void ImportData(const LeftV & leftV)
-		{
-//			if((*this).Base().QualityEnabled && leftV.Base().QualityEnabled ) // copy the data only if they are enabled in both vertices
-      if((*this).Base().QualityEnabled && leftV.HasQuality() ) // copy the data only if they are enabled in both vertices
-						Q() = leftV.cQ();
-			T::ImportData(leftV);
-		}
-	static bool HasQuality()   { return true; }
-	static bool HasQualityOcf()   { assert(!T::HasQualityOcf()); return true; }
+  typedef A QualityType;
+  const QualityType &Q() const { assert((*this).Base().QualityEnabled); return (*this).Base().QV[(*this).Index()]; }
+        QualityType &Q()       { assert((*this).Base().QualityEnabled); return (*this).Base().QV[(*this).Index()]; }
+        QualityType cQ() const { assert((*this).Base().QualityEnabled); return (*this).Base().QV[(*this).Index()]; }
+  template <class RightVertexType>
+  void ImportData(const RightVertexType & rightV)
+  {
+    if((*this).IsQualityEnabled() && rightV.IsQualityEnabled() ) // copy the data only if they are enabled in both vertices
+      Q() = rightV.cQ();
+    T::ImportData(rightV);
+  }
+  inline bool IsQualityEnabled( )      const  { return this->Base().IsQualityEnabled(); }
+  static bool HasQuality()   { return true; }
+  static bool HasQualityOcf()   { assert(!T::HasQualityOcf()); return true; }
 };
 
-template <class T> class QualityfOcf: public QualityOcf<float, T> {};
+template <class T> class QualityfOcf: public QualityOcf<float, T> {
+public: static void Name(std::vector<std::string> & name){name.push_back(std::string("QualityfOcf"));T::Name(name);}
+};
 
 
 ///*-------------------------- TEXTURE  ----------------------------------*/
@@ -445,49 +376,47 @@ template <class T> class QualityfOcf: public QualityOcf<float, T> {};
 template <class A, class TT> class TexCoordOcf: public TT {
 public:
   typedef A TexCoordType;
-  TexCoordType &T() {  assert((*this).Base().TexCoordEnabled); return (*this).Base().TV[(*this).Index()]; }
-  const TexCoordType &T() const { return this->cT(); }
-  const TexCoordType &cT() const {  assert((*this).Base().TexCoordEnabled); return (*this).Base().TV[(*this).Index()]; }
-	template < class LeftV>
-	void ImportData(const LeftV & leftV)
-		{
-			//if((*this).Base().TexCoordEnabled && leftV.Base().TexCoordEnabled ) // WRONG I do not know anything about leftV!
-		if((*this).Base().TexCoordEnabled) // copy the data only if they are enabled in both vertices
-						T() = leftV.cT();
-			TT::ImportData(leftV);
-		}
-	static bool HasTexCoord()   { return true; }
-	static bool HasTexCoordOcf()   { assert(!TT::HasTexCoordOcf()); return true; }
+  const TexCoordType &T() const { assert((*this).Base().TexCoordEnabled); return (*this).Base().TV[(*this).Index()]; }
+        TexCoordType &T()       { assert((*this).Base().TexCoordEnabled); return (*this).Base().TV[(*this).Index()]; }
+        TexCoordType cT() const { assert((*this).Base().TexCoordEnabled); return (*this).Base().TV[(*this).Index()]; }
+  template < class RightVertexType>
+  void ImportData(const RightVertexType & rightV)
+  {
+    if((*this).IsTexCoordEnabled() && rightV.IsTexCoordEnabled()) // copy the data only if they are enabled in both vertices
+      T() = rightV.cT();
+    TT::ImportData(rightV);
+  }
+  inline bool IsTexCoordEnabled( )     const  { return this->Base().IsTexCoordEnabled(); }
+  static bool HasTexCoord()   { return true; }
+  static bool HasTexCoordOcf()   { assert(!TT::HasTexCoordOcf()); return true; }
 };
 
-template <class T> class TexCoordfOcf: public TexCoordOcf<TexCoord2<float,1>, T> {};
+template <class T> class TexCoordfOcf: public TexCoordOcf<TexCoord2<float,1>, T> {
+public: static void Name(std::vector<std::string> & name){name.push_back(std::string("TexCoordfOcf"));T::Name(name);}
+};
 
 ///*-------------------------- MARK  ----------------------------------*/
 
 template <class T> class MarkOcf: public T {
 public:
-    typedef int MarkType;
-	inline int & IMark()       {
-		assert((*this).Base().MarkEnabled);
-		return (*this).Base().MV[(*this).Index()];
-	}
+  typedef int MarkType;
+  inline const int &IMark() const { assert((*this).Base().MarkEnabled);  return (*this).Base().MV[(*this).Index()];   }
+  inline       int &IMark()       { assert((*this).Base().MarkEnabled);  return (*this).Base().MV[(*this).Index()];   }
+  inline       int cIMark() const {  assert((*this).Base().MarkEnabled); return (*this).Base().MV[(*this).Index()]; }
 
-	inline int IMark() const   {
-		assert((*this).Base().MarkEnabled);
-		return (*this).Base().MV[(*this).Index()];
-	}
+  template <class RightVertexType>
+  void ImportData(const RightVertexType & rightV)
+  {
+    if((*this).IsMarkEnabled() && rightV.IsMarkEnabled()) // copy the data only if they are enabled in both vertices
+      IMark() = rightV.cIMark();
+    T::ImportData(rightV);
+  }
+  inline bool IsMarkEnabled( )         const  { return this->Base().IsMarkEnabled(); }
+  static bool HasMark()   { return true; }
+  static bool HasMarkOcf()   { return true; }
+  inline void InitIMark()    { IMark() = 0; }
+  static void Name(std::vector<std::string> & name){name.push_back(std::string("IMark"));T::Name(name);}
 
-	template <class LeftV>
-	void ImportData(const LeftV & leftV)
-	{
-		//if((*this).Base().MarkEnabled && leftV.Base().MarkEnabled ) // WRONG I do not know anything about leftV!
-		if((*this).Base().MarkEnabled) // copy the data only if they are enabled in both vertices
-				IMark() = leftV.IMark();
-		T::ImportData(leftV);
-	}
-	static bool HasMark()   { return true; }
-	static bool HasMarkOcf()   { return true; }
-	inline void InitIMark()    { IMark() = 0; }
 };
 
 
@@ -495,36 +424,31 @@ public:
 
 template <class A, class TT> class CurvatureOcf: public TT {
 public:
-	typedef Point2<A> CurvatureType;
-	typedef typename CurvatureType::ScalarType ScalarType;
+  typedef Point2<A> CurvatureType;
+  typedef typename CurvatureType::ScalarType ScalarType;
 
-	ScalarType  &Kh(){  assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][0];}
-	ScalarType  &Kg(){  assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][1];}
-	const ScalarType &cKh() const { assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][0];}
-	const ScalarType &cKg() const { assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][1];}
+  ScalarType &Kh(){  assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][0];}
+  ScalarType &Kg(){  assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][1];}
+  ScalarType cKh() const { assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][0];}
+  ScalarType cKg() const { assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][1];}
 
-	template <class LeftV>
-	void ImportData(const LeftV & leftV){
-//		if((*this).Base().CurvatureEnabled && leftV.Base().CurvatureEnabled ) // WRONG I do not know anything about leftV!
-      if((*this).Base().CurvatureEnabled && LeftV::IsCurvatureEnabled(&leftV))
-			{
-				(*this).Base().CuV[(*this).Index()][0] = leftV.cKh();
-				(*this).Base().CuV[(*this).Index()][1] = leftV.cKg();
-			}
-		TT::ImportData(leftV);
-	}
+  template <class RightVertexType>
+  void ImportData(const RightVertexType & rightV){
+    if((*this).IsCurvatureEnabled() && rightV.IsCurvatureEnabled())
+    {
+      (*this).Base().CuV[(*this).Index()][0] = rightV.cKh();
+      (*this).Base().CuV[(*this).Index()][1] = rightV.cKg();
+    }
+    TT::ImportData(rightV);
+  }
 
+  inline bool IsCurvatureEnabled( )    const  { return this->Base().IsCurvatureDirEnabled(); }
   static bool HasCurvature() { return true; }
-	static bool IsCurvatureEnabled(const typename TT::VertexType *v)   { return v->Base().CurvatureEnabled; }
-
-	static bool HasCurvatureOcf()   { return true; }
-	static void Name(std::vector<std::string> & name){name.push_back(std::string("CurvatureOcf"));TT::Name(name);}
-
-private:
+  static bool HasCurvatureOcf()   { return true; }
 };
 
-template <class T> class CurvaturefOcf: public CurvatureOcf<float, T> {};
-template <class T> class CurvaturedOcf: public CurvatureOcf<double, T> {};
+template <class T> class CurvaturefOcf: public CurvatureOcf<float, T> {public: static void Name(std::vector<std::string> & name){name.push_back(std::string("CurvaturefOcf"));T::Name(name);} };
+template <class T> class CurvaturedOcf: public CurvatureOcf<double, T> {public: static void Name(std::vector<std::string> & name){name.push_back(std::string("CurvaturedOcf"));T::Name(name);} };
 
 
 ///*-------------------------- CURVATURE DIR ----------------------------------*/
@@ -541,39 +465,37 @@ struct CurvatureDirTypeOcf{
 
 template <class A, class TT> class CurvatureDirOcf: public TT {
 public:
-	typedef A CurvatureDirType;
-	typedef typename CurvatureDirType::VecType VecType;
-	typedef typename CurvatureDirType::ScalarType ScalarType;
+  typedef A CurvatureDirType;
+  typedef typename CurvatureDirType::VecType VecType;
+  typedef typename CurvatureDirType::ScalarType ScalarType;
 
-	VecType &PD1(){ assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
-	VecType &PD2(){ assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
-  const VecType &cPD1() const {assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
-  const VecType &cPD2() const {assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
+  VecType &PD1()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
+  VecType &PD2()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
+  VecType cPD1() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
+  VecType cPD2() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
 
-	ScalarType &K1(){ assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
-	ScalarType &K2(){ assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
-	const ScalarType &cK1() const {assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
-	const ScalarType &cK2()const  {assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
+  ScalarType &K1()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
+  ScalarType &K2()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
+  ScalarType cK1() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
+  ScalarType cK2() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
 
-  template <class LeftV>
-	void ImportData(const LeftV & leftV){
-//		if((*this).Base().CurvatureEnabled && leftV.Base().CurvatureEnabled ) // WRONG I do not know anything about leftV!
-    if((*this).Base().CurvatureDirEnabled && LeftV::IsCurvatureDirEnabled(&leftV))
-      {
-        (*this).PD1() = leftV.cPD1();
-        (*this).PD2() = leftV.cPD2();
-        (*this).K1() = leftV.cK1();
-        (*this).K2() = leftV.cK2();
-      }
-		TT::ImportData(leftV);
+  template <class RightVertexType>
+  void ImportData(const RightVertexType & rightV){
+    if((*this).IsCurvatureDirEnabled() && rightV.IsCurvatureDirEnabled())
+    {
+      (*this).PD1() = rightV.cPD1();
+      (*this).PD2() = rightV.cPD2();
+      (*this).K1() = rightV.cK1();
+      (*this).K2() = rightV.cK2();
+    }
+    TT::ImportData(rightV);
   }
+
+  inline bool IsCurvatureDirEnabled( ) const  { return this->Base().IsCurvatureDirEnabled(); }
   static bool HasCurvatureDir()  { return true; }
   static bool HasCurvatureDirOcf()  { return true; }
   static void Name(std::vector<std::string> & name){name.push_back(std::string("CurvatureDirOcf"));TT::Name(name);}
-
-private:
-};
-
+  };
 
 template <class T> class CurvatureDirfOcf: public CurvatureDirOcf<CurvatureDirTypeOcf<float>, T> {
 public:	static void Name(std::vector<std::string> & name){name.push_back(std::string("CurvatureDirfOcf"));T::Name(name);}
@@ -587,26 +509,25 @@ public:	static void Name(std::vector<std::string> & name){name.push_back(std::st
 
 template <class A, class TT> class RadiusOcf: public TT {
 public:
-	typedef A RadiusType;
-	typedef RadiusType ScalarType;
+  typedef A RadiusType;
+  typedef RadiusType ScalarType;
 
-	RadiusType &R(){  assert((*this).Base().RadiusEnabled); return (*this).Base().RadiusV[(*this).Index()];}
-	const RadiusType &cR() const { assert((*this).Base().RadiusEnabled); return (*this).Base().RadiusV[(*this).Index()];}
+  const RadiusType &R() const { assert((*this).Base().RadiusEnabled); return (*this).Base().RadiusV[(*this).Index()];}
+        RadiusType &R()       { assert((*this).Base().RadiusEnabled); return (*this).Base().RadiusV[(*this).Index()];}
+        RadiusType cR() const { assert((*this).Base().RadiusEnabled); return (*this).Base().RadiusV[(*this).Index()];}
 
-	template <class LeftV>
-	void ImportData(const LeftV & leftV)
-	{
-		//if ((*this).Base().RadiusEnabled && leftV.Base().RadiusEnabled ) // WRONG I do not know anything about leftV!
-		if ((*this).Base().RadiusEnabled) 
-			(*this).Base().RadiusV[(*this).Index()] = leftV.cR();
-		TT::ImportData(leftV);
-	}
+  template <class RightVertexType>
+  void ImportData(const RightVertexType & rightV)
+  {
+    if ((*this).IsRadiusEnabled() && rightV.IsRadiusEnabled())
+      (*this).Base().RadiusV[(*this).Index()] = rightV.cR();
+    TT::ImportData(rightV);
+  }
 
-	static bool HasRadius()     { return true; }
-	static bool HasRadiusOcf()  { return true; }
-	static void Name(std::vector<std::string> & name){name.push_back(std::string("RadiusOcf")); TT::Name(name);}
-
-private:
+  inline bool IsRadiusEnabled( )       const  { return this->Base().IsRadiusEnabled(); }
+  static bool HasRadius()     { return true; }
+  static bool HasRadiusOcf()  { return true; }
+  static void Name(std::vector<std::string> & name){name.push_back(std::string("RadiusOcf")); TT::Name(name);}
 };
 
 template <class T> class RadiusfOcf: public RadiusOcf<float, T> {};
@@ -633,7 +554,13 @@ public:
 public:
 	vector_ocf<typename T::VertexType> *_ovp;
 
+	static bool HasColorOcf()   { return false; }
+	static bool HasCurvatureOcf()   { return false; }
+	static bool HasCurvatureDirOcf()   { return false; }
+	static bool HasNormalOcf()   { return false; }
+	static bool HasMarkOcf()   { return false; }
 	static bool HasQualityOcf()   { return false; }
+	static bool HasRadiusOcf()   { return false; }
 	static bool HasTexCoordOcf()   { return false; }
 	static bool HasVFAdjacencyOcf()   { return false; }
 };
@@ -645,7 +572,7 @@ public:
 namespace tri
 {
 template < class VertexType >
-bool VertexVectorHasPerVertexVFAdjacency(const vertex::vector_ocf<VertexType> &fv)
+bool VertexVectorHasVFAdjacency(const vertex::vector_ocf<VertexType> &fv)
 {
   if(VertexType::HasVFAdjacencyOcf()) return fv.IsVFAdjacencyEnabled();
   else return VertexType::HasVFAdjacency();

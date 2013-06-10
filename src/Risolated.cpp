@@ -8,12 +8,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 // stuff to define the mesh
-#include <vcg/simplex/vertex/base.h>
+/*#include <vcg/simplex/vertex/base.h>
 #include <vcg/simplex/face/base.h>
-#include <vcg/simplex/edge/base.h>
+#include <vcg/simplex/edge/base.h>*/
 #include <vcg/complex/complex.h>
 #include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/update/edges.h>
+//#include <vcg/complex/algorithms/update/edges.h>
 #include <vcg/complex/algorithms/update/bounding.h>
 #include <vcg/complex/algorithms/update/flag.h>
 #include <vcg/math/quadric.h>
@@ -164,8 +164,8 @@ extern "C" {
     vcg::tri::Allocator< CMesh1 >::CompactVertexVector(m);
     vcg::tri::Allocator< CMesh1 >::CompactFaceVector(m);
     SimpleTempData<CMesh1::VertContainer,int> indices(m.vert);
-    tri::UpdateNormals<CMesh1>::PerVertexAngleWeighted(m);
-    tri::UpdateNormals<CMesh1>::NormalizeVertex(m);
+    tri::UpdateNormal<CMesh1>::PerVertexAngleWeighted(m);
+    tri::UpdateNormal<CMesh1>::NormalizePerVertex(m);
 
     vi=m.vert.begin();
     for (i=0;  i < m.vn; i++) 

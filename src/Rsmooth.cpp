@@ -112,8 +112,8 @@ else if (method == 4)
       }
      vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
     vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
-    tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-    tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
+    tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+    tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
    
     //write back output
     vi=m.vert.begin();

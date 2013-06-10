@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 48
-/svnroot/vcg/!svn/ver/4436/trunk/vcglib/wrap/glw
+/svnroot/vcg/!svn/ver/4814/trunk/vcglib/wrap/glw
 END
 type.h
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svnroot/vcg/!svn/ver/4409/trunk/vcglib/wrap/glw/type.h
+/svnroot/vcg/!svn/ver/4494/trunk/vcglib/wrap/glw/type.h
 END
 geometryshader.h
 K 25
@@ -19,19 +19,19 @@ framebuffer.h
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/svnroot/vcg/!svn/ver/4428/trunk/vcglib/wrap/glw/framebuffer.h
+/svnroot/vcg/!svn/ver/4494/trunk/vcglib/wrap/glw/framebuffer.h
 END
 context.h
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svnroot/vcg/!svn/ver/4436/trunk/vcglib/wrap/glw/context.h
+/svnroot/vcg/!svn/ver/4814/trunk/vcglib/wrap/glw/context.h
 END
 texture2d.h
 K 25
 svn:wc:ra_dav:version-url
 V 60
-/svnroot/vcg/!svn/ver/4426/trunk/vcglib/wrap/glw/texture2d.h
+/svnroot/vcg/!svn/ver/4502/trunk/vcglib/wrap/glw/texture2d.h
 END
 common.h
 K 25
@@ -63,6 +63,12 @@ svn:wc:ra_dav:version-url
 V 60
 /svnroot/vcg/!svn/ver/4393/trunk/vcglib/wrap/glw/glheaders.h
 END
+texturecube.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/vcg/!svn/ver/4494/trunk/vcglib/wrap/glw/texturecube.h
+END
 texture.h
 K 25
 svn:wc:ra_dav:version-url
@@ -79,7 +85,7 @@ utility.h
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svnroot/vcg/!svn/ver/4415/trunk/vcglib/wrap/glw/utility.h
+/svnroot/vcg/!svn/ver/4494/trunk/vcglib/wrap/glw/utility.h
 END
 vertexshader.h
 K 25

@@ -1,15 +1,15 @@
 10
 
 dir
-4436
+4888
 https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/vcg/complex/algorithms/parametrization
 https://vcg.svn.sourceforge.net/svnroot/vcg
 
 
 
-2012-05-25T13:21:11.789032Z
-4417
-pietroni
+2013-04-03T10:07:29.655724Z
+4879
+cignoni
 
 
 
@@ -26,84 +26,16 @@ pietroni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-poisson_solver.h
+distortion.h
 file
 
 
 
 
-2012-03-29T11:43:44.176625Z
-82a6b4e1f588e5564c9cd14b225760f3
-2012-03-08T18:09:09.505554Z
-4343
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-22179
-
-uv_utils.h
-file
-
-
-
-
-2012-03-29T11:43:44.176625Z
-fa4636f530ab842195c9b2f5ead992a8
-2012-03-08T18:09:31.775412Z
-4344
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4805
-
-distorsion.h
-file
-
-
-
-
-2012-06-19T09:10:35.771552Z
-1e6b985caf4e8b79c9b3fb05ba131fa4
-2012-04-04T09:57:46.519745Z
-4368
+2013-06-10T11:59:08.020425Z
+cca1d04130da7edaa71babe6135e3708
+2012-11-15T19:11:28.863456Z
+4733
 cignoni
 
 
@@ -126,7 +58,41 @@ cignoni
 
 
 
-6886
+9671
+
+voronoi_atlas.h
+file
+
+
+
+
+2013-06-10T11:59:08.020425Z
+b3050025ec71936e1ee0e647c824021c
+2013-04-03T10:07:29.655724Z
+4879
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8181
 
 tangent_field_operators.h
 file
@@ -134,10 +100,10 @@ file
 
 
 
-2012-06-19T09:10:35.771552Z
-83582faff26b69e035f69327b74257bb
-2012-05-25T13:21:11.789032Z
-4417
+2013-06-10T11:59:08.020425Z
+534f628c16fdf03f8d12412e909ee4c6
+2013-01-22T09:58:20.090287Z
+4799
 pietroni
 
 
@@ -160,5 +126,73 @@ pietroni
 
 
 
-20057
+24853
+
+poisson_solver.h
+file
+
+
+
+
+2013-06-10T11:59:08.020425Z
+eea3850233bb7f64f9b3e90634b9d075
+2013-03-30T15:30:18.886575Z
+4876
+pietroni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24809
+
+uv_utils.h
+file
+
+
+
+
+2013-06-10T11:59:08.020425Z
+5e82b4679676215d8704922248c01006
+2013-02-19T13:54:14.305513Z
+4817
+pietroni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5526
 

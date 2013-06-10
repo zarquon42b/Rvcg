@@ -1,15 +1,15 @@
 10
 
 dir
-4436
+4888
 https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/wrap
 https://vcg.svn.sourceforge.net/svnroot/vcg
 
 
 
-2012-06-18T13:47:51.567275Z
-4436
-dibenedetto
+2013-04-15T12:29:54.226667Z
+4883
+corsini
 
 
 
@@ -35,13 +35,19 @@ dir
 mt
 dir
 
+minpack
+dir
+
+bmt
+dir
+
 callback.h
 file
 
 
 
 
-2012-03-29T11:44:13.672771Z
+2013-06-10T11:59:47.648621Z
 f9a6dff9925fc1e740d399ae15c852dc
 2011-10-05T15:04:40.740408Z
 4180
@@ -69,16 +75,7 @@ cignoni
 
 2760
 
-bmt
-dir
-
-minpack
-dir
-
 io_tetramesh
-dir
-
-system
 dir
 
 gui
@@ -87,13 +84,19 @@ dir
 qt
 dir
 
+system
+dir
+
+miq
+dir
+
 utils.h
 file
 
 
 
 
-2012-03-29T11:44:13.672771Z
+2013-06-10T11:59:47.648621Z
 4276f421e179ddad9722c858ad902e1c
 2011-10-05T15:04:40.740408Z
 4180
@@ -121,13 +124,13 @@ cignoni
 
 3295
 
-dae
-dir
-
 math
 dir
 
 glw
+dir
+
+dae
 dir
 
 opensg
@@ -136,10 +139,10 @@ dir
 tsai
 dir
 
-io_trimesh
+gl
 dir
 
-gl
+io_trimesh
 dir
 
 ply

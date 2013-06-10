@@ -20,54 +20,39 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-/****************************************************************************
-History
-
-$Log: not supported by cvs2svn $
-Revision 1.3  2006/03/29 10:12:08  corsini
-Add cast to avoid warning
-
-Revision 1.2  2005/12/12 12:08:30  cignoni
-First working version
-
-Revision 1.1  2005/11/21 15:58:12  cignoni
-First Release (not working!)
-
-
-Revision 1.13  2005/11/17 00:42:03  cignoni
-****************************************************************************/
 #ifndef _VCG_INERTIA_
 #define _VCG_INERTIA_
 
-/*
-The algorithm is based on a three step reduction of the volume integrals
-to successively simpler integrals. The algorithm is designed to minimize
-the numerical errors that can result from poorly conditioned alignment of
-polyhedral faces. It is also designed for efficiency. All required volume
-integrals of a polyhedron are computed together during a single walk over
-the boundary of the polyhedron; exploiting common subexpressions reduces
-floating point operations.
 
-For more information, check out:
-
-Brian Mirtich,
-``Fast and Accurate Computation of Polyhedral Mass Properties,''
-journal of graphics tools, volume 1, number 2, 1996
-
-*/
-
-#include <vcg/math/matrix33.h>
-#include <vcg/math/lin_algebra.h>
-
+#include <eigenlib/Eigen/Core>
+#include <eigenlib/Eigen/Eigenvalues>
 #include <vcg/complex/algorithms/update/normal.h>
+
 namespace vcg
 {
   namespace tri
   {
-template <class InertiaMeshType>
+  /*! \brief Methods for computing Polyhedral Mass properties (like inertia tensor, volume, etc)
+
+
+  The algorithm is based on a three step reduction of the volume integrals
+  to successively simpler integrals. The algorithm is designed to minimize
+  the numerical errors that can result from poorly conditioned alignment of
+  polyhedral faces. It is also designed for efficiency. All required volume
+  integrals of a polyhedron are computed together during a single walk over
+  the boundary of the polyhedron; exploiting common subexpressions reduces
+  floating point operations.
+
+  For more information, check out:
+
+  <b>Brian Mirtich,</b>
+  ``Fast and Accurate Computation of Polyhedral Mass Properties,''
+  journal of graphics tools, volume 1, number 2, 1996
+
+  */
+template <class MeshType>
 class Inertia
 {
-  typedef InertiaMeshType MeshType;
 	typedef typename MeshType::VertexType     VertexType;
 	typedef typename MeshType::VertexPointer  VertexPointer;
 	typedef typename MeshType::VertexIterator VertexIterator;
@@ -98,6 +83,12 @@ private :
  double T0, T1[3], T2[3], TP[3];
 
 public:
+ /*! \brief Basic constructor
+
+   When you create a Inertia object, you have to specify the mesh that it refers to.
+   The properties are computed at that moment. Subsequent modification of the mesh does not affect these values.
+   */
+ Inertia(MeshType &m) {Compute(m);}
 
 /* compute various integrations over projection of face */
  void compProjectionIntegrals(FaceType &f)
@@ -192,9 +183,14 @@ void CompFaceIntegrals(FaceType &f)
 }
 
 
+/*! main function to be called.
+
+  It requires a watertight mesh with per face normals.
+
+*/
 void Compute(MeshType &m)
 {
-  tri::UpdateNormals<MeshType>::PerFaceNormalized(m);
+  tri::UpdateNormal<MeshType>::PerFaceNormalized(m);
   double nx, ny, nz;
 
   T0 = T1[X] = T1[Y] = T1[Z]
@@ -232,11 +228,19 @@ void Compute(MeshType &m)
   TP[X] /= 2; TP[Y] /= 2; TP[Z] /= 2;
 }
 
+/*! \brief Return the Volume (or mass) of the mesh.
+
+Meaningful only if the mesh is watertight.
+*/
 ScalarType Mass()
 {
 	return static_cast<ScalarType>(T0);
 }
 
+/*! \brief Return the Center of Mass (or barycenter) of the mesh.
+
+Meaningful only if the mesh is watertight.
+*/
 Point3<ScalarType>  CenterOfMass()
 {
 	Point3<ScalarType>  r;
@@ -266,51 +270,54 @@ void InertiaTensor(Matrix33<ScalarType> &J ){
   J[Z][X] = J[X][Z] += T0 * r[Z] * r[X];
 }
 
-void InertiaTensor(Matrix44<ScalarType> &J )
+//void InertiaTensor(Matrix44<ScalarType> &J )
+void InertiaTensor(Eigen::Matrix3d &J )
 {
-	J.SetIdentity();
-	Point3<ScalarType>  r;
+  J=Eigen::Matrix3d::Identity();
+  Point3d  r;
   r[X] = T1[X] / T0;
   r[Y] = T1[Y] / T0;
   r[Z] = T1[Z] / T0;
   /* compute inertia tensor */
-  J[X][X] = (T2[Y] + T2[Z]);
-  J[Y][Y] = (T2[Z] + T2[X]);
-  J[Z][Z] = (T2[X] + T2[Y]);
-  J[X][Y] = J[Y][X] = - TP[X];
-  J[Y][Z] = J[Z][Y] = - TP[Y];
-  J[Z][X] = J[X][Z] = - TP[Z];
+  J(X,X) = (T2[Y] + T2[Z]);
+  J(Y,Y) = (T2[Z] + T2[X]);
+  J(Z,Z) = (T2[X] + T2[Y]);
+  J(X,Y) = J(Y,X) = - TP[X];
+  J(Y,Z) = J(Z,Y) = - TP[Y];
+  J(Z,X) = J(X,Z) = - TP[Z];
 
-  J[X][X] -= T0 * (r[Y]*r[Y] + r[Z]*r[Z]);
-  J[Y][Y] -= T0 * (r[Z]*r[Z] + r[X]*r[X]);
-  J[Z][Z] -= T0 * (r[X]*r[X] + r[Y]*r[Y]);
-  J[X][Y] = J[Y][X] += T0 * r[X] * r[Y];
-  J[Y][Z] = J[Z][Y] += T0 * r[Y] * r[Z];
-  J[Z][X] = J[X][Z] += T0 * r[Z] * r[X];
+  J(X,X) -= T0 * (r[Y]*r[Y] + r[Z]*r[Z]);
+  J(Y,Y) -= T0 * (r[Z]*r[Z] + r[X]*r[X]);
+  J(Z,Z) -= T0 * (r[X]*r[X] + r[Y]*r[Y]);
+  J(X,Y) = J(Y,X) += T0 * r[X] * r[Y];
+  J(Y,Z) = J(Z,Y) += T0 * r[Y] * r[Z];
+  J(Z,X) = J(X,Z) += T0 * r[Z] * r[X];
 }
 
 
-/** Compute eigenvalues and eigenvectors of inertia tensor.
-		The eigenvectors make a rotation matrix that aligns the mesh along the axes of min/max inertia
- */
-void InertiaTensorEigen(Matrix44<ScalarType> &EV, Point4<ScalarType> &ev )
+
+/*! \brief Return the Inertia tensor the mesh.
+
+  The result is factored as eigenvalues and eigenvectors (as ROWS).
+*/
+void InertiaTensorEigen(Matrix33<ScalarType> &EV, Point3<ScalarType> &ev )
 {
-	Matrix44<ScalarType> it;
+	Eigen::Matrix3d it;
 	InertiaTensor(it);
-	Matrix44d EVd,ITd;ITd.Import(it);
-  Point4d evd;
-	int n;
-	Jacobi(ITd,evd,EVd,n);
-	EV.Import(EVd);
-	ev.Import(evd);
+	Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> eig(it);
+	Eigen::Vector3d c_val = eig.eigenvalues();
+	Eigen::Matrix3d c_vec = eig.eigenvectors(); // eigenvector are stored as columns.
+	EV.FromEigenMatrix(c_vec);
+	EV.transposeInPlace();
+	ev.FromEigenVector(c_val);
 }
 
 /** Compute covariance matrix of a mesh, i.e. the integral
 		int_{M} { (x-b)(x-b)^T }dx  where b is the barycenter and x spans over the mesh M
  */
-static void Covariance(const MeshType & m, vcg::Point3<ScalarType> & bary, vcg::Matrix33<ScalarType> &C){
+static void Covariance(const MeshType & m, vcg::Point3<ScalarType> & bary, vcg::Matrix33<ScalarType> &C)
+{
 	// find the barycenter
-
 	ConstFaceIterator fi;
 	ScalarType area = 0.0;
 	bary.SetZero();
@@ -338,22 +345,16 @@ static void Covariance(const MeshType & m, vcg::Point3<ScalarType> & bary, vcg::
 	for(fi = m.face.begin(); fi != m.face.end(); ++fi)
 		if(!(*fi).IsD())
 		{
-			const CoordType &P0 = (*fi).P(0);
-			const CoordType &P1 = (*fi).P(1);
-			const CoordType &P2 = (*fi).P(2);
+			const CoordType &P0 = (*fi).cP(0);
+			const CoordType &P1 = (*fi).cP(1);
+			const CoordType &P2 = (*fi).cP(2);
 			CoordType  n = ((P1-P0)^(P2-P0));
 			const float da = n.Norm();
 			n/=da*da;
 
-			#ifndef VCG_USE_EIGEN
 			A.SetColumn(0, P1-P0);
 			A.SetColumn(1, P2-P0);
 			A.SetColumn(2, n);
-			#else
-			A.col(0) = P1-P0;
-			A.col(1) = P2-P0;
-			A.col(2) = n;
-			#endif
 			CoordType delta = P0 - bary;
 
 			/* DC is calculated as integral of (A*x+delta) * (A*x+delta)^T over the triangle,

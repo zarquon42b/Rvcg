@@ -1,7 +1,25 @@
 K 25
 svn:wc:ra_dav:version-url
 V 48
-/svnroot/vcg/!svn/ver/4341/trunk/vcglib/wrap/gui
+/svnroot/vcg/!svn/ver/4839/trunk/vcglib/wrap/gui
+END
+trackball.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/vcg/!svn/ver/4807/trunk/vcglib/wrap/gui/trackball.h
+END
+rubberband.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/rubberband.cpp
+END
+coordinateframe.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/coordinateframe.h
 END
 trackmode.cpp
 K 25
@@ -13,7 +31,7 @@ frustum.h
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svnroot/vcg/!svn/ver/4220/trunk/vcglib/wrap/gui/frustum.h
+/svnroot/vcg/!svn/ver/4451/trunk/vcglib/wrap/gui/frustum.h
 END
 trackutils.h
 K 25
@@ -31,7 +49,7 @@ activecoordinateframe.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 74
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/activecoordinateframe.cpp
+/svnroot/vcg/!svn/ver/4807/trunk/vcglib/wrap/gui/activecoordinateframe.cpp
 END
 trackmode.h
 K 25
@@ -43,7 +61,7 @@ trackball.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/svnroot/vcg/!svn/ver/4341/trunk/vcglib/wrap/gui/trackball.cpp
+/svnroot/vcg/!svn/ver/4807/trunk/vcglib/wrap/gui/trackball.cpp
 END
 trackrecorder.h
 K 25
@@ -55,7 +73,7 @@ view.h
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/view.h
+/svnroot/vcg/!svn/ver/4839/trunk/vcglib/wrap/gui/view.h
 END
 coordinateframe.cpp
 K 25
@@ -68,22 +86,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 72
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/activecoordinateframe.h
-END
-trackball.h
-K 25
-svn:wc:ra_dav:version-url
-V 60
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/trackball.h
-END
-rubberband.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 63
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/rubberband.cpp
-END
-coordinateframe.h
-K 25
-svn:wc:ra_dav:version-url
-V 66
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gui/coordinateframe.h
 END

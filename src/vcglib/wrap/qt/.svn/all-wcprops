@@ -1,13 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/svnroot/vcg/!svn/ver/4413/trunk/vcglib/wrap/qt
+/svnroot/vcg/!svn/ver/4880/trunk/vcglib/wrap/qt
 END
-img_qt.h
+checkGLError.h
 K 25
 svn:wc:ra_dav:version-url
-V 56
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/img_qt.h
+V 62
+/svnroot/vcg/!svn/ver/4860/trunk/vcglib/wrap/qt/checkGLError.h
+END
+outline2_rasterizer.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4880/trunk/vcglib/wrap/qt/outline2_rasterizer.h
 END
 img_qt_convert.h
 K 25
@@ -15,17 +21,11 @@ svn:wc:ra_dav:version-url
 V 64
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/img_qt_convert.h
 END
-col_qt_convert.h
+img_qt.h
 K 25
 svn:wc:ra_dav:version-url
-V 64
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/col_qt_convert.h
-END
-gl_label.h
-K 25
-svn:wc:ra_dav:version-url
-V 58
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/gl_label.h
+V 56
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/img_qt.h
 END
 shot_qt.h
 K 25
@@ -33,17 +33,47 @@ svn:wc:ra_dav:version-url
 V 57
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/shot_qt.h
 END
+col_qt_convert.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/col_qt_convert.h
+END
+Outline2ToQImage.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/vcg/!svn/ver/4871/trunk/vcglib/wrap/qt/Outline2ToQImage.cpp
+END
+Outline2ToQImage.h
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/vcg/!svn/ver/4871/trunk/vcglib/wrap/qt/Outline2ToQImage.h
+END
+trackball.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/trackball.h
+END
+gl_label.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/vcg/!svn/ver/4860/trunk/vcglib/wrap/qt/gl_label.h
+END
 anttweakbarMapper.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 69
 /svnroot/vcg/!svn/ver/4339/trunk/vcglib/wrap/qt/anttweakbarMapper.cpp
 END
-PolyToQImage.cpp
+outline2_rasterizer.cpp
 K 25
 svn:wc:ra_dav:version-url
-V 64
-/svnroot/vcg/!svn/ver/4413/trunk/vcglib/wrap/qt/PolyToQImage.cpp
+V 71
+/svnroot/vcg/!svn/ver/4871/trunk/vcglib/wrap/qt/outline2_rasterizer.cpp
 END
 img_qt_io.h
 K 25
@@ -51,33 +81,15 @@ svn:wc:ra_dav:version-url
 V 59
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/img_qt_io.h
 END
-anttweakbarMapper.h
-K 25
-svn:wc:ra_dav:version-url
-V 67
-/svnroot/vcg/!svn/ver/4330/trunk/vcglib/wrap/qt/anttweakbarMapper.h
-END
 to_string.h
 K 25
 svn:wc:ra_dav:version-url
 V 59
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/to_string.h
 END
-PolyToQImage.h
+anttweakbarMapper.h
 K 25
 svn:wc:ra_dav:version-url
-V 62
-/svnroot/vcg/!svn/ver/4413/trunk/vcglib/wrap/qt/PolyToQImage.h
-END
-checkGLError.h
-K 25
-svn:wc:ra_dav:version-url
-V 62
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/checkGLError.h
-END
-trackball.h
-K 25
-svn:wc:ra_dav:version-url
-V 59
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/qt/trackball.h
+V 67
+/svnroot/vcg/!svn/ver/4330/trunk/vcglib/wrap/qt/anttweakbarMapper.h
 END

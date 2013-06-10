@@ -3,6 +3,12 @@ svn:wc:ra_dav:version-url
 V 53
 /svnroot/vcg/!svn/ver/4200/trunk/vcglib/vcg/container
 END
+simple_temporary_data.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/container/simple_temporary_data.h
+END
 entries_allocation_table.h
 K 25
 svn:wc:ra_dav:version-url
@@ -26,10 +32,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 82
 /svnroot/vcg/!svn/ver/4200/trunk/vcglib/vcg/container/container_allocation_table.h
-END
-simple_temporary_data.h
-K 25
-svn:wc:ra_dav:version-url
-V 77
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/container/simple_temporary_data.h
 END

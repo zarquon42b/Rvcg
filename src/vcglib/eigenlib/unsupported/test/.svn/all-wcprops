@@ -1,61 +1,25 @@
 K 25
 svn:wc:ra_dav:version-url
 V 65
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/test
-END
-CMakeLists.txt
-K 25
-svn:wc:ra_dav:version-url
-V 80
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/CMakeLists.txt
-END
-NonLinearOptimization.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 91
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/NonLinearOptimization.cpp
-END
-sparse_lu.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 79
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/test/sparse_lu.cpp
-END
-sparse_extra.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 82
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/test/sparse_extra.cpp
-END
-autodiff.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 78
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/autodiff.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test
 END
 polynomialutils.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/polynomialutils.cpp
-END
-FFTW.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 74
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/FFTW.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/polynomialutils.cpp
 END
 forward_adolc.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/forward_adolc.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/forward_adolc.cpp
 END
-sparse_llt.cpp
+FFTW.cpp
 K 25
 svn:wc:ra_dav:version-url
-V 80
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/test/sparse_llt.cpp
+V 74
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/FFTW.cpp
 END
 NumericalDiff.cpp
 K 25
@@ -63,41 +27,47 @@ svn:wc:ra_dav:version-url
 V 83
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/NumericalDiff.cpp
 END
-alignedvector3.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 84
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/alignedvector3.cpp
-END
 matrix_function.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/matrix_function.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/matrix_function.cpp
+END
+alignedvector3.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/alignedvector3.cpp
 END
 matrix_exponential.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 88
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/test/matrix_exponential.cpp
-END
-sparse_ldlt.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 81
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/test/sparse_ldlt.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/matrix_exponential.cpp
 END
 mpreal_support.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 84
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/mpreal_support.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/mpreal_support.cpp
+END
+gmres.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/gmres.cpp
+END
+splines.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/splines.cpp
 END
 polynomialsolver.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 86
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/polynomialsolver.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/polynomialsolver.cpp
 END
 FFT.cpp
 K 25
@@ -109,11 +79,47 @@ BVH.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/svnroot/vcg/!svn/ver/4432/trunk/vcglib/eigenlib/unsupported/test/BVH.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/BVH.cpp
 END
 openglsupport.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/openglsupport.cpp
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/openglsupport.cpp
+END
+kronecker_product.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/kronecker_product.cpp
+END
+matrix_square_root.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/matrix_square_root.cpp
+END
+NonLinearOptimization.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/test/NonLinearOptimization.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/CMakeLists.txt
+END
+sparse_extra.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/sparse_extra.cpp
+END
+autodiff.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/test/autodiff.cpp
 END

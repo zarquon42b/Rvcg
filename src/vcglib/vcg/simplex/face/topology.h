@@ -238,7 +238,7 @@ void FFDetach(FaceType & f, const int e)
 		@param z2 The edge of the face f2 
 */
 template <class FaceType>
-void Attach(FaceType * &f, int z1, FaceType *&f2, int z2)
+void FFAttach(FaceType * &f, int z1, FaceType *&f2, int z2)
 {
 	//typedef FEdgePosB< FACE_TYPE > ETYPE;
 	Pos< FaceType > EPB(f2,z2);
@@ -261,6 +261,35 @@ void Attach(FaceType * &f, int z1, FaceType *&f2, int z2)
 	TEPB.f->FFi(TEPB.z) = z1prec;
 }
 
+/** This function attach the face (via the edge z1) to another face (via the edge z2).
+		It is not possible to use it also in non-two manifold situation.
+		The function cannot be applicated if the adjacencies among faces aren't define.
+		@param z1 Index of the edge
+		@param f2 Pointer to the face
+		@param z2 The edge of the face f2
+*/
+template <class FaceType>
+void FFAttachManifold(FaceType * &f1, int z1, FaceType *&f2, int z2)
+{
+  assert(IsBorder<FaceType>(*f1,z1));
+  assert(IsBorder<FaceType>(*f2,z2));
+  assert(f1->V0(z1) == f2->V0(z2) || f1->V0(z1) == f2->V1(z2));
+  assert(f1->V1(z1) == f2->V0(z2) || f1->V1(z1) == f2->V1(z2));
+  f1->FFp(z1) = f2;
+  f1->FFi(z1) = z2;
+  f2->FFp(z2) = f1;
+  f2->FFi(z2) = z1;
+}
+
+// This one should be called only on uniitialized faces.
+template <class FaceType>
+void FFSetBorder(FaceType * &f1, int z1)
+{
+  assert(f1->FFp(z1)==0 || IsBorder(*f1,z1));
+
+  f1->FFp(z1)=f1;
+  f1->FFi(z1)=z1;
+}
 
 template <class FaceType>
 void AssertAdj(FaceType & f)
@@ -273,15 +302,6 @@ void AssertAdj(FaceType & f)
 	assert(f.FFp(1)->FFi(f.FFi(1))==1);
 	assert(f.FFp(2)->FFi(f.FFi(2))==2); 
 }
-// Funzione di supporto usata da swap?
-//template <class FaceType>
-//inline void Nexts(  *&f, int &z )
-//{
-//    int t;
-//    t = z;
-//    z = (*f).Z(z);
-//    f = (*f).F(t);
-//}
 
 /**
  * Check if the given face is oriented as the one adjacent to the specified edge.
@@ -376,7 +396,7 @@ void SwapEdge(FaceType &f, const int z)
 */
 
 template <class FaceType>
-static bool CheckFlipEdgeNormal(FaceType &f, const int z, const float angleRad)
+bool CheckFlipEdgeNormal(FaceType &f, const int z, const float angleRad)
 {
   typedef typename FaceType::VertexType VertexType;
   typedef typename VertexType::CoordType CoordType;
@@ -409,7 +429,7 @@ static bool CheckFlipEdgeNormal(FaceType &f, const int z, const float angleRad)
 *	\param z	the edge index
 */
 template <class FaceType>
-static bool CheckFlipEdge(FaceType &f, int z)
+bool CheckFlipEdge(FaceType &f, int z)
 {
   typedef typename FaceType::VertexType VertexType;
   typedef typename vcg::face::Pos< FaceType > PosType;
@@ -461,7 +481,7 @@ static bool CheckFlipEdge(FaceType &f, int z)
 *       formed by the face \a f and the face adjacent to the specified edge.
 */
 template <class FaceType>
-static void FlipEdge(FaceType &f, const int z)
+void FlipEdge(FaceType &f, const int z)
 {	
 	assert(z>=0);
 	assert(z<3);
@@ -511,6 +531,13 @@ static void FlipEdge(FaceType &f, const int z)
 	}
 }
 
+template <class FaceType>
+void VFDetach(FaceType & f)
+{
+  VFDetach(f,0);
+  VFDetach(f,1);
+  VFDetach(f,2);
+}
 
 // Stacca la faccia corrente dalla catena di facce incidenti sul vertice z, 
 // NOTA funziona SOLO per la topologia VF!!!
@@ -562,7 +589,8 @@ void VFAppend(FaceType* & f, int z)
 }
 
 /*!
-* Compute the set of vertices adjacent to a given vertex using VF adjacency. 
+* \brief Compute the set of vertices adjacent to a given vertex using VF adjacency
+*
 *	\param vp	pointer to the vertex whose star has to be computed.
 *	\param starVec a std::vector of Vertex pointer that is filled with the adjacent vertices.
 *
@@ -587,67 +615,204 @@ void VVStarVF( typename FaceType::VertexType* vp, std::vector<typename FaceType:
 }
 
 /*!
-* Compute the set of faces adjacent to a given vertex using VF adjacency. 
-*	\param vp	pointer to the vertex whose star has to be computed.
-*	\param faceVec a std::vector of Face pointer that is filled with the adjacent faces.
-*
-*/
+ * \brief Compute the set of vertices adjacent to a given vertex using VF adjacency.
+ *
+ * The set is faces is extended of a given number of step
+ *	\param vp	pointer to the vertex whose star has to be computed.
+ *  \param num_step the number of step to extend the star
+ *	\param vertVec a std::vector of Ve pointer that is filled with the adjacent faces.
+ */
 template <class FaceType>
-void VFStarVF( typename FaceType::VertexType* vp, std::vector<FaceType *> &faceVec)
-{
-	typedef typename FaceType::VertexType* VertexPointer;
-	faceVec.clear();
-	face::VFIterator<FaceType> vfi(vp);
-	while(!vfi.End())
-	{
-		faceVec.push_back(vfi.F());
-		++vfi;
-	}
-}
+void VVExtendedStarVF(typename FaceType::VertexType* vp,
+                      const int num_step,
+                      std::vector<typename FaceType::VertexType *> &vertVec)
+    {
+        typedef typename FaceType::VertexType VertexType;
+        ///initialize front
+        vertVec.clear();
+        vcg::face::VVStarVF<FaceType>(vp,vertVec);
+        ///then dilate front
+        ///for each step
+        for (int step=0;step<num_step-1;step++)
+        {
+            std::vector<VertexType *> toAdd;
+            for (unsigned int i=0;i<vertVec.size();i++)
+            {
+                std::vector<VertexType *> Vtemp;
+                vcg::face::VVStarVF<FaceType>(vp,Vtemp);
+                toAdd.insert(toAdd.end(),Vtemp.begin(),Vtemp.end());
+            }
+            vertVec.insert(vertVec.end(),toAdd.begin(),toAdd.end());
+            std::sort(vertVec.begin(),vertVec.end());
+            typename std::vector<typename FaceType::VertexType *>::iterator new_end=std::unique(vertVec.begin(),vertVec.end());
+            int dist=distance(vertVec.begin(),new_end);
+            vertVec.resize(dist);
+        }
+    }
 
 /*!
-* Compute the ordered set of faces adjacent to a given vertex using VF adjacency.and FF adiacency 
+* \brief Compute the set of faces adjacent to a given vertex using VF adjacency.
+*
 *	\param vp	pointer to the vertex whose star has to be computed.
 *	\param faceVec a std::vector of Face pointer that is filled with the adjacent faces.
+*   \param indexes a std::vector of integer of the vertex as it is seen from the faces
+*/
+template <class FaceType>
+void VFStarVF( typename FaceType::VertexType* vp,
+               std::vector<FaceType *> &faceVec,
+               std::vector<int> &indexes)
+{
+    typedef typename FaceType::VertexType* VertexPointer;
+    faceVec.clear();
+    indexes.clear();
+    face::VFIterator<FaceType> vfi(vp);
+    while(!vfi.End())
+    {
+        faceVec.push_back(vfi.F());
+        indexes.push_back(vfi.I());
+        ++vfi;
+    }
+}
+
+
+/*!
+* \brief Compute the set of faces incident onto a given edge using FF adjacency.
+*
+*	\param fp	pointer to the face whose star has to be computed
+*	\param ei	the index of the edge
+*	\param faceVec a std::vector of Face pointer that is filled with the faces incident on that edge.
+*   \param indexes a std::vector of integer of the edge position as it is seen from the faces
+*/
+template <class FaceType>
+void EFStarFF( FaceType* fp, int ei,
+               std::vector<FaceType *> &faceVec,
+               std::vector<int> &indVed)
+{
+  assert(fp->FFp(ei)!=0);
+  faceVec.clear();
+  indVed.clear();
+  FaceType* fpit=fp;
+  int eit=ei;
+  do
+  {
+    faceVec.push_back(fpit);
+    indVed.push_back(eit);
+    FaceType *new_fpit = fpit->FFp(eit);
+    int       new_eit  = fpit->FFi(eit);
+    fpit=new_fpit;
+    eit=new_eit;
+  } while(fpit != fp);
+}
+
+
+    /* Compute the set of faces adjacent to a given face using FF adjacency.
+    * The set is faces is extended of a given number of step
+    *	\param fp	pointer to the face whose star has to be computed.
+    *  \param num_step the number of step to extend the star
+    *	\param faceVec a std::vector of Face pointer that is filled with the adjacent faces.
+    */
+    template <class FaceType>
+    static void FFExtendedStarFF(FaceType *fp,
+                                 const int num_step,
+                                 std::vector<FaceType*> &faceVec)
+    {
+        ///initialize front
+        faceVec.push_back(fp);
+        ///then dilate front
+        ///for each step
+        for (int step=0;step<num_step;step++)
+        {
+            std::vector<FaceType*> toAdd;
+            for (unsigned int i=0;i<faceVec.size();i++)
+            {
+                FaceType *f=faceVec[i];
+                for (int k=0;k<3;k++)
+                {
+                    FaceType *f1=f->FFp(k);
+                    if (f1==f)continue;
+                    toAdd.push_back(f1);
+                }
+            }
+            faceVec.insert(faceVec.end(),toAdd.begin(),toAdd.end());
+            std::sort(faceVec.begin(),faceVec.end());
+            typename std::vector<FaceType*>::iterator new_end=std::unique(faceVec.begin(),faceVec.end());
+            int dist=distance(faceVec.begin(),new_end);
+            faceVec.resize(dist);
+        }
+    }
+
+/*!
+ * \brief Compute the set of faces adjacent to a given vertex using VF adjacency.
+ *
+ * The set is faces is extended of a given number of step
+ *	\param vp	pointer to the vertex whose star has to be computed.
+ *  \param num_step the number of step to extend the star
+ *	\param faceVec a std::vector of Face pointer that is filled with the adjacent faces.
+ */
+template <class FaceType>
+void VFExtendedStarVF(typename FaceType::VertexType* vp,
+                             const int num_step,
+                             std::vector<FaceType*> &faceVec)
+    {
+        ///initialize front
+        faceVec.clear();
+        std::vector<int> indexes;
+        vcg::face::VFStarVF<FaceType>(vp,faceVec,indexes);
+        ///then dilate front
+        ///for each step
+        for (int step=0;step<num_step;step++)
+        {
+            std::vector<FaceType*> toAdd;
+            for (unsigned int i=0;i<faceVec.size();i++)
+            {
+                FaceType *f=faceVec[i];
+                for (int k=0;k<3;k++)
+                {
+                    FaceType *f1=f->FFp(k);
+                    if (f1==f)continue;
+                    toAdd.push_back(f1);
+                }
+            }
+            faceVec.insert(faceVec.end(),toAdd.begin(),toAdd.end());
+            std::sort(faceVec.begin(),faceVec.end());
+            typename std::vector<FaceType*>::iterator new_end=std::unique(faceVec.begin(),faceVec.end());
+            int dist=distance(faceVec.begin(),new_end);
+            faceVec.resize(dist);
+        }
+    }
+    
+/*!
+ * \brief Compute the ordered set of faces adjacent to a given vertex using FF adiacency
+*
+*	\param startPos a Pos<FaceType> indicating the vertex whose star has to be computed.
+*	\param faceVec a std::vector of Face pointer that is filled with the adjacent faces.
+*	\param edgeVec a std::vector of indexes filled with the indexes of the corresponding edges shared between the faces.
 *
 */
 template <class FaceType>
-static void VFOrderedStarVF_FF(typename FaceType::VertexType &vp,
-								std::vector<FaceType*> &faceVec)
+void VFOrderedStarFF(Pos<FaceType> &startPos,
+						std::vector<FaceType*> &faceVec,
+						std::vector<int> &edgeVec)
 {
+  bool foundBorder=false;
+  Pos<FaceType> curPos=startPos;
+  do
+  {
+    assert(curPos.IsManifold());
+    if(curPos.IsBorder()) foundBorder=true;
 
-	///check that is not on border..
-	assert (!vp.IsB());
-
-	///get first face sharing the edge
-	FaceType *f_init=vp.VFp();
-	int edge_init=vp.VFi(); 
-
-	///and initialize the pos
-	vcg::face::Pos<FaceType> VFI(f_init,edge_init);
-	bool complete_turn=false;
-	do  
-	{
-		FaceType *curr_f=VFI.F();
-		faceVec.push_back(curr_f);
-
-		int curr_edge=VFI.E();
-
-		///assert that is not a border edge
-		assert(curr_f->FFp(curr_edge)!=curr_f);
-
-		///continue moving 
-		VFI.FlipF();
-		VFI.FlipE();
-
-		FaceType *next_f=VFI.F();
-
-		///test if I've finiseh with the face exploration
-		complete_turn=(next_f==f_init);
-		/// or if I've just crossed a mismatch
-	}while (!complete_turn);
+    faceVec.push_back(curPos.F());
+    edgeVec.push_back(curPos.E());
+    curPos.FlipF();
+    curPos.FlipE();
+  } while(curPos!=startPos);
+  if(foundBorder)
+  {
+    assert((faceVec.size()%2)==0); // if we found a border we visited each face exactly twice.
+    faceVec.resize(faceVec.size()/2);
+    edgeVec.resize(edgeVec.size()/2);
+  }
 }
-
 
 /*!
 * Check if two faces share and edge through the FF topology.
@@ -695,15 +860,72 @@ int CountSharedVertex(FaceType *f0,FaceType *f1)
 * ;
 */
 template <class FaceType>
-bool SharedVertex(FaceType *f0,FaceType *f1, int &i, int &j)
+bool FindSharedVertex(FaceType *f0,FaceType *f1, int &i, int &j)
 {
   for (i=0;i<3;i++)
       for (j=0;j<3;j++)
           if (f0->V(i)==f1->V(j)) return true;
 
+  i=-1;j=-1;
   return false;
 }
 
+/*!
+* find the first shared edge between two faces.
+*	\param f0,f1 the two face to be checked
+* \param i,j the indexes of the shared edge in the two faces. Meaningful only if there is a shared edge
+*
+*/
+template <class FaceType>
+bool FindSharedEdge(FaceType *f0,FaceType *f1, int &i, int &j)
+{
+  for (i=0;i<3;i++)
+      for (j=0;j<3;j++)
+        if( ( f0->V0(i)==f1->V0(j) || f0->V0(i)==f1->V1(j) ) &&
+            ( f0->V1(i)==f1->V0(j) || f0->V1(i)==f1->V1(j) ) )
+            return true;
+  i=-1;j=-1;
+  return false;
+}
+
+/*!
+* find the faces that shares the two vertices
+* \param v0,v1 the two vertices
+* \param f0,f1 the two faces , counterclokwise order
+*
+*/
+template <class FaceType>
+bool FindSharedFaces(typename FaceType::VertexType *v0,
+                     typename FaceType::VertexType *v1,
+                     FaceType *&f0,
+                     FaceType *&f1,
+                     int &e0,
+                     int &e1)
+{
+    std::vector<FaceType*> faces0;
+    std::vector<FaceType*> faces1;
+    std::vector<int> index0;
+    std::vector<int> index1;
+    VFStarVF<FaceType>(v0,faces0,index0);
+    VFStarVF<FaceType>(v1,faces1,index1);
+    ///then find the intersection
+    std::sort(faces0.begin(),faces0.end());
+    std::sort(faces1.begin(),faces1.end());
+    std::vector<FaceType*> Intersection;
+    std::set_intersection(faces0.begin(),faces0.end(),faces1.begin(),faces1.end(),std::back_inserter(Intersection));
+    if (Intersection.size()<2)return false; ///no pair of faces share the 2 vertices
+    assert(Intersection.size()==2);//otherwhise non manifoldess
+    f0=Intersection[0];
+    f1=Intersection[1];
+    FindSharedEdge(f0,f1,e0,e1);
+    ///and finally check if the order is right
+    if (f0->V(e0)!=v0)
+    {
+        std::swap(f0,f1);
+        std::swap(e0,e1);
+    }
+    return true;
+}
 
 /*@}*/
 }	 // end namespace

@@ -1,13 +1,31 @@
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/doc/examples
+END
+MatrixSine.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples/MatrixSine.cpp
+END
+PolynomialUtils1.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples/PolynomialUtils1.cpp
 END
 MatrixSinh.cpp
 K 25
 svn:wc:ra_dav:version-url
 V 88
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples/MatrixSinh.cpp
+END
+MatrixSquareRoot.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/doc/examples/MatrixSquareRoot.cpp
 END
 BVH_Example.cpp
 K 25
@@ -27,6 +45,12 @@ svn:wc:ra_dav:version-url
 V 95
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples/MatrixExponential.cpp
 END
+MatrixLogarithm.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/doc/examples/MatrixLogarithm.cpp
+END
 CMakeLists.txt
 K 25
 svn:wc:ra_dav:version-url
@@ -44,16 +68,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 95
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples/PolynomialSolver1.cpp
-END
-MatrixSine.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 88
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples/MatrixSine.cpp
-END
-PolynomialUtils1.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 94
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/doc/examples/PolynomialUtils1.cpp
 END

@@ -33,12 +33,11 @@ Working release (compilata solo su MSVC), component_occ � migrato da component
 
 
 ****************************************************************************/
+#ifndef __VCG_MESH
+#error "This file should not be included alone. It is automatically included by complex.h"
+#endif
 #ifndef __VCG_VERTEX_PLUS_COMPONENT_OCC
 #define __VCG_VERTEX_PLUS_COMPONENT_OCC
-
-#include <vcg/simplex/vertex/component.h>
-#include <vcg/container/vector_occ.h>
-
 
 namespace vcg {
   namespace vertex {
@@ -56,7 +55,6 @@ public:
   typedef typename CoordType::ScalarType      ScalarType;
 	typedef typename T::VertType VertType;
 	CoordType &P() { return CAT< vector_occ<VertType>,CoordType>::Instance()->Get((VertType*)this); }
-  CoordType &UberP() { return CAT< vector_occ<VertType>,CoordType>::Instance()->Get((VertType*)this); }
 };
 template <class T> class Coord3fOcc: public CoordOcc<vcg::Point3f, T> {};
 template <class T> class Coord3dOcc: public CoordOcc<vcg::Point3d, T> {};

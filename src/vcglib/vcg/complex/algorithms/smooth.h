@@ -25,6 +25,7 @@
 #ifndef __VCGLIB__SMOOTH
 #define __VCGLIB__SMOOTH
 
+#include <cmath>
 #include <wrap/callback.h>
 #include <vcg/space/point3.h>
 #include <vcg/space/ray3.h>
@@ -32,6 +33,7 @@
 #include <vcg/complex/algorithms/update/normal.h>
 #include <vcg/complex/algorithms/update/halfedge_topology.h>
 #include <vcg/complex/algorithms/closest.h>
+#include <vcg/space/index/kdtree/kdtree.h>
 
 
 namespace vcg
@@ -208,8 +210,9 @@ public:
 //
 // This function simply accumulate over a TempData all the positions of the ajacent vertices
 //
-static void AccumulateLaplacianInfo(MeshType &m, SimpleTempData<typename MeshType::VertContainer,LaplacianInfo > &TD)
+static void AccumulateLaplacianInfo(MeshType &m, SimpleTempData<typename MeshType::VertContainer,LaplacianInfo > &TD, bool cotangentFlag=false)
 {
+  float weight =1.0f;
 			FaceIterator fi;
 			for(fi=m.face.begin();fi!=m.face.end();++fi)
 			{
@@ -217,10 +220,15 @@ static void AccumulateLaplacianInfo(MeshType &m, SimpleTempData<typename MeshTyp
 					for(int j=0;j<3;++j)
 						if(!(*fi).IsB(j))
 						{
-							TD[(*fi).V(j)].sum+=(*fi).V1(j)->P();
-							TD[(*fi).V1(j)].sum+=(*fi).V(j)->P();
-							++TD[(*fi).V(j)].cnt;
-							++TD[(*fi).V1(j)].cnt;
+						  if(cotangentFlag) {
+							float angle = Angle(fi->P1(j)-fi->P2(j),fi->P0(j)-fi->P2(j));
+							weight = tan(M_PI_2 - angle);
+						  }
+
+							TD[(*fi).V0(j)].sum+=(*fi).P1(j)*weight;
+							TD[(*fi).V1(j)].sum+=(*fi).P0(j)*weight;
+							TD[(*fi).V0(j)].cnt+=weight;
+							TD[(*fi).V1(j)].cnt+=weight;
 						}
 			}
 			// si azzaera i dati per i vertici di bordo
@@ -252,7 +260,7 @@ static void AccumulateLaplacianInfo(MeshType &m, SimpleTempData<typename MeshTyp
 			}
 }
 
-static void VertexCoordLaplacian(MeshType &m, int step, bool SmoothSelected=false, vcg::CallBackPos * cb=0)
+static void VertexCoordLaplacian(MeshType &m, int step, bool SmoothSelected=false, bool cotangentWeight=false, vcg::CallBackPos * cb=0)
 {
   VertexIterator vi;
 	LaplacianInfo lpz(CoordType(0,0,0),0);
@@ -261,7 +269,7 @@ static void VertexCoordLaplacian(MeshType &m, int step, bool SmoothSelected=fals
 		{
 			if(cb)cb(100*i/step, "Classic Laplacian Smoothing");
 			TD.Init(lpz);
-			AccumulateLaplacianInfo(m,TD);
+			AccumulateLaplacianInfo(m,TD,cotangentWeight);
 			for(vi=m.vert.begin();vi!=m.vert.end();++vi)
 				if(!(*vi).IsD() && TD[*vi].cnt>0 )
 				{
@@ -907,7 +915,7 @@ static void FaceNormalLaplacianVF(MeshType &m)
 
   FaceIterator fi;
 
-	tri::UpdateNormals<MeshType>::AreaNormalizeFace(m);
+	tri::UpdateNormal<MeshType>::AreaNormalizeFace(m);
 
 	for(fi=m.face.begin();fi!=m.face.end();++fi) if(!(*fi).IsD())
 	{
@@ -941,7 +949,7 @@ static void FaceNormalLaplacianVF(MeshType &m)
 	for(fi=m.face.begin();fi!=m.face.end();++fi)
 		(*fi).N()=TDF[*fi].m;
 
-	tri::UpdateNormals<MeshType>::NormalizeFace(m);
+	tri::UpdateNormal<MeshType>::NormalizePerFace(m);
 
 	TDF.Stop();
 }
@@ -961,7 +969,7 @@ static void FaceNormalLaplacianFF(MeshType &m, int step=1, bool SmoothSelected=f
   assert(tri::HasFFAdjacency(m));
 
   FaceIterator fi;
-  tri::UpdateNormals<MeshType>::AreaNormalizeFace(m);
+  tri::UpdateNormal<MeshType>::NormalizePerFaceByArea(m);
   for(int iStep=0;iStep<step;++iStep)
   {
     for(fi=m.face.begin();fi!=m.face.end();++fi) if(!(*fi).IsD())
@@ -977,7 +985,7 @@ static void FaceNormalLaplacianFF(MeshType &m, int step=1, bool SmoothSelected=f
       if(!SmoothSelected || (*fi).IsS())
         (*fi).N()=TDF[*fi].m;
 
-    tri::UpdateNormals<MeshType>::NormalizeFace(m);
+    tri::UpdateNormal<MeshType>::NormalizePerFace(m);
   }
 }
 
@@ -1193,7 +1201,7 @@ static void VertexCoordPasoDoble(MeshType &m, int step, typename MeshType::Scala
 	for(int j=0;j<step;++j)
 	{
 
-		vcg::tri::UpdateNormals<MeshType>::PerFace(m);
+		vcg::tri::UpdateNormal<MeshType>::PerFace(m);
 		FaceNormalAngleThreshold(m,TDF,Sigma);
 		for(int k=0;k<FitStep;k++)
 			FitMesh(m,TDV,TDF,FitLambda);
@@ -1222,6 +1230,42 @@ static void VertexCoordPasoDobleFast(MeshType &m, int NormalSmoothStep, typename
 
   for(int j=0;j<FitStep;++j)
     FastFitMesh(m,TDV,SmoothSelected);
+}
+
+
+static void VertexNormalPointCloud(MeshType &m, int neighborNum, int iterNum, KdTree<float> *tp=0)
+{
+  SimpleTempData<typename MeshType::VertContainer,Point3f > TD(m.vert,Point3f(0,0,0));
+  VertexConstDataWrapper<MeshType> ww(m);
+  KdTree<float> *tree=0;
+  if(tp==0) tree = new KdTree<float>(ww);
+  else tree=tp;
+
+  tree->setMaxNofNeighbors(neighborNum);
+  for(int ii=0;ii<iterNum;++ii)
+  {
+    for (VertexIterator vi = m.vert.begin();vi!=m.vert.end();++vi)
+    {
+      tree->doQueryK(vi->cP());
+      int neighbours = tree->getNofFoundNeighbors();
+      for (int i = 0; i < neighbours; i++)
+      {
+        int neightId = tree->getNeighborId(i);
+        if(m.vert[neightId].cN()*vi->cN()>0)
+          TD[vi]+= m.vert[neightId].cN();
+        else
+          TD[vi]-= m.vert[neightId].cN();
+      }
+    }
+    for (VertexIterator vi = m.vert.begin();vi!=m.vert.end();++vi)
+    {
+      vi->N()=TD[vi];
+      TD[vi]=Point3f(0,0,0);
+    }
+    tri::UpdateNormal<MeshType>::NormalizePerVertex(m);
+  }
+
+  if(tp==0) delete tree;
 }
 
 //! Laplacian smoothing with a reprojection on a target surface.

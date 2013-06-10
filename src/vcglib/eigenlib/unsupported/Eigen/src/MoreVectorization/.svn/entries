@@ -1,14 +1,14 @@
 10
 
 dir
-4436
+4888
 https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported/Eigen/src/MoreVectorization
 https://vcg.svn.sourceforge.net/svnroot/vcg
 
 
 
-2011-10-05T15:04:40.740408Z
-4180
+2012-10-05T07:27:34.803522Z
+4539
 cignoni
 
 
@@ -26,13 +26,47 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+MathFunctions.h
+file
+
+
+
+
+2013-06-10T11:59:51.056638Z
+e3e564572a4abd4270811bfd55eefc0b
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3035
+
 CMakeLists.txt
 file
 
 
 
 
-2012-03-29T11:44:16.392785Z
+2013-06-10T11:59:51.056638Z
 ec4b59ea9aab17f39b2a06a8b0ace434
 2011-10-05T15:04:40.740408Z
 4180
@@ -59,38 +93,4 @@ has-props
 
 
 192
-
-MathFunctions.h
-file
-
-
-
-
-2012-03-29T11:44:16.392785Z
-f9a7ddd97b9bbd59237b4518eba7bab0
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3730
 

@@ -1,19 +1,169 @@
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/svnroot/vcg/!svn/ver/4434/trunk/vcglib/vcg/complex/algorithms
+/svnroot/vcg/!svn/ver/4884/trunk/vcglib/vcg/complex/algorithms
+END
+overlap_estimation.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/overlap_estimation.h
+END
+intersection.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/vcg/!svn/ver/4777/trunk/vcglib/vcg/complex/algorithms/intersection.h
+END
+refine.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4783/trunk/vcglib/vcg/complex/algorithms/refine.h
+END
+attribute_seam.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/attribute_seam.h
+END
+smooth.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4702/trunk/vcglib/vcg/complex/algorithms/smooth.h
+END
+inside.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/inside.h
+END
+stat.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4471/trunk/vcglib/vcg/complex/algorithms/stat.h
+END
+halfedge_quad_clean.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/halfedge_quad_clean.h
+END
+outline_support.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4878/trunk/vcglib/vcg/complex/algorithms/outline_support.h
+END
+closest.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4579/trunk/vcglib/vcg/complex/algorithms/closest.h
+END
+autoalign_4pcs.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4825/trunk/vcglib/vcg/complex/algorithms/autoalign_4pcs.h
+END
+crease_cut.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4837/trunk/vcglib/vcg/complex/algorithms/crease_cut.h
+END
+bitquad_creation.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4486/trunk/vcglib/vcg/complex/algorithms/bitquad_creation.h
+END
+nring.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/nring.h
+END
+clustering.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/vcg/!svn/ver/4550/trunk/vcglib/vcg/complex/algorithms/clustering.h
+END
+textcoord_optimization.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/textcoord_optimization.h
+END
+geodesic.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/vcg/!svn/ver/4810/trunk/vcglib/vcg/complex/algorithms/geodesic.h
+END
+clean.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/vcg/!svn/ver/4862/trunk/vcglib/vcg/complex/algorithms/clean.h
+END
+point_sampling.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/vcg/!svn/ver/4832/trunk/vcglib/vcg/complex/algorithms/point_sampling.h
+END
+polygon_support.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4652/trunk/vcglib/vcg/complex/algorithms/polygon_support.h
+END
+bitquad_support.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/vcg/!svn/ver/4732/trunk/vcglib/vcg/complex/algorithms/bitquad_support.h
+END
+edge_collapse.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/vcg/!svn/ver/4335/trunk/vcglib/vcg/complex/algorithms/edge_collapse.h
+END
+clip.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4732/trunk/vcglib/vcg/complex/algorithms/clip.h
+END
+hole.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/vcg/!svn/ver/4759/trunk/vcglib/vcg/complex/algorithms/hole.h
+END
+pointcloud_normal.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4699/trunk/vcglib/vcg/complex/algorithms/pointcloud_normal.h
 END
 voronoi_clustering.h
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svnroot/vcg/!svn/ver/4253/trunk/vcglib/vcg/complex/algorithms/voronoi_clustering.h
+/svnroot/vcg/!svn/ver/4859/trunk/vcglib/vcg/complex/algorithms/voronoi_clustering.h
 END
 inertia.h
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/inertia.h
+/svnroot/vcg/!svn/ver/4733/trunk/vcglib/vcg/complex/algorithms/inertia.h
 END
 bitquad_optimization.h
 K 25
@@ -31,155 +181,5 @@ refine_loop.h
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/svnroot/vcg/!svn/ver/4312/trunk/vcglib/vcg/complex/algorithms/refine_loop.h
-END
-overlap_estimation.h
-K 25
-svn:wc:ra_dav:version-url
-V 83
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/overlap_estimation.h
-END
-subset.h
-K 25
-svn:wc:ra_dav:version-url
-V 71
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/subset.h
-END
-intersection.h
-K 25
-svn:wc:ra_dav:version-url
-V 77
-/svnroot/vcg/!svn/ver/4383/trunk/vcglib/vcg/complex/algorithms/intersection.h
-END
-refine.h
-K 25
-svn:wc:ra_dav:version-url
-V 71
-/svnroot/vcg/!svn/ver/4337/trunk/vcglib/vcg/complex/algorithms/refine.h
-END
-attribute_seam.h
-K 25
-svn:wc:ra_dav:version-url
-V 79
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/attribute_seam.h
-END
-smooth.h
-K 25
-svn:wc:ra_dav:version-url
-V 71
-/svnroot/vcg/!svn/ver/4404/trunk/vcglib/vcg/complex/algorithms/smooth.h
-END
-inside.h
-K 25
-svn:wc:ra_dav:version-url
-V 71
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/inside.h
-END
-stat.h
-K 25
-svn:wc:ra_dav:version-url
-V 69
-/svnroot/vcg/!svn/ver/4271/trunk/vcglib/vcg/complex/algorithms/stat.h
-END
-halfedge_quad_clean.h
-K 25
-svn:wc:ra_dav:version-url
-V 84
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/halfedge_quad_clean.h
-END
-autoalign_4pcs.h
-K 25
-svn:wc:ra_dav:version-url
-V 79
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/autoalign_4pcs.h
-END
-closest.h
-K 25
-svn:wc:ra_dav:version-url
-V 72
-/svnroot/vcg/!svn/ver/4332/trunk/vcglib/vcg/complex/algorithms/closest.h
-END
-nring.h
-K 25
-svn:wc:ra_dav:version-url
-V 70
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/nring.h
-END
-bitquad_creation.h
-K 25
-svn:wc:ra_dav:version-url
-V 81
-/svnroot/vcg/!svn/ver/4405/trunk/vcglib/vcg/complex/algorithms/bitquad_creation.h
-END
-crease_cut.h
-K 25
-svn:wc:ra_dav:version-url
-V 75
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/crease_cut.h
-END
-clustering.h
-K 25
-svn:wc:ra_dav:version-url
-V 75
-/svnroot/vcg/!svn/ver/4253/trunk/vcglib/vcg/complex/algorithms/clustering.h
-END
-textcoord_optimization.h
-K 25
-svn:wc:ra_dav:version-url
-V 87
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/textcoord_optimization.h
-END
-clean.h
-K 25
-svn:wc:ra_dav:version-url
-V 70
-/svnroot/vcg/!svn/ver/4434/trunk/vcglib/vcg/complex/algorithms/clean.h
-END
-geodesic.h
-K 25
-svn:wc:ra_dav:version-url
-V 73
-/svnroot/vcg/!svn/ver/4382/trunk/vcglib/vcg/complex/algorithms/geodesic.h
-END
-polygon_support.h
-K 25
-svn:wc:ra_dav:version-url
-V 80
-/svnroot/vcg/!svn/ver/4422/trunk/vcglib/vcg/complex/algorithms/polygon_support.h
-END
-point_sampling.h
-K 25
-svn:wc:ra_dav:version-url
-V 79
-/svnroot/vcg/!svn/ver/4400/trunk/vcglib/vcg/complex/algorithms/point_sampling.h
-END
-boundary.h
-K 25
-svn:wc:ra_dav:version-url
-V 73
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/boundary.h
-END
-bitquad_support.h
-K 25
-svn:wc:ra_dav:version-url
-V 80
-/svnroot/vcg/!svn/ver/4276/trunk/vcglib/vcg/complex/algorithms/bitquad_support.h
-END
-edge_collapse.h
-K 25
-svn:wc:ra_dav:version-url
-V 78
-/svnroot/vcg/!svn/ver/4335/trunk/vcglib/vcg/complex/algorithms/edge_collapse.h
-END
-clip.h
-K 25
-svn:wc:ra_dav:version-url
-V 69
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/clip.h
-END
-hole.h
-K 25
-svn:wc:ra_dav:version-url
-V 69
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/hole.h
+/svnroot/vcg/!svn/ver/4749/trunk/vcglib/vcg/complex/algorithms/refine_loop.h
 END

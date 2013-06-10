@@ -21,17 +21,14 @@
 *                                                                           *
 ****************************************************************************/
 
-#include<vector>
-#include <algorithm>
-#include<vcg/space/point3.h>
 #include<vcg/space/plane3.h>
 #include<vcg/space/segment3.h>
 #include<vcg/space/intersection3.h>
-#include<vcg/complex/allocate.h>
-#include<vcg/complex/algorithms/subset.h>
+#include<vcg/complex/complex.h>
 #include<vcg/complex/algorithms/closest.h>
 #include<vcg/complex/algorithms/update/quality.h>
-#include<vcg/complex/complex.h>
+#include<vcg/complex/algorithms/update/selection.h>
+
 
 #ifndef __VCGLIB_INTERSECTION_TRI_MESH
 #define __VCGLIB_INTERSECTION_TRI_MESH
@@ -97,16 +94,16 @@ bool IntersectionPlaneGrid( GridType & grid, Plane3<ScalarType> plane, std::vect
 
 /** \addtogroup complex */
 /*@{*/
-/** 
-    Basic Function computing the intersection between  a trimesh and a plane. It returns an EdgeMesh without needing anything else.
+/** \brief Compute the intersection between a trimesh and a plane building an edge mesh.
+ *
+    Basic Function Computing the intersection between a trimesh and a plane. It returns an EdgeMesh without needing anything else.
 		Note: This version always returns a segment for each triangle of the mesh which intersects with the plane. In other
 		words there are 2*n vertices where n is the number of segments fo the mesh. You can run vcg::edge:Unify to unify
 		the vertices closer that a given value epsilon. Note that, due to subtraction error during triangle plane intersection,
 		it is not safe to put epsilon to 0. 
-// TODO si dovrebbe considerare la topologia face-face della trimesh per derivare quella della edge mesh..
 */
 template < typename  TriMeshType, typename EdgeMeshType, class ScalarType >
-bool IntersectionPlaneMesh(TriMeshType & m,
+bool IntersectionPlaneMeshOld(TriMeshType & m,
 									Plane3<ScalarType>  pl,
 									EdgeMeshType & em)
 {
@@ -134,22 +131,27 @@ bool IntersectionPlaneMesh(TriMeshType & m,
 
 /** \addtogroup complex */
 /*@{*/
-/**
-	Basic Function computing the intersection between  a trimesh and a plane. It returns an EdgeMesh without needing anything else.
-		Note: This version always returns a segment for each triangle of the mesh which intersects with the plane. In other
-		words there are 2*n vertices where n is the number of segments fo the mesh. You can run vcg::edge:Unify to unify
-		the vertices closer that a given value epsilon. Note that, due to subtraction error during triangle plane intersection,
-		it is not safe to put epsilon to 0.
-// TODO si dovrebbe considerare la topologia face-face della trimesh per derivare quella della edge mesh..
+/** \brief  More stable version of the IntersectionPlaneMesh function
+ *
+ * This version of the make a first pass storing the distance to the plane
+ * into a vertex attribute and then use this value to compute in a safe way the
+ * intersection.
 */
 template < typename  TriMeshType, typename EdgeMeshType, class ScalarType >
-bool IntersectionPlaneMeshQuality(TriMeshType & m,
+bool IntersectionPlaneMesh(TriMeshType & m,
 									Plane3<ScalarType>  pl,
 									EdgeMeshType & em)
 {
-  std::vector<Point3f> ptVec;
-  std::vector<Point3f> nmVec;
-  tri::UpdateQuality<TriMeshType>::VertexFromPlane(m,pl);
+  std::vector<Point3<ScalarType> > ptVec;
+  std::vector<Point3<ScalarType> > nmVec;
+
+  typename TriMeshType::template PerVertexAttributeHandle < ScalarType > qH =
+      tri::Allocator<TriMeshType> :: template AddPerVertexAttribute < ScalarType >(m,"TemporaryPlaneDistance");
+
+  typename TriMeshType::VertexIterator vi;
+  for(vi=m.vert.begin();vi!=m.vert.end();++vi) if(!(*vi).IsD())
+    qH[vi] =SignedDistancePlanePoint(pl,(*vi).cP());
+
   for(size_t i=0;i<m.face.size();i++)
     if(!m.face[i].IsD())
     {
@@ -157,23 +159,23 @@ bool IntersectionPlaneMeshQuality(TriMeshType & m,
       nmVec.clear();
       for(int j=0;j<3;++j)
       {
-       if((m.face[i].V0(j)->Q() * m.face[i].V1(j)->Q())<0)
+        if((qH[m.face[i].V0(j)] * qH[m.face[i].V1(j)])<0)
        {
-         const Point3f &p0 = m.face[i].V0(j)->cP();
-         const Point3f &p1 = m.face[i].V1(j)->cP();
-         const Point3f &n0 = m.face[i].V0(j)->cN();
-         const Point3f &n1 = m.face[i].V1(j)->cN();
-         float q0 = m.face[i].V0(j)->Q();
-         float q1 = m.face[i].V1(j)->Q();
+         const Point3<ScalarType> &p0 = m.face[i].V0(j)->cP();
+         const Point3<ScalarType> &p1 = m.face[i].V1(j)->cP();
+         const Point3<ScalarType> &n0 = m.face[i].V0(j)->cN();
+         const Point3<ScalarType> &n1 = m.face[i].V1(j)->cN();
+         float q0 = qH[m.face[i].V0(j)];
+         float q1 = qH[m.face[i].V1(j)];
 //         printf("Intersection ( %3.2f %3.2f %3.2f )-( %3.2f %3.2f %3.2f )\n",p0[0],p0[1],p0[2],p1[0],p1[1],p1[2]);
-         Point3f pp;
-         Segment3f seg(p0,p1);
+         Point3<ScalarType> pp;
+         Segment3<ScalarType> seg(p0,p1);
          IntersectionPlaneSegment(pl,seg,pp);
          ptVec.push_back(pp);
-         Point3f nn =(n0*fabs(q1) + n1*fabs(q0))/fabs(q0-q1);
+         Point3<ScalarType> nn =(n0*fabs(q1) + n1*fabs(q0))/fabs(q0-q1);
          nmVec.push_back(nn);
        }
-       if(m.face[i].V(j)->Q()==0)  ptVec.push_back(m.face[i].V(j)->cP());
+        if(qH[m.face[i].V(j)]==0)  ptVec.push_back(m.face[i].V(j)->cP());
       }
       if(ptVec.size()>=2)
       {
@@ -189,6 +191,7 @@ bool IntersectionPlaneMeshQuality(TriMeshType & m,
         em.edge.back().V(1) = &(*vi);
       }
     }
+  tri::Allocator<TriMeshType> :: template DeletePerVertexAttribute < ScalarType >(m,qH);
 
   return true;
 }
@@ -329,13 +332,13 @@ void IntersectionBallMesh(	 TriMeshType & m, const vcg::Sphere3<ScalarType> &bal
 	std::pair<ScalarType, ScalarType> info;
 
 	if(tol == 0) tol = M_PI * ball.Radius() * ball.Radius() / 100000;
-
+	tri::UpdateSelection<TriMeshType>::FaceClear(m);
 	for(fi = m.face.begin(); fi != m.face.end(); ++fi)
 	if(!(*fi).IsD() && IntersectionSphereTriangle<ScalarType>(ball  ,(*fi), witness , &info))
-		closests.push_back(&(*fi));
+	  (*fi).SetS();
 
 	res.Clear();
-	SubSet(res,closests);
+	tri::Append<TriMeshType,TriMeshType>::Selected(res,m);
 	int i =0;
 	while(i<res.fn){
 		 bool allIn = ( ball.IsIn(res.face[i].P(0)) && ball.IsIn(res.face[i].P(1))&&ball.IsIn(res.face[i].P(2)));
@@ -397,7 +400,7 @@ void IntersectionBallMesh( IndexingType * grid,	 TriMeshType & m, const vcg::Sph
 
 	if(tol == 0) tol = M_PI * ball.Radius() * ball.Radius() / 100000;
 
-	vcg::tri::GetInSphereFace(m,*grid, ball.Center(), ball.Radius(),closestsF,distances,witnesses);
+	vcg::tri::GetInSphereFaceBase(m,*grid, ball.Center(), ball.Radius(),closestsF,distances,witnesses);
 	for(cfi =closestsF.begin(); cfi != closestsF.end(); ++cfi)
 	if(!(**cfi).IsD() && IntersectionSphereTriangle<ScalarType>(ball  ,(**cfi), witness , &info))
 		closests.push_back(&(**cfi));

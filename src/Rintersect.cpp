@@ -88,10 +88,10 @@ vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
     //--------------------------------------------------------------------------------------//
     vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
     tri::UpdateBounding<MyMesh>::Box(m);
-    tri::UpdateNormals<MyMesh>::PerFaceNormalized(m);//very important !!!
-    tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-    tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
-tri::UpdateNormals<MyMesh>::NormalizeVertex(refmesh);
+    tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
+    tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+    tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+tri::UpdateNormal<MyMesh>::NormalizePerVertex(refmesh);
     float maxDist = m.bbox.Diag();
     float minDist = 1e-10;
     

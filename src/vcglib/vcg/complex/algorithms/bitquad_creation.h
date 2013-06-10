@@ -45,7 +45,15 @@ void MakeDominant(MeshType &m, int level)
 void MakeBitTriOnly(MeshType &m)
    - inverse process: returns to tri-only mesh
 
-   
+int SplitNonFlatQuads(MeshType &m, ScalarType toleranceDeg=0){
+   - as above, but splits only non flat quads
+
+TESTING METHODS:
+
+bool IsTriOnly(const MeshType &m);  // only triangles
+bool IsQuadOnly(const MeshType &m); // only quads
+bool IsTriQuadOnly(const MeshType &m); // only quads or triangles
+
 (more info in comments before each method)
 
 */
@@ -55,7 +63,7 @@ void MakeBitTriOnly(MeshType &m)
 namespace vcg{namespace tri{
 
 template <class _MeshType,
-					class Interpolator = GeometricInterpolator<typename _MeshType::VertexType> > 
+          class Interpolator = GeometricInterpolator<typename _MeshType::VertexType> >
 class BitQuadCreation{
   
 public:
@@ -68,10 +76,10 @@ typedef typename MeshType::FaceType* FaceTypeP;
 typedef typename MeshType::VertexType VertexType;
 typedef typename MeshType::FaceIterator FaceIterator;
 typedef typename MeshType::VertexIterator VertexIterator;
+typedef typename MeshType::ConstFaceIterator ConstFaceIterator;
 
 typedef BitQuad<MeshType> BQ; // static class to make basic quad operations
 
-  
 // helper function:
 // given a triangle, merge it with its best neightboord to form a quad
 template <bool override>
@@ -275,6 +283,27 @@ static bool MakeTriEvenByDelete(MeshType& m)
 }
 
 
+/*
+  Splits any quad that makes an angle steeper than given degrees
+*/
+static int SplitNonFlatQuads(MeshType &m, ScalarType deg=0){
+  int res=0;
+  float th = math::Cos(math::ToRad(deg));
+  for (FaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) if (!fi->IsD()) {
+    if (fi->IsAnyF()) {
+      int faux = BQ::FauxIndex(&*fi);
+      FaceType *fb = fi->FFp(faux);
+      if (fb->N()*fi->N()<th) {
+        fi->ClearF(faux);
+        fb->ClearF(fi->FFi(faux));
+        res++;
+      }
+    }
+  }
+  return res;
+}
+
+
 /** 
   Given a mesh, makes it bit trianglular (makes all edges NOT faux)
 */
@@ -296,9 +325,9 @@ static bool MakeBitTriQuadConventional(MeshType &/*m*/){
 }
 
 /* returns true if mesh is a "conventional" quad mesh.
-   I.e. if it is all quads, with third edge faux fora all triangles*/
-static bool IsBitTriQuadConventional(MeshType &m){
-  for (FaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) if (!fi->IsD()) {
+   I.e. if it is all quads, with third edge faux for all triangles*/
+static bool IsBitTriQuadConventional(const MeshType &m){
+  for (ConstFaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) if (!fi->IsD()) {
     if (fi->IsAnyF())
     if ( (fi->Flags() & FaceType::FAUX012 ) != FaceType::FAUX2 ) {
       return false;
@@ -306,6 +335,40 @@ static bool IsBitTriQuadConventional(MeshType &m){
   }
   return true;
 }
+
+/* returns true if mesh is a pure tri-mesh. (no faux edges) */
+static bool IsTriOnly(const MeshType &m){
+  for (ConstFaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) if (!fi->IsD()) {
+    if (fi->IsAnyF()) return false;
+  }
+  return true;
+}
+
+/* returns true if mesh is a pure quad-mesh.  */
+static bool IsQuadOnly(const MeshType &m){
+  for (ConstFaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) if (!fi->IsD()) {
+		int count = 0;
+		if (fi->IsF(0)) count++;
+		if (fi->IsF(1)) count++;
+		if (fi->IsF(2)) count++;
+		if (count!=1) return false;
+  }
+  return true;
+}
+
+/* returns true if mesh has only tris and quads (no penta etc) */
+static bool IsTriQuadOnly(const MeshType &m){
+  for (ConstFaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) if (!fi->IsD()) {
+		int count = 0;
+		if (fi->IsF(0)) count++;
+		if (fi->IsF(1)) count++;
+		if (fi->IsF(2)) count++;
+		if (count>1) return false;
+  }
+  return true;
+}
+
+
 static void CopyTopology(FaceType *fnew, FaceType * fold)
 {
     fnew->FFp(0)=fold->FFp(0); fnew->FFi(0)=fold->FFi(0);
@@ -768,9 +831,6 @@ static bool MakePureByFlip(MeshType &m, int maxdist=10000)
       level = 2: even more so (marginally)
 */
 static void MakeDominant(MeshType &m, int level){
-  
-  assert(MeshType::HasPerFaceQuality());
-  assert(MeshType::HasPerFaceFlags());
   
   for (FaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) {
     fi->ClearAllF();

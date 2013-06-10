@@ -1,13 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svnroot/vcg/!svn/ver/4430/trunk/vcglib/vcg/complex/algorithms/create
+/svnroot/vcg/!svn/ver/4884/trunk/vcglib/vcg/complex/algorithms/create
+END
+resampler.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/vcg/!svn/ver/4578/trunk/vcglib/vcg/complex/algorithms/create/resampler.h
 END
 mc_trivial_walker.h
 K 25
 svn:wc:ra_dav:version-url
 V 89
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/create/mc_trivial_walker.h
+/svnroot/vcg/!svn/ver/4857/trunk/vcglib/vcg/complex/algorithms/create/mc_trivial_walker.h
 END
 mc_lookup_table.h
 K 25
@@ -19,19 +25,19 @@ extrude.h
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/svnroot/vcg/!svn/ver/4430/trunk/vcglib/vcg/complex/algorithms/create/extrude.h
+/svnroot/vcg/!svn/ver/4805/trunk/vcglib/vcg/complex/algorithms/create/extrude.h
 END
 advancing_front.h
 K 25
 svn:wc:ra_dav:version-url
 V 87
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/create/advancing_front.h
+/svnroot/vcg/!svn/ver/4730/trunk/vcglib/vcg/complex/algorithms/create/advancing_front.h
 END
 emc_lookup_table.h
 K 25
 svn:wc:ra_dav:version-url
 V 88
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/create/emc_lookup_table.h
+/svnroot/vcg/!svn/ver/4857/trunk/vcglib/vcg/complex/algorithms/create/emc_lookup_table.h
 END
 readme.txt
 K 25
@@ -39,17 +45,23 @@ svn:wc:ra_dav:version-url
 V 80
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/create/readme.txt
 END
+zonohedron.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/vcg/!svn/ver/4488/trunk/vcglib/vcg/complex/algorithms/create/zonohedron.h
+END
 ball_pivoting.h
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/create/ball_pivoting.h
+/svnroot/vcg/!svn/ver/4730/trunk/vcglib/vcg/complex/algorithms/create/ball_pivoting.h
 END
 extended_marching_cubes.h
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h
+/svnroot/vcg/!svn/ver/4857/trunk/vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h
 END
 marching_cubes.h
 K 25
@@ -61,11 +73,5 @@ platonic.h
 K 25
 svn:wc:ra_dav:version-url
 V 80
-/svnroot/vcg/!svn/ver/4401/trunk/vcglib/vcg/complex/algorithms/create/platonic.h
-END
-resampler.h
-K 25
-svn:wc:ra_dav:version-url
-V 81
-/svnroot/vcg/!svn/ver/4331/trunk/vcglib/vcg/complex/algorithms/create/resampler.h
+/svnroot/vcg/!svn/ver/4884/trunk/vcglib/vcg/complex/algorithms/create/platonic.h
 END

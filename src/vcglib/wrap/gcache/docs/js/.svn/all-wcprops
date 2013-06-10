@@ -3,15 +3,15 @@ svn:wc:ra_dav:version-url
 V 59
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gcache/docs/js
 END
-prettify.css
-K 25
-svn:wc:ra_dav:version-url
-V 72
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gcache/docs/js/prettify.css
-END
 prettify.js
 K 25
 svn:wc:ra_dav:version-url
 V 71
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gcache/docs/js/prettify.js
+END
+prettify.css
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gcache/docs/js/prettify.css
 END

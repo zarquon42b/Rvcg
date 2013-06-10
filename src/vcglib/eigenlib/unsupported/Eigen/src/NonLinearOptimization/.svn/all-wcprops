@@ -1,49 +1,43 @@
 K 25
 svn:wc:ra_dav:version-url
 V 92
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization
-END
-lmpar.h
-K 25
-svn:wc:ra_dav:version-url
-V 100
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/lmpar.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization
 END
 r1updt.h
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/r1updt.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/r1updt.h
 END
 chkder.h
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/chkder.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/chkder.h
 END
 dogleg.h
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/dogleg.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/dogleg.h
 END
 HybridNonLinearSolver.h
 K 25
 svn:wc:ra_dav:version-url
 V 116
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h
 END
 rwupdt.h
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/rwupdt.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/rwupdt.h
 END
 qrsolv.h
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/qrsolv.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/qrsolv.h
 END
 CMakeLists.txt
 K 25
@@ -55,23 +49,29 @@ fdjac1.h
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/fdjac1.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/fdjac1.h
 END
 r1mpyq.h
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/r1mpyq.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/r1mpyq.h
 END
 LevenbergMarquardt.h
 K 25
 svn:wc:ra_dav:version-url
 V 113
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/LevenbergMarquardt.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/LevenbergMarquardt.h
 END
 covar.h
 K 25
 svn:wc:ra_dav:version-url
 V 100
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/covar.h
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/covar.h
+END
+lmpar.h
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/vcg/!svn/ver/4539/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/lmpar.h
 END

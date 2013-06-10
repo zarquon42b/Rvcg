@@ -29,6 +29,7 @@
 #include <vcg/complex/algorithms/update/bounding.h>
 #include <wrap/callback.h>
 #include <wrap/io_trimesh/io_mask.h>
+#include <QImageReader>
 
 extern "C"
 {
@@ -96,7 +97,7 @@ static bool ReadHeader(const char * filename,unsigned int &/*num_cams*/, unsigne
 
 static int Open( OpenMeshType &m, std::vector<Shot<ScalarType> >  & shots,
                  std::vector<std::string > & image_filenames,
-                 const char * filename,const char * filename_images, const char * filename_images_path = "",CallBackPos *cb=0)
+                 const char * filename,const char * filename_images, CallBackPos *cb=0)
 {
   unsigned int   num_cams,num_points;
 
@@ -137,13 +138,16 @@ static int Open( OpenMeshType &m, std::vector<Shot<ScalarType> >  & shots,
     shots[i].Intrinsics.k[0] = 0.0;//k1; To be uncommented when distortion is taken into account reliably
     shots[i].Intrinsics.k[1] = 0.0;//k2;
     shots[i].Intrinsics.PixelSizeMm = vcg::Point2f(1,1);
-    AddIntrinsics(shots[i], std::string(filename_images_path).append(image_filenames[i]).c_str());
+	QImageReader sizeImg(QString::fromStdString(image_filenames[i]));
+	QSize size=sizeImg.size();
+	shots[i].Intrinsics.ViewportPx = vcg::Point2i(size.width(),size.height());
+	shots[i].Intrinsics.CenterPx[0] = (int)((double)shots[i].Intrinsics.ViewportPx[0]/2.0f);
+	shots[i].Intrinsics.CenterPx[1] = (int)((double)shots[i].Intrinsics.ViewportPx[1]/2.0f);
+    //AddIntrinsics(shots[i], std::string(filename_images_path).append(image_filenames[i]).c_str());
   }
 
   // load all correspondences
   typename OpenMeshType::template PerVertexAttributeHandle<CorrVec> ch = vcg::tri::Allocator<OpenMeshType>::template GetPerVertexAttribute<CorrVec>(m,"correspondences");
-  if(!vcg::tri::Allocator<OpenMeshType>::IsValidHandle(m,ch))
-    ch = vcg::tri::Allocator<OpenMeshType>::template AddPerVertexAttribute<CorrVec>(m,"correspondences");
 
   typename OpenMeshType::VertexIterator vi = vcg::tri::Allocator<OpenMeshType>::AddVertices(m,num_points);
   for(uint i = 0; i < num_points;++i,++vi){

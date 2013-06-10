@@ -20,14 +20,10 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
+#include <vcg/complex/complex.h>
 
 #ifndef __VCG_HEDGE_COMPONENT
 #define __VCG_HEDGE_COMPONENT
-//#include <vector>
-#include <string>
-//#include <vcg/space/point3.h>
-//#include <vcg/space/texcoord2.h>
-#include <vcg/space/color4.h>
 
 namespace vcg {
 	namespace hedge {
@@ -86,9 +82,6 @@ All the Components that can be added to a vertex should be defined in the namesp
 //	inline const typename T::CoordType &  P1( const int j ) const { return V((j+1)%2)->P();}
 //	inline const typename T::CoordType & cP0( const int j ) const { return cV(j)->P();}
 //	inline const typename T::CoordType & cP1( const int j ) const { return cV((j+1)%2)->P();}
-//
-//	inline       typename T::VertexType *       & UberV( const int j )	      { assert(j>=0 && j<2); return v[j]; }
-//	inline const typename T::VertexType * const & UberV( const int j ) const	{ assert(j>=0 && j<2);	return v[j];	}
 //
 //	template <class LeftF>
 //	void ImportData(const LeftF & leftF){ V(0) = NULL; V(1) = NULL; V(2) = NULL; T::ImportData(leftF);}

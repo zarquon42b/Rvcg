@@ -1,4 +1,4 @@
-vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,quality=TRUE)
+vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,quality=TRUE,bound=TRUE)
   {
     doit <- TRUE
     vb <- mesh$vb[1:3,]
@@ -27,7 +27,7 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,
         
       }
     storage.mode(tarface) <- "integer"
-    tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb)
+    tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb,as.integer(topo),as.integer(quality),as.integer(bound))
     outmesh$vb <- rbind(tmp[[1]][,1:tmp[[2]]],1)
     
     outmesh$it <- tmp[[3]][,1:(tmp[[4]])]+1

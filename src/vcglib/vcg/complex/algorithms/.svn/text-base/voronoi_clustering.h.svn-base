@@ -97,54 +97,143 @@ static void SeedToVertexConversion(MeshType &m,std::vector<CoordType> &seedPVec,
 }
 
 typedef typename MeshType::template PerVertexAttributeHandle<VertexPointer> PerVertexPointerHandle;
+typedef typename MeshType::template PerFaceAttributeHandle<VertexPointer> PerFacePointerHandle;
 
 static void ComputePerVertexSources(MeshType &m, std::vector<VertexType *> &seedVec)
 {
-  tri::Geo<MeshType> g;
-  VertexPointer farthest;
   tri::Allocator<MeshType>::DeletePerVertexAttribute(m,"sources"); // delete any conflicting handle regardless of the type...
-  PerVertexPointerHandle sources =  tri::Allocator<MeshType>:: template AddPerVertexAttribute<VertexPointer> (m,"sources");
-  assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
-  g.FarthestVertex(m,seedVec,farthest,std::numeric_limits<ScalarType>::max(),&sources);
+  PerVertexPointerHandle vertexSources =  tri::Allocator<MeshType>:: template AddPerVertexAttribute<VertexPointer> (m,"sources");
+
+  tri::Allocator<MeshType>::DeletePerFaceAttribute(m,"sources"); // delete any conflicting handle regardless of the type...
+  PerFacePointerHandle faceSources =  tri::Allocator<MeshType>:: template AddPerFaceAttribute<VertexPointer> (m,"sources");
+
+  assert(tri::Allocator<MeshType>::IsValidHandle(m,vertexSources));
+  tri::Geodesic<MeshType>::Compute(m,seedVec,std::numeric_limits<ScalarType>::max(),0,&vertexSources);
 }
 
 static void VoronoiColoring(MeshType &m, std::vector<VertexType *> &seedVec, bool frontierFlag=true)
 {
   PerVertexPointerHandle sources =  tri::Allocator<MeshType>:: template GetPerVertexAttribute<VertexPointer> (m,"sources");
   assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
-  tri::Geo<MeshType> g;
+  tri::Geodesic<MeshType> g;
   VertexPointer farthest;
 
 		if(frontierFlag)
 		{
-				std::pair<float,VertexPointer> zz(0,0);
+				//static_cast<VertexPointer>(NULL) has been introduced just to avoid an error in the MSVS2010's compiler confusing pointer with int. You could use nullptr to avoid it, but it's not supported by all compilers. 
+				//The error should have been removed from MSVS2012				
+				std::pair<float,VertexPointer> zz(0.0f,static_cast<VertexPointer>(NULL));
 				std::vector< std::pair<float,VertexPointer> > regionArea(m.vert.size(),zz);
 				std::vector<VertexPointer> borderVec;
 				GetAreaAndFrontier(m, sources,  regionArea, borderVec);
-				g.FarthestVertex(m,borderVec,farthest);
+				tri::Geodesic<MeshType>::Compute(m,borderVec);
 		}
 
-		tri::UpdateColor<MeshType>::VertexQualityRamp(m);
+		tri::UpdateColor<MeshType>::PerVertexQualityRamp(m);
 }
 
-// Given a seed, it selects all the faces such with at least one vertex sourced by the passed VertexPointer.
-// Faces are selected more than once.
-static void SelectRegion(MeshType &m, VertexPointer vp)
+// It associates the faces with a given vertex according to the vertex associations
+//
+// It READS  the PerVertex attribute 'sources'
+// It WRITES the PerFace attribute 'sources'
+
+static void FaceAssociateRegion(MeshType &m)
+{
+  PerFacePointerHandle   faceSources =  tri::Allocator<MeshType>:: template GetPerFaceAttribute<VertexPointer> (m,"sources");
+  PerVertexPointerHandle vertexSources =  tri::Allocator<MeshType>:: template GetPerVertexAttribute<VertexPointer> (m,"sources");
+  for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
+  {
+    faceSources[fi]=0;
+    std::vector<VertexPointer> vp(3);
+    for(int i=0;i<3;++i) vp[i]=vertexSources[fi->V(i)];
+
+    for(int i=0;i<3;++i) // First try to associate to the most reached vertex
+    {
+      if(vp[0]==vp[1] && vp[0]==vp[2]) faceSources[fi] = vp[0];
+      else
+      {
+        if(vp[0]==vp[1] && vp[0]->Q()< vp[2]->Q()) faceSources[fi] = vp[0];
+        if(vp[0]==vp[2] && vp[0]->Q()< vp[1]->Q()) faceSources[fi] = vp[0];
+        if(vp[1]==vp[2] && vp[1]->Q()< vp[0]->Q()) faceSources[fi] = vp[1];
+      }
+    }
+  }
+  tri::UpdateTopology<MeshType>::FaceFace(m);
+  int unassCnt=0;
+  do
+  {
+    unassCnt=0;
+    for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
+    {
+      if(faceSources[fi]==0)
+      {
+        std::vector<VertexPointer> vp(3);
+        for(int i=0;i<3;++i)
+          vp[i]=faceSources[fi->FFp(i)];
+
+        if(vp[0]!=0 && (vp[0]==vp[1] || vp[0]==vp[2]))
+          faceSources[fi] = vp[0];
+        else if(vp[1]!=0 && (vp[1]==vp[2]))
+          faceSources[fi] = vp[1];
+        else
+          faceSources[fi] = std::max(vp[0],std::max(vp[1],vp[2]));
+        if(faceSources[fi]==0) unassCnt++;
+      }
+    }
+  }
+  while(unassCnt>0);
+}
+
+// Select all the faces with a given source vertex <vp>
+// It reads the PerFace attribute 'sources'
+
+static int FaceSelectAssociateRegion(MeshType &m, VertexPointer vp)
+{
+  PerFacePointerHandle sources =  tri::Allocator<MeshType>:: template FindPerFaceAttribute<VertexPointer> (m,"sources");
+  assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
+  tri::UpdateSelection<MeshType>::Clear(m);
+  int selCnt=0;
+  for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
+  {
+    if(sources[fi]==vp)
+    {
+      fi->SetS();
+      ++selCnt;
+    }
+  }
+  return selCnt;
+}
+
+// Given a seed <vp>, it selects all the faces that have the minimal distance vertex sourced by the given <vp>.
+// <vp> can be null (it search for unreached faces...)
+// returns the number of selected faces;
+//
+// It reads the PerVertex attribute 'sources'
+static int FaceSelectRegion(MeshType &m, VertexPointer vp)
 {
   PerVertexPointerHandle sources =  tri::Allocator<MeshType>:: template GetPerVertexAttribute<VertexPointer> (m,"sources");
   assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
-  tri::UpdateSelection<MeshType>::FaceClear(m);
-  tri::UpdateSelection<MeshType>::VertexClear(m);
-
+  tri::UpdateSelection<MeshType>::Clear(m);
+  int selCnt=0;
   for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
   {
-    if(	sources[(*fi).V(0)] == vp ||
-        sources[(*fi).V(1)] == vp ||
-        sources[(*fi).V(2)] == vp)
-      fi->SetS();
-  }
-  tri::UpdateSelection<MeshType>::VertexFromFaceLoose(m);
+    int minInd = 0; float minVal=std::numeric_limits<float>::max();
+    for(int i=0;i<3;++i)
+    {
+      if((*fi).V(i)->Q()<minVal)
+      {
+        minInd=i;
+        minVal=(*fi).V(i)->Q();
+      }
+    }
 
+    if(	sources[(*fi).V(minInd)] == vp)
+    {
+      fi->SetS();
+      selCnt++;
+    }
+  }
+  return selCnt;
 }
 
 // find the vertexes of frontier faces
@@ -187,15 +276,31 @@ static void VoronoiRelaxing(MeshType &m, std::vector<VertexType *> &seedVec, int
 	for(int iter=0;iter<relaxIter;++iter)
 	{
 		if(cb) cb(iter*100/relaxIter,"Voronoi Lloyd Relaxation: First Partitioning");
-		tri::Geo<MeshType> g;
-    VertexPointer farthest;
 		// first run: find for each point what is the closest to one of the seeds.
 		typename MeshType::template PerVertexAttributeHandle<VertexPointer> sources;
 		sources = tri::Allocator<MeshType>:: template AddPerVertexAttribute<VertexPointer> (m,"sources");
 		
-    g.FarthestVertex(m,seedVec,farthest,std::numeric_limits<ScalarType>::max(),&sources);
-		
-		std::pair<float,VertexPointer> zz(0,0);
+		tri::Geodesic<MeshType>::Compute(m,seedVec,std::numeric_limits<ScalarType>::max(),0,&sources);
+
+		// Delete all the (hopefully) small regions that have not been reached by the seeds;
+		tri::UpdateFlags<MeshType>::VertexClearV(m);
+		for(int i=0;i<m.vert.size();++i)
+		  if(sources[i]==0) m.vert[i].SetV();
+
+		for(FaceIterator fi=m.face.begin(); fi!=m.face.end();++fi)
+		  if(fi->V(0)->IsV() || fi->V(1)->IsV() || fi->V(2)->IsV() )
+		  {
+			face::VFDetach(*fi);
+			tri::Allocator<MeshType>::DeleteFace(m,*fi);
+		  }
+		qDebug("Deleted faces not reached: %i -> %i",int(m.face.size()),m.fn);
+		tri::Clean<MeshType>::RemoveUnreferencedVertex(m);
+		tri::Allocator<MeshType>::CompactFaceVector(m);
+		tri::Allocator<MeshType>::CompactVertexVector(m);
+
+		//static_cast<VertexPointer>(NULL) has been introduced just to avoid an error in the MSVS2010's compiler confusing pointer with int. You could use nullptr to avoid it, but it's not supported by all compilers. 
+		//The error should have been removed from MSVS2012				
+		std::pair<float,VertexPointer> zz(0.0f,static_cast<VertexPointer>(NULL));
 		std::vector< std::pair<float,VertexPointer> > regionArea(m.vert.size(),zz);
 		std::vector<VertexPointer> borderVec;
 
@@ -213,14 +318,14 @@ static void VoronoiRelaxing(MeshType &m, std::vector<VertexType *> &seedVec, int
   
 		if(cb) cb(iter*100/relaxIter,"Voronoi Lloyd Relaxation: Searching New Seeds");
 			
-    g.FarthestVertex(m,borderVec,farthest);
-        tri::UpdateColor<MeshType>::VertexQualityRamp(m);
+		tri::Geodesic<MeshType>::Compute(m,borderVec);
+        tri::UpdateColor<MeshType>::PerVertexQualityRamp(m);
 
 		// Search the local maxima for each region and use them as new seeds	
 		std::vector< std::pair<float,VertexPointer> > seedMaxima(m.vert.size(),zz);
 		for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi) 
 		{
-			int seedIndex = sources[vi] - &*m.vert.begin();
+			int seedIndex = tri::Index(m,sources[vi]);
 			if(seedMaxima[seedIndex].first < (*vi).Q()) 
 				{	
 					seedMaxima[seedIndex].first=(*vi).Q(); 
@@ -236,7 +341,7 @@ static void VoronoiRelaxing(MeshType &m, std::vector<VertexType *> &seedVec, int
 								newSeeds.push_back(seedMaxima[i].second);
 					}
 		
-		tri::UpdateColor<MeshType>::VertexQualityRamp(m);
+		tri::UpdateColor<MeshType>::PerVertexQualityRamp(m);
     for(size_t i=0;i<seedVec.size();++i)
 			seedVec[i]->C() = Color4b::Black;
 		
@@ -285,10 +390,13 @@ static void TopologicalVertexColoring(MeshType &m, std::vector<VertexType *> &se
 
 	}
 
-	// This function assumes that in the mOld mesh,  for each vertex you have a quality that denotes the index of the cluster
-	// mNew is created by collasping onto a single vertex all the vertices that lies in the same cluster. 
-	// Non degenerate triangles are preserved.
-	
+// Drastic Simplification algorithm.
+// Similar in philosopy to the classic grid clustering but using a voronoi partition instead of the regular grid.
+//
+// This function assumes that in the mOld mesh,  for each vertex you have a quality that denotes the index of the cluster
+// mNew is created by collasping onto a single vertex all the vertices that lies in the same cluster.
+// Non degenerate triangles are preserved.
+
 static void VoronoiClustering(MeshType &mOld, MeshType &mNew, std::vector<VertexType *> &seedVec)			
 {
 	std::set<Point3i> clusteredFace;
@@ -317,7 +425,7 @@ static void VoronoiClustering(MeshType &mOld, MeshType &mNew, std::vector<Vertex
 	}
 }
 
-};
+}; // end class VoronoiProcessing
 
 } // end namespace tri
 } // end namespace vcg

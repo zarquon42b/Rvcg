@@ -5,12 +5,12 @@
 using namespace std;
 
 // VCG headers for triangular mesh processing
-#include<vcg/simplex/edge/base.h>
-#include<vcg/simplex/vertex/base.h>
-#include<vcg/simplex/face/base.h>
+//#include<vcg/simplex/edge/base.h>
+//#include<vcg/simplex/vertex/base.h>
+//#include<vcg/simplex/face/base.h>
 #include <vcg/complex/complex.h>
 #include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/update/edges.h>
+//#include <vcg/complex/algorithms/update/edges.h>
 #include <vcg/complex/algorithms/update/bounding.h>
 #include <vcg/complex/algorithms/update/quality.h>
 #include <vcg/complex/algorithms/update/flag.h>

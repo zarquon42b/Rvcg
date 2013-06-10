@@ -150,12 +150,23 @@ public:
 	}
 
 
-	// It advance along the edge chain.
-	// Meaningful only for 1-manifold edge chain.
+	/*! \brief It advances the current Pos along the edge chain.
+	 *
+	 * Note that a Pos implicitly encode an ordering in the chain:
+	 * the one denoted by the classical arrow shaped icon of a pos.
+	 * In other words
+	 *
+	 *    o---------o
+	 *         |  /
+	 *         |/
+	 *
+	 * Meaningful only for 1-manifold edge chain.
+	 */
+
 	void NextE()
 	{
-		FlipV();
-		FlipE();
+       FlipE();
+       FlipV();
 	}
   
 		// Paolo Cignoni 19/6/99

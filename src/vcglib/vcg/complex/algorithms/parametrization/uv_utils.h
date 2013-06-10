@@ -30,6 +30,7 @@ namespace vcg {
 		template <class MeshType>
 		class UV_Utils
 		{
+		  typedef typename MeshType::CoordType CoordType;
 			typedef typename MeshType::ScalarType ScalarType;
 			typedef typename MeshType::FaceType FaceType;
 			typedef typename MeshType::VertexType VertexType;
@@ -65,6 +66,22 @@ namespace vcg {
 				return UVBox;
 			}
 
+		void PerWedgeMakeUnitaryUV(MeshType &m)
+		{
+		  vcg::Box2<typename MeshType::ScalarType> UVBox = PerWedgeUVBox(m);
+
+			typename MeshType::FaceIterator fi;
+			Point2f boxSize(UVBox.max-UVBox.min);
+			for (fi=m.face.begin();fi!=m.face.end();fi++)
+			{
+				if ((*fi).IsD()) continue;
+				for (int i=0;i<3;i++)
+				{
+				  (*fi).WT(i).U() = ((*fi).WT(i).U()-UVBox.min[0])/boxSize[0] ;
+				  (*fi).WT(i).V() = ((*fi).WT(i).V()-UVBox.min[1])/boxSize[1] ;
+				}
+			}
+		}
 			///transform curvature to UV space
 			static UVCoordType Coord3DtoUV(FaceType &f,const CoordType &dir)
 			{
@@ -109,6 +126,9 @@ namespace vcg {
 							VertexType *v0=(*fi).V(0);
 							VertexType *v1=(*fi).V1(0);
 							VertexType *v2=(*fi).V2(0);
+                            assert(v0!=v1);
+                            assert(v1!=v2);
+                            assert(v0!=v2);
 							UVCoordType uv1=v1->T().P();
 							UVCoordType uv2=v2->T().P();
 							int index=v0-&(m.vert[0]);
@@ -121,6 +141,7 @@ namespace vcg {
 					for (int i=0;i<m.vert.size();i++)
 					{
 						if ((fix_borders)&&(m.vert[i].IsB()))continue;
+                        if (num[i]==0)continue;
 						m.vert[i].T().P()=UVpos[i]/(ScalarType)num[i];
 					}
 				}

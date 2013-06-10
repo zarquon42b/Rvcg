@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/splatting_apss
+/svnroot/vcg/!svn/ver/4756/trunk/vcglib/wrap/gl/splatting_apss
 END
 splatrenderer.qrc
 K 25
@@ -13,5 +13,5 @@ splatrenderer.h
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/gl/splatting_apss/splatrenderer.h
+/svnroot/vcg/!svn/ver/4756/trunk/vcglib/wrap/gl/splatting_apss/splatrenderer.h
 END

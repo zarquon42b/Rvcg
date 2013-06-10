@@ -69,7 +69,12 @@ class Stat
 	typedef typename MeshType::FaceContainer  FaceContainer;
 	typedef typename vcg::Box3<ScalarType>  Box3Type;
 	
-	static std::pair<float,float> ComputePerVertexQualityMinMax( MeshType & m)    // V1.0
+	static void ComputePerVertexQualityMinMax( MeshType & m, float &minV, float &maxV)
+	{
+	  std::pair<float,float> pp=ComputePerVertexQualityMinMax(m);
+	  minV=pp.first; maxV=pp.second;
+	}
+	static std::pair<float,float> ComputePerVertexQualityMinMax( MeshType & m)
 	{
 	std::pair<float,float> minmax = std::make_pair(std::numeric_limits<float>::max(),-std::numeric_limits<float>::max());
 		 
@@ -83,7 +88,12 @@ class Stat
 		return minmax;
 	}
 
-	static std::pair<float,float> ComputePerFaceQualityMinMax( MeshType & m)    // V1.0
+	static void ComputePerFaceQualityMinMax( MeshType & m, float &minV, float &maxV)
+	{
+	  std::pair<float,float> pp=ComputePerFaceQualityMinMax(m);
+	  minV=pp.first; maxV=pp.second;
+	}
+	static std::pair<float,float> ComputePerFaceQualityMinMax( MeshType & m)
 	{
 		std::pair<float,float> minmax = std::make_pair(std::numeric_limits<float>::max(),-std::numeric_limits<float>::max());
 		
@@ -225,37 +235,36 @@ class Stat
         return h.Avg();
       }
 
-      static int ComputeFaceEdgeHistogram( MeshType & m, Histogramf &h)
+      static void ComputeFaceEdgeDistribution( MeshType & m, Distribution<float> &h)
       {
         h.Clear();
-        h.SetRange( 0, m.bbox.Diag(), 10000);
-        tri::UpdateFlags<MeshType>::VertexClearV(m);
+        tri::UpdateFlags<MeshType>::FaceBorderFromNone(m);
         for(FaceIterator fi = m.face.begin(); fi != m.face.end(); ++fi)
         {
           if(!(*fi).IsD())
           {
-            if( !(*fi).V(0)->IsV() && !(*fi).V(1)->IsV()  )
+            for(int i=0;i<3;++i)
             {
-              h.Add(Distance<float>((*fi).V(0)->P(),(*fi).V(1)->P()));
-              (*fi).V(0)->SetV();
-              (*fi).V(1)->SetV();
-            }
-            if( !(*fi).V(1)->IsV() && !(*fi).V(2)->IsV())
-            {
-              h.Add(Distance<float>((*fi).V(1)->P(),(*fi).V(2)->P()));
-              (*fi).V(2)->SetV();
-              (*fi).V(1)->SetV();
-            }
-            if( !(*fi).V(2)->IsV() && !(*fi).V(0)->IsV())
-            {
-              h.Add(Distance<float>((*fi).V(2)->P(),(*fi).V(0)->P()));
-              (*fi).V(0)->SetV();
-              (*fi).V(2)->SetV();
+              h.Add(Distance<float>(fi->P0(i),fi->P1(i)));
+              if(fi->IsB(i)) // to be uniform border edges must be added twice...
+                h.Add(Distance<float>(fi->P0(i),fi->P1(i)));
             }
           }
         }
-      return 0;
+      }
+
+	  static ScalarType ComputeFaceEdgeAverage(MeshType & m)
+	  {
+		double sum=0;
+		for(FaceIterator fi = m.face.begin(); fi != m.face.end(); ++fi)
+		  if(!(*fi).IsD())
+		  {
+			for(int i=0;i<3;++i)
+			  sum+=double(Distance<float>(fi->P0(i),fi->P1(i)));
+		  }
+		return sum/(m.fn*3.0);
 	  }
+
 }; // end class
 	
 	} //End Namespace tri

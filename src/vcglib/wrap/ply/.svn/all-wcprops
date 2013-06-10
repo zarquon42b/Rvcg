@@ -3,6 +3,12 @@ svn:wc:ra_dav:version-url
 V 48
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/ply
 END
+plylib.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/ply/plylib.cpp
+END
 plylib.h
 K 25
 svn:wc:ra_dav:version-url
@@ -14,10 +20,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 59
 /svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/ply/plystuff.h
-END
-plylib.cpp
-K 25
-svn:wc:ra_dav:version-url
-V 59
-/svnroot/vcg/!svn/ver/4180/trunk/vcglib/wrap/ply/plylib.cpp
 END

@@ -1,14 +1,14 @@
 10
 
 dir
-4436
+4888
 https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src/Core/arch
 https://vcg.svn.sourceforge.net/svnroot/vcg
 
 
 
-2012-06-14T13:31:05.191445Z
-4432
+2012-10-05T07:27:34.803522Z
+4539
 cignoni
 
 
@@ -26,9 +26,6 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-AltiVec
-dir
-
 SSE
 dir
 
@@ -38,7 +35,7 @@ file
 
 
 
-2012-03-29T11:44:14.716776Z
+2013-06-10T11:59:48.836627Z
 5ce077cefcdcd9e57c3fd08d003ce4ec
 2011-10-05T15:04:40.740408Z
 4180
@@ -70,5 +67,8 @@ NEON
 dir
 
 Default
+dir
+
+AltiVec
 dir
 

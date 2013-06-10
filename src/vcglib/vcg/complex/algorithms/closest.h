@@ -91,17 +91,17 @@ namespace vcg {
 		// UGrid<MESH::FaceContainer >, ma non sono riuscito a definirlo implicitamente 
 
 		template <class MESH, class GRID>
-			typename MESH::FaceType * GetClosestFace( MESH & mesh, GRID & gr, const typename GRID::CoordType & _p, 
-			const typename GRID::ScalarType & _maxDist, typename GRID::ScalarType & _minDist,
-			typename GRID::CoordType &_closestPt, typename GRID::CoordType & _normf, 
-			typename GRID::CoordType & _ip)
+			typename MESH::FaceType * GetClosestFaceEP( MESH & mesh, GRID & gr, const typename GRID::CoordType & _p,
+														const typename GRID::ScalarType & _maxDist, typename GRID::ScalarType & _minDist,
+														typename GRID::CoordType & _closestPt, typename GRID::CoordType & _normf,
+														typename GRID::CoordType & _ip)
 		{
 			typedef typename GRID::ScalarType ScalarType;
 			typedef Point3<ScalarType> Point3x;
 
 			typedef FaceTmark<MESH> MarkerFace;
 			MarkerFace mf(&mesh);
-			vcg::face::PointDistanceFunctor<ScalarType> FDistFunct;
+			vcg::face::PointDistanceEPFunctor<ScalarType> FDistFunct;
 			_minDist=_maxDist;
 			typename MESH::FaceType* bestf= gr.GetClosest(FDistFunct, mf, _p, _maxDist, _minDist, _closestPt);
 
@@ -109,33 +109,35 @@ namespace vcg {
 			{
 				// f=bestf;
 				//calcolo normale con interpolazione trilineare
-        InterpolationParameters<typename MESH::FaceType,typename MESH::ScalarType>(*bestf,bestf->N(),_closestPt, _ip);
-        _normf =  (bestf->V(0)->cN())*_ip[0]+
-          (bestf->V(1)->cN())*_ip[1]+
-          (bestf->V(2)->cN())*_ip[2] ;
+			  InterpolationParameters<typename MESH::FaceType,typename MESH::ScalarType>(*bestf,bestf->N(),_closestPt, _ip);
+			  _normf =  (bestf->V(0)->cN())*_ip[0]+
+				  (bestf->V(1)->cN())*_ip[1]+
+				  (bestf->V(2)->cN())*_ip[2] ;
 
-				_minDist = fabs(_minDist);
+			  _minDist = fabs(_minDist);
 				return(bestf);
 			}
 			return (0);
 		}
 
-		/*template <class MESH, class GRID>
-			typename MESH::FaceType * GetClosestFace( MESH & mesh,GRID & gr,const typename GRID::CoordType & _p, 
-			const typename GRID::ScalarType & _maxDist,typename GRID::ScalarType & _minDist,
-			typename GRID::CoordType &_closestPt,typename GRID::CoordType & _normf)
+		template <class MESH, class GRID>
+			typename MESH::FaceType * GetClosestFaceBase( MESH & mesh,GRID & gr,const typename GRID::CoordType & _p,
+														  const typename GRID::ScalarType _maxDist,typename GRID::ScalarType & _minDist,
+														  typename GRID::CoordType &_closestPt)
 		{
-			Point3<typename GRID::ScalarType> _ip;
+			typedef typename GRID::ScalarType ScalarType;
+			typedef Point3<ScalarType> Point3x;
 			typedef FaceTmark<MESH> MarkerFace;
 			MarkerFace mf;
 			mf.SetMesh(&mesh);
-			vcg::face::PointDistanceFunctor FDistFunct;
-			typename MESH::FaceType* bestf= gr.GetClosest(FDistFunct,mf,_p,_maxDist,_minDist,_closestPt) );
-		}*/
+			vcg::face::PointDistanceBaseFunctor<ScalarType> PDistFunct;
+			_minDist=_maxDist;
+			return (gr.GetClosest(PDistFunct,mf,_p,_maxDist,_minDist,_closestPt));
+		}
 
 		template <class MESH, class GRID>
-			typename MESH::FaceType * GetClosestFace( MESH & mesh,GRID & gr,const typename GRID::CoordType & _p, 
-			const typename GRID::ScalarType & _maxDist,typename GRID::ScalarType & _minDist,
+			typename MESH::FaceType * GetClosestFaceEP( MESH & mesh,GRID & gr,const typename GRID::CoordType & _p,
+			const typename GRID::ScalarType _maxDist, typename GRID::ScalarType & _minDist,
 			typename GRID::CoordType &_closestPt)
 		{
 			typedef typename GRID::ScalarType ScalarType;
@@ -143,7 +145,7 @@ namespace vcg {
 			typedef FaceTmark<MESH> MarkerFace;
 			MarkerFace mf;
 			mf.SetMesh(&mesh);
-			vcg::face::PointDistanceFunctor<ScalarType> PDistFunct;
+			vcg::face::PointDistanceEPFunctor<ScalarType> PDistFunct;
 			_minDist=_maxDist;
 			return (gr.GetClosest(PDistFunct,mf,_p,_maxDist,_minDist,_closestPt));
 		}
@@ -214,14 +216,14 @@ namespace vcg {
 		}
 
     template <class MESH, class GRID, class OBJPTRCONTAINER,class DISTCONTAINER, class POINTCONTAINER>
-      unsigned int GetKClosestFace(MESH & mesh,GRID & gr, const unsigned int _k,
+      unsigned int GetKClosestFaceEP(MESH & mesh,GRID & gr, const unsigned int _k,
       const typename GRID::CoordType & _p, const typename GRID::ScalarType & _maxDist,
       OBJPTRCONTAINER & _objectPtrs,DISTCONTAINER & _distances, POINTCONTAINER & _points)
     {
       typedef FaceTmark<MESH> MarkerFace;
       MarkerFace mf;
       mf.SetMesh(&mesh);
-      vcg::face::PointDistanceFunctor<typename MESH::ScalarType> FDistFunct;
+      vcg::face::PointDistanceEPFunctor<typename MESH::ScalarType> FDistFunct;
       return (gr.GetKClosest /*<vcg::face::PointDistanceFunctor, MarkerFace,OBJPTRCONTAINER,DISTCONTAINER,POINTCONTAINER>*/
         (FDistFunct,mf,_k,_p,_maxDist,_objectPtrs,_distances,_points));
     }
@@ -256,7 +258,7 @@ namespace vcg {
 		}
 
 		template <class MESH, class GRID, class OBJPTRCONTAINER, class DISTCONTAINER, class POINTCONTAINER>
-			unsigned int GetInSphereFace(MESH & mesh,
+			unsigned int GetInSphereFaceBase(MESH & mesh,
 			GRID & gr,
 			const typename GRID::CoordType & _p,
 			const typename GRID::ScalarType & _r,
@@ -267,7 +269,7 @@ namespace vcg {
 			typedef FaceTmark<MESH> MarkerFace;
 			MarkerFace mf;
 			mf.SetMesh(&mesh);
-			typedef vcg::face::PointDistanceFunctor<typename MESH::ScalarType> FDistFunct;
+			typedef vcg::face::PointDistanceBaseFunctor<typename MESH::ScalarType> FDistFunct;
 			return (gr.GetInSphere/*<FDistFunct,MarkerFace,OBJPTRCONTAINER,DISTCONTAINER,POINTCONTAINER>*/
 				(FDistFunct(),mf,_p,_r,_objectPtrs,_distances,_points));
 		}
@@ -413,20 +415,20 @@ namespace vcg {
 		//**ITERATORS DEFINITION**//
 
 		template <class GRID,class MESH>
-		class ClosestFaceIterator:public vcg::ClosestIterator<GRID,
-			vcg::face::PointDistanceFunctor<typename MESH::ScalarType>, FaceTmark<MESH> >
+		class ClosestFaceEPIterator:public vcg::ClosestIterator<GRID,
+			vcg::face::PointDistanceEPFunctor<typename MESH::ScalarType>, FaceTmark<MESH> >
 		{
 		public:
 			typedef GRID GridType;
 			typedef MESH MeshType;
 			typedef FaceTmark<MESH> MarkerFace;
-			typedef vcg::face::PointDistanceFunctor<typename MESH::ScalarType> PDistFunct;
+			typedef vcg::face::PointDistanceEPFunctor<typename MESH::ScalarType> PDistFunct;
 			typedef vcg::ClosestIterator<GRID,PDistFunct, FaceTmark<MESH> > ClosestBaseType;
 			typedef typename MESH::FaceType FaceType;
 			typedef typename MESH::ScalarType ScalarType;
 
 			//ClosestFaceIterator(GridType &_Si):ClosestBaseType(_Si,PDistFunct<FaceType,ScalarType>()){}
-			ClosestFaceIterator(GridType &_Si):ClosestBaseType(_Si,PDistFunct()){}
+			ClosestFaceEPIterator(GridType &_Si):ClosestBaseType(_Si,PDistFunct()){}
 
 //    Commented out: it seems unuseful and make gcc complain. p.
       void SetMesh(MeshType *m)

@@ -20,20 +20,12 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-
+#ifndef __VCG_MESH
+#error "This file should not be included alone. It is automatically included by complex.h"
+#endif
 #ifndef __VCG_EDGE_PLUS
 #define __VCG_EDGE_PLUS
-
-//#include <vcg/space/point3.h>
-//#include <vcg/space/texcoord2.h>
-//#include <vcg/space/color4.h>
-#include <vcg/complex/all_types.h>
-//#include <vcg/complex/used_types.h>
-#include <vcg/simplex/edge/component.h>
-#include <vcg/container/derivation_chain.h>
-
 namespace vcg {
-
 /*------------------------------------------------------------------*/ 
 /* 
 The base class of all the recusive definition chain. It is just a container of the typenames of the various simplexes.
@@ -62,14 +54,14 @@ we have to build the type a step a time (deriving from a single ancestor at a ti
 
 
 */ 
-template <class UserTypes>
-				class EdgeBase: public		  edge::EmptyEFAdj<
-                                    edge::EmptyVEAdj<
-																		edge::EmptyEEAdj<
-																		edge::EmptyEHAdj<
-																		edge::EmptyBitFlags<
-																		edge::EmptyVertexRef<
-																		EdgeTypeHolder < UserTypes> >  > > > > >{};
+//template <class UserTypes>
+//                class EdgeBase: public		  edge::EmptyCore<
+//                                    edge::EmptyVEAdj<
+//                                                                        edge::EmptyCore<
+//																		edge::EmptyEHAdj<
+//																		edge::EmptyBitFlags<
+//																		edge::EmptyVertexRef<
+//																		EdgeTypeHolder < UserTypes> >  > > > > >{};
 
 
 /* The Real Big Edge class;
@@ -89,9 +81,8 @@ template <class UserTypes,
           template <typename> class C, template <typename> class D, 
           template <typename> class E, template <typename> class F,
           template <typename> class G, template <typename> class H,
-					template <typename> class I, template <typename> class J, 
-					template <typename> class K> 
-class EdgeArityMax: public K<Arity10<EdgeBase<UserTypes>, A, B, C, D, E, F, G, H, I, J> > {
+          template <typename> class I, template <typename> class J >
+class EdgeArityMax: public Arity10<edge::EmptyCore<UserTypes>, A, B, C, D, E, F, G, H, I, J> {
 
 // ----- Flags stuff -----
 public:
@@ -109,9 +100,6 @@ public:
 		USER0      = 0x0200			// First user bit
 			};
 
-	inline int & UberFlags () { return this->Flags();	}
-        inline int UberFlags() const 	{		return this->Flags();	}
- 	
 	bool IsD() const {return (this->Flags() & DELETED) != 0;} ///  checks if the vertex is deleted
 	bool IsR() const {return (this->Flags() & NOTREAD) == 0;} ///  checks if the vertex is readable
 	bool IsW() const {return (this->Flags() & NOTWRITE)== 0;}///  checks if the vertex is modifiable
@@ -143,34 +131,40 @@ public:
 	void SetV()		{this->Flags() |=VISITED;}
 	void ClearV()	{this->Flags() &=~VISITED;}
 	
-///  Return the first bit that is not still used
-static int &LastBitFlag()
-		{
-			static int b =USER0;
-			return b;
-		}
+	///  Return the first bit that is not still used
+	static int &FirstUnusedBitFlag()
+	{
+	  static int b =USER0;
+	  return b;
+	}
 
-/// allocate a bit among the flags that can be used by user.
-static inline int NewBitFlag()
-		{
-			LastBitFlag()=LastBitFlag()<<1;
-			return LastBitFlag();
-		}
-// de-allocate a bit among the flags that can be used by user.
-static inline bool DeleteBitFlag(int bitval)
-		{	
-			if(LastBitFlag()==bitval) {
-					LastBitFlag()= LastBitFlag()>>1;
-					return true;
-			}
-			assert(0);
-			return false;
-		}
+	/// Allocate a bit among the flags that can be used by user. It updates the FirstUnusedBitFlag.
+	static inline int NewBitFlag()
+	{
+	  int bitForTheUser = FirstUnusedBitFlag();
+	  FirstUnusedBitFlag()=FirstUnusedBitFlag()<<1;
+	  return bitForTheUser;
+	}
+
+	/// De-allocate a pre allocated bit. It updates the FirstUnusedBitFlag.
+	// Note you must deallocate bit in the inverse order of the allocation (as in a stack)
+	static inline bool DeleteBitFlag(int bitval)
+	{
+	  if(FirstUnusedBitFlag()>>1==bitval) {
+		FirstUnusedBitFlag() = FirstUnusedBitFlag()>>1;
+		return true;
+	  }
+	  assert(0);
+	  return false;
+	}
+
 	/// This function checks if the given user bit is true
 	bool IsUserBit(int userBit){return (this->Flags() & userBit) != 0;}
-	/// This function set  the given user bit 
+
+	/// This function set the given user bit
 	void SetUserBit(int userBit){this->Flags() |=userBit;}
-	/// This function clear the given user bit 
+
+	/// This function clear the given user bit
 	void ClearUserBit(int userBit){this->Flags() &= (~userBit);}
 
  template<class BoxType>
@@ -217,9 +211,8 @@ template <class UserTypes,
           template <typename> class C = DefaultDeriver, template <typename> class D = DefaultDeriver,
           template <typename> class E = DefaultDeriver, template <typename> class F = DefaultDeriver,
           template <typename> class G = DefaultDeriver, template <typename> class H = DefaultDeriver,
-					template <typename> class I = DefaultDeriver, template <typename> class J = DefaultDeriver,
-					template <typename> class K = DefaultDeriver> 
-							class Edge: public EdgeArityMax<UserTypes, A, B, C, D, E, F, G, H, I, J, K>  {
+          template <typename> class I = DefaultDeriver, template <typename> class J = DefaultDeriver >
+                            class Edge: public EdgeArityMax<UserTypes, A, B, C, D, E, F, G, H, I, J>  {
 						public: typedef AllTypes::AEdgeType IAm; typedef UserTypes TypesPool;};
 
 }// end namespace

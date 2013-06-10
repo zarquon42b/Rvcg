@@ -66,8 +66,8 @@ extern "C" {
       {
 	if (updateNorm == 1)
 	  {
-	    tri::UpdateNormals<MyMesh>::PerVertexAngleWeighted(m);
-	    tri::UpdateNormals<MyMesh>::NormalizeVertex(m);
+	    tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+	    tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
 	  }
 	if (*clean == 1)
 	  {
