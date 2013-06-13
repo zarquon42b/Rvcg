@@ -7,6 +7,6 @@ Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
 Description: Meshing operation based on vcglib.
 SystemRequirements: 
-Depends: R (>= 2.14.0)
+Depends: R (>= 2.14.0), Rcpp
 License: GPL-2
 LazyLoad: yes
