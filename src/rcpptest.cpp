@@ -30,10 +30,16 @@ using namespace std;
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>*/
+//#include <../rcpptest.h>
 #include <../typedef.h>
-//#include <wrap/ply/plylib.cpp>
-
 #include <Rcpp.h>
+
+/*#ifndef _Rvcg_RCPPTEST_H
+#define _Rvcg_RCPPTEST_H
+#endif*/
+
+
+
 extern "C" SEXP Rcpptest( SEXP _vb, SEXP _dim, SEXP _it, SEXP _dimit){
 
  
