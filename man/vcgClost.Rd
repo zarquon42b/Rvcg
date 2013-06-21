@@ -7,7 +7,7 @@ For a set of 3D-coordinates the closest matches on a target surface are
 determined and normals at as well as distances to that point are calculated. 
 }
 \usage{
-vcgClost(x, mesh, sign = TRUE)
+vcgClost(x, mesh, sign = TRUE, barycentric = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,6 +16,9 @@ vcgClost(x, mesh, sign = TRUE)
   \item{mesh}{triangular surface mesh stored as object of class "mesh3d".
 }
   \item{sign}{logical: if TRUE, signed distances are returned.
+  }
+  \item{barycentric }{logical: if TRUE, barycentric coordinates of the
+    hit points are returned.
 }
 }
 \details{
@@ -29,7 +32,9 @@ vcgClost(x, mesh, sign = TRUE)
   
   \item{quality }{vector: containing distances to target.}
   \item{it }{4xm matrix containing vertex indices forming triangular
-  faces.Only available, when x is a mesh.}
+    faces.Only available, when x is a mesh.}
+  \item{barycoords }{3xm Matrix containing barycentric coordinates of
+  closest points; only available if barycentric=TRUE.}
 }
 \references{  Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed Distance Fields From Triangle Meshes. Informatics and Mathematical Modelling.
 }

@@ -35,7 +35,7 @@ vcgIsolated(mesh, facenum = NULL, diameter = NULL)
 
 
 \seealso{
-\code{\link{vcgPlyRead}},\code{\link{rmVertex}}
+\code{\link{vcgPlyRead}}
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

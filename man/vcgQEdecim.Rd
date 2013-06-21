@@ -27,6 +27,12 @@ vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL)
   are half as long by dividing the triangle into 4 regular smaller
   triangles. 
 }
+\item{topo }{logical: if TRUE, mesh topology is preserved.
+}
+\item{quality }{logical: if TRUE, vertex quality is considered.
+}
+\item{bound }{logical: if TRUE, mesh boundary is preserved.
+}
 }
 \details{
 This is basically an adaption of the cli tridecimator from vcglib}
