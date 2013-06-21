@@ -7,29 +7,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 // stuff to define the mesh
-//#include <vcg/simplex/vertex/base.h>
-//#include <vcg/simplex/face/base.h>
-//#include <vcg/simplex/edge/base.h>
+
 #include <vcg/complex/complex.h>
 #include <vcg/complex/algorithms/update/topology.h>
-//#include <vcg/complex/algorithms/update/edges.h>
 #include <vcg/complex/algorithms/update/bounding.h>
 #include <vcg/complex/algorithms/update/flag.h>
-//#include <vcg/math/quadric.h>
 #include <vcg/complex/algorithms/clean.h>
 // update
 #include <vcg/complex/algorithms/update/topology.h>
 //using namespace std;
-//#include <vcg/complex/algorithms/local_optimization.h>
-//#include <vcg/complex/algorithms/local_optimization/tri_edge_collapse_quadric.h>
+
 #include <vcg/container/simple_temporary_data.h>
 #include<vcg/complex/allocate.h>
 //#include <wrap/callback.h>
 #include <vcg/complex/append.h>
-//#include <vcg/simplex/face/pos.h>
-//#include <iostream>
+#include <Rcpp.h>
+
 using namespace vcg;
 using namespace tri;
+using namespace Rcpp;
+using namespace std;
 
 // The class prototypes.
 class CVertex2;
@@ -68,127 +65,141 @@ typedef CMesh2::ScalarType ScalarType;
 typedef CMesh2::VertexPointer VertexPointer;
 typedef Point3<CMesh2::ScalarType> Point3x;
 typedef std::vector<Point3x> Hole;
-
-
 typedef CMesh2::FaceContainer FaceContainer;
 
-extern "C" {
-
-  void Rclean(double *vb ,int *dim, int *it, int *dimit,double *normals,int *select)
-  {
-    ScalarType x,y,z;
-    int i;
+RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type)
+{
     
-    CMesh2 m;
-    // section read from input
-    int d = *dim;
-    int faced = *dimit;
-
-    //Allocate mesh
-
-    typedef UpdateTopology<CMesh2>::PEdge SimpleEdge;
-    vcg::tri::Allocator<CMesh2>::AddVertices(m,d);
-    vcg::tri::Allocator<CMesh2>::AddFaces(m,faced);
-    typedef CMesh2::VertexPointer VertexPointer;
-    std::vector<VertexPointer> ivp;
-    ivp.resize(d);
+  // section read from input
+  Rcpp::IntegerMatrix it(_it);
+  Rcpp::NumericMatrix vb(_vb);
+  int d =  vb.ncol();
+  int faced = it.ncol();
+  int select = Rcpp::as<int>(_type);
+  //Allocate mesh and fill it
+  ScalarType x,y,z;
+  int i;
     
-    SimpleTempData<CMesh2::FaceContainer,int> indicesf(m.face);
-    SimpleTempData<CMesh2::VertContainer,int> indices(m.vert);
-    VertexIterator vi=m.vert.begin();
-    for (i=0; i < d; i++) 
-      {
-	indices[vi] = i;
-	ivp[i]=&*vi;
-	x = vb[i*3];
-	y = vb[i*3+1];
-	z=  vb[i*3+2];
-	(*vi).P() = CoordType(x,y,z);
-	++vi;
-      }
-    int itx,ity,itz;
-    FaceIterator fi=m.face.begin();
-    for (i=0; i < faced ; i++) 
-      {
-	indicesf[fi] = i;
-	itx = it[i*3];
-	ity = it[i*3+1];
-	itz = it[i*3+2];
-	(*fi).V(0)=ivp[itx];
-	(*fi).V(1)=ivp[ity];
-	(*fi).V(2)=ivp[itz];
-	++fi;
-      }
-    //tri::UpdateFlags<CMesh2>::VertexBorderFromNone(m);
-    //tri::UpdateSelection<CMesh2>::VertexFromBorderFlag(m);
-    tri::Clean<CMesh2>::RemoveDuplicateVertex(m);
-    tri::Clean<CMesh2>::RemoveDuplicateFace(m);
-    tri::UpdateTopology<CMesh2>::FaceFace(m);
-    tri::UpdateTopology<CMesh2>::VertexFace(m);
-    vcg::tri::UpdateFlags<CMesh2>::FaceBorderFromFF(m);
-    vcg::tri::UpdateFlags<CMesh2>::VertexBorderFromFace(m);
-
-    //tri::UpdateFlags<CMesh2>::FaceBorderFromNone(m); 
+  CMesh2 m;
+  typedef UpdateTopology<CMesh2>::PEdge SimpleEdge;
+  vcg::tri::Allocator<CMesh2>::AddVertices(m,d);
+  vcg::tri::Allocator<CMesh2>::AddFaces(m,faced);
+  typedef CMesh2::VertexPointer VertexPointer;
+  std::vector<VertexPointer> ivp;
+  ivp.resize(d);
+    
+  SimpleTempData<CMesh2::FaceContainer,int> indicesf(m.face);
+  SimpleTempData<CMesh2::VertContainer,int> indices(m.vert);
+  VertexIterator vi=m.vert.begin();
+  for (i=0; i < d; i++) 
+    {
+      ivp[i]=&*vi;
+      x = (float) vb(0,i);
+      y = (float) vb(1,i);
+      z=  (float) vb(2,i);
+      (*vi).P() = CoordType(x, y, z);
+      ++vi;
+    } 
+    
+  int itx,ity,itz;
+  FaceIterator fi=m.face.begin();
+  for (i=0; i < faced ; i++) 
+    {
+      indicesf[fi] = i;
+      itx = it(0,i);
+      ity = it(1,i);
+      itz = it(2,i);
+      (*fi).V(0)=ivp[itx];
+      (*fi).V(1)=ivp[ity];
+      (*fi).V(2)=ivp[itz];
+      ++fi;
+    }
+    
+  // General cleaning and update of topology
+  //tri::UpdateFlags<CMesh2>::VertexBorderFromNone(m);
+  //tri::UpdateSelection<CMesh2>::VertexFromBorderFlag(m);
+  int dupvb = tri::Clean<CMesh2>::RemoveDuplicateVertex(m);
+  int dupit = tri::Clean<CMesh2>::RemoveDuplicateFace(m);
+  tri::UpdateTopology<CMesh2>::FaceFace(m);
+  tri::UpdateTopology<CMesh2>::VertexFace(m);
+  vcg::tri::UpdateFlags<CMesh2>::FaceBorderFromFF(m);
+  vcg::tri::UpdateFlags<CMesh2>::VertexBorderFromFace(m);
+  printf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
+  //tri::UpdateFlags<CMesh2>::FaceBorderFromNone(m); 
    
-    // do all the cleaning
+  // do all the cleaning
     
-	// if (*select ==1)
-	//tri::Clean<CMesh2>::SplitNonManifoldVertex(m,0.1);
- if (*select == 1)
-   tri::Clean<CMesh2>::RemoveUnreferencedVertex(m);
- if (*select == 2)
-   tri::Clean<CMesh2>::RemoveNonManifoldFace(m);
- if (*select == 3)
-   tri::Clean<CMesh2>::RemoveDegenerateFace(m);
- if (*select == 4)
-   tri::Clean<CMesh2>::RemoveNonManifoldVertex(m);
+  if (select == 1)
+    { int unref = tri::Clean<CMesh2>::RemoveUnreferencedVertex(m);
+      printf("removed %d unreferenced vertices\n",unref);
+    }
+  int rem;
+  if (select == 2)
+    { rem = tri::Clean<CMesh2>::RemoveNonManifoldFace(m);
+      printf("removed %d Non-manifold faces\n",rem);
+    }
+  if (select == 3)
+    { rem = tri::Clean<CMesh2>::RemoveDegenerateFace(m);
+      printf("removed %d degenerate faces\n",rem);
+    }
+  if (select == 4)
+    { rem = tri::Clean<CMesh2>::RemoveNonManifoldVertex(m);
+      printf("removed %d Non-manifold vertices\n",rem);
+    }
+  if (select == 5)
+    { int split =tri::Clean<CMesh2>::SplitNonManifoldVertex(m,0.1);
+      printf("split %d non-manifold vertices\n",split);
+    }
+  
  
- /*tri::Clean<CMesh2>::RemoveDuplicateVertex(m);
-    if (*select == 5)
-    tri::Clean<CMesh2>::RemoveDuplicateFace(m);*/
- // write back
-    vcg::tri::Allocator< CMesh2 >::CompactVertexVector(m);
-    vcg::tri::Allocator< CMesh2 >::CompactFaceVector(m);
-    tri::UpdateNormal<CMesh2>::PerVertexAngleWeighted(m);
-    tri::UpdateNormal<CMesh2>::NormalizePerVertex(m);
-    
-
-    vi=m.vert.begin();
-    for (i=0;  i < m.vn; i++) 
-      {
-	if( ! (&(*vi))->IsD() )
-	  indices[vi] = i;//important: updates vertex indices
-	vb[i*3] = (*vi).P()[0];
-	vb[i*3+1] = (*vi).P()[1];
-	vb[i*3+2] = (*vi).P()[2];
-	normals[i*3] = (*vi).N()[0];
-	normals[i*3+1] = (*vi).N()[1];
-	normals[i*3+2] = (*vi).N()[2];
-	++vi;
-      }
-    
-    FacePointer fp;
-    int vv[3];
-    *dim = m.vn;
-    fi=m.face.begin();
-    faced=m.fn;
-    
-    for (i=0; i < faced;i++) 
-      {
-	fp=&(*fi);
-	if( ! fp->IsD() )
-	  {
-	    vv[0]=indices[fp->cV(0)];
-	    vv[1]=indices[fp->cV(1)];
-	    vv[2]=indices[fp->cV(2)];
-	    it[i*3]=vv[0];
-	    it[i*3+1]=vv[1];
-	    it[i*3+2]=vv[2];
-	    ++fi;
-	  }
-      }
-      *dimit=m.fn;
-  }
-
+  // write back
+  vcg::tri::Allocator< CMesh2 >::CompactVertexVector(m);
+  vcg::tri::Allocator< CMesh2 >::CompactFaceVector(m);
+  tri::UpdateNormal<CMesh2>::PerVertexAngleWeighted(m);
+  tri::UpdateNormal<CMesh2>::NormalizePerVertex(m);
+  Rcpp::NumericMatrix vbout(3,m.vn), normals(3,m.vn);
+  Rcpp::IntegerMatrix itout(3,m.fn);
+  
+  //write back
+ 
+  vi=m.vert.begin();
+  SimpleTempData<CMesh2::VertContainer,int> indiceout(m.vert);
+ 
+  for (i=0;  i < m.vn; i++) 
+    {
+      if( ! vi->IsD() )
+	{
+	  indiceout[vi] = i;//important: updates vertex indices
+	  vbout(0,i) = (*vi).P()[0];
+	  vbout(1,i) = (*vi).P()[1];
+	  vbout(2,i) = (*vi).P()[2];
+	  normals(0,i) = (*vi).N()[0];
+	  normals(1,i) = (*vi).N()[1];
+	  normals(2,i) = (*vi).N()[2];
+	}
+	  ++vi;
+    }
+  
+  FacePointer fp;
+  fi=m.face.begin();
+       
+  for (i=0; i < m.fn; i++) 
+    {
+      fp=&(*fi);
+      if( ! fp->IsD() )
+	{
+	  itout(0,i) = indiceout[fp->cV(0)]+1;
+	  itout(1,i) = indiceout[fp->cV(1)]+1;
+	  itout(2,i) = indiceout[fp->cV(2)]+1;
+	  ++fi;
+	}
+    }
+  
+  return Rcpp::List::create(Rcpp::Named("vb") = vbout,
+			    Rcpp::Named("it") = itout,
+			    Rcpp::Named("normals") = normals
+			    );
 }
+ 
+
     
