@@ -37,7 +37,12 @@ vcgIsolated(mesh, facenum = NULL, diameter = NULL)
 \seealso{
 \code{\link{vcgPlyRead}}
 }
+\examples{
+require(rgl)
+data(humface)
+cleanface <- vcgIsolated(humface)
 
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }

@@ -44,10 +44,21 @@ Returns a reduced mesh of class mesh3d.
 Stefan Schlager}
 
 
-
 \seealso{
   \code{\link{vcgSmooth}}
   }
+\examples{
+require(rgl)
+data(humface)
+##reduce faces to 50\% 
+decimface <- vcgQEdecim(humface, percent = 0.5)
+## view
+shade3d(decimface, col=3)
+## some light smoothing
+decimface <- vcgSmooth(decimface,iteration = 1)
+
+
+}
 
 
 \keyword{ ~kwd1 }

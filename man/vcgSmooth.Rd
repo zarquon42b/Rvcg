@@ -65,6 +65,11 @@ values of meshlab, as they appear to be the least distorting}
  \code{\link{vcgPlyRead}}
 }
 \examples{
+require(rgl)
+data(humface)
+smoothface <- vcgSmooth(humface)
+## view
+shade3d(smoothface, col=3)
 
 }
 

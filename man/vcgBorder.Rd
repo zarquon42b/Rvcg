@@ -30,9 +30,19 @@ vcgBorder(mesh)
 \author{
 Stefan Schlager}
 
+
 \seealso{
  \code{\link{vcgPlyRead}}
 }
+\examples{
+require(rgl)
+data(humface)
+borders <- vcgBorder(humface)
+## view border vertices
+points3d(t(humface$vb[1:3,])[which(borders$bordervb == 1),],col=2)
+wire3d(humface)
+}
+
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
