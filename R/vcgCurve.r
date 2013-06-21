@@ -5,6 +5,6 @@ vcgCurve <- function(mesh)
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
         storage.mode(it) <- "integer"
-        tmp <- .Call("Rcurvature",vb,ncol(vb),it,ncol(it),1)
+        tmp <- .Call("Rcurvature",vb,it)
         return(tmp)
   }

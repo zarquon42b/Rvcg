@@ -81,7 +81,6 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type)
   int i;
     
   CMesh2 m;
-  typedef UpdateTopology<CMesh2>::PEdge SimpleEdge;
   vcg::tri::Allocator<CMesh2>::AddVertices(m,d);
   vcg::tri::Allocator<CMesh2>::AddFaces(m,faced);
   typedef CMesh2::VertexPointer VertexPointer;

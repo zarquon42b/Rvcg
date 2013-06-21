@@ -1,6 +1,5 @@
 #include <string.h>
 #include <vector>
-using namespace std;
 #include <stdio.h>
 #include <cstddef>
 
@@ -32,6 +31,7 @@ using namespace std;
 
 using namespace vcg;
 using namespace Rcpp;
+using namespace std;
 
 class CurvFace;
 class CurvEdge;
@@ -66,43 +66,33 @@ typedef  CurvMesh::FaceIterator FaceIterator;
 typedef  CurvMesh::FacePointer FacePointer;
 typedef  CurvMesh::CoordType CoordType;
 typedef  CurvMesh::ScalarType ScalarType;
-
 typedef CurvMesh::ConstVertexIterator ConstVertexIterator;
 typedef CurvMesh::ConstFaceIterator   ConstFaceIterator;
   
   
 
 
-RcppExport SEXP Rcurvature( SEXP _vb, SEXP _dim, SEXP _it, SEXP _dimit, SEXP _type)
+RcppExport SEXP Rcurvature( SEXP _vb, SEXP _it)
 {
         
-  ScalarType x,y,z;
-  //double x,y,z;
-  int i, j;
-    
-  CurvMesh m;
   // section read from input
-    
-  const int d =  Rcpp::as<int>(_dim);
-  const int faced = Rcpp::as<int>(_dimit);
-  const int curvetype = Rcpp::as<int>(_type);
-  Rcpp::IntegerVector it(_it);
-  //Rcpp::NumericVector vb(_vb);
+  Rcpp::IntegerMatrix it(_it);
   Rcpp::NumericMatrix vb(_vb);
-   
-  //--------------------------------------------------------------------------------------//
-  //
-  //                                   PREPROCESS
-  // Create meshes,
-  // Update the bounding box and initialize max search distance
-  // Remove duplicates and update mesh properties
-  //--------------------------------------------------------------------------------------//
+  int d =  vb.ncol();
+  int faced = it.ncol();
+    
+  //Allocate mesh and fill it
+  ScalarType x,y,z;
+  int i, j;
+  CurvMesh m;
   vcg::tri::Allocator<CurvMesh>::AddVertices(m,d);
   vcg::tri::Allocator<CurvMesh>::AddFaces(m,faced);
   typedef CurvMesh::VertexPointer VertexPointer;
   std::vector<VertexPointer> ivp;
   ivp.resize(d);
     
+  SimpleTempData<CurvMesh::FaceContainer,int> indicesf(m.face);
+  SimpleTempData<CurvMesh::VertContainer,int> indices(m.vert);
   VertexIterator vi=m.vert.begin();
   for (i=0; i < d; i++) 
     {
@@ -118,44 +108,29 @@ RcppExport SEXP Rcurvature( SEXP _vb, SEXP _dim, SEXP _it, SEXP _dimit, SEXP _ty
   FaceIterator fi=m.face.begin();
   for (i=0; i < faced ; i++) 
     {
-      itx = it[i*3];
-      ity = it[i*3+1];
-      itz = it[i*3+2];
+      indicesf[fi] = i;
+      itx = it(0,i);
+      ity = it(1,i);
+      itz = it(2,i);
       (*fi).V(0)=ivp[itx];
       (*fi).V(1)=ivp[ity];
       (*fi).V(2)=ivp[itz];
       ++fi;
     }
-  /*
-   int dupvb = tri::Clean<CurvMesh>::RemoveDuplicateVertex(m);
-   int dupit = tri::Clean<CurvMesh>::RemoveDuplicateFace(m);
   
-   printf("removed %d dupl. Vertices and %d dupl. Faces\n",dupvb,dupit);
-  */
-  //tri::UpdateQuality<CurvMesh>::VertexConstant(m, 1);  
-  //tri::UpdateQuality<CurvMesh>::FaceConstant(m, 1);  
-   
-  //tri::UpdateFlags<CurvMesh>::FaceBorderFromVF(m);
-  //tri::UpdateFlags<CurvMesh>::FaceBorderFromFF(m);
   tri::UpdateTopology<CurvMesh>::FaceFace(m);
   tri::UpdateTopology<CurvMesh>::VertexFace(m);
   tri::UpdateBounding<CurvMesh>::Box(m);
-  /*
-    tri::UpdateNormal<CurvMesh>::PerFaceNormalized(m);
-    tri::UpdateNormal<CurvMesh>::PerVertexAngleWeighted(m);
-    tri::UpdateNormal<CurvMesh>::NormalizePerVertex(m);
-  */
-
   tri::Allocator<CurvMesh>::CompactVertexVector(m);
   tri::UpdateCurvature<CurvMesh>::MeanAndGaussian(m);
   tri::UpdateQuality<CurvMesh>::VertexFromRMSCurvature(m);
-   //Bordersearch
+   
+  //Bordersearch
   tri::UpdateFlags<CurvMesh>::FaceBorderFromNone(m);
   tri::UpdateSelection<CurvMesh>::FaceFromBorderFlag(m);
   tri::UpdateFlags<CurvMesh>::VertexBorderFromNone(m);
   tri::UpdateSelection<CurvMesh>::VertexFromBorderFlag(m);
   
-  //tri::UpdateQuality<CurvMesh>::VertexClamp(m,-4,3);
   std::vector<float> gaussvb, meanvb, gaussitmax, meanitmax;
   std::vector<float> RMSvb;
   std::vector<int> bordervb, borderit;
@@ -196,8 +171,7 @@ RcppExport SEXP Rcurvature( SEXP _vb, SEXP _dim, SEXP _it, SEXP _dimit, SEXP _ty
       meanitmax.push_back(tmpm);
       ++fi;    
     }
- 
-  
+   
   //return(wrap(curvevb));
   return Rcpp::List::create(Rcpp::Named("gaussvb") = gaussvb,
 			    Rcpp::Named("meanvb") = meanvb,
