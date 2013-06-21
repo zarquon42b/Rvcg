@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/wrap/ply
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/ply
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:47.120619Z
+2013-06-21T07:08:18.867694Z
 4898296162fa9cc9282affbd74e4d19c
 2011-10-05T15:04:40.740408Z
 4180
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:47.120619Z
+2013-06-21T07:08:18.867694Z
 42f906d8b81428f23ba29652b56fac26
 2011-10-05T15:04:40.740408Z
 4180
@@ -100,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:47.120619Z
+2013-06-21T07:08:18.867694Z
 50360ba5a653f235ad1260d87b17553f
 2011-10-05T15:04:40.740408Z
 4180

@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported/doc/snippets
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/doc/snippets
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:50.724636Z
+2013-06-21T07:08:44.667822Z
 909c5e5311c8993ae04c572e92f198e9
 2011-10-05T15:04:40.740408Z
 4180

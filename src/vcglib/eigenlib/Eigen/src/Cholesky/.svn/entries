@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src/Cholesky
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Cholesky
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:48.284624Z
+2013-06-21T07:08:23.627717Z
 aec8d7479ee7122716447a24a6a16c4a
 2011-10-05T15:04:40.740408Z
 4180
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:48.280624Z
+2013-06-21T07:08:23.627717Z
 01a1079fed3200fc3e4848933522f184
 2012-10-05T07:27:34.803522Z
 4539
@@ -100,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:48.280624Z
+2013-06-21T07:08:23.627717Z
 68bf8265a357303aa0455201a56e0c7d
 2012-10-05T07:27:34.803522Z
 4539
@@ -134,7 +134,7 @@ file
 
 
 
-2013-06-10T11:59:48.280624Z
+2013-06-21T07:08:23.627717Z
 e5750ecc9a7b4ac0ff1c6de7bc9978dd
 2012-10-05T07:27:34.803522Z
 4539

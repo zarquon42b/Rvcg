@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/wrap/minpack
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/minpack
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:37.028568Z
+2013-06-21T07:08:07.531638Z
 5e5e85ce927634f0337ef4c2c61dc97f
 2011-10-05T15:04:40.740408Z
 4180

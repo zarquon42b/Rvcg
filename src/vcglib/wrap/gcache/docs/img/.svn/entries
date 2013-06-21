@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/wrap/gcache/docs/img
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/gcache/docs/img
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:47.588621Z
+2013-06-21T07:08:21.511707Z
 65bd59d77c616c28a108946a17b4c53c
 2011-10-05T15:04:40.740408Z
 4180
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:47.588621Z
+2013-06-21T07:08:21.511707Z
 b52e72c6260bc8d3bcbc28ab2c41e035
 2011-10-05T15:04:40.740408Z
 4180
@@ -100,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:47.588621Z
+2013-06-21T07:08:21.511707Z
 0af204b1c87b96bb2c8d77069c7e5bee
 2011-10-05T15:04:40.740408Z
 4180
@@ -134,7 +134,7 @@ file
 
 
 
-2013-06-10T11:59:47.588621Z
+2013-06-21T07:08:21.511707Z
 f9af77dc3fa189b01ef206d6259930ef
 2011-10-05T15:04:40.740408Z
 4180
@@ -168,7 +168,7 @@ file
 
 
 
-2013-06-10T11:59:47.588621Z
+2013-06-21T07:08:21.511707Z
 97766587513bb335fc5f051ced686baf
 2011-10-05T15:04:40.740408Z
 4180

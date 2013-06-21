@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/wrap/io_tetramesh
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/io_tetramesh
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,115 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-import_ts.h
-file
-
-
-
-
-2013-06-10T11:59:37.604571Z
-fc46e6d26f17e052e1984763c9682748
-2012-10-25T13:17:47.287786Z
-4658
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3881
-
-export_ply.h
-file
-
-
-
-
-2013-06-10T11:59:37.604571Z
-c4f5afa10f32cdd4329f723cbdd77485
-2012-10-25T13:17:47.287786Z
-4658
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-17990
-
-export_ts.h
-file
-
-
-
-
-2013-06-10T11:59:37.604571Z
-3de894d4df6bf0ccfb64fa88345fbaed
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3714
-
 io_ply.h
 file
 
 
 
 
-2013-06-10T11:59:37.604571Z
+2013-06-21T07:08:07.883639Z
 e1cbee1b2a751006a01cf244c46982bf
 2011-10-05T15:04:40.740408Z
 4180
@@ -168,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:37.604571Z
+2013-06-21T07:08:07.883639Z
 f7fd992c0b8b35d2c564d1234ac8c3dd
 2012-10-25T13:17:47.287786Z
 4658
@@ -195,4 +93,106 @@ cignoni
 
 
 23404
+
+import_ts.h
+file
+
+
+
+
+2013-06-21T07:08:07.883639Z
+fc46e6d26f17e052e1984763c9682748
+2012-10-25T13:17:47.287786Z
+4658
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3881
+
+export_ply.h
+file
+
+
+
+
+2013-06-21T07:08:07.883639Z
+c4f5afa10f32cdd4329f723cbdd77485
+2012-10-25T13:17:47.287786Z
+4658
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17990
+
+export_ts.h
+file
+
+
+
+
+2013-06-21T07:08:07.883639Z
+3de894d4df6bf0ccfb64fa88345fbaed
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3714
 

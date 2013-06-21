@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src/Core/arch/Default
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Core/arch/Default
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:48.772627Z
+2013-06-21T07:08:27.155735Z
 8b79b3698dfaa28d3062d0ad78d02944
 2012-10-05T07:27:34.803522Z
 4539
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:48.772627Z
+2013-06-21T07:08:27.155735Z
 00f865b2e096b3d06f0ff4b4fb61deff
 2011-10-05T15:04:40.740408Z
 4180

@@ -1,0 +1,55 @@
+10
+
+dir
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps
+svn://svn.code.sf.net/p/vcg/code
+
+
+
+2013-04-16T15:20:05.922207Z
+4890
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e8973e21-934d-0410-ac44-de4585f5606d
+
+metro
+dir
+
+tridecimator
+dir
+
+trimeshinfo
+dir
+
+unsupported
+dir
+
+quadrangulator
+dir
+
+plyrefine
+dir
+
+pivoting
+dir
+
+test
+dir
+
+sample
+dir
+

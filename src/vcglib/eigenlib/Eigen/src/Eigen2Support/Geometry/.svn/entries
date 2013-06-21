@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src/Eigen2Support/Geometry
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Eigen2Support/Geometry
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,183 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-AngleAxis.h
-file
-
-
-
-
-2013-06-10T11:59:49.888632Z
-4df2cc1032ba859bbc772bb9d6c8166e
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-7032
-
-Transform.h
-file
-
-
-
-
-2013-06-10T11:59:49.888632Z
-baec7da3c0a34abf61096b636cb8f9d2
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-28270
-
-AlignedBox.h
-file
-
-
-
-
-2013-06-10T11:59:49.888632Z
-32b8aad8b076fac443d5e60b2c7ae87e
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6241
-
-Translation.h
-file
-
-
-
-
-2013-06-10T11:59:49.888632Z
-614eda5c17dd8cb2236a7eca717db49c
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6108
-
-ParametrizedLine.h
-file
-
-
-
-
-2013-06-10T11:59:49.888632Z
-725ed9d358cdceb186633839d826924c
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5725
-
 Scaling.h
 file
 
 
 
 
-2013-06-10T11:59:49.892632Z
+2013-06-21T07:08:37.563787Z
 7e50332a40e2c019dd7a95a531efa1cf
 2012-10-05T07:27:34.803522Z
 4539
@@ -236,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:49.892632Z
+2013-06-21T07:08:37.563787Z
 8b3c5602504a37040ff7cc32d0e57fd2
 2012-10-05T07:27:34.803522Z
 4539
@@ -270,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:49.892632Z
+2013-06-21T07:08:37.563787Z
 2ceca70b4b935ceb63863cffdda9a132
 2012-10-05T07:27:34.803522Z
 4539
@@ -304,7 +134,7 @@ file
 
 
 
-2013-06-10T11:59:49.892632Z
+2013-06-21T07:08:37.563787Z
 171089de5918ebcd6303a4cba9d98096
 2011-10-05T15:04:40.740408Z
 4180
@@ -338,7 +168,7 @@ file
 
 
 
-2013-06-10T11:59:49.892632Z
+2013-06-21T07:08:37.567787Z
 b2a8f86efe3249d9dcc3de8e4200d9ee
 2012-10-05T07:27:34.803522Z
 4539
@@ -372,7 +202,7 @@ file
 
 
 
-2013-06-10T11:59:49.892632Z
+2013-06-21T07:08:37.567787Z
 caac77c027fa1ec7a5d228ed2a9e8fbb
 2012-10-05T07:27:34.803522Z
 4539
@@ -406,7 +236,7 @@ file
 
 
 
-2013-06-10T11:59:49.888632Z
+2013-06-21T07:08:37.563787Z
 37009fc3ae7355ce60050e6b43171e61
 2012-10-05T07:27:34.803522Z
 4539
@@ -433,4 +263,174 @@ has-props
 
 
 4606
+
+AngleAxis.h
+file
+
+
+
+
+2013-06-21T07:08:37.563787Z
+4df2cc1032ba859bbc772bb9d6c8166e
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7032
+
+Transform.h
+file
+
+
+
+
+2013-06-21T07:08:37.563787Z
+baec7da3c0a34abf61096b636cb8f9d2
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+28270
+
+AlignedBox.h
+file
+
+
+
+
+2013-06-21T07:08:37.563787Z
+32b8aad8b076fac443d5e60b2c7ae87e
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6241
+
+Translation.h
+file
+
+
+
+
+2013-06-21T07:08:37.563787Z
+614eda5c17dd8cb2236a7eca717db49c
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6108
+
+ParametrizedLine.h
+file
+
+
+
+
+2013-06-21T07:08:37.563787Z
+725ed9d358cdceb186633839d826924c
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5725
 

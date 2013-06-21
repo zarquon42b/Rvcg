@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported/Eigen/src
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,6 +26,15 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+MoreVectorization
+dir
+
+KroneckerProduct
+dir
+
+Polynomials
+dir
+
 NumericalDiff
 dir
 
@@ -47,7 +56,7 @@ file
 
 
 
-2013-06-10T11:59:51.376640Z
+2013-06-21T07:08:50.315850Z
 8c78291a0bde4acfc056dda019e2b99b
 2012-10-05T07:27:34.803522Z
 4539
@@ -88,14 +97,5 @@ AutoDiff
 dir
 
 SparseExtra
-dir
-
-MoreVectorization
-dir
-
-KroneckerProduct
-dir
-
-Polynomials
 dir
 

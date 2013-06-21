@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/vcg/space/intersection
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/space/intersection
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:20.724488Z
+2013-06-21T07:05:15.110783Z
 d4a24b7fdd6e3710bd3fe03185e452f1
 2011-10-05T15:04:40.740408Z
 4180

@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/vcg/complex/algorithms/parametrization
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex/algorithms/parametrization
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,13 +26,47 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+uv_utils.h
+file
+
+
+
+
+2013-06-21T07:04:58.518700Z
+5e82b4679676215d8704922248c01006
+2013-02-19T13:54:14.305513Z
+4817
+pietroni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5526
+
 distortion.h
 file
 
 
 
 
-2013-06-10T11:59:08.020425Z
+2013-06-21T07:04:58.518700Z
 cca1d04130da7edaa71babe6135e3708
 2012-11-15T19:11:28.863456Z
 4733
@@ -66,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:08.020425Z
+2013-06-21T07:04:58.518700Z
 b3050025ec71936e1ee0e647c824021c
 2013-04-03T10:07:29.655724Z
 4879
@@ -100,7 +134,7 @@ file
 
 
 
-2013-06-10T11:59:08.020425Z
+2013-06-21T07:04:58.518700Z
 534f628c16fdf03f8d12412e909ee4c6
 2013-01-22T09:58:20.090287Z
 4799
@@ -134,7 +168,7 @@ file
 
 
 
-2013-06-10T11:59:08.020425Z
+2013-06-21T07:04:58.518700Z
 eea3850233bb7f64f9b3e90634b9d075
 2013-03-30T15:30:18.886575Z
 4876
@@ -161,38 +195,4 @@ pietroni
 
 
 24809
-
-uv_utils.h
-file
-
-
-
-
-2013-06-10T11:59:08.020425Z
-5e82b4679676215d8704922248c01006
-2013-02-19T13:54:14.305513Z
-4817
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5526
 

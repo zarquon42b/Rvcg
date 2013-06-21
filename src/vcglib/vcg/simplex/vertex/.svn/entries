@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/vcg/simplex/vertex
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/simplex/vertex
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,47 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-component.h
-file
-
-
-
-
-2013-06-10T11:59:02.080395Z
-03cc7cf5ae3985e2d3a0a79440303ec7
-2013-03-13T14:02:03.583247Z
-4835
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-25013
-
 component_occ.h
 file
 
 
 
 
-2013-06-10T11:59:02.084395Z
+2013-06-21T07:04:54.890682Z
 c2be92fae18ed8ffd71ee0881c08bcfc
 2012-10-25T21:29:10.244068Z
 4666
@@ -100,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:02.080395Z
+2013-06-21T07:04:54.890682Z
 4ee0ed2432886acff65c9b4b71125e1f
 2013-02-06T11:22:11.027627Z
 4815
@@ -134,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:02.080395Z
+2013-06-21T07:04:54.890682Z
 79a37d794be44163dbd4b6860027a71c
 2012-11-15T19:07:34.785185Z
 4732
@@ -168,7 +134,7 @@ file
 
 
 
-2013-06-10T11:59:02.080395Z
+2013-06-21T07:04:54.890682Z
 d04a2a00d17d15086e2daf553c4a5ff7
 2012-11-15T19:11:28.863456Z
 4733
@@ -202,7 +168,7 @@ file
 
 
 
-2013-06-10T11:59:02.080395Z
+2013-06-21T07:04:54.890682Z
 eb0c9ead560a74df3d0ca1210edf1889
 2011-10-05T15:04:40.740408Z
 4180
@@ -229,4 +195,38 @@ has-props
 
 
 2618
+
+component.h
+file
+
+
+
+
+2013-06-21T07:04:54.890682Z
+03cc7cf5ae3985e2d3a0a79440303ec7
+2013-03-13T14:02:03.583247Z
+4835
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+25013
 

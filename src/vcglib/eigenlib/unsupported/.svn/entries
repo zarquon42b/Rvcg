@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,13 +26,19 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+doc
+dir
+
+Eigen
+dir
+
 README.txt
 file
 
 
 
 
-2013-06-10T11:59:51.468640Z
+2013-06-21T07:08:51.419855Z
 d38bd4f90c3154ad9cce5dd9aa110939
 2011-10-05T15:04:40.740408Z
 4180
@@ -66,7 +72,7 @@ file
 
 
 
-2013-06-10T11:59:51.468640Z
+2013-06-21T07:08:51.423855Z
 e41163a9e2be15cfd2c9a00231a85830
 2011-10-05T15:04:40.740408Z
 4180
@@ -95,11 +101,5 @@ has-props
 227
 
 test
-dir
-
-doc
-dir
-
-Eigen
 dir
 

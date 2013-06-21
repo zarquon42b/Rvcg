@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src/Householder
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Householder
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,81 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-CMakeLists.txt
-file
-
-
-
-
-2013-06-10T11:59:48.316624Z
-c7996e833fd490d7510eb85dc3f884b5
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-162
-
-HouseholderSequence.h
-file
-
-
-
-
-2013-06-10T11:59:48.316624Z
-5059e9bf12074d8fd502508e525f0820
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-19007
-
 BlockHouseholder.h
 file
 
 
 
 
-2013-06-10T11:59:48.316624Z
+2013-06-21T07:08:23.807718Z
 37b411c3159a50887e8dcb8252665062
 2012-10-05T07:27:34.803522Z
 4539
@@ -134,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:48.316624Z
+2013-06-21T07:08:23.807718Z
 fe8bd420756fa1edbf083f89f34cd268
 2012-10-05T07:27:34.803522Z
 4539
@@ -161,4 +93,72 @@ has-props
 
 
 5230
+
+CMakeLists.txt
+file
+
+
+
+
+2013-06-21T07:08:23.807718Z
+c7996e833fd490d7510eb85dc3f884b5
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+162
+
+HouseholderSequence.h
+file
+
+
+
+
+2013-06-21T07:08:23.807718Z
+5059e9bf12074d8fd502508e525f0820
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19007
 

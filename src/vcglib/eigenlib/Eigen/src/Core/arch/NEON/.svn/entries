@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src/Core/arch/NEON
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Core/arch/NEON
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,13 +26,47 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+PacketMath.h
+file
+
+
+
+
+2013-06-21T07:08:26.979734Z
+a2e112a70e535153e7e88723e3a83be0
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15032
+
 CMakeLists.txt
 file
 
 
 
 
-2013-06-10T11:59:48.768627Z
+2013-06-21T07:08:26.983734Z
 4fa8c08407284c46ad3cb1fbfd21c5e0
 2011-10-05T15:04:40.740408Z
 4180
@@ -66,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:48.768627Z
+2013-06-21T07:08:26.983734Z
 51254597083a35b101c9656b6068a5ac
 2012-10-05T07:27:34.803522Z
 4539
@@ -93,38 +127,4 @@ has-props
 
 
 8583
-
-PacketMath.h
-file
-
-
-
-
-2013-06-10T11:59:48.764627Z
-a2e112a70e535153e7e88723e3a83be0
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-15032
 

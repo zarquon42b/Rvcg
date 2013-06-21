@@ -1,0 +1,40 @@
+10
+
+dir
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/test
+svn://svn.code.sf.net/p/vcg/code
+
+
+
+2012-10-18T12:48:09.468981Z
+4627
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e8973e21-934d-0410-ac44-de4585f5606d
+
+trackball
+dir
+
+quaternion
+dir
+
+camerashot
+dir
+
+tetramesh
+dir
+

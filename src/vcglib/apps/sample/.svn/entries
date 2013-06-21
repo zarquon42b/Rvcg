@@ -1,0 +1,225 @@
+10
+
+dir
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample
+svn://svn.code.sf.net/p/vcg/code
+
+
+
+2013-04-16T15:20:05.922207Z
+4890
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e8973e21-934d-0410-ac44-de4585f5606d
+
+trimesh_refine
+dir
+
+img_filters
+dir
+
+trimesh_base
+dir
+
+trimesh_voroatlas
+dir
+
+hashing_2D
+dir
+
+trimesh_diskparam
+dir
+
+trimesh_closest
+dir
+
+trimesh_kdtree
+dir
+
+trimesh_clustering
+dir
+
+trimesh_ant_freeglut
+dir
+
+trimesh_curvature
+dir
+
+trimesh_geodesic
+dir
+
+polygonmesh_zonohedra
+dir
+
+trimesh_QT
+dir
+
+trimesh_allocate
+dir
+
+trimesh_optional
+dir
+
+trimesh_ant_qt
+dir
+
+common.pri
+file
+
+
+
+
+2013-06-21T07:05:24.410829Z
+eb3fd98ff28db5159a8fd50ef96b4659
+2012-10-16T09:08:19.337521Z
+4601
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+177
+
+trimesh_ball_pivoting
+dir
+
+trimesh_inertia
+dir
+
+trimesh_join
+dir
+
+colorspace
+dir
+
+trimesh_attribute
+dir
+
+trimesh_edge
+dir
+
+trimesh_fitting
+dir
+
+trimesh_pos_demo
+dir
+
+trimesh_smooth
+dir
+
+trimesh_copy
+dir
+
+trimesh_sampling
+dir
+
+trimesh_topology
+dir
+
+aabb_binary_tree
+dir
+
+trimesh_color
+dir
+
+space_packer
+dir
+
+sample.pro
+file
+
+
+
+
+2013-06-21T07:05:24.410829Z
+960b7c5cd41ba966eaa60742e18eccf0
+2013-03-26T11:33:17.680890Z
+4874
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1123
+
+trimesh_hole
+dir
+
+polygonmesh_quadsimpl
+dir
+
+trimesh_normal
+dir
+
+trimesh_split_vertex
+dir
+
+trimesh_ray
+dir
+
+trimesh_texture
+dir
+
+trimesh_isosurface
+dir
+
+polygonmesh_base
+dir
+
+trimesh_pointmatching
+dir
+
+trimesh_intersection
+dir
+
+space_minimal
+dir
+

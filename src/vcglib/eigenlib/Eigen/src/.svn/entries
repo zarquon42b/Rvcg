@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/Eigen/src
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,28 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-PaStiXSupport
-dir
-
-IterativeLinearSolvers
-dir
-
-Eigen2Support
-dir
-
-SparseCore
-dir
-
-Eigenvalues
-dir
-
 CMakeLists.txt
 file
 
 
 
 
-2013-06-10T11:59:50.248634Z
+2013-06-21T07:08:40.971803Z
 2ebef3f13165f24e7bc3f09b782f73b2
 2011-10-05T15:04:40.740408Z
 4180
@@ -127,5 +112,20 @@ SparseCholesky
 dir
 
 StlSupport
+dir
+
+PaStiXSupport
+dir
+
+IterativeLinearSolvers
+dir
+
+Eigen2Support
+dir
+
+SparseCore
+dir
+
+Eigenvalues
 dir
 

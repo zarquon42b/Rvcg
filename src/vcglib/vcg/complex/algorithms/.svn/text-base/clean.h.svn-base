@@ -120,6 +120,7 @@ private:
 			typedef typename MeshType::ConstVertexIterator ConstVertexIterator;
 		  typedef typename MeshType::EdgeIterator   EdgeIterator;
 		  typedef typename MeshType::EdgePointer  EdgePointer;
+            typedef	typename MeshType::CoordType			CoordType;
 			typedef	typename MeshType::ScalarType			ScalarType;
 			typedef typename MeshType::FaceType       FaceType;
 			typedef typename MeshType::FacePointer    FacePointer;
@@ -307,7 +308,8 @@ private:
 			*/
 			static int RemoveDuplicateEdge( MeshType & m)    // V1.0
 			{
-			  assert(m.fn == 0 && m.en >0); // just to be sure we are using an edge mesh...
+              //assert(m.fn == 0 && m.en >0); // just to be sure we are using an edge mesh...
+                if (m.en==0)return 0;
 			  std::vector<SortedPair> eVec;
 			  for(EdgeIterator ei=m.edge.begin();ei!=m.edge.end();++ei)
 				if(!(*ei).IsD())
@@ -476,7 +478,7 @@ private:
       // Duplicated vertices are moved apart according to the move threshold param.
       // that is a percentage of the average vector from the non manifold vertex to the barycenter of the incident faces.
 
-      static int SplitNonManifoldVertex(MeshType& m, float moveThreshold)
+      static int SplitNonManifoldVertex(MeshType& m, ScalarType moveThreshold)
       {
         RequireFFAdjacency(m);
         typedef std::pair<FacePointer,int> FaceInt; // a face and the index of the vertex that we have to change
@@ -521,7 +523,7 @@ private:
           pu.Update(np);
           firstVp->ImportData(*np);
           // loop on the face to be changed, and also compute the movement vector;
-          Point3f delta(0,0,0);
+          CoordType delta(0,0,0);
           for(size_t j=0;j<ToSplitVec[i].second.size();++j)
           {
             FaceInt ff=ToSplitVec[i].second[j];

@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:51.160639Z
+2013-06-21T07:08:47.315835Z
 4e00fb7184de3a5481c0bd81e71e917a
 2012-10-05T07:27:34.803522Z
 4539
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:51.160639Z
+2013-06-21T07:08:47.315835Z
 0ec734504c7a3f2136befe900a82e0ef
 2012-10-05T07:27:34.803522Z
 4539
@@ -100,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:51.160639Z
+2013-06-21T07:08:47.315835Z
 9c6b46792e8edb4b14dd3b487cfab276
 2012-10-05T07:27:34.803522Z
 4539
@@ -134,7 +134,7 @@ file
 
 
 
-2013-06-10T11:59:51.160639Z
+2013-06-21T07:08:47.315835Z
 1da228336288de955dfb8b050699f80a
 2012-10-05T07:27:34.803522Z
 4539
@@ -168,7 +168,7 @@ file
 
 
 
-2013-06-10T11:59:51.164639Z
+2013-06-21T07:08:47.319835Z
 49b3dd451042009c38eb3e099bddf29e
 2012-10-05T07:27:34.803522Z
 4539
@@ -202,7 +202,7 @@ file
 
 
 
-2013-06-10T11:59:51.164639Z
+2013-06-21T07:08:47.319835Z
 b33ede05ad58b564af1e905b55eef56f
 2011-10-05T15:04:40.740408Z
 4180

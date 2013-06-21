@@ -1,14 +1,14 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib
+svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-04-15T20:59:56.745507Z
-4888
+2013-06-19T05:36:49.475981Z
+4898
 cignoni
 
 
@@ -26,6 +26,12 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+docs
+dir
+
+wrap
+dir
+
 img
 dir
 
@@ -36,11 +42,5 @@ vcg
 dir
 
 apps
-dir
-
-docs
-dir
-
-wrap
 dir
 

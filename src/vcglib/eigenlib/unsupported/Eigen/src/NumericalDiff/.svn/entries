@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported/Eigen/src/NumericalDiff
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src/NumericalDiff
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,47 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-NumericalDiff.h
-file
-
-
-
-
-2013-06-10T11:59:51.116638Z
-6b0e853bfdddd8da4dcb3d87c07b7561
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3979
-
 CMakeLists.txt
 file
 
 
 
 
-2013-06-10T11:59:51.116638Z
+2013-06-21T07:08:46.967833Z
 effd859cc8217527d385c9811c47b4e9
 2011-10-05T15:04:40.740408Z
 4180
@@ -93,4 +59,38 @@ has-props
 
 
 180
+
+NumericalDiff.h
+file
+
+
+
+
+2013-06-21T07:08:46.967833Z
+6b0e853bfdddd8da4dcb3d87c07b7561
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3979
 

@@ -1,15 +1,15 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/wrap/gl/splatting_apss
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/gl/splatting_apss
+svn://svn.code.sf.net/p/vcg/code
 
 
 
-2012-11-28T11:23:51.740243Z
-4756
-cignoni
+2013-05-24T16:31:16.302391Z
+4895
+granzuglia
 
 
 
@@ -26,50 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-splatrenderer.h
-file
-
-
-
-
-2013-06-10T11:59:45.772612Z
-dd11bd83c6433e37b6980d78112757a6
-2012-11-28T11:23:51.740243Z
-4756
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-26397
-
-shaders
-dir
-
 splatrenderer.qrc
 file
 
 
 
 
-2013-06-10T11:59:45.772612Z
+2013-06-21T07:08:17.459687Z
 a43439b38365ed6d3dee360a4491bcbb
 2011-10-05T15:04:40.740408Z
 4180
@@ -96,4 +59,41 @@ cignoni
 
 
 174
+
+splatrenderer.h
+file
+
+
+
+
+2013-06-21T07:08:17.459687Z
+760e87d6e2e39a68d784c408241548ce
+2013-05-24T16:31:16.302391Z
+4895
+granzuglia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+26394
+
+shaders
+dir
 

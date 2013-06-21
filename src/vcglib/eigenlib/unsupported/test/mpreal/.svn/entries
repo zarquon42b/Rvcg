@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib/unsupported/test/mpreal
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/test/mpreal
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:50.520635Z
+2013-06-21T07:08:43.155814Z
 668c2aa285106aa5303e9382dd44b4e8
 2012-10-05T07:27:34.803522Z
 4539
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:50.524635Z
+2013-06-21T07:08:43.159814Z
 5d833e43255e71e49babe1603d1e8c18
 2012-10-05T07:27:34.803522Z
 4539
@@ -100,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:50.524635Z
+2013-06-21T07:08:43.159814Z
 d26e21fc0f3502a09102a55f6fefed3f
 2011-10-05T15:04:40.740408Z
 4180
@@ -134,7 +134,7 @@ file
 
 
 
-2013-06-10T11:59:50.520635Z
+2013-06-21T07:08:43.151814Z
 161d4f86145b4495cda273cb33034b13
 2012-10-05T07:27:34.803522Z
 4539

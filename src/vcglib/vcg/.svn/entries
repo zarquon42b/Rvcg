@@ -1,15 +1,15 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/vcg
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg
+svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-04-15T20:57:15.592226Z
-4887
-cignoni
+2013-06-05T11:08:55.186300Z
+4897
+tarini
 
 
 
@@ -26,6 +26,12 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+space
+dir
+
+connectors
+dir
+
 simplex
 dir
 
@@ -36,11 +42,5 @@ complex
 dir
 
 math
-dir
-
-space
-dir
-
-connectors
 dir
 

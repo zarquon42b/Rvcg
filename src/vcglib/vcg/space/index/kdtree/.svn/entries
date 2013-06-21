@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/vcg/space/index/kdtree
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/space/index/kdtree
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,13 +26,47 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+kdtree.h
+file
+
+
+
+
+2013-06-21T07:05:18.322798Z
+fc64d5b7ce0a6ca7a198485299ec0efb
+2013-01-31T10:44:44.180922Z
+4812
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13285
+
 priorityqueue.h
 file
 
 
 
 
-2013-06-10T11:59:22.412496Z
+2013-06-21T07:05:18.322798Z
 2f02f547dbc35ff6b19b2f23d14dd2e8
 2012-02-22T16:57:44.619581Z
 4334
@@ -66,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:22.412496Z
+2013-06-21T07:05:18.322798Z
 99f6b0adc42604eeed342c905caf9927
 2012-07-04T15:27:17.564256Z
 4463
@@ -93,38 +127,4 @@ has-props
 
 
 3373
-
-kdtree.h
-file
-
-
-
-
-2013-06-10T11:59:22.412496Z
-fc64d5b7ce0a6ca7a198485299ec0efb
-2013-01-31T10:44:44.180922Z
-4812
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-13285
 

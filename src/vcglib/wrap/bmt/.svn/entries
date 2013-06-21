@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/wrap/bmt
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/bmt
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:36.828567Z
+2013-06-21T07:08:07.531638Z
 625d0805cc87a919ba2ef36583ed83a6
 2011-10-05T15:04:40.740408Z
 4180
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:36.828567Z
+2013-06-21T07:08:07.531638Z
 98f127b06a6d1fa7ec023d630a114084
 2011-10-05T15:04:40.740408Z
 4180
@@ -100,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:36.828567Z
+2013-06-21T07:08:07.531638Z
 37b71b585b4d43d268ef20cf291b923a
 2011-10-05T15:04:40.740408Z
 4180

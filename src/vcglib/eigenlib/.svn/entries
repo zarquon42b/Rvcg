@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/eigenlib
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -26,19 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-Eigen
-dir
-
-unsupported
-dir
-
 howto.txt
 file
 
 
 
 
-2013-06-10T11:59:51.468640Z
+2013-06-21T07:08:51.547856Z
 af552b234bcce90a412575bf3c2f6254
 2013-02-27T21:07:14.867394Z
 4823
@@ -65,4 +59,10 @@ has-props
 
 
 366
+
+Eigen
+dir
+
+unsupported
+dir
 

@@ -1,9 +1,9 @@
 10
 
 dir
-4888
-https://vcg.svn.sourceforge.net/svnroot/vcg/trunk/vcglib/vcg/connectors
-https://vcg.svn.sourceforge.net/svnroot/vcg
+4898
+svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/connectors
+svn://svn.code.sf.net/p/vcg/code
 
 
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-10T11:59:23.452501Z
+2013-06-21T07:05:19.226803Z
 8fcfe53b1abf29253ce8c1e29532e16d
 2012-10-25T13:16:03.024436Z
 4657
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-10T11:59:23.452501Z
+2013-06-21T07:05:19.226803Z
 14d17ffd969a4a805f647ddd4c7c1b1a
 2012-10-25T13:16:03.024436Z
 4657
@@ -100,7 +100,7 @@ file
 
 
 
-2013-06-10T11:59:23.452501Z
+2013-06-21T07:05:19.226803Z
 5d51e7d5eb14e5ed920461ace7c04eff
 2011-10-05T15:04:40.740408Z
 4180
