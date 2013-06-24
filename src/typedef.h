@@ -23,6 +23,7 @@ using namespace std;
 #include<vcg/complex/allocate.h>
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
+#include <vcg/container/simple_temporary_data.h>
 
 // VCG File Format Importer/Exporter
 #include <wrap/io_trimesh/import.h>
@@ -31,24 +32,37 @@ using namespace std;
 #include <vcg/complex/algorithms/update/color.h>
 
 using namespace vcg;
+// The class prototypes.
+class MyFace;
+class MyEdge;
+class MyVertex;
+struct MyUsedTypes: public UsedTypes<Use<MyVertex>::AsVertexType,
+                                     Use<MyEdge>::AsEdgeType,
+                                     Use<MyFace>::AsFaceType
+                                     >{};
 
-    class MyFace;
-    class MyEdge;
-    class MyVertex;
-struct MyUsedTypes : public UsedTypes<	Use<MyVertex>		::AsVertexType,
-  Use<MyEdge>			::AsEdgeType,
-  Use<MyFace>			::AsFaceType>{};
 class MyEdge : public Edge<MyUsedTypes>{};
-class MyVertex  : public Vertex< MyUsedTypes, vertex::Coord3f, vertex::BitFlags, vertex::Normal3f, vertex::Mark,vertex::Color4b, vertex::Qualityf>{};
-class MyFace    : public Face  <MyUsedTypes, face::VertexRef,face::BitFlags,face::Mark, face::Normal3f> {};
+class MyVertex  : public Vertex< MyUsedTypes, 
+                                 vertex::Coord3f, 
+                                 vertex::BitFlags, 
+                                 vertex::Normal3f, 
+                                 vertex::Mark,
+                                 vertex::Color4b, 
+                                 vertex::Qualityf>{};
+class MyFace    : public Face  <MyUsedTypes, 
+                                face::VertexRef,
+                                face::BitFlags,
+                                face::Mark, 
+                                face::Normal3f> {};
 class MyMesh : public tri::TriMesh< vector<MyVertex>, vector<MyFace > >{};
-typedef MyMesh::ScalarType ScalarType;
+typedef  MyMesh::ScalarType ScalarType;
 typedef  MyMesh::VertexIterator VertexIterator;
 typedef  MyMesh::VertexPointer VertexPointer;
 typedef  MyMesh::FaceIterator FaceIterator;
 typedef  MyMesh::FacePointer FacePointer;
 typedef  MyMesh::CoordType CoordType;
 typedef  MyMesh::ScalarType ScalarType;
-
+typedef  MyMesh::VertContainer VertContainer;
+typedef  MyMesh::FaceContainer FaceContainer;
 typedef MyMesh::ConstVertexIterator ConstVertexIterator;
 typedef MyMesh::ConstFaceIterator   ConstFaceIterator;
