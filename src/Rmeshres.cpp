@@ -1,106 +1,93 @@
-/*#include <string.h>
-#include <vector>
-using namespace std;
-#include <stdio.h>
-#include <cstddef>
-
-// VCG headers for triangular mesh processing
-#include<vcg/simplex/edge/base.h>
-#include<vcg/simplex/vertex/base.h>
-#include<vcg/simplex/face/base.h>
+// stuff to define the mesh
 #include <vcg/complex/complex.h>
 #include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/create/platonic.h>
-#include <vcg/complex/algorithms/update/edges.h>
 #include <vcg/complex/algorithms/update/bounding.h>
-#include <vcg/complex/algorithms/update/quality.h>
 #include <vcg/complex/algorithms/update/flag.h>
+//#include <vcg/math/quadric.h>
 #include <vcg/complex/algorithms/clean.h>
-#include <vcg/complex/algorithms/intersection.h>
-#include <vcg/space/index/grid_static_ptr.h>
-#include <vcg/space/index/spatial_hashing.h>
-#include <vcg/complex/algorithms/closest.h>
-#include <vcg/complex/algorithms/smooth.h>
+// update
+#include <vcg/complex/algorithms/update/topology.h>
+#include <vcg/container/simple_temporary_data.h>
 #include<vcg/complex/allocate.h>
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
+#include <vcg/simplex/face/pos.h>
 
-// VCG File Format Importer/Exporter
-#include <wrap/io_trimesh/import.h>
-#include <wrap/io_trimesh/export.h>
-#include <wrap/io_trimesh/export_ply.h>
-#include <vcg/complex/algorithms/update/color.h>*/
-#include <../typedef.h>
-//#include <wrap/ply/plylib.cpp>
+#include <../RvcgIO.h>
+#include <Rcpp.h>
 
+using namespace vcg;
+using namespace tri;
+using namespace Rcpp;
+
+// The class prototypes.
+class CVertex1;
+class CEdge1;
+class CFace1;
+
+struct CUsedTypes1: public UsedTypes<Use<CVertex1>::AsVertexType,
+				     Use<CEdge1>::AsEdgeType,
+				     Use<CFace1>::AsFaceType>{};
+
+class CVertex1  : public Vertex< CUsedTypes1,
+				 vertex::VFAdj,
+				 vertex::Coord3f,
+				 vertex::Normal3f,
+				 vertex::Mark,
+				 vertex::BitFlags  >{};
+
+class CEdge1 : public Edge< CUsedTypes1> {};
+
+
+class CFace1    : public Face< CUsedTypes1,
+			       face::VFAdj,
+			       face::VertexRef,
+			       face::FFAdj,
+			       face::Mark,
+			       face::BitFlags > {};
+
+// the main mesh class
+class CMesh1    : public vcg::tri::TriMesh<std::vector<CVertex1>, 
+					   std::vector<CFace1> > {};
+typedef CMesh1::VertexIterator VertexIterator;
+typedef CMesh1::FacePointer  FacePointer;
+typedef CMesh1::FaceIterator   FaceIterator;
+typedef CMesh1::EdgePointer   EdgePointer;
+typedef CMesh1::EdgeIterator   EdgeIterator;
+typedef CMesh1::CoordType CoordType;
+typedef CMesh1::ScalarType ScalarType;
+typedef CMesh1::VertexPointer VertexPointer;
+typedef Point3<CMesh1::ScalarType> Point3x;
+//typedef std::vector<Point3x> Hole;
+typedef CMesh1::FaceContainer FaceContainer;
+typedef UpdateTopology<CMesh1>::PEdge SimpleEdge;
   
-  
-extern "C" {
-
-  void Rmeshres(double *vb ,int *dim, int *it, int *dimit, double *res)
+RcppExport SEXP Rmeshres(SEXP _vb , SEXP _it)
   {
-    /*typedef typename MyMesh::CoordType CoordType;
-    typedef typename MyMesh::ScalarType ScalarType;
-    */
-    //typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
-    typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
-    ScalarType x,y,z;
-    int i;
-    MyMesh m;
-    MyMesh refmesh;
-    MyMesh outmesh;
-    // section read from input
-    const int d = *dim;
-    const int faced = *dimit;
-    *res=*res*0;
-   
-   
-    //--------------------------------------------------------------------------------------//
-    //
-    //                                   PREPROCESS
-    // Create meshes,
-    // Update the bounding box and initialize max search distance
-    // Remove duplicates and update mesh properties
-    //--------------------------------------------------------------------------------------//
-    vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
-    vcg::tri::Allocator<MyMesh>::AddFaces(m,faced);
-    std::vector<VertexPointer> ivp;
-    ivp.resize(d);
-   
-    VertexIterator vi=m.vert.begin();
-    for (i=0; i < d; i++) 
-      {
-	ivp[i]=&*vi;
-	x = vb[i*3];
-	y = vb[i*3+1];
-	z=  vb[i*3+2];
-	(*vi).P() = CoordType(x,y,z);
-	++vi;
-      }
-    int itx,ity,itz;
-    FaceIterator fi=m.face.begin();
-    for (i=0; i < faced ; i++) 
-      {
-	itx = it[i*3];
-	ity = it[i*3+1];
-	itz = it[i*3+2];
-	(*fi).V(0)=ivp[itx];
-	(*fi).V(1)=ivp[ity];
-	(*fi).V(2)=ivp[itz];
-	++fi;
-      }
+    // declare Mesh and helper variables
+    int i, j;
+    CMesh1 m;
+    VertexIterator vi;
+    FaceIterator fi;
+    
+    Rvcg::IOMesh<CMesh1>::RvcgReadR(m,_vb,_it);
+    std::vector<SimpleEdge> Edges;
+    typename std::vector< SimpleEdge >::iterator ei;
+    typename std::vector< SimpleEdge >::size_type size;
+    tri::UpdateTopology<CMesh1>::FaceFace(m);
+    tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
+    size=Edges.size();
+    double res = 0;
     Point3f tmp0;
-    fi=m.face.begin();
-    for (i=0; i < faced ; i++) 
-      {
-	tmp0 = (*fi).V(0)->P()-(*fi).V(1)->P();
-	*res = *res+sqrt(tmp0.dot(tmp0));
-	tmp0 = (*fi).V(0)->P()-(*fi).V(2)->P();
-	*res = *res+sqrt(tmp0.dot(tmp0));
-	tmp0 = (*fi).V(1)->P()-(*fi).V(2)->P();
-	*res = *res+sqrt(tmp0.dot(tmp0));
-	++fi;
-      }
-    *res=*res/(faced*3);
+    VertexPointer vp , vp1;
+    for (i = 0;i < size;i++)
+    {
+      vp=Edges[i].v[0];
+      vp1=Edges[i].v[1];
+      tmp0 = vp->P()-vp1->P();
+      res = res + sqrt(tmp0.dot(tmp0));
+    }
+    res = res/size;
+    return(wrap(res));
   }
-}
+
