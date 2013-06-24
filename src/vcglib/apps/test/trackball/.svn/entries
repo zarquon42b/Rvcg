@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/test/trackball
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+trackball.vcproj
+file
+
+
+
+
+2013-06-21T07:05:19.758806Z
+2e02a9a9c9a5ca68ab3fcf7a6738e406
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3808
 
 main.cpp
 file
@@ -93,38 +127,4 @@ cignoni
 
 
 897
-
-trackball.vcproj
-file
-
-
-
-
-2013-06-21T07:05:19.758806Z
-2e02a9a9c9a5ca68ab3fcf7a6738e406
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3808
 

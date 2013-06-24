@@ -1,14 +1,14 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/simplex
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-03-20T08:56:20.633995Z
-4852
+2013-06-24T07:55:54.673865Z
+4902
 cignoni
 
 
@@ -26,15 +26,15 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-vertex
-dir
-
-face
-dir
-
 tetrahedron
 dir
 
 edge
+dir
+
+vertex
+dir
+
+face
 dir
 

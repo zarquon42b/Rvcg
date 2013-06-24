@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/trimeshinfo/trimeshinfo1.02/trimeshinfosample
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,210 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+knot_subsampled.ply
+file
+
+
+
+
+2013-06-21T07:06:43.847223Z
+d18f0f86446c47d706df75049603a897
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+40237
+
+knot_orig.ply
+file
+
+
+
+
+2013-06-21T07:06:43.847223Z
+e4f7264e614cae0ea21553d0326efce4
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+640240
+
+kite.ply
+file
+
+
+
+
+2013-06-21T07:06:43.847223Z
+353c4204c868ddb9bff64d75756ed8f0
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+462
+
+test1.ply
+file
+
+
+
+
+2013-06-21T07:06:43.851223Z
+f15853fa843819beef1a0493aa6dc7f2
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+830367
+
+test2.ply
+file
+
+
+
+
+2013-06-21T07:06:43.851223Z
+3b169ce102732dab40da9b62651eb35e
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1568040
+
+kite_degenerate2.ply
+file
+
+
+
+
+2013-06-21T07:06:43.851223Z
+a94506c94b26603e70cc8a77d0214bfc
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+414
 
 test3.ply
 file
@@ -60,18 +264,17 @@ cignoni
 
 3660031
 
-moebius.ply
+degenerate.ply
 file
 
 
 
 
 2013-06-21T07:06:43.859223Z
-072c2bf9d305462f5d4bc43cfb2dce25
+df7c679d70946c70b9608ae29789a46a
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -92,7 +295,8 @@ has-props
 
 
 
-3275
+
+245
 
 kite_hole.ply
 file
@@ -128,17 +332,18 @@ cignoni
 
 445
 
-degenerate.ply
+moebius.ply
 file
 
 
 
 
 2013-06-21T07:06:43.859223Z
-df7c679d70946c70b9608ae29789a46a
+072c2bf9d305462f5d4bc43cfb2dce25
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -159,8 +364,7 @@ cignoni
 
 
 
-
-245
+3275
 
 nonmanifold.ply
 file
@@ -196,40 +400,6 @@ cignoni
 
 307
 
-kleine.ply
-file
-
-
-
-
-2013-06-21T07:06:43.859223Z
-c077677d86622fd459bbcb3dff836fcf
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-14257
-
 three.ply
 file
 
@@ -263,6 +433,40 @@ cignoni
 
 
 275
+
+kleine.ply
+file
+
+
+
+
+2013-06-21T07:06:43.859223Z
+c077677d86622fd459bbcb3dff836fcf
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14257
 
 readme.txt
 file
@@ -366,40 +570,6 @@ cignoni
 
 0
 
-knot_vcg_simplified.ply
-file
-
-
-
-
-2013-06-21T07:06:43.847223Z
-ff0ea0d89e68f4b9a53d9d079427c456
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-40237
-
 kite_degenerate.ply
 file
 
@@ -433,6 +603,40 @@ cignoni
 
 
 412
+
+knot_vcg_simplified.ply
+file
+
+
+
+
+2013-06-21T07:06:43.847223Z
+ff0ea0d89e68f4b9a53d9d079427c456
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+40237
 
 one.ply
 file
@@ -671,208 +875,4 @@ cignoni
 
 
 45420
-
-knot_subsampled.ply
-file
-
-
-
-
-2013-06-21T07:06:43.847223Z
-d18f0f86446c47d706df75049603a897
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-40237
-
-knot_orig.ply
-file
-
-
-
-
-2013-06-21T07:06:43.847223Z
-e4f7264e614cae0ea21553d0326efce4
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-640240
-
-kite.ply
-file
-
-
-
-
-2013-06-21T07:06:43.847223Z
-353c4204c868ddb9bff64d75756ed8f0
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-462
-
-test1.ply
-file
-
-
-
-
-2013-06-21T07:06:43.851223Z
-f15853fa843819beef1a0493aa6dc7f2
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-830367
-
-test2.ply
-file
-
-
-
-
-2013-06-21T07:06:43.851223Z
-3b169ce102732dab40da9b62651eb35e
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1568040
-
-kite_degenerate2.ply
-file
-
-
-
-
-2013-06-21T07:06:43.851223Z
-a94506c94b26603e70cc8a77d0214bfc
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-414
 

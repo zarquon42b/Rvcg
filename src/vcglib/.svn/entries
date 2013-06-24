@@ -1,14 +1,14 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-06-19T05:36:49.475981Z
-4898
+2013-06-24T10:51:53.920813Z
+4909
 cignoni
 
 
@@ -26,12 +26,6 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-docs
-dir
-
-wrap
-dir
-
 img
 dir
 
@@ -42,5 +36,11 @@ vcg
 dir
 
 apps
+dir
+
+docs
+dir
+
+wrap
 dir
 

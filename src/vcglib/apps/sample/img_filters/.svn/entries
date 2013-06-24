@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/img_filters
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-img_filters.cpp
-file
-
-
-
-
-2013-06-21T07:05:23.702825Z
-51418952fe9ec24fe7b3997ffb7b7514
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8930
 
 img_filters.pro
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 505
+
+img_filters.cpp
+file
+
+
+
+
+2013-06-21T07:05:23.702825Z
+51418952fe9ec24fe7b3997ffb7b7514
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8930
 

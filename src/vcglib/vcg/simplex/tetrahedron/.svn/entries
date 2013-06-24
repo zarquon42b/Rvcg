@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/simplex/tetrahedron
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-base.h
-file
-
-
-
-
-2013-06-21T07:04:54.414680Z
-b037afb6823837600c58fb52fb8f1c26
-2012-10-25T13:07:25.089246Z
-4656
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-13504
 
 tetrahedron.h
 file
@@ -161,4 +127,38 @@ has-props
 
 
 12525
+
+base.h
+file
+
+
+
+
+2013-06-21T07:04:54.414680Z
+b037afb6823837600c58fb52fb8f1c26
+2012-10-25T13:07:25.089246Z
+4656
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13504
 

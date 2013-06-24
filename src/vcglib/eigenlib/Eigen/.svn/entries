@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,176 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-IterativeLinearSolvers
-file
-
-
-
-
-2013-06-21T07:08:41.531806Z
-ceb2f24ad7ade75204f671fab2dd2809
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1617
-
-PaStiXSupport
-file
-
-
-
-
-2013-06-21T07:08:41.531806Z
-3d816111cd741761cd0327e110dfc228
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1467
-
-Eigen2Support
-file
-
-
-
-
-2013-06-21T07:08:41.531806Z
-d4c4328a53193013b8abbe8e32b38e43
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2686
-
-SparseCore
-file
-
-
-
-
-2013-06-21T07:08:41.531806Z
-2884d0272700d7e0cd8c6238904222e1
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1940
-
-Eigenvalues
-file
-
-
-
-
-2013-06-21T07:08:41.531806Z
-bdfff180c7b7ad5240099e39b17ce7d0
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1306
 
 LeastSquares
 file
@@ -230,40 +60,6 @@ has-props
 
 712
 
-CMakeLists.txt
-file
-
-
-
-
-2013-06-21T07:08:41.535806Z
-8356f203720db32a51ace30ea0c5222a
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-607
-
 StdVector
 file
 
@@ -298,14 +94,14 @@ has-props
 
 755
 
-Array
+CMakeLists.txt
 file
 
 
 
 
 2013-06-21T07:08:41.535806Z
-fa5316eb01fca98c95b06f387528371c
+8356f203720db32a51ace30ea0c5222a
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -330,7 +126,7 @@ has-props
 
 
 
-304
+607
 
 StdDeque
 file
@@ -366,6 +162,40 @@ has-props
 
 749
 
+Array
+file
+
+
+
+
+2013-06-21T07:08:41.535806Z
+fa5316eb01fca98c95b06f387528371c
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+304
+
 LU
 file
 
@@ -399,40 +229,6 @@ has-props
 
 
 983
-
-Householder
-file
-
-
-
-
-2013-06-21T07:08:41.527806Z
-0e1a42f1f2babc77852672cd6624f270
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-580
 
 Cholesky
 file
@@ -468,14 +264,14 @@ has-props
 
 775
 
-CholmodSupport
+Householder
 file
 
 
 
 
 2013-06-21T07:08:41.527806Z
-4e24337b58c851f124e313d3383c8c72
+0e1a42f1f2babc77852672cd6624f270
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -500,7 +296,7 @@ has-props
 
 
 
-1696
+580
 
 QR
 file
@@ -535,6 +331,40 @@ has-props
 
 
 926
+
+CholmodSupport
+file
+
+
+
+
+2013-06-21T07:08:41.527806Z
+4e24337b58c851f124e313d3383c8c72
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1696
 
 UmfPackSupport
 file
@@ -1014,4 +844,174 @@ has-props
 
 
 637
+
+PaStiXSupport
+file
+
+
+
+
+2013-06-21T07:08:41.531806Z
+3d816111cd741761cd0327e110dfc228
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1467
+
+IterativeLinearSolvers
+file
+
+
+
+
+2013-06-21T07:08:41.531806Z
+ceb2f24ad7ade75204f671fab2dd2809
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1617
+
+SparseCore
+file
+
+
+
+
+2013-06-21T07:08:41.531806Z
+2884d0272700d7e0cd8c6238904222e1
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1940
+
+Eigen2Support
+file
+
+
+
+
+2013-06-21T07:08:41.531806Z
+d4c4328a53193013b8abbe8e32b38e43
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2686
+
+Eigenvalues
+file
+
+
+
+
+2013-06-21T07:08:41.531806Z
+bdfff180c7b7ad5240099e39b17ce7d0
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1306
 

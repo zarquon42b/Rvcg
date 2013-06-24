@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/gl/splatting_apss/shaders
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-Finalization.glsl
-file
-
-
-
-
-2013-06-21T07:08:17.459687Z
-10d49abb263d93dc7c5bfccc513278cb
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3814
 
 Raycasting.glsl
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 10525
+
+Finalization.glsl
+file
+
+
+
+
+2013-06-21T07:08:17.459687Z
+10d49abb263d93dc7c5bfccc513278cb
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3814
 

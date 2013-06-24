@@ -1,15 +1,15 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex/algorithms
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-05-08T09:05:58.995503Z
-4894
-pietroni
+2013-06-24T10:51:53.920813Z
+4909
+cignoni
 
 
 
@@ -25,247 +25,6 @@ pietroni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-textcoord_optimization.h
-file
-
-
-
-
-2013-06-21T07:05:06.102738Z
-2f9afad89a6915348f80e36250d6c76a
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-13483
-
-clean.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-969b8c557edd3531521e89eb4a9386fa
-2013-05-08T09:05:58.995503Z
-4894
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-60144
-
-geodesic.h
-file
-
-
-
-
-2013-06-21T07:05:06.102738Z
-fa066dd7421d3032b6fde8e5e92d5311
-2013-01-30T17:14:47.671353Z
-4810
-ganovelli
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-19706
-
-polygon_support.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-4865806d61b65854d870e5de59f463e9
-2012-10-23T23:41:41.113838Z
-4652
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8144
-
-point_sampling.h
-file
-
-
-
-
-2013-06-21T07:05:06.102738Z
-1877f82394fe5c8071fdc0819bd92153
-2013-03-13T00:16:51.570644Z
-4832
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-55892
-
-pointcloud_normal.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-4e16e7028970d177c96d7d73dbd85841
-2012-11-08T15:33:32.512644Z
-4699
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4402
-
-voronoi_clustering.h
-file
-
-
-
-
-2013-06-21T07:05:06.102738Z
-23219eedb4c3d4011c8a4bb95e64d53c
-2013-03-24T16:33:50.474742Z
-4859
-granzuglia
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-15848
-
-update
-dir
 
 local_optimization.h
 file
@@ -545,40 +304,6 @@ cignoni
 
 9762
 
-clip.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-fcac01c7ed56654ba2b99d6e82d69660
-2012-11-15T19:07:34.785185Z
-4732
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-28570
-
 hole.h
 file
 
@@ -612,6 +337,40 @@ cignoni
 
 
 25558
+
+clip.h
+file
+
+
+
+
+2013-06-21T07:05:06.106738Z
+fcac01c7ed56654ba2b99d6e82d69660
+2012-11-15T19:07:34.785185Z
+4732
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+28570
 
 inertia.h
 file
@@ -820,52 +579,17 @@ cignoni
 local_optimization
 dir
 
-outline_support.h
+inside.h
 file
 
 
 
 
-2013-06-21T07:05:06.106738Z
-f3e8680823f27e2b22a7e86747342501
-2013-04-03T10:02:19.303093Z
-4878
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8336
-
-halfedge_quad_clean.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-0af1fd2081c41004538268d4cb5b8569
+2013-06-21T07:05:06.102738Z
+8be5cc4d635dcf1fc16f1f87a49db28c
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -886,7 +610,8 @@ has-props
 
 
 
-24521
+
+4609
 
 stat.h
 file
@@ -922,17 +647,18 @@ cignoni
 
 10534
 
-inside.h
+halfedge_quad_clean.h
 file
 
 
 
 
-2013-06-21T07:05:06.102738Z
-8be5cc4d635dcf1fc16f1f87a49db28c
+2013-06-21T07:05:06.106738Z
+0af1fd2081c41004538268d4cb5b8569
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -953,8 +679,41 @@ cignoni
 
 
 
+24521
+
+outline_support.h
+file
 
-4609
+
+
+
+2013-06-21T07:05:06.106738Z
+f3e8680823f27e2b22a7e86747342501
+2013-04-03T10:02:19.303093Z
+4878
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8336
 
 nring.h
 file
@@ -1057,4 +816,245 @@ cignoni
 
 
 13543
+
+textcoord_optimization.h
+file
+
+
+
+
+2013-06-21T07:05:06.102738Z
+2f9afad89a6915348f80e36250d6c76a
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13483
+
+clean.h
+file
+
+
+
+
+2013-06-24T13:55:27.906354Z
+f5017bcad6b6ca7b1b57165c707f0cec
+2013-06-24T10:50:14.179533Z
+4908
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+60801
+
+geodesic.h
+file
+
+
+
+
+2013-06-21T07:05:06.102738Z
+fa066dd7421d3032b6fde8e5e92d5311
+2013-01-30T17:14:47.671353Z
+4810
+ganovelli
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19706
+
+polygon_support.h
+file
+
+
+
+
+2013-06-21T07:05:06.106738Z
+4865806d61b65854d870e5de59f463e9
+2012-10-23T23:41:41.113838Z
+4652
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8144
+
+point_sampling.h
+file
+
+
+
+
+2013-06-24T13:55:27.906354Z
+e61d93de02568451f1c751ac77c1e0dd
+2013-06-24T10:51:53.920813Z
+4909
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+60115
+
+pointcloud_normal.h
+file
+
+
+
+
+2013-06-24T13:55:27.906354Z
+6ed8d833318ecf0a9ad18d628d2c7b44
+2013-06-24T08:36:08.849269Z
+4906
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4404
+
+voronoi_clustering.h
+file
+
+
+
+
+2013-06-21T07:05:06.102738Z
+23219eedb4c3d4011c8a4bb95e64d53c
+2013-03-24T16:33:50.474742Z
+4859
+granzuglia
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15848
+
+update
+dir
 

@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,28 +26,25 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-trimesh_refine
+trimesh_fitting
 dir
 
-img_filters
+trimesh_intersection
+dir
+
+trimesh_refine
 dir
 
 trimesh_base
 dir
 
-trimesh_voroatlas
-dir
-
 hashing_2D
 dir
 
-trimesh_diskparam
-dir
-
-trimesh_closest
-dir
-
 trimesh_kdtree
+dir
+
+trimesh_color
 dir
 
 trimesh_clustering
@@ -56,13 +53,7 @@ dir
 trimesh_ant_freeglut
 dir
 
-trimesh_curvature
-dir
-
 trimesh_geodesic
-dir
-
-polygonmesh_zonohedra
 dir
 
 trimesh_QT
@@ -72,9 +63,6 @@ trimesh_allocate
 dir
 
 trimesh_optional
-dir
-
-trimesh_ant_qt
 dir
 
 common.pri
@@ -111,46 +99,67 @@ has-props
 
 177
 
-trimesh_ball_pivoting
+trimesh_ant_qt
 dir
 
-trimesh_inertia
+polygonmesh_quadsimpl
 dir
 
-trimesh_join
+trimesh_ray
 dir
 
 colorspace
 dir
 
-trimesh_attribute
+trimesh_join
+dir
+
+trimesh_texture
 dir
 
 trimesh_edge
 dir
 
-trimesh_fitting
+trimesh_pointmatching
 dir
 
 trimesh_pos_demo
 dir
 
+space_minimal
+dir
+
 trimesh_smooth
 dir
 
-trimesh_copy
+img_filters
 dir
 
 trimesh_sampling
 dir
 
+trimesh_copy
+dir
+
+trimesh_voroatlas
+dir
+
+trimesh_diskparam
+dir
+
 trimesh_topology
+dir
+
+trimesh_closest
 dir
 
 aabb_binary_tree
 dir
 
-trimesh_color
+trimesh_curvature
+dir
+
+polygonmesh_zonohedra
 dir
 
 space_packer
@@ -193,33 +202,24 @@ cignoni
 trimesh_hole
 dir
 
-polygonmesh_quadsimpl
-dir
-
 trimesh_normal
 dir
 
 trimesh_split_vertex
 dir
 
-trimesh_ray
+trimesh_ball_pivoting
 dir
 
-trimesh_texture
+trimesh_inertia
+dir
+
+trimesh_attribute
 dir
 
 trimesh_isosurface
 dir
 
 polygonmesh_base
-dir
-
-trimesh_pointmatching
-dir
-
-trimesh_intersection
-dir
-
-space_minimal
 dir
 

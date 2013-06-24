@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_pos_demo
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+mesh_type.h
+file
+
+
+
+
+2013-06-21T07:05:23.646825Z
+9b4780a7db6801cd5ff4121926dd9125
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3421
+
+main.cpp
+file
+
+
+
+
+2013-06-21T07:05:23.646825Z
+e238ece8d9e7dbbfdbafafbdcbd78f15
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+172
 
 glwidget.cpp
 file
@@ -263,72 +331,4 @@ cignoni
 
 
 1423
-
-mesh_type.h
-file
-
-
-
-
-2013-06-21T07:05:23.646825Z
-9b4780a7db6801cd5ff4121926dd9125
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3421
-
-main.cpp
-file
-
-
-
-
-2013-06-21T07:05:23.646825Z
-e238ece8d9e7dbbfdbafafbdcbd78f15
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-172
 

@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/gl/splatting_apss
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ granzuglia
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-splatrenderer.qrc
-file
-
-
-
-
-2013-06-21T07:08:17.459687Z
-a43439b38365ed6d3dee360a4491bcbb
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-174
 
 splatrenderer.h
 file
@@ -96,4 +62,38 @@ granzuglia
 
 shaders
 dir
+
+splatrenderer.qrc
+file
+
+
+
+
+2013-06-21T07:08:17.459687Z
+a43439b38365ed6d3dee360a4491bcbb
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+174
 

@@ -1,14 +1,14 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex/algorithms/create
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-04-15T20:14:27.665104Z
-4884
+2013-06-24T09:36:46.352528Z
+4907
 cignoni
 
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+extrude.h
+file
+
+
+
+
+2013-06-21T07:05:05.218734Z
+b66b0fa6b72ca8358c1229d0bab657b6
+2013-01-23T08:35:23.484447Z
+4805
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2627
 
 advancing_front.h
 file
@@ -270,10 +304,10 @@ file
 
 
 
-2013-06-21T07:05:05.218734Z
-2ced92cb589201175255a276be036b1c
-2013-04-15T20:14:27.665104Z
-4884
+2013-06-24T13:55:27.726353Z
+abc9741172e7c3d5287d79771c868ac7
+2013-06-24T09:36:46.352528Z
+4907
 cignoni
 
 
@@ -296,7 +330,7 @@ cignoni
 
 
 
-32518
+32745
 
 resampler.h
 file
@@ -399,38 +433,4 @@ cignoni
 
 
 173333
-
-extrude.h
-file
-
-
-
-
-2013-06-21T07:05:05.218734Z
-b66b0fa6b72ca8358c1229d0bab657b6
-2013-01-23T08:35:23.484447Z
-4805
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2627
 

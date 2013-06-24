@@ -1,7 +1,7 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/quadrangulator
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-bunny.ply
-file
-
-
-
-
-2013-06-21T07:07:56.171581Z
-697df49e2f53d06103aa61687ce1dd01
-2012-10-18T00:42:37.833083Z
-4622
-pietroni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1393631
-
-bunny.ffield
-file
-
-
-
-
-2013-06-21T07:07:56.167581Z
-5e031ebf78cd290ad1e6392623741ba3
-2012-10-18T00:42:37.833083Z
-4622
-pietroni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4719438
 
 configuration.txt
 file
@@ -195,4 +127,72 @@ has-props
 
 
 6374
+
+bunny.ply
+file
+
+
+
+
+2013-06-21T07:07:56.171581Z
+697df49e2f53d06103aa61687ce1dd01
+2012-10-18T00:42:37.833083Z
+4622
+pietroni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1393631
+
+bunny.ffield
+file
+
+
+
+
+2013-06-21T07:07:56.167581Z
+5e031ebf78cd290ad1e6392623741ba3
+2012-10-18T00:42:37.833083Z
+4622
+pietroni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4719438
 

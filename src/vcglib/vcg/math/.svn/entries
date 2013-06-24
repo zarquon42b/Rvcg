@@ -1,15 +1,15 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/math
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-06-05T11:08:55.186300Z
-4897
-tarini
+2013-06-24T08:34:53.914220Z
+4905
+cignoni
 
 
 
@@ -25,6 +25,108 @@ tarini
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+old_matrix.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+d3146333a8b88c11933db3ef40a2e0f8
+2013-03-19T17:05:56.433202Z
+4841
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5522
+
+eigen_matrix_addons.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+869db7b70d66dfef27765221bf826d72
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6233
+
+point_matching.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+74fc6f952931df840c965ed084ff3742
+2012-01-12T00:52:04.199938Z
+4284
+pietroni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14698
 
 factorial.h
 file
@@ -60,40 +162,6 @@ cignoni
 
 11968
 
-old_matrix33.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-f8d85aa9fac646a20670980f0522ba50
-2013-03-19T21:51:13.509472Z
-4846
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8725
-
 similarity2.h
 file
 
@@ -127,6 +195,40 @@ has-props
 
 
 2505
+
+old_matrix33.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+f8d85aa9fac646a20670980f0522ba50
+2013-03-19T21:51:13.509472Z
+4846
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8725
 
 polar_decomposition.h
 file
@@ -162,50 +264,16 @@ cignoni
 
 2824
 
-matrix33.h
+old_matrix44.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-b6f9a1049ba5dc90c4a44e4aac2aa796
-2013-03-19T22:04:35.242318Z
-4849
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-16557
-
-linear.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-f0497e2b2b6c931be5c7b63831f65c3b
-2011-10-05T15:04:40.740408Z
-4180
+f901bc09d6b86d8fccc9e78777f730b0
+2013-03-19T21:51:13.509472Z
+4846
 cignoni
 
 
@@ -228,7 +296,7 @@ cignoni
 
 
 
-3085
+16502
 
 base.h
 file
@@ -264,16 +332,16 @@ cignoni
 
 7379
 
-old_matrix44.h
+linear.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-f901bc09d6b86d8fccc9e78777f730b0
-2013-03-19T21:51:13.509472Z
-4846
+f0497e2b2b6c931be5c7b63831f65c3b
+2011-10-05T15:04:40.740408Z
+4180
 cignoni
 
 
@@ -296,7 +364,41 @@ cignoni
 
 
 
-16502
+3085
+
+matrix33.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+b6f9a1049ba5dc90c4a44e4aac2aa796
+2013-03-19T22:04:35.242318Z
+4849
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16557
 
 matrix44.h
 file
@@ -332,18 +434,17 @@ has-props
 
 19871
 
-quadric5.h
+spherical_harmonics.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-6bd86374cd9f8dcdb4f12cb0dadc0cad
+7e6b468d2a61f181405a2cb671e62d44
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -364,7 +465,8 @@ has-props
 
 
 
-18070
+
+6316
 
 shot.h
 file
@@ -400,17 +502,18 @@ cignoni
 
 20685
 
-spherical_harmonics.h
+quadric5.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-7e6b468d2a61f181405a2cb671e62d44
+6bd86374cd9f8dcdb4f12cb0dadc0cad
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -431,8 +534,7 @@ cignoni
 
 
 
-
-6316
+18070
 
 gen_normal.h
 file
@@ -610,10 +712,10 @@ file
 
 
 
-2013-06-21T07:05:10.162758Z
-2855ac905dd0ee230ed8623059a7c4ee
-2013-03-19T17:04:07.503112Z
-4840
+2013-06-24T13:55:27.918354Z
+a3bb4a70ac48b2212439cfb7c336c871
+2013-06-24T08:34:53.914220Z
+4905
 cignoni
 
 
@@ -636,7 +738,7 @@ cignoni
 
 
 
-13357
+14580
 
 similarity.h
 file
@@ -909,106 +1011,4 @@ cignoni
 
 
 5440
-
-old_matrix.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-d3146333a8b88c11933db3ef40a2e0f8
-2013-03-19T17:05:56.433202Z
-4841
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5522
-
-eigen_matrix_addons.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-869db7b70d66dfef27765221bf826d72
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6233
-
-point_matching.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-74fc6f952931df840c965ed084ff3742
-2012-01-12T00:52:04.199938Z
-4284
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-14698
 

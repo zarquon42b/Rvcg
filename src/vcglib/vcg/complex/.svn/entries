@@ -1,41 +1,14 @@
 10
 
 dir
-4898
+4909
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-05-08T09:05:58.995503Z
-4894
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-e8973e21-934d-0410-ac44-de4585f5606d
-
-exception.h
-file
-
-
-
-
-2013-06-21T07:05:06.454740Z
-626d9f80a8e2627010d878b946129292
-2012-12-10T09:10:19.054723Z
-4773
+2013-06-24T10:51:53.920813Z
+4909
 cignoni
 
 
@@ -51,14 +24,7 @@ cignoni
 
 
 
-
-
-
-
-
-
-
-2198
+e8973e21-934d-0410-ac44-de4585f5606d
 
 algorithms
 dir
@@ -266,4 +232,38 @@ has-props
 
 
 208
+
+exception.h
+file
+
+
+
+
+2013-06-21T07:05:06.454740Z
+626d9f80a8e2627010d878b946129292
+2012-12-10T09:10:19.054723Z
+4773
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2198
 
