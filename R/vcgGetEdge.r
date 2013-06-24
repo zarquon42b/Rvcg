@@ -4,23 +4,13 @@ vcgGetEdge <- function(mesh,unique=TRUE)
         it <- mesh$it - 1
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
-        storage.mode(it) <- "integer"
-        edges <- matrix(0,2,3*ncol(it))
-        storage.mode(edges) <- "integer"
-        unique <- as.integer(unique)
-        edgecount <- 0;
-        border <- facept <- as.integer(rep(0,3*ncol(it)))
-        storage.mode(edgecount) <- "integer"    
-        tmp <- .C("RgetEdge",vb,ncol(vb),it,ncol(it),edgecount,edges,facept,border,unique)
-        
-        edvert <- t(tmp[[6]][,1:tmp[[5]]]+1)
-        
+        tmp <- .Call("RgetEdge",vb,it,unique)
+        edvert <- tmp$edges
         edge <- data.frame(vert1=edvert[,1])
-        #edge$vert1 <- edvert[,1]
+        edge$vert1 <- edvert[,1]
         edge$vert2 <- edvert[,2]
-        edge$facept <- (tmp[[7]][1:tmp[[5]]])+1
-        
-        edge$border <-  (tmp[[8]][1:tmp[[5]]])
+        edge$facept <- tmp$facept
+        edge$border <-  tmp$border
         if (!unique)
             edge <- edge[order(edge[,1],edge[,2]),]
         invisible(edge)

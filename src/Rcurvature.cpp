@@ -2,6 +2,7 @@
 #include <vector>
 #include <stdio.h>
 #include <cstddef>
+#include <limits>
 
 // VCG headers for triangular mesh processing
 #include <vcg/complex/complex.h>
@@ -11,7 +12,6 @@
 #include <vcg/complex/algorithms/update/flag.h>
 #include <vcg/complex/algorithms/clean.h>
 #include <vcg/complex/algorithms/intersection.h>
-
 #include<vcg/complex/allocate.h>
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
@@ -24,8 +24,7 @@
 #include <vcg/complex/algorithms/update/curvature.h>
 #include <vcg/complex/algorithms/update/normal.h>
 
-#include <limits>
-//#include <../typedef.h>
+#include <../RvcgIO.h>
 //#include <wrap/ply/plylib.cpp>
 #include <Rcpp.h>
 
@@ -36,11 +35,11 @@ using namespace std;
 class CurvFace;
 class CurvEdge;
 class CurvVertex;
-struct CurvUsedTypes : public UsedTypes<Use<CurvVertex>		::AsVertexType,
-					Use<CurvEdge>			::AsEdgeType,
-					Use<CurvFace>			::AsFaceType>{};
+struct CurvUsedTypes : public UsedTypes<Use<CurvVertex>::AsVertexType,
+					Use<CurvEdge>::AsEdgeType,
+					Use<CurvFace>::AsFaceType>{};
 class CurvEdge : public Edge<CurvUsedTypes>{};
-class CurvVertex  : public Vertex< CurvUsedTypes, 
+class CurvVertex  : public Vertex< CurvUsedTypes,
 				   vertex::Coord3f, 
 				   vertex::BitFlags, 
 				   vertex::Normal3f, 
@@ -56,68 +55,28 @@ class CurvFace    : public Face  <CurvUsedTypes,
 				  face::Mark, 
 				  face::Normal3f,
 				  face::VFAdj,
-				  face::FFAdj> {};
+				  face::FFAdj>{};
 
 class CurvMesh : public tri::TriMesh< vector<CurvVertex>, vector<CurvFace > >{};
 typedef CurvMesh::ScalarType ScalarType;
-typedef  CurvMesh::VertexIterator VertexIterator;
-typedef  CurvMesh::VertexPointer VertexPointer;
-typedef  CurvMesh::FaceIterator FaceIterator;
-typedef  CurvMesh::FacePointer FacePointer;
-typedef  CurvMesh::CoordType CoordType;
-typedef  CurvMesh::ScalarType ScalarType;
+typedef CurvMesh::VertexIterator VertexIterator;
+typedef CurvMesh::VertexPointer VertexPointer;
+typedef CurvMesh::FaceIterator FaceIterator;
+typedef CurvMesh::FacePointer FacePointer;
+typedef CurvMesh::CoordType CoordType;
+typedef CurvMesh::ScalarType ScalarType;
 typedef CurvMesh::ConstVertexIterator ConstVertexIterator;
 typedef CurvMesh::ConstFaceIterator   ConstFaceIterator;
   
-  
-
-
 RcppExport SEXP Rcurvature( SEXP _vb, SEXP _it)
 {
-        
-  // section read from input
-  Rcpp::IntegerMatrix it(_it);
-  Rcpp::NumericMatrix vb(_vb);
-  int d =  vb.ncol();
-  int faced = it.ncol();
-    
-  //Allocate mesh and fill it
-  ScalarType x,y,z;
+  // declare Mesh and helper variables
   int i, j;
   CurvMesh m;
-  vcg::tri::Allocator<CurvMesh>::AddVertices(m,d);
-  vcg::tri::Allocator<CurvMesh>::AddFaces(m,faced);
-  typedef CurvMesh::VertexPointer VertexPointer;
-  std::vector<VertexPointer> ivp;
-  ivp.resize(d);
-    
-  SimpleTempData<CurvMesh::FaceContainer,int> indicesf(m.face);
-  SimpleTempData<CurvMesh::VertContainer,int> indices(m.vert);
-  VertexIterator vi=m.vert.begin();
-  for (i=0; i < d; i++) 
-    {
-      ivp[i]=&*vi;
-      x = (float) vb(0,i);
-      y = (float) vb(1,i);
-      z=  (float) vb(2,i);
-      (*vi).P() = CoordType(x, y, z);
-      ++vi;
-    } 
-    
-  int itx,ity,itz;
-  FaceIterator fi=m.face.begin();
-  for (i=0; i < faced ; i++) 
-    {
-      indicesf[fi] = i;
-      itx = it(0,i);
-      ity = it(1,i);
-      itz = it(2,i);
-      (*fi).V(0)=ivp[itx];
-      (*fi).V(1)=ivp[ity];
-      (*fi).V(2)=ivp[itz];
-      ++fi;
-    }
-  
+  VertexIterator vi;
+  FaceIterator fi;
+ 
+  Rvcg::IOMesh<CurvMesh>::RvcgReadR(m,_vb,_it);
   tri::UpdateTopology<CurvMesh>::FaceFace(m);
   tri::UpdateTopology<CurvMesh>::VertexFace(m);
   tri::UpdateBounding<CurvMesh>::Box(m);

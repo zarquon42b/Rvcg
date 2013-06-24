@@ -22,6 +22,7 @@
 //#include <wrap/callback.h>
 #include <vcg/complex/append.h>
 #include <Rcpp.h>
+#include <../RvcgIO.h>
 
 using namespace vcg;
 using namespace tri;
@@ -69,51 +70,15 @@ typedef CMesh2::FaceContainer FaceContainer;
 
 RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type)
 {
-    
-  // section read from input
-  Rcpp::IntegerMatrix it(_it);
-  Rcpp::NumericMatrix vb(_vb);
-  int d =  vb.ncol();
-  int faced = it.ncol();
-  int select = Rcpp::as<int>(_type);
-  //Allocate mesh and fill it
-  ScalarType x,y,z;
-  int i;
-    
+  // declare Mesh and helper variables
+  int select = Rcpp::as<int>(_type);  
+  int i, j;
   CMesh2 m;
-  vcg::tri::Allocator<CMesh2>::AddVertices(m,d);
-  vcg::tri::Allocator<CMesh2>::AddFaces(m,faced);
-  typedef CMesh2::VertexPointer VertexPointer;
-  std::vector<VertexPointer> ivp;
-  ivp.resize(d);
-    
-  SimpleTempData<CMesh2::FaceContainer,int> indicesf(m.face);
-  SimpleTempData<CMesh2::VertContainer,int> indices(m.vert);
-  VertexIterator vi=m.vert.begin();
-  for (i=0; i < d; i++) 
-    {
-      ivp[i]=&*vi;
-      x = (float) vb(0,i);
-      y = (float) vb(1,i);
-      z=  (float) vb(2,i);
-      (*vi).P() = CoordType(x, y, z);
-      ++vi;
-    } 
-    
-  int itx,ity,itz;
-  FaceIterator fi=m.face.begin();
-  for (i=0; i < faced ; i++) 
-    {
-      indicesf[fi] = i;
-      itx = it(0,i);
-      ity = it(1,i);
-      itz = it(2,i);
-      (*fi).V(0)=ivp[itx];
-      (*fi).V(1)=ivp[ity];
-      (*fi).V(2)=ivp[itz];
-      ++fi;
-    }
-    
+  VertexIterator vi;
+  FaceIterator fi;
+  // allocate mesh and fill it
+  Rvcg::IOMesh<CMesh2>::RvcgReadR(m,_vb,_it);
+  
   // General cleaning and update of topology
   //tri::UpdateFlags<CMesh2>::VertexBorderFromNone(m);
   //tri::UpdateSelection<CMesh2>::VertexFromBorderFlag(m);
