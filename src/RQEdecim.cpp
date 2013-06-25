@@ -9,8 +9,8 @@
 #include <stdlib.h>
 // stuff to define the mesh
 /*#include <vcg/simplex/vertex/base.h>
-#include <vcg/simplex/face/base.h>
-#include <vcg/simplex/edge/base.h>*/
+  #include <vcg/simplex/face/base.h>
+  #include <vcg/simplex/edge/base.h>*/
 #include <vcg/complex/complex.h>
 #include <vcg/math/quadric.h>
 #include <vcg/complex/algorithms/clean.h>
@@ -30,8 +30,12 @@
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
 
+#include <../RvcgIO.h>
+#include <Rcpp.h>
 using namespace vcg;
 using namespace tri;
+using namespace Rcpp;
+
 // The class prototypes.
 class CVertex;
 class CEdge;
@@ -44,12 +48,14 @@ class CVertex  : public Vertex< CUsedTypes,
 				vertex::Coord3f,
 				vertex::Normal3f,
 				vertex::Mark,
-				vertex::BitFlags  >{
+				vertex::BitFlags  >
+{
 public:
   vcg::math::Quadric<double> &Qd() {return q;}
 private:
   math::Quadric<double> q;
-};
+}
+  ;
 
 class CEdge : public Edge< CUsedTypes> {};
 
@@ -62,154 +68,126 @@ class CFace    : public Face< CUsedTypes,
 			      face::BitFlags > {};
 
 // the main mesh class
-class CMeshDec    : public vcg::tri::TriMesh<std::vector<CVertex>, std::vector<CFace> > {};
+class CMeshDec: public vcg::tri::TriMesh<std::vector<CVertex>, 
+					 std::vector<CFace> > {};
 
-class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshDec, VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > {
+class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshDec, 
+								 VertexPair, 
+								 CTriEdgeCollapse,
+								 QInfoStandard<CVertex> > {
 public:
-  typedef  vcg::tri::TriEdgeCollapseQuadric< CMeshDec,  VertexPair, CTriEdgeCollapse, QInfoStandard<CVertex>  > TECQ;
+  typedef  vcg::tri::TriEdgeCollapseQuadric< CMeshDec,  
+					     VertexPair, 
+					     CTriEdgeCollapse, 
+					     QInfoStandard<CVertex>  > TECQ;
   typedef  CMeshDec::VertexType::EdgeType EdgeType;
   inline CTriEdgeCollapse(  const VertexPair &p, int i, BaseParameterClass *pp) :TECQ(p,i,pp){}
 
 };
+typedef CMeshDec::VertexIterator VertexIterator;
+typedef CMeshDec::FacePointer  FacePointer;
+typedef CMeshDec::FaceIterator   FaceIterator;
+typedef CMeshDec::CoordType CoordType;
+typedef CMeshDec::ScalarType ScalarType;
+typedef CMeshDec::VertexPointer VertexPointer;
 
-extern "C" {
 
-  void RQEdecim(double *vb ,int *dim, int *it, int *dimit,int *Finsize,double *normals,int *topo,int *qual,int *bound)
-  {
-    // typedefs
-    typedef CMeshDec::VertexIterator VertexIterator;
-    typedef CMeshDec::FacePointer  FacePointer;
-    typedef CMeshDec::FaceIterator   FaceIterator;
-    typedef CMeshDec::CoordType CoordType;
-    typedef CMeshDec::ScalarType ScalarType;
-    typedef CMeshDec::VertexPointer VertexPointer;
-    //set local variables
-    ScalarType x,y,z;
-    int i;
-    int FinalSize=*Finsize;
-    int d = *dim;
-    int faced = *dimit;
-    CMeshDec m;
+
+RcppExport  SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, SEXP _doubleparams)
+{
+  // declare Mesh and helper variables
+  int i;
+  CMeshDec m;
+  VertexIterator vi;
+  FaceIterator fi;
+    
+  Rvcg::IOMesh<CMeshDec>::RvcgReadR(m,_vb,_it);
+ Rcpp:LogicalVector boolparams(_boolparams); 
+  Rcpp::NumericVector doubleparams(_doubleparams);
+  //boolparams: 0=topo 1=quality 2=boundary 3=optiplace 4=scaleindi, 5=  normcheck, 6=safeheap)
+  //doubleparams: 0 = qthresh, 1 = boundweight 2=normalthr
+  int FinalSize = Rcpp::as<int>(_Finsize);
+  
+  //initiate decimation process
+  TriEdgeCollapseQuadricParameter qparams;
+  float TargetError=std::numeric_limits<float>::max();
+  qparams.QualityThr = doubleparams[0];
+  qparams.BoundaryWeight = doubleparams[1];
+  qparams.NormalThrRad = doubleparams[2];
+
+  qparams.PreserveTopology = boolparams[0];
+  qparams.QualityCheck = boolparams[1];
+  qparams.PreserveBoundary = boolparams[2];
+  qparams.OptimalPlacement = boolparams[3];
+  qparams.ScaleIndependent = boolparams[4];
+  qparams.NormalCheck = boolparams[5];
+  qparams.SafeHeapUpdate = boolparams[6];
    
-    // fill mesh with data from R workspace
-    vcg::tri::Allocator<CMeshDec>::AddVertices(m,d);
-    vcg::tri::Allocator<CMeshDec>::AddFaces(m,faced);
-    //VertexPointer ivp[d];
-    std::vector<VertexPointer> ivp;
-    ivp.resize(d);
-    VertexIterator vi=m.vert.begin();
-    for (i=0; i<d; i++) 
-      {
-	ivp[i]=&*vi;
-	x = vb[i*3];
-	y = vb[i*3+1];
-	z=  vb[i*3+2];
-	(*vi).P() = CoordType(x,y,z);
-	++vi;
-      }
-    int itx,ity,itz;
-    FaceIterator fi=m.face.begin();
-    for (i=0; i < faced; i++) 
-      {
-	itx = it[i*3];
-	ity = it[i*3+1];
-	itz = it[i*3+2];
-	(*fi).V(0)=ivp[itx];
-	(*fi).V(1)=ivp[ity];
-	(*fi).V(2)=ivp[itz];
-	++fi;
-      }
-    //tri::io::ExporterPLY<CMeshDec>::Save(m,"tt.ply",tri::io::Mask::IOM_VERTNORMAL, false); // in ASCII
-    //initiate decimation process
-    TriEdgeCollapseQuadricParameter qparams;
-    float TargetError=std::numeric_limits<float>::max();
-    ///qparams.QualityThr =.3;
-    qparams.QualityCheck = true;
-    qparams.OptimalPlacement = true;
-    qparams.PreserveTopology	= true;
-    qparams.PreserveBoundary	= true;
-    if (*topo == 0)
-      qparams.PreserveTopology	= false;
-    if (*qual == 0)
-      qparams.OptimalPlacement = true;
-    if (*bound == 0)
-      qparams.PreserveBoundary	= false;
-   
-   
-   
-    int dup = tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
-    int unref =  tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);
-   
+  int dup = tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
+  int unref =  tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);
+  
+  printf("reducing it to %i faces\n",FinalSize);
     
-    printf("reducing it to %i faces\n",FinalSize);
+  vcg::tri::UpdateBounding<CMeshDec>::Box(m);
     
-    vcg::tri::UpdateBounding<CMeshDec>::Box(m);
+  // decimator initialization
+  vcg::LocalOptimization<CMeshDec> DeciSession(m,&qparams);
     
-    // decimator initialization
-    vcg::LocalOptimization<CMeshDec> DeciSession(m,&qparams);
+  int t1=clock();
+  DeciSession.Init<CTriEdgeCollapse>();
+  int t2=clock();
+  //printf("Initial Heap Size %i\n",int(DeciSession.h.size()));
     
-    int t1=clock();
-    DeciSession.Init<CTriEdgeCollapse>();
-    int t2=clock();
-    //printf("Initial Heap Size %i\n",int(DeciSession.h.size()));
+  DeciSession.SetTargetSimplices(FinalSize);
+  DeciSession.SetTimeBudget(0.5f);
+  if(TargetError< std::numeric_limits<float>::max() ) DeciSession.SetTargetMetric(TargetError);
     
-    DeciSession.SetTargetSimplices(FinalSize);
-    DeciSession.SetTimeBudget(0.5f);
-    if(TargetError< std::numeric_limits<float>::max() ) DeciSession.SetTargetMetric(TargetError);
+  while(DeciSession.DoOptimization() && m.fn>FinalSize && DeciSession.currMetric < TargetError)
+    int t3=clock();
+  
+  vcg::tri::Allocator< CMeshDec >::CompactVertexVector(m);
+  vcg::tri::Allocator< CMeshDec >::CompactFaceVector(m);
+  SimpleTempData<CMeshDec::VertContainer,int> indices(m.vert);
+  tri::UpdateNormal<CMeshDec>::PerVertexAngleWeighted(m);
+  tri::UpdateNormal<CMeshDec>::NormalizePerVertex(m);
+  printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
     
-    while(DeciSession.DoOptimization() && m.fn>FinalSize && DeciSession.currMetric < TargetError)
-      // printf("Final Mesh size: %7i heap sz %9i err %9g \r",m.fn, int(DeciSession.h.size()),DeciSession.currMetric);
+  Rcpp::NumericMatrix vb(3, m.vn), normals(3, m.vn);
+  Rcpp::IntegerMatrix itout(3, m.fn);
+  
+  //write back data
+  vi=m.vert.begin();
+  for (i=0;  i < m.vn; i++) 
+    {
+      indices[vi] = i;//important: updates vertex indices
+      vb(0,i) = (*vi).P()[0];
+      vb(1,i) = (*vi).P()[1];
+      vb(2,i) = (*vi).P()[2];
+      normals(0,i) = (*vi).N()[0];
+      normals(1,i) = (*vi).N()[1];
+      normals(2,i) = (*vi).N()[2];
+      ++vi;
+    }
     
-      int t3=clock();
-   
-    //printf("\nCompleted in (%i+%i) msec\n",t2-t1,t3-t2);
-    
-    vcg::tri::Allocator< CMeshDec >::CompactVertexVector(m);
-    vcg::tri::Allocator< CMeshDec >::CompactFaceVector(m);
-    SimpleTempData<CMeshDec::VertContainer,int> indices(m.vert);
-    tri::UpdateNormal<CMeshDec>::PerVertexAngleWeighted(m);
-    tri::UpdateNormal<CMeshDec>::NormalizePerVertex(m);
-    printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
-    
-    vi=m.vert.begin();
-    for (i=0;  i < m.vn; i++) 
-      {
-	indices[vi] = i;//important: updates vertex indices
-	vb[i*3] = (*vi).P()[0];
-	vb[i*3+1] = (*vi).P()[1];
-	vb[i*3+2] = (*vi).P()[2];
-	normals[i*3] = (*vi).N()[0];
-	normals[i*3+1] = (*vi).N()[1];
-	normals[i*3+2] = (*vi).N()[2];
-	++vi;
-      }
-    
-    FacePointer fp;
-    int vv[3];
-    *dim = m.vn;
-    fi=m.face.begin();
-    faced=m.fn;
-    
-    for (i=0; i < faced;i++) 
-      {
-	fp=&(*fi);
-	if( ! fp->IsD() )
-	  {
-	    vv[0]=indices[fp->cV(0)];
-	    vv[1]=indices[fp->cV(1)];
-	    vv[2]=indices[fp->cV(2)];
-	    it[i*3]=vv[0];
-	    it[i*3+1]=vv[1];
-	    it[i*3+2]=vv[2];
-	    ++fi;
-	  }
-      }
-    *dimit=m.fn;
-    //  printf("%i %i\n",m.vn,m.fn);
-    
-    
-  }
-   
+  FacePointer fp;
+  fi=m.face.begin();
+  for (i=0; i < m.fn;i++) 
+    {
+      fp=&(*fi);
+      if( ! fp->IsD() )
+	{
+	  itout(0,i) = indices[fp->cV(0)]+1;
+	  itout(1,i) = indices[fp->cV(1)]+1;
+	  itout(2,i) = indices[fp->cV(2)]+1;
+	  ++fi;
+	}
+    }
+  return Rcpp::List::create(Rcpp::Named("vb") = vb,
+			    Rcpp::Named("normals") = normals,
+			    Rcpp::Named("it") = itout
+			    );
 }
+   
+
  
   

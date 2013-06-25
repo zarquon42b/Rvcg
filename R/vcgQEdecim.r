@@ -1,13 +1,11 @@
-vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,quality=TRUE,bound=TRUE)
+vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=TRUE,quality=TRUE,bound=TRUE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, safeheap =FALSE, qthresh=0.1, boundweight = 0.5, normalthr = pi/2)
   {
     doit <- TRUE
     vb <- mesh$vb[1:3,]
     it <- mesh$it-1
-    dimit <- dim(it)[2]
-    dimvb <- dim(vb)[2]
+    dimit <- ncol(it)
     outmesh <- list()
     class(outmesh) <- "mesh3d"
-    storage.mode(it) <- "integer"
     
     if (is.null(tarface) && is.null(percent)&& is.null(edgeLength))
       stop("please enter decimation option")
@@ -26,12 +24,15 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,
         tarface <- floor(coef*dimit)
         
       }
-    storage.mode(tarface) <- "integer"
-    tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb,as.integer(topo),as.integer(quality),as.integer(bound))
-    outmesh$vb <- rbind(tmp[[1]][,1:tmp[[2]]],1)
+    ##concatenate parameters
+    boolparams <- c( topo, quality, bound, optiplace, scaleindi, normcheck, safeheap)
+    doubleparams <- c(qthresh, boundweight, normalthr)
+###tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb,as.integer(topo),as.integer(quality),as.integer(bound))
+    tmp <- .Call("RQEdecim", vb, it, tarface, boolparams, doubleparams)
+    outmesh$vb <- rbind(tmp$vb,1)
     
-    outmesh$it <- tmp[[3]][,1:(tmp[[4]])]+1
-    outmesh$normals <- rbind(tmp[[6]][,1:(tmp[[2]])], 1)
+    outmesh$it <- tmp$it
+    outmesh$normals <- rbind(tmp$normals, 1)
     #outmesh <- adnormals(outmesh)
     if(!is.null(edgeLength))
     cat(paste("Mean Edge length is",vcgMeshres(outmesh)$res,"\n"))

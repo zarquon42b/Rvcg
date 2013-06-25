@@ -8,7 +8,10 @@ Decimates a mesh by adapting the faces of a mesh either to a target face
 number, a percentage or an approximate mesh resolution (a.k.a. mean edge
 length}
 \usage{
-vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL)
+vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL,
+topo=TRUE, quality=TRUE, bound=TRUE, optiplace = TRUE, scaleindi = TRUE,
+normcheck = FALSE, safeheap =FALSE, qthresh=0.1, boundweight = 0.5,
+normalthr = pi/2)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +36,20 @@ vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL)
 }
 \item{bound }{logical: if TRUE, mesh boundary is preserved.
 }
+\item{optiplace }{logical: if TRUE, mesh boundary is preserved.
+}
+\item{scaleindi }{logical: if TRUE, decimatiion is scale independent.
+}
+\item{normcheck }{logical: if TRUE, normal directions are considered.
+}
+\item{safeheap }{logical: if TRUE, safeheap update option enabled.
+}
+\item{qthresh }{numeric: Quality threshold for decimation process.
+}
+\item{boundweight }{numeric: Weight assigned to mesh boundaries.
+}
+\item{normalthr }{numeric: threshold for normal check in radians.
+}
 }
 \details{
 This is basically an adaption of the cli tridecimator from vcglib}
@@ -51,7 +68,7 @@ Stefan Schlager}
 require(rgl)
 data(humface)
 ##reduce faces to 50\% 
-decimface <- vcgQEdecim(humface, percent = 0.5)
+decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = T)
 ## view
 shade3d(decimface, col=3)
 ## some light smoothing
