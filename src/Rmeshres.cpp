@@ -77,7 +77,9 @@ RcppExport SEXP Rmeshres(SEXP _vb , SEXP _it)
     tri::UpdateTopology<CMesh1>::FaceFace(m);
     tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
     size=Edges.size();
+    Rcpp::NumericVector edgelength(size);
     double res = 0;
+    double tmp1;
     Point3f tmp0;
     VertexPointer vp , vp1;
     for (i = 0;i < size;i++)
@@ -85,9 +87,14 @@ RcppExport SEXP Rmeshres(SEXP _vb , SEXP _it)
       vp=Edges[i].v[0];
       vp1=Edges[i].v[1];
       tmp0 = vp->P()-vp1->P();
-      res = res + sqrt(tmp0.dot(tmp0));
+      tmp1 = sqrt(tmp0.dot(tmp0));
+      res = res + tmp1;
+      edgelength[i] = tmp1;
     }
     res = res/size;
-    return(wrap(res));
+    return Rcpp::List::create(Rcpp::Named("res") = res,
+			      Rcpp::Named("edgelength") = edgelength
+			      );
+    //return(wrap(res));
   }
 

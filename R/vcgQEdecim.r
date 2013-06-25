@@ -19,7 +19,7 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,
       }
     if (!is.null(edgeLength))
       {
-        currEL <- vcgMeshres(mesh)
+        currEL <- vcgMeshres(mesh)$res
         if (currEL >= edgeLength)
           warning("edges already shorter than required - nothing to do")
         coef <- (currEL/edgeLength)^2
@@ -34,6 +34,6 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL,topo=TRUE,
     outmesh$normals <- rbind(tmp[[6]][,1:(tmp[[2]])], 1)
     #outmesh <- adnormals(outmesh)
     if(!is.null(edgeLength))
-    cat(paste("Mean Edge length is",vcgMeshres(outmesh),"\n"))
+    cat(paste("Mean Edge length is",vcgMeshres(outmesh)$res,"\n"))
     return(outmesh)
   }

@@ -16,7 +16,10 @@ vcgMeshres(mesh)
 }
 
 \value{
-Returns average edge length (a.k.a. mesh resolution)
+  \item{res}{average edge length (a.k.a. mesh resolution)
+  }
+  \item{edgelength }{vector containing lengths for each edge
+  }
 }
 
 \author{
