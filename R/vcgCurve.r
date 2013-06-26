@@ -1,3 +1,4 @@
+#' @export vcgCurve
 vcgCurve <- function(mesh)
     {
         vb <- mesh$vb[1:3,]

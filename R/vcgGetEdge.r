@@ -1,3 +1,4 @@
+#' @export vcgGetEdge
 vcgGetEdge <- function(mesh,unique=TRUE)
     {
         vb <- mesh$vb[1:3,]
@@ -15,7 +16,8 @@ vcgGetEdge <- function(mesh,unique=TRUE)
             edge <- edge[order(edge[,1],edge[,2]),]
         invisible(edge)
     }
-    
+
+#' @export vcgNonBorderEdge
 vcgNonBorderEdge <- function(mesh)
     {
         edges <- vcgGetEdge(mesh,unique=FALSE)

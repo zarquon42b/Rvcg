@@ -1,3 +1,4 @@
+#' @export vcgClean
 vcgClean <- function(mesh, sel = 0)
     {
         vb <- mesh$vb[1:3,]

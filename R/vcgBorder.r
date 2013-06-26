@@ -22,7 +22,6 @@
 #' wire3d(humface)
 #' 
 #' @export vcgBorder
-#' @useDynLib Rvcg
 vcgBorder <- function(mesh)
   
   {

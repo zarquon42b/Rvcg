@@ -1,3 +1,4 @@
+#' @export vcgIntersect
 vcgIntersect <- function(x,mesh)
 {
   
