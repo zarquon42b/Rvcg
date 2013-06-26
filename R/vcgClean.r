@@ -1,3 +1,13 @@
+#' Clean triangular surface meshes
+#'
+#' Apply several cleaning algorithms to surface meshes
+#' @param mesh triangular object of class 'mesh3d
+#' @param sel integer select cleaning type (see "details"
+#' @details available options are 0= only duplicated vertices and faces are removed (always applied before cleaning). 1=todo.
+#' @return cleaned mesh
+#' @examples
+#' data(humface)
+#' cleanface <- vcgClean(humface, sel=1)
 #' @export vcgClean
 vcgClean <- function(mesh, sel = 0)
     {
