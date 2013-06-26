@@ -1,32 +1,25 @@
 \name{vcgMeshres}
 \alias{vcgMeshres}
-\title{
-calculate average edge length of a triangular mesh}
-\description{
-calculate average edge length of a triangular mesh, by iterating over
-all faces.
-
-}
+\title{calculate average edge length of a triangular mesh}
 \usage{
-vcgMeshres(mesh)
+  vcgMeshres(mesh)
 }
 \arguments{
-  \item{mesh}{triangular mesh stored as object of class "mesh3d"
-  }
+  \item{mesh}{triangular mesh stored as object of class
+  "mesh3d"}
 }
-
 \value{
-  \item{res}{average edge length (a.k.a. mesh resolution)
-  }
-  \item{edgelength }{vector containing lengths for each edge
-  }
+  Item res average edge length (a.k.a. mesh resolution)
+
+  Item edgelength vector containing lengths for each edge
 }
-
+\description{
+  calculate average edge length of a triangular mesh, by
+  iterating over all faces.
+}
 \author{
-Stefan Schlager}
+  Stefan Schlager
+}
+\keyword{~kwd1}
+\keyword{~kwd2}
 
-
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

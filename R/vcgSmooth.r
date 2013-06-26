@@ -1,3 +1,51 @@
+#' Smooth a triangular mesh
+#' 
+#' Apply different smoothing algorithms to a triangular mesh.
+#' 
+#' The algorithms available are Taubin smoothing, Laplacian smoothing and an
+#' improved version of Laplacian smoothing ("HClaplace"). Also available are
+#' Scale dependent laplacian smoothing ("fujiLaplace") and Laplacian angle
+#' weighted smoothing ("angWeight")
+#' 
+#' @param mesh triangular mesh stored as object of class "mesh3d". 
+#' @param type character: select smoothing algorithm. Available are "taubin",
+#' "laplace", "HClaplace", "fujiLaplace", "angWeight" (and any sensible
+#' abbreviations).
+#' @param iteration integer: number of iterations to run.
+#' @param lambda numeric: parameter for Taubin smooth (see reference below).
+#' @param mu numeric:parameter for Taubin smooth (see reference below).
+#' @param delta numeric: parameter for Scale dependent laplacian smoothing (see
+#' reference below).
+#' @return returns an object of class "mesh3d" with:
+#' \item{vb }{4xn matrix containing n vertices as homolougous coordinates.}
+#' \item{normals}{4xn matrix containing vertex normals.}
+#' \item{quality }{vector: containing distances to target.}
+#' \item{it }{4xm matrix containing vertex indices forming triangular
+#' faces.}
+#' @note The additional parameters for taubin smooth are hardcoded to the
+#' default values of meshlab, as they appear to be the least distorting
+#' @author Stefan Schlager
+#' @seealso \code{\link{vcgPlyRead}}
+#' @references Taubin G. 1995. Curve and surface smoothing without shrinkage.
+#' In Computer Vision, 1995. Proceedings., Fifth International Conference on,
+#' pages 852 - 857.
+#' 
+#' Vollmer J., Mencl R. and Mueller H. 1999. Improved Laplacian Smoothing of
+#' Noisy Surface Meshes. Computer Graphics Forum, 18(3):131 - 138.
+#' 
+#' Schroeder, P. and Barr, A. H. (1999). Implicit fairing of irregular meshes
+#' using diffusion and curvature flow: 317-324.
+#' @keywords ~kwd1 ~kwd2
+#' @examples
+#' 
+#' require(rgl)
+#' data(humface)
+#' smoothface <- vcgSmooth(humface)
+#' ## view
+#' shade3d(smoothface, col=3)
+#' 
+#' 
+#' @export vcgSmooth
 vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","angWeight"),iteration=10,lambda=0.5,mu=-0.53,delta=0.1)
   {
     type <- substring(type[1],1L,1L)

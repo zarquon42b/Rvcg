@@ -1,3 +1,28 @@
+#' Remove isolated pieces from a surface mesh.
+#' 
+#' Remove isolated pieces from a surface mesh, selected by face number or
+#' diameter. Also the option only to keep the largest piec can be selected
+#' 
+#' 
+#' @param mesh triangular mesh of class "mesh3d".
+#' @param facenum integer: all connected pieces with less components are
+#' removed. If not specified or 0 and diameter is NULL, then only the component
+#' with the most faces is kept. 
+#' @param diameter numeric: all connected pieces smaller diameter are removed
+#' removed. 0 removes all component but the largest ones. This option overrides
+#' 'facenum'.
+#' @return returns the reduced mesh.
+#' @author Stefan Schlager
+#' @seealso \code{\link{vcgPlyRead}}
+#' @keywords ~kwd1 ~kwd2
+#' @examples
+#' 
+#' require(rgl)
+#' data(humface)
+#' cleanface <- vcgIsolated(humface)
+#' 
+#' 
+#' @export vcgIsolated
 vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL)
   {
 

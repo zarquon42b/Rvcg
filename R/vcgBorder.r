@@ -1,3 +1,28 @@
+#' find all border vertices and faces of a triangular mesh
+#' 
+#' Detect faces and vertices at the borders of a mesh and mark them.
+#' 
+#' 
+#' @param mesh triangular mesh of class "mesh3d" %% ~~Describe \code{mesh}
+#' here~~
+#' @return Item bordervb logical: vector containing boolean value for each
+#' vertex, if it is a border vertex.
+#' @return Item borderit logical: vector containing boolean value for each face,
+#' if it is a border vertex.
+#' @author Stefan Schlager
+#' @seealso \code{\link{vcgPlyRead}}
+#' @keywords ~kwd1 ~kwd2
+#' @examples
+#' 
+#' require(rgl)
+#' data(humface)
+#' borders <- vcgBorder(humface)
+#' ## view border vertices
+#' points3d(t(humface$vb[1:3,])[which(borders$bordervb == 1),],col=2)
+#' wire3d(humface)
+#' 
+#' @export vcgBorder
+#' @useDynLib Rvcg
 vcgBorder <- function(mesh)
   
   {

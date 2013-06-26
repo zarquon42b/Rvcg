@@ -1,3 +1,28 @@
+#' Import ascii or binary PLY files.
+#' 
+#' Reads Polygon File Format (PLY) files and stores the results in an object of
+#' class "mesh3d" - momentarily only triangular meshes are supported.
+#' 
+#' 
+#' @param file character: file to be read.
+#' @param updateNormals logical: if TRUE and the imported file contais faces,
+#' vertex normals will be (re)calculated.
+#' @param clean logical: if TRUE, duplicated and unreference vertices will be
+#' removed.
+#' @return Object of class "mesh3d"
+#' 
+#' with:
+#' @return Item vb 4xn matrix containing n vertices as homolougous coordinates.
+#' @return Item normals 4xn matrix containing vertex normals.
+#' @return Item it 4xm matrix containing vertex indices forming triangular
+#' faces.
+#' @return Item material$color Per vertex colors if specified in the imported
+#' file
+#' @author Stefan Schlager
+#' @seealso \code{\link{vcgSmooth}},
+#' @keywords ~kwd1 ~kwd2
+#' @export vcgPlyRead
+#' @useDynLib Rvcg
 vcgPlyRead <-function (file,updateNormals=TRUE,clean=TRUE)
 {
   ncfile <- nchar(file)

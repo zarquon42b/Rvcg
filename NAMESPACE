@@ -1,3 +1,8 @@
+export(vcgBorder)
+export(vcgClost)
+export(vcgIsolated)
+export(vcgMeshres)
+export(vcgPlyRead)
+export(vcgQEdecim)
+export(vcgSmooth)
 useDynLib(Rvcg)
-exportPattern("^[^\\.]")
-

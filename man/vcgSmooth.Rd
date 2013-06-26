@@ -1,68 +1,54 @@
 \name{vcgSmooth}
 \alias{vcgSmooth}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-Smooth a triangular mesh}
-\description{
-Apply different smoothing algorithms to a triangular mesh.}
+\title{Smooth a triangular mesh}
 \usage{
-vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace", "fujiLaplace", 
-    "angWeight"), iteration = 10,lambda = 0.5, mu = -0.53, delta = 0.1)
+  vcgSmooth(mesh,
+    type = c("taubin", "laplace", "HClaplace", "fujiLaplace", "angWeight"),
+    iteration = 10, lambda = 0.5, mu = -0.53, delta = 0.1)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{mesh}{triangular mesh stored as object of class "mesh3d".
-%%     ~~Describe \code{mesh} here~~
-}
-  \item{type}{character: select smoothing algorithm. Available are
-    "taubin", "laplace", "HClaplace", "fujiLaplace", 
-    "angWeight" (and any sensible abbreviations).
-}
-  \item{iteration }{integer: number of iterations to run.
-  }
-   \item{lambda }{numeric: parameter for Taubin smooth (see reference below).
-}
-   \item{mu }{numeric:parameter for Taubin smooth (see reference below).
-   }
-   \item{delta }{numeric: parameter for Scale dependent laplacian
-     smoothing (see reference below).
-}
+  \item{mesh}{triangular mesh stored as object of class
+  "mesh3d".}
 
+  \item{type}{character: select smoothing algorithm.
+  Available are "taubin", "laplace", "HClaplace",
+  "fujiLaplace", "angWeight" (and any sensible
+  abbreviations).}
+
+  \item{iteration}{integer: number of iterations to run.}
+
+  \item{lambda}{numeric: parameter for Taubin smooth (see
+  reference below).}
+
+  \item{mu}{numeric:parameter for Taubin smooth (see
+  reference below).}
+
+  \item{delta}{numeric: parameter for Scale dependent
+  laplacian smoothing (see reference below).}
+}
+\value{
+  returns an object of class "mesh3d" with: \item{vb }{4xn
+  matrix containing n vertices as homolougous coordinates.}
+  \item{normals}{4xn matrix containing vertex normals.}
+  \item{quality }{vector: containing distances to target.}
+  \item{it }{4xm matrix containing vertex indices forming
+  triangular faces.}
+}
+\description{
+  Apply different smoothing algorithms to a triangular
+  mesh.
 }
 \details{
-The algorithms available are Taubin smoothing, Laplacian smoothing and
-an improved version of Laplacian smoothing ("HClaplace"). Also available
-are Scale dependent laplacian smoothing ("fujiLaplace") and Laplacian angle weighted smoothing ("angWeight")}
-\value{ returns an object of class "mesh3d"
-  with:
-
-  \item{vb }{4xn matrix containing n vertices as homolougous coordinates.}
-  \item{normals }{4xn matrix containing vertex normals.}
-  
-  \item{quality }{vector: containing distances to target.}
-  \item{it }{4xm matrix containing vertex indices forming triangular
-  faces.}
+  The algorithms available are Taubin smoothing, Laplacian
+  smoothing and an improved version of Laplacian smoothing
+  ("HClaplace"). Also available are Scale dependent
+  laplacian smoothing ("fujiLaplace") and Laplacian angle
+  weighted smoothing ("angWeight")
 }
-\references{
-  Taubin G. 1995. Curve and surface smoothing without shrinkage. In Computer
-Vision, 1995. Proceedings., Fifth International Conference on, pages 852 -
-857.
-
-Vollmer J., Mencl R. and Mueller H. 1999. Improved Laplacian Smoothing of
-Noisy Surface Meshes. Computer Graphics Forum, 18(3):131 - 138.
-
-Schroeder, P. and Barr, A. H. (1999). Implicit fairing of irregular meshes using diffusion and curvature flow: 317-324.
-
-}
-\author{
-Stefan Schlager}
 \note{
-The additional parameters for taubin smooth are hardcoded to the default
-values of meshlab, as they appear to be the least distorting}
-
-
-\seealso{
- \code{\link{vcgPlyRead}}
+  The additional parameters for taubin smooth are hardcoded
+  to the default values of meshlab, as they appear to be
+  the least distorting
 }
 \examples{
 require(rgl)
@@ -70,8 +56,26 @@ data(humface)
 smoothface <- vcgSmooth(humface)
 ## view
 shade3d(smoothface, col=3)
-
 }
+\author{
+  Stefan Schlager
+}
+\references{
+  Taubin G. 1995. Curve and surface smoothing without
+  shrinkage. In Computer Vision, 1995. Proceedings., Fifth
+  International Conference on, pages 852 - 857.
 
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+  Vollmer J., Mencl R. and Mueller H. 1999. Improved
+  Laplacian Smoothing of Noisy Surface Meshes. Computer
+  Graphics Forum, 18(3):131 - 138.
+
+  Schroeder, P. and Barr, A. H. (1999). Implicit fairing of
+  irregular meshes using diffusion and curvature flow:
+  317-324.
+}
+\seealso{
+  \code{\link{vcgPlyRead}}
+}
+\keyword{~kwd1}
+\keyword{~kwd2}
+

@@ -7,7 +7,23 @@ Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
 Description: Meshing operation based on vcglib.
 SystemRequirements: 
-Depends: R (>= 2.14.0), Rcpp
+Depends:
+    R (>= 2.14.0),
+    Rcpp
 LinkingTo: Rcpp
 License: GPL-2
 LazyLoad: yes
+Collate:
+    'rcpptest.r'
+    'Rvcg-package.R'
+    'vcgBorder.r'
+    'vcgClean.r'
+    'vcgClost.r'
+    'vcgCurve.r'
+    'vcgGetEdge.r'
+    'vcgIntersect.r'
+    'vcgIsolated.r'
+    'vcgMeshres.r'
+    'vcgPlyRead.r'
+    'vcgQEdecim.r'
+    'vcgSmooth.r'
