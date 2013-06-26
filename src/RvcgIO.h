@@ -1,9 +1,8 @@
 #include <vector>
 #include <limits>
 #include <Rcpp.h>
-#include <vcg/complex/complex.h>
-#include<vcg/complex/allocate.h>
-#include <wrap/callback.h>
+//#include <vcg/complex/complex.h>
+#include <vcg/complex/allocate.h>
 #include <vcg/complex/append.h>
 #include <vcg/container/simple_temporary_data.h>
 #include <vcg/space/point3.h>
@@ -15,7 +14,7 @@ namespace Rvcg
     {
     public:
       typedef IOMeshType MeshType; 
-      typedef typename MeshType::CoordType CoordType;
+      typedef typename MeshType::CoordType      CoordType;
       typedef typename MeshType::ScalarType     ScalarType;
       typedef typename MeshType::VertexType     VertexType;
       typedef typename MeshType::VertexPointer  VertexPointer;
@@ -39,7 +38,7 @@ namespace Rvcg
 	vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
 	std::vector<VertexPointer> ivp;
 	ivp.resize(d);
-  
+
 	vcg::SimpleTempData<typename MeshType::FaceContainer, int> indicesf(m.face);
 	vcg::SimpleTempData<typename MeshType::VertContainer, int> indices(m.vert);
 	VertexIterator vi = m.vert.begin();
@@ -66,6 +65,8 @@ namespace Rvcg
 	    (*fi).V(2)=ivp[itz];
 	    ++fi;
 	  }
+	
       }
     };
+	
 }

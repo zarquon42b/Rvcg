@@ -1,23 +1,4 @@
-#include <vector>
-#include <limits>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-// stuff to define the mesh
-#include <vcg/complex/complex.h>
-#include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/update/bounding.h>
-#include <vcg/complex/algorithms/update/flag.h>
-#include <vcg/math/quadric.h>
-#include <vcg/complex/algorithms/clean.h>
-// update
-#include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/container/simple_temporary_data.h>
-#include<vcg/complex/allocate.h>
-#include <wrap/callback.h>
-#include <vcg/complex/append.h>
-#include <vcg/simplex/face/pos.h>
-
+#include <../typedef.h>
 #include <../RvcgIO.h>
 #include <Rcpp.h>
 
@@ -25,62 +6,27 @@ using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
 
-// The class prototypes.
-class CVertex1;
-class CEdge1;
-class CFace1;
 
-struct CUsedTypes1: public UsedTypes<Use<CVertex1>::AsVertexType,
-				     Use<CEdge1>::AsEdgeType,
-				     Use<CFace1>::AsFaceType>{};
-
-class CVertex1  : public Vertex< CUsedTypes1,
-				 vertex::VFAdj,
-				 vertex::Coord3f,
-				 vertex::Normal3f,
-				 vertex::Mark,
-				 vertex::BitFlags  >{};
-
-class CEdge1 : public Edge< CUsedTypes1> {};
-
-
-class CFace1    : public Face< CUsedTypes1,
-			       face::VFAdj,
-			       face::VertexRef,
-			       face::FFAdj,
-			       face::Mark,
-			       face::BitFlags > {};
-
-// the main mesh class
-class CMesh1    : public vcg::tri::TriMesh<std::vector<CVertex1>, 
-					   std::vector<CFace1> > {};
-typedef CMesh1::VertexIterator VertexIterator;
-typedef CMesh1::FacePointer  FacePointer;
-typedef CMesh1::FaceIterator   FaceIterator;
-typedef CMesh1::EdgePointer   EdgePointer;
-typedef CMesh1::EdgeIterator   EdgeIterator;
-typedef CMesh1::CoordType CoordType;
-typedef CMesh1::ScalarType ScalarType;
-typedef CMesh1::VertexPointer VertexPointer;
-typedef Point3<CMesh1::ScalarType> Point3x;
-//typedef std::vector<Point3x> Hole;
-typedef CMesh1::FaceContainer FaceContainer;
-typedef UpdateTopology<CMesh1>::PEdge SimpleEdge;
+typedef UpdateTopology<MyMesh>::PEdge SimpleEdge;
 
 RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
 {
   int i, j;
-  CMesh1 m;
+  MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
   bool unique = Rcpp::as<bool>(_unique);  
  
   // allocate and fill mesh
-  Rvcg::IOMesh<CMesh1>::RvcgReadR(m,_vb,_it);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  //enable ocf
+  m.vert.EnableVFAdjacency();
+  m.face.EnableFFAdjacency();
+  m.face.EnableVFAdjacency();
   
   // create int indices per face and per vertex to return to R
-  SimpleTempData<CMesh1::VertContainer,int> indices(m.vert);
-  SimpleTempData<CMesh1::FaceContainer,int> indicesf(m.face);
+  SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
+  SimpleTempData<MyMesh::FaceContainer,int> indicesf(m.face);
   vi = m.vert.begin();
   for (i=0; i < m.vn; i++) 
     {indices[vi] = i;
@@ -95,15 +41,15 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
   std::vector<SimpleEdge> Edges;
   typename std::vector< SimpleEdge >::iterator ei;
   typename std::vector< SimpleEdge >::size_type size;
-  tri::UpdateFlags<CMesh1>::VertexBorderFromNone(m);
-  tri::UpdateSelection<CMesh1>::VertexFromBorderFlag(m);
-  tri::UpdateTopology<CMesh1>::FaceFace(m);
-  tri::UpdateFlags<CMesh1>::FaceBorderFromNone(m); 
+  tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
+  tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
+  tri::UpdateTopology<MyMesh>::FaceFace(m);
+  tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m); 
     
   if (unique)
-    tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
+    tri::UpdateTopology<MyMesh>::FillUniqueEdgeVector(m,Edges,true);
   else
-    tri::UpdateTopology<CMesh1>::FillEdgeVector(m,Edges,true);
+    tri::UpdateTopology<MyMesh>::FillEdgeVector(m,Edges,true);
    
   size=Edges.size();
   Rcpp::IntegerVector facept(size), border(size);
@@ -132,5 +78,6 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
 			    Rcpp::Named("facept") = facept,    
 			    Rcpp::Named("border") = border
 			    );
+  
 }
     

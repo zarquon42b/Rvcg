@@ -12,7 +12,7 @@
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
 #include <vcg/simplex/face/pos.h>
-
+#include <../typedef.h>
 #include <../RvcgIO.h>
 #include <Rcpp.h>
 
@@ -20,62 +20,23 @@ using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
 
-// The class prototypes.
-class CVertex1;
-class CEdge1;
-class CFace1;
 
-struct CUsedTypes1: public UsedTypes<Use<CVertex1>::AsVertexType,
-				     Use<CEdge1>::AsEdgeType,
-				     Use<CFace1>::AsFaceType>{};
-
-class CVertex1  : public Vertex< CUsedTypes1,
-				 vertex::VFAdj,
-				 vertex::Coord3f,
-				 vertex::Normal3f,
-				 vertex::Mark,
-				 vertex::BitFlags  >{};
-
-class CEdge1 : public Edge< CUsedTypes1> {};
-
-
-class CFace1    : public Face< CUsedTypes1,
-			       face::VFAdj,
-			       face::VertexRef,
-			       face::FFAdj,
-			       face::Mark,
-			       face::BitFlags > {};
-
-// the main mesh class
-class CMesh1    : public vcg::tri::TriMesh<std::vector<CVertex1>, 
-					   std::vector<CFace1> > {};
-typedef CMesh1::VertexIterator VertexIterator;
-typedef CMesh1::FacePointer  FacePointer;
-typedef CMesh1::FaceIterator   FaceIterator;
-typedef CMesh1::EdgePointer   EdgePointer;
-typedef CMesh1::EdgeIterator   EdgeIterator;
-typedef CMesh1::CoordType CoordType;
-typedef CMesh1::ScalarType ScalarType;
-typedef CMesh1::VertexPointer VertexPointer;
-typedef Point3<CMesh1::ScalarType> Point3x;
-//typedef std::vector<Point3x> Hole;
-typedef CMesh1::FaceContainer FaceContainer;
-typedef UpdateTopology<CMesh1>::PEdge SimpleEdge;
+typedef UpdateTopology<MyMesh>::PEdge SimpleEdge;
   
 RcppExport SEXP Rmeshres(SEXP _vb , SEXP _it)
   {
     // declare Mesh and helper variables
     int i, j;
-    CMesh1 m;
+    MyMesh m;
     VertexIterator vi;
     FaceIterator fi;
     
-    Rvcg::IOMesh<CMesh1>::RvcgReadR(m,_vb,_it);
+    Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
     std::vector<SimpleEdge> Edges;
     typename std::vector< SimpleEdge >::iterator ei;
     typename std::vector< SimpleEdge >::size_type size;
-    tri::UpdateTopology<CMesh1>::FaceFace(m);
-    tri::UpdateTopology<CMesh1>::FillUniqueEdgeVector(m,Edges,true);
+    tri::UpdateTopology<MyMesh>::FaceFace(m);
+    tri::UpdateTopology<MyMesh>::FillUniqueEdgeVector(m,Edges,true);
     size=Edges.size();
     Rcpp::NumericVector edgelength(size);
     double res = 0;

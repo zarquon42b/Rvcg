@@ -8,18 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 // stuff to define the mesh
-/*#include <vcg/simplex/vertex/base.h>
-  #include <vcg/simplex/face/base.h>
-  #include <vcg/simplex/edge/base.h>*/
 #include <vcg/complex/complex.h>
 #include <vcg/math/quadric.h>
 #include <vcg/complex/algorithms/clean.h>
-// io
-#include <wrap/io_trimesh/import.h>
-#include <wrap/io_trimesh/export.h>
-#include <wrap/io_trimesh/export_ply.h>
-#include <wrap/io_trimesh/export_ply.h>
-//#include <wrap/ply/plylib.cpp>
+
 // update
 #include <vcg/complex/algorithms/update/topology.h>
 //using namespace std;
@@ -49,13 +41,12 @@ class CVertex  : public Vertex< CUsedTypes,
 				vertex::Normal3f,
 				vertex::Mark,
 				vertex::BitFlags  >
-{
-public:
-  vcg::math::Quadric<double> &Qd() {return q;}
-private:
-  math::Quadric<double> q;
-}
-  ;
+                 {
+		 public:
+		   vcg::math::Quadric<double> &Qd() {return q;}
+		 private:
+		   math::Quadric<double> q;
+};
 
 class CEdge : public Edge< CUsedTypes> {};
 
@@ -75,14 +66,14 @@ class CTriEdgeCollapse: public vcg::tri::TriEdgeCollapseQuadric< CMeshDec,
 								 VertexPair, 
 								 CTriEdgeCollapse,
 								 QInfoStandard<CVertex> > {
-public:
+  public:
   typedef  vcg::tri::TriEdgeCollapseQuadric< CMeshDec,  
 					     VertexPair, 
 					     CTriEdgeCollapse, 
 					     QInfoStandard<CVertex>  > TECQ;
   typedef  CMeshDec::VertexType::EdgeType EdgeType;
   inline CTriEdgeCollapse(  const VertexPair &p, int i, BaseParameterClass *pp) :TECQ(p,i,pp){}
-
+  
 };
 typedef CMeshDec::VertexIterator VertexIterator;
 typedef CMeshDec::FacePointer  FacePointer;
@@ -102,7 +93,7 @@ RcppExport  SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, 
   FaceIterator fi;
     
   Rvcg::IOMesh<CMeshDec>::RvcgReadR(m,_vb,_it);
- Rcpp:LogicalVector boolparams(_boolparams); 
+  Rcpp::LogicalVector boolparams(_boolparams); 
   Rcpp::NumericVector doubleparams(_doubleparams);
   //boolparams: 0=topo 1=quality 2=boundary 3=optiplace 4=scaleindi, 5=  normcheck, 6=safeheap)
   //doubleparams: 0 = qthresh, 1 = boundweight 2=normalthr

@@ -1,29 +1,4 @@
-#include <string.h>
-#include <vector>
-#include <stdio.h>
-#include <cstddef>
-#include <limits>
-
-// VCG headers for triangular mesh processing
-#include <vcg/complex/complex.h>
-#include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/update/bounding.h>
-#include <vcg/complex/algorithms/update/quality.h>
-#include <vcg/complex/algorithms/update/flag.h>
-#include <vcg/complex/algorithms/clean.h>
-#include <vcg/complex/algorithms/intersection.h>
-#include<vcg/complex/allocate.h>
-#include <wrap/callback.h>
-#include <vcg/complex/append.h>
-
-// VCG File Format Importer/Exporter
-#include <wrap/io_trimesh/import.h>
-#include <wrap/io_trimesh/export.h>
-#include <wrap/io_trimesh/export_ply.h>
-#include <vcg/complex/algorithms/update/color.h>
-#include <vcg/complex/algorithms/update/curvature.h>
-#include <vcg/complex/algorithms/update/normal.h>
-
+#include <../typedef.h>
 #include <../RvcgIO.h>
 //#include <wrap/ply/plylib.cpp>
 #include <Rcpp.h>
@@ -31,64 +6,34 @@
 using namespace vcg;
 using namespace Rcpp;
 using namespace std;
-
-class CurvFace;
-class CurvEdge;
-class CurvVertex;
-struct CurvUsedTypes : public UsedTypes<Use<CurvVertex>::AsVertexType,
-					Use<CurvEdge>::AsEdgeType,
-					Use<CurvFace>::AsFaceType>{};
-class CurvEdge : public Edge<CurvUsedTypes>{};
-class CurvVertex  : public Vertex< CurvUsedTypes,
-				   vertex::Coord3f, 
-				   vertex::BitFlags, 
-				   vertex::Normal3f, 
-				   vertex::Mark,
-				   vertex::Color4b, 
-				   vertex::VFAdj,
-				   vertex::Curvaturef,
-				   vertex::CurvatureDirf,
-				   vertex::Qualityf> {};
-class CurvFace    : public Face  <CurvUsedTypes, 
-				  face::VertexRef,
-				  face::BitFlags,
-				  face::Mark, 
-				  face::Normal3f,
-				  face::VFAdj,
-				  face::FFAdj>{};
-
-class CurvMesh : public tri::TriMesh< vector<CurvVertex>, vector<CurvFace > >{};
-typedef CurvMesh::ScalarType ScalarType;
-typedef CurvMesh::VertexIterator VertexIterator;
-typedef CurvMesh::VertexPointer VertexPointer;
-typedef CurvMesh::FaceIterator FaceIterator;
-typedef CurvMesh::FacePointer FacePointer;
-typedef CurvMesh::CoordType CoordType;
-typedef CurvMesh::ScalarType ScalarType;
-typedef CurvMesh::ConstVertexIterator ConstVertexIterator;
-typedef CurvMesh::ConstFaceIterator   ConstFaceIterator;
   
 RcppExport SEXP Rcurvature( SEXP _vb, SEXP _it)
 {
   // declare Mesh and helper variables
   int i, j;
-  CurvMesh m;
+  MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
  
-  Rvcg::IOMesh<CurvMesh>::RvcgReadR(m,_vb,_it);
-  tri::UpdateTopology<CurvMesh>::FaceFace(m);
-  tri::UpdateTopology<CurvMesh>::VertexFace(m);
-  tri::UpdateBounding<CurvMesh>::Box(m);
-  tri::Allocator<CurvMesh>::CompactVertexVector(m);
-  tri::UpdateCurvature<CurvMesh>::MeanAndGaussian(m);
-  tri::UpdateQuality<CurvMesh>::VertexFromRMSCurvature(m);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  m.vert.EnableVFAdjacency();
+  m.vert.EnableCurvatureDir();
+  m.vert.EnableCurvature();
+  m.face.EnableFFAdjacency();
+  m.face.EnableVFAdjacency();
+  
+  tri::UpdateTopology<MyMesh>::FaceFace(m);
+  tri::UpdateTopology<MyMesh>::VertexFace(m);
+  tri::UpdateBounding<MyMesh>::Box(m);
+  tri::Allocator<MyMesh>::CompactVertexVector(m);
+  tri::UpdateCurvature<MyMesh>::MeanAndGaussian(m);
+  tri::UpdateQuality<MyMesh>::VertexFromRMSCurvature(m);
    
   //Bordersearch
-  tri::UpdateFlags<CurvMesh>::FaceBorderFromNone(m);
-  tri::UpdateSelection<CurvMesh>::FaceFromBorderFlag(m);
-  tri::UpdateFlags<CurvMesh>::VertexBorderFromNone(m);
-  tri::UpdateSelection<CurvMesh>::VertexFromBorderFlag(m);
+  tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+  tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
+  tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
+  tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
   
   std::vector<float> gaussvb, meanvb, gaussitmax, meanitmax;
   std::vector<float> RMSvb;

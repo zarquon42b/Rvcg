@@ -2,25 +2,29 @@
 #include <vector>
 #include <stdio.h>
 #include <cstddef>
-using namespace std;
+#include <iostream>
 
 // VCG headers for triangular mesh processing
-//#include<vcg/simplex/edge/base.h>
-//#include<vcg/simplex/vertex/base.h>
-//#include<vcg/simplex/face/base.h>
+
 #include <vcg/complex/complex.h>
+// include update algorithms
 #include <vcg/complex/algorithms/update/topology.h>
 //#include <vcg/complex/algorithms/update/edges.h>
 #include <vcg/complex/algorithms/update/bounding.h>
 #include <vcg/complex/algorithms/update/quality.h>
 #include <vcg/complex/algorithms/update/flag.h>
+#include <vcg/complex/algorithms/update/color.h>
+#include <vcg/complex/algorithms/update/curvature.h>
+#include <vcg/complex/algorithms/update/normal.h>
+
 #include <vcg/complex/algorithms/clean.h>
 #include <vcg/complex/algorithms/intersection.h>
+//include headers for search grids
 #include <vcg/space/index/grid_static_ptr.h>
 #include <vcg/space/index/spatial_hashing.h>
 #include <vcg/complex/algorithms/closest.h>
 #include <vcg/complex/algorithms/smooth.h>
-#include<vcg/complex/allocate.h>
+#include <vcg/complex/allocate.h>
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
 #include <vcg/container/simple_temporary_data.h>
@@ -30,8 +34,10 @@ using namespace std;
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>
+//#include <vcg/complex/algorithms/update/curvature.h>
 
 using namespace vcg;
+using namespace std;
 // The class prototypes.
 class MyFace;
 class MyEdge;
@@ -43,26 +49,39 @@ struct MyUsedTypes: public UsedTypes<Use<MyVertex>::AsVertexType,
 
 class MyEdge : public Edge<MyUsedTypes>{};
 class MyVertex  : public Vertex< MyUsedTypes, 
+  vertex::InfoOcf,
                                  vertex::Coord3f, 
                                  vertex::BitFlags, 
                                  vertex::Normal3f, 
                                  vertex::Mark,
                                  vertex::Color4b, 
-                                 vertex::Qualityf>{};
-class MyFace    : public Face  <MyUsedTypes, 
+                                 vertex::Qualityf,
+                                 vertex::VFAdjOcf,
+                                 vertex::CurvaturefOcf,
+                                 vertex::CurvatureDirfOcf
+				 >{};
+class MyFace: public Face  <MyUsedTypes, 
+face::InfoOcf,
+                                face::VFAdj,
                                 face::VertexRef,
                                 face::BitFlags,
-                                face::Mark, 
+                                face::Mark,
+	                        face::FFAdjOcf, 
                                 face::Normal3f> {};
-class MyMesh : public tri::TriMesh< vector<MyVertex>, vector<MyFace > >{};
+
+
+class MyMesh : public vcg::tri::TriMesh< vcg::vertex::vector_ocf<MyVertex>, vcg::face::vector_ocf<MyFace > >{};
+//class MyMesh : public vcg::tri::TriMesh< std::vector<MyVertex>, std::vector<MyFace > >{};
 typedef  MyMesh::ScalarType ScalarType;
 typedef  MyMesh::VertexIterator VertexIterator;
 typedef  MyMesh::VertexPointer VertexPointer;
 typedef  MyMesh::FaceIterator FaceIterator;
 typedef  MyMesh::FacePointer FacePointer;
+typedef  MyMesh::EdgePointer   EdgePointer;
+typedef  MyMesh::EdgeIterator   EdgeIterator;
 typedef  MyMesh::CoordType CoordType;
 typedef  MyMesh::ScalarType ScalarType;
 typedef  MyMesh::VertContainer VertContainer;
 typedef  MyMesh::FaceContainer FaceContainer;
-typedef MyMesh::ConstVertexIterator ConstVertexIterator;
-typedef MyMesh::ConstFaceIterator   ConstFaceIterator;
+/*typedef MyMesh::ConstVertexIterator ConstVertexIterator;
+  typedef MyMesh::ConstFaceIterator   ConstFaceIterator;*/
