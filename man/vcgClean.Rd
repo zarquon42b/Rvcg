@@ -5,7 +5,7 @@
   vcgClean(mesh, sel = 0, tol = 0)
 }
 \arguments{
-  \item{mesh}{triangular object of class 'mesh3d}
+  \item{mesh}{triangular mesh of class 'mesh3d'}
 
   \item{sel}{integer select cleaning type (see "details")}
 
