@@ -1,0 +1,36 @@
+\name{vcgGetEdge}
+\alias{vcgGetEdge}
+\title{Get all edges of a triangular mesh}
+\usage{
+  vcgGetEdge(mesh, unique = TRUE)
+}
+\arguments{
+  \item{mesh}{triangular mesh of class 'mesh3d'}
+
+  \item{unique}{logical: if TRUE each edge is only reported
+  once, if F, all occurences are reported.}
+}
+\value{
+  returns a dataframe containing: \item{vert1}{integer
+  indicating the position of the first vertex belonging to
+  this edge} \item{vert2}{integer indicating the position
+  of the second vertex belonging to this edge}
+  \item{facept}{integer pointing to the (or a, if unique =
+  T) face adjacent to the edge} \item{border}{integer
+  indicating if the edge is at the border of the mesh. = =
+  no border, 1 = border}
+}
+\description{
+  Extract all edges from a mesh and retrieve adjacent faces
+  and vertices
+}
+\examples{
+require(rgl)
+data(humface)
+edges <-vcgGetEdge(humface)
+## show first edge
+lines3d(t(humface$vb[1:3,])[c(edges$vert1[1],edges$vert2[2]),],col=2,lwd=3)
+shade3d(humface, col=3)
+## now find the edge - hint: it is at the neck.
+}
+

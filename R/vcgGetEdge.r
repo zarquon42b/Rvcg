@@ -1,3 +1,23 @@
+#' Get all edges of a triangular mesh
+#'
+#' Extract all edges from a mesh and retrieve adjacent faces and vertices
+#' @param mesh triangular mesh of class 'mesh3d'
+#' @param unique logical: if TRUE each edge is only reported once, if F, all occurences are reported.
+#' @return returns a dataframe containing:
+#' \item{vert1}{integer indicating the position of the first vertex belonging to this edge}
+#' \item{vert2}{integer indicating the position of the second vertex belonging to this edge}
+#' \item{facept}{integer pointing to the (or a, if unique = T) face adjacent to the edge}
+#' \item{border}{integer indicating if the edge is at the border of the mesh. = = no border, 1 = border}
+#'
+#' @examples
+#' require(rgl)
+#' data(humface)
+#' edges <-vcgGetEdge(humface)
+#' ## show first edge
+#' lines3d(t(humface$vb[1:3,])[c(edges$vert1[1],edges$vert2[2]),],col=2,lwd=3)
+#' shade3d(humface, col=3)
+#' ## now find the edge - hint: it is at the neck.
+#' @export vcgGetEdge
 vcgGetEdge <- function(mesh,unique=TRUE)
     {
         vb <- mesh$vb[1:3,]
@@ -15,7 +35,32 @@ vcgGetEdge <- function(mesh,unique=TRUE)
             edge <- edge[order(edge[,1],edge[,2]),]
         invisible(edge)
     }
-    
+
+
+
+#' Get all non-border edges
+#'
+#' Get all non-border edges and both faces adjacent to them.
+#' @param mesh triangular mesh of class 'mesh3d
+#' @return returns a dataframe containing:
+#' \item{vert1}{integer indicating the position of the first vertex belonging to this edge}
+#' \item{vert2}{integer indicating the position of the second vertex belonging to this edge}
+#' \item{border}{integer indicating if the edge is at the border of the mesh. = = no border, 1 = border}
+#' \item{face1 }{integer pointing to the first face adjacent to the edge}
+#' \item{face2 }{integer pointing to the first face adjacent to the edge}
+#' @examples
+#' require(rgl)
+#' require(Morpho)
+#' data(humface)
+#' edges <-vcgNonBorderEdge(humface)
+#' ## show first edge (not at the border)
+#' lines3d(t(humface$vb[1:3,])[c(edges$vert1[1],edges$vert2[2]),],col=2,lwd=3)
+#' ## plot barycenters of adjacent faces
+#' bary <- barycenter(humface)
+#' points3d(bary[c(edges$face1[1],edges$face2[1]),])
+#' shade3d(humface, col=3)
+#' ## now find the edge - hint: it is at the neck.
+#' @export vcgNonBorderEdge
 vcgNonBorderEdge <- function(mesh)
     {
         edges <- vcgGetEdge(mesh,unique=FALSE)
@@ -31,6 +76,7 @@ vcgNonBorderEdge <- function(mesh)
         out <- edgesClean[n1,]
         out$face1 <- edgesClean$facept[n1]
         out$face2 <- edgesClean$facept[n2]
+        out <- out[,-3]
 
         return(out)
     }

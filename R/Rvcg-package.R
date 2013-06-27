@@ -17,6 +17,7 @@
 #' Maintainer: Stefan Schlager <zarquon42@@gmail.com>
 #' @references To be announced
 #' @keywords package
+#' @useDynLib Rvcg
 NULL
 
 

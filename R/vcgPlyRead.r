@@ -22,7 +22,7 @@
 #' @seealso \code{\link{vcgSmooth}},
 #' @keywords ~kwd1 ~kwd2
 #' @export vcgPlyRead
-#' @useDynLib Rvcg
+
 vcgPlyRead <-function (file,updateNormals=TRUE,clean=TRUE)
 {
   ncfile <- nchar(file)
