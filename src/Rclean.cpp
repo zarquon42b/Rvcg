@@ -8,10 +8,11 @@ using namespace Rcpp;
 using namespace std;
 
 
-RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type)
+RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
 {
   // declare Mesh and helper variables
   int select = Rcpp::as<int>(_type);  
+  double tol = Rcpp::as<double>(_tol);  
   int i, j;
   MyMesh m;
   VertexIterator vi;
@@ -53,7 +54,7 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type)
       printf("removed %d Non-manifold vertices\n",rem);
     }
   if (select == 5)
-    { int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,0.1);
+    { int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
       printf("split %d non-manifold vertices\n",split);
     }
   
