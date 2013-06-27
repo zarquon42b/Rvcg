@@ -1,7 +1,7 @@
 #' Clean triangular surface meshes
 #'
 #' Apply several cleaning algorithms to surface meshes
-#' @param mesh triangular object of class 'mesh3d
+#' @param mesh triangular mesh of class 'mesh3d'
 #' @param sel integer select cleaning type (see "details")
 #' @param tol numeric value determining Vertex Displacement Ratio used for splitting non-manifold vertices.
 #' @details available options are 0= only duplicated vertices and faces are removed (always applied before cleaning). 1=remove unreferenced vertices, 2 = Remove non-manifold Faces, 3 = Remove degenerate faces, 4 = Remove non-manifold vertices, 5 = Split non-manifold vertices by threshold.
