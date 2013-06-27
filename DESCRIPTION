@@ -14,7 +14,6 @@ LinkingTo: Rcpp
 License: GPL-2
 LazyLoad: yes
 Collate:
-    'rcpptest.r'
     'Rvcg-package.R'
     'vcgBorder.r'
     'vcgClean.r'

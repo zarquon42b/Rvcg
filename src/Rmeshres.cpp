@@ -33,8 +33,8 @@ RcppExport SEXP Rmeshres(SEXP _vb , SEXP _it)
     
     Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
     std::vector<SimpleEdge> Edges;
-    typename std::vector< SimpleEdge >::iterator ei;
-    typename std::vector< SimpleEdge >::size_type size;
+    std::vector< SimpleEdge >::iterator ei;
+    std::vector< SimpleEdge >::size_type size;
     tri::UpdateTopology<MyMesh>::FaceFace(m);
     tri::UpdateTopology<MyMesh>::FillUniqueEdgeVector(m,Edges,true);
     size=Edges.size();

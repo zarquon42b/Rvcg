@@ -39,8 +39,8 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
     }
     
   std::vector<SimpleEdge> Edges;
-  typename std::vector< SimpleEdge >::iterator ei;
-  typename std::vector< SimpleEdge >::size_type size;
+  std::vector< SimpleEdge >::iterator ei;
+  std::vector< SimpleEdge >::size_type size;
   tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
   tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
   tri::UpdateTopology<MyMesh>::FaceFace(m);
