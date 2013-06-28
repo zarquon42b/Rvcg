@@ -5,9 +5,13 @@
 #' Provides meshing functionality from vcglib (meshlab) for R. E.g. mesh
 #' smoothing, mesh decimation, closest point search.
 #' 
-#' \tabular{ll}{ Package: \tab Rvcg\cr Type: \tab Package\cr Version: \tab
-#' 0.22.1\cr Date: \tab 2013-03-07\cr License: \tab GPL\cr LazyLoad: \tab
-#' yes\cr }
+#' \tabular{ll}{
+#' Package: \tab Rvcg\cr
+#' Type: \tab Package\cr
+#' Version: \tab 0.22.1\cr
+#' Date: \tab 2013-03-07\cr
+#' License: \tab GPL\cr
+#' LazyLoad: \tab yes\cr }
 #' 
 #' @name Rvcg-package
 #' @aliases Rvcg-package Rvcg
