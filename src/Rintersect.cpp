@@ -65,7 +65,7 @@ vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
     
     //VertexPointer ivref[dref];
     vi=refmesh.vert.begin();
-     
+    Point3f normtmp;
     for (i=0; i < dref; i++) 
       {
 	
@@ -76,7 +76,9 @@ vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
 	x = normals[i*3];
 	y = normals[i*3+1];
 	z = normals[i*3+2];
-	(*vi).N() = CoordType(x,y,z);
+	normtmp = CoordType(x,y,z);
+	//normtmp = normtmp/sqrt(normtmp.dot(normtmp));
+	(*vi).N() = normtmp;
 	++vi;
       }
  //--------------------------------------------------------------------------------------//
@@ -91,7 +93,7 @@ vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
     tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
     tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
     tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
-tri::UpdateNormal<MyMesh>::NormalizePerVertex(refmesh);
+    tri::UpdateNormal<MyMesh>::NormalizePerVertex(refmesh);
     float maxDist = m.bbox.Diag();
     float minDist = 1e-10;
     
@@ -116,16 +118,19 @@ tri::UpdateNormal<MyMesh>::NormalizePerVertex(refmesh);
 	
 	if (f_ptr)
 	  {
-	    MyMesh::CoordType clost = refmesh.vert[i].P()+dir*t;//the hit point
-	    int f_i = vcg::tri::Index(m, f_ptr);
-	    MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;//the smoothed normal at that point
-	   
-	    ioclost[i*3] = clost[0];
-	    ioclost[i*3+1] =clost[1];
-	    ioclost[i*3+2] =clost[2];
-	    dis[i]=t;
-	    
-	    hitbool[i] = 1;
+	    if (t > 0)
+	      {
+		MyMesh::CoordType clost = refmesh.vert[i].P()+dir*t;//the hit point
+		int f_i = vcg::tri::Index(m, f_ptr);
+		MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;//the smoothed normal at that point
+		
+		ioclost[i*3] = clost[0];
+		ioclost[i*3+1] =clost[1];
+		ioclost[i*3+2] =clost[2];
+		dis[i]=t;
+		
+		hitbool[i] = 1;
+	      }
 	  }
       }
   }
