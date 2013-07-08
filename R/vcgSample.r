@@ -19,7 +19,10 @@ vcgSample <- function(mesh, SampleNum=10,type=1,MCsamp=20,geodes=TRUE)
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
         storage.mode(it) <- "integer"
-        if (!is.logical(geodes) || FALSE %in% is.integer(c(it,type, MCsamp, SampleNum)) || FALSE %in% is.numeric(vb))
+        type <- as.integer(type)
+        SampleNum <- as.integer(SampleNum)
+        MCsamp <- as.integer(MCsamp)
+        if (!is.logical(geodes) || (FALSE %in% is.integer(c(it,type, MCsamp, SampleNum))) || (FALSE %in% is.numeric(vb)))
             stop("Please provide sensible arguments!")
         tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
         tmp <- t(tmp)
