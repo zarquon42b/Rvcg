@@ -26,3 +26,4 @@ Collate:
     'vcgPlyRead.r'
     'vcgQEdecim.r'
     'vcgSmooth.r'
+    'vcgSample.r'
