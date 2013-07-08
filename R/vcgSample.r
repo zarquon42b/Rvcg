@@ -9,7 +9,7 @@
 #' @examples
 #' require(rgl)
 #' data(humface)
-#' ss <- vcgSample(humface,SampleNum = 200)
+#' ss <- vcgSample(humface,SampleNum = 500, type=2)
 #' points3d(ss)
 #' @export vcgSample
 vcgSample <- function(mesh, SampleNum=10,type=1,MCsamp=20,geodes=TRUE)

@@ -25,7 +25,7 @@
 \examples{
 require(rgl)
 data(humface)
-ss <- vcgSample(humface,SampleNum = 200)
+ss <- vcgSample(humface,SampleNum = 500, type=2)
 points3d(ss)
 }
 
