@@ -16,15 +16,17 @@ using namespace Rcpp;
 using namespace std;
 
 
-RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type)
+RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type, SEXP _MCsamp, SEXP _geodes)
 {
   // declare Mesh and helper variables
   int SampleNum = Rcpp::as<int>(_SampleNum);  
   //double tol = Rcpp::as<double>(_tol);  
   const int type = Rcpp::as<int>(_type);  
+  const int MCsamp = Rcpp::as<int>(_MCsamp);
+  const bool geodes = Rcpp::as<bool>(_geodes);
   int i, j;
   MyMesh m,msamp;
-  float radius = 0;
+  float radius;
   VertexIterator vi;
   FaceIterator fi;
   // allocate mesh and fill it
@@ -34,35 +36,56 @@ RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type)
   m.face.EnableVFAdjacency();
   vector<Point3f> myVec;
   typedef TrivialSampler<MyMesh>  BaseSampler ;
-  BaseSampler mcSample(myVec);
-   BaseSampler ts2(myVec);
+ 
+  BaseSampler ts2(myVec);
+  std::vector<Point3f> MontecarloSamples, poissonsamples;
+  BaseSampler mcSampler(MontecarloSamples);
+  BaseSampler pdSampler(poissonsamples);
+  
+  
+   if (type == 1)
+    tri::MontecarloSampling(m,poissonsamples,SampleNum);
+   else
+     { //this is poison disk sampling with more options than the wrapper commented below
 
+       radius = tri::SurfaceSampling<MyMesh,BaseSampler>::ComputePoissonDiskRadius(m,SampleNum);
+       tri::SurfaceSampling<MyMesh, BaseSampler>::PoissonDiskParam pp;
+       tri::SurfaceSampling<MyMesh, BaseSampler>::PoissonDiskParam::Stat stat;
+       pp.pds = &stat;
+       pp.pds->sampleNum = SampleNum;
+       pp.geodesicDistanceFlag=geodes;
+       MyMesh MontecarloMesh;
+       SurfaceSampling<MyMesh,BaseSampler>::Montecarlo(m, mcSampler, SampleNum*MCsamp);
+   
+       tri::Allocator<MyMesh>::AddVertices(MontecarloMesh,MontecarloSamples.size());
+       for(size_t j=0;j < MontecarloSamples.size();++j)
+	 MontecarloMesh.vert[j].P()=MontecarloSamples[j];
+  
+       tri::UpdateBounding<MyMesh>::Box(MontecarloMesh);
+       tri::SurfaceSampling<MyMesh,BaseSampler>::PoissonDiskPruning(pdSampler, MontecarloMesh, radius, pp);
+    }
   
   
-  //SurfaceSampling<MyMesh, TrivialSampler<MyMesh> >::Poissondi(m, ts);
-  Rcpp::NumericMatrix vbout(3,SampleNum);
-  /*
-  MyMesh MontecarloMesh;
-  vcg::tri::Append<MyMesh,MyMesh>::Mesh(MontecarloMesh,m);
-  MyMesh *presampledmesh;
-  tri::SurfaceSampling<MyMesh,BaseSampler>::Montecarlo(MontecarloMesh, mcSample, SampleNum*5);
+  
+ 
+  /* 
+     else 
+     {float radius=0;
+    vcg::tri::PoissonSampling(m, poissonsamples, SampleNum, radius);
+    }
   */
-  std::vector<vcg::Point3f> ExactVec;
-  std::vector<vcg::Point3f> PerturbVec;
-  if (type == 1)
-    tri::MontecarloSampling(m,ExactVec,SampleNum);
-  else
-    vcg::tri::PoissonSampling(m, ExactVec, SampleNum,radius);
-    //tri::SurfaceSampling<MyMesh,BaseSampler>::PoissonDiskPruning(ts2, m, radius);
-  //tri::PoissonDisk(m,ExactVec,10);
-  for (i=0;  i < SampleNum; i++) 
+  
+  size_t outsize = poissonsamples.size();
+  Rcpp::NumericMatrix vbout(3,outsize);
+  
+  for (i=0;  i < outsize; i++) 
     {
-      Point3f tmp = ExactVec[i];
+      Point3f tmp = poissonsamples[i];
       vbout(0,i) = tmp[0];
       vbout(1,i) =  tmp[1];
       vbout(2,i) =  tmp[2];
     }
-	 
+  	 
 	  return Rcpp::wrap(vbout);
 	  /*return Rcpp::List::create(Rcpp::Named("vb") = vbout,
 			    Rcpp::Named("it") = itout,
