@@ -50,7 +50,8 @@ vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","
   {
     type <- substring(type[1],1L,1L)
     vb <- mesh$vb[1:3,]
-    it <- mesh$it-1
+    it <- (mesh$it-1)
+    storage.mode(it) <- "integer"
     method <- 0
     if (type == "l" || type == "L")
       {
@@ -69,7 +70,7 @@ vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","
         method <- 4
       }
     iter <- as.integer(iteration)
-     if (!is.logical(geodes) || FALSE %in% is.integer(c(it,iteration)) || FALSE %in% is.numeric(vb,lambda,mu,delta))
+     if ( FALSE %in% is.integer(c(it,iter)) || FALSE %in% is.numeric(c(vb,lambda,mu,delta)))
             stop("Please provide sensible arguments!")
 
     tmp <- .Call("Rsmooth",vb,it,iter,method,lambda,mu,delta)

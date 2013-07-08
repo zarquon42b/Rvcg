@@ -17,6 +17,14 @@
   calculate average edge length of a triangular mesh, by
   iterating over all faces.
 }
+\examples{
+data(humface)
+mres <- vcgMeshres(humface)
+#histogram of edgelength distribution
+hist(mres$edgelength)
+#visualise average edgelength
+points( mres$res, 1000, pch=20, col=2, cex=2)
+}
 \author{
   Stefan Schlager
 }

@@ -14,7 +14,7 @@
 #' ## add duplicated vertices
 #' cleanface$vb <- cbind(cleanface$vb,cleanface$vb[,1:100])
 #' ## ad unreferenced vertices
-#' cleanface$vb <- cbind(cleanface$vb,rbind(matrix(rnorm(21),3,6),1))
+#' cleanface$vb <- cbind(cleanface$vb,rbind(matrix(rnorm(18),3,6),1))
 #' cleanface <- vcgClean(cleanface, sel=1)
 #' @export vcgClean
 vcgClean <- function(mesh, sel = 0,tol=0)
