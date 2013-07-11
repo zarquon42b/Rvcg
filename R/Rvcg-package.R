@@ -1,5 +1,3 @@
-
-
 #' Interface between R and vcglib libraries for mesh operations
 #' 
 #' Provides meshing functionality from vcglib (meshlab) for R. E.g. mesh
@@ -24,5 +22,13 @@
 #' @useDynLib Rvcg
 NULL
 
+#' Example mesh
+#'
+#' A triangular mesh representing a human face
+#'
+#' @name humface
+#' @docType data
+#' 
+NULL
 
 

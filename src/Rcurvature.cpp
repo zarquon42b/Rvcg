@@ -3,9 +3,9 @@
 //#include <wrap/ply/plylib.cpp>
 #include <Rcpp.h>
 
-using namespace vcg;
+//using namespace vcg;
 using namespace Rcpp;
-using namespace std;
+//using namespace std;
   
 RcppExport SEXP Rcurvature( SEXP _vb, SEXP _it)
 {

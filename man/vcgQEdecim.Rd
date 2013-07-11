@@ -1,6 +1,6 @@
 \name{vcgQEdecim}
 \alias{vcgQEdecim}
-\title{Performs Quadric Edge Decimation on triangulare meshes.}
+\title{Performs Quadric Edge Decimation on triangular meshes.}
 \usage{
   vcgQEdecim(mesh, tarface = NULL, percent = NULL,
     edgeLength = NULL, topo = TRUE, quality = TRUE,
@@ -68,7 +68,7 @@
 require(rgl)
 data(humface)
 ##reduce faces to 50\%
-decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = T)
+decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = TRUE)
 ## view
 shade3d(decimface, col=3)
 ## some light smoothing

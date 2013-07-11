@@ -12,6 +12,12 @@
 
   \item{type}{seclect sampling type (1=MonteCarlo Sampling,
   2=PoissonDisk Sampling)}
+
+  \item{MCsamp}{MonteCarlo sample iterations used in
+  PoissonDisk sampling.}
+
+  \item{geodes}{maximise geodesic distance between sample
+  points}
 }
 \value{
   sampled points

@@ -2,10 +2,10 @@
 #include <../RvcgIO.h>
 #include <Rcpp.h>
 
-using namespace vcg;
+//using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
-using namespace std;
+//using namespace std;
 
 
 RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)

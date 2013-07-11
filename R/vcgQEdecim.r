@@ -1,4 +1,4 @@
-#' Performs Quadric Edge Decimation on triangulare meshes.
+#' Performs Quadric Edge Decimation on triangular meshes.
 #' 
 #' Decimates a mesh by adapting the faces of a mesh either to a target face
 #' number, a percentage or an approximate mesh resolution (a.k.a. mean edge
@@ -32,7 +32,7 @@
 #' require(rgl)
 #' data(humface)
 #' ##reduce faces to 50% 
-#' decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = T)
+#' decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = TRUE)
 #' ## view
 #' shade3d(decimface, col=3)
 #' ## some light smoothing

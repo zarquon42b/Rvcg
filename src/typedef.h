@@ -37,7 +37,7 @@
 //#include <vcg/complex/algorithms/update/curvature.h>
 
 using namespace vcg;
-using namespace std;
+//using namespace std;
 // The class prototypes.
 class MyFace;
 class MyEdge;
@@ -49,7 +49,7 @@ struct MyUsedTypes: public UsedTypes<Use<MyVertex>::AsVertexType,
 
 class MyEdge : public Edge<MyUsedTypes>{};
 class MyVertex  : public Vertex< MyUsedTypes, 
-  vertex::InfoOcf,
+                                 vertex::InfoOcf,
                                  vertex::Coord3f, 
                                  vertex::BitFlags, 
                                  vertex::Normal3f, 
@@ -61,7 +61,7 @@ class MyVertex  : public Vertex< MyUsedTypes,
                                  vertex::CurvatureDirfOcf
 				 >{};
 class MyFace: public Face  <MyUsedTypes, 
-face::InfoOcf,
+                                face::InfoOcf,
                                 face::VFAdj,
                                 face::VertexRef,
                                 face::BitFlags,

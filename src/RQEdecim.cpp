@@ -84,7 +84,7 @@ typedef CMeshDec::VertexPointer VertexPointer;
 
 
 
-RcppExport  SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, SEXP _doubleparams)
+RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, SEXP _doubleparams)
 {
   // declare Mesh and helper variables
   int i;

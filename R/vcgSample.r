@@ -4,6 +4,8 @@
 #' @param mesh triangular mesh of class 'mesh3d'
 #' @param SampleNum integer Number of sampled points
 #' @param type seclect sampling type (1=MonteCarlo Sampling, 2=PoissonDisk Sampling)
+#' @param MCsamp MonteCarlo sample iterations used in PoissonDisk sampling.
+#' @param geodes maximise geodesic distance between sample points
 #' @details not ready yet
 #' @return sampled points
 #' @examples

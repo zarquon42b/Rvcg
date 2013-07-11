@@ -10,6 +10,9 @@ SystemRequirements:
 Depends:
     R (>= 2.14.0),
     Rcpp
+Suggests:
+    Morpho,
+    rgl
 LinkingTo: Rcpp
 License: GPL-2
 LazyLoad: yes
