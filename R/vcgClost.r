@@ -9,7 +9,7 @@
 #' @param sign logical: if TRUE, signed distances are returned.
 #' @param barycentric logical: if TRUE, barycentric coordinates of the hit
 #' points are returned.
-#' @param smoothNormal logical: if TRUE, laplacian smoothed normals are used.
+#' @param smoothNormals logical: if TRUE, laplacian smoothed normals are used.
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{ 4xn matrix containing n vertices as homolougous coordinates.}
 #' \item{normals }{4xn matrix containing vertex normals.}

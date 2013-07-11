@@ -2,7 +2,8 @@
 \alias{vcgClost}
 \title{Project coordinates onto a target triangular surface mesh.}
 \usage{
-  vcgClost(x, mesh, sign = TRUE, barycentric = FALSE)
+  vcgClost(x, mesh, sign = TRUE, barycentric = FALSE,
+    smoothNormals = FALSE)
 }
 \arguments{
   \item{x}{k x 3 matrix containing 3D-coordinates or object
@@ -16,6 +17,9 @@
 
   \item{barycentric}{logical: if TRUE, barycentric
   coordinates of the hit points are returned.}
+
+  \item{smoothNormals}{logical: if TRUE, laplacian smoothed
+  normals are used.}
 }
 \value{
   returns an object of class "mesh3d" with: \item{vb }{ 4xn
