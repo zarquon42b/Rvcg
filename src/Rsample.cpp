@@ -31,9 +31,9 @@ RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type, SEXP _M
   FaceIterator fi;
   // allocate mesh and fill it
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
-  m.vert.EnableVFAdjacency();
+  /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();
+  m.face.EnableVFAdjacency();*/
   vector<Point3f> myVec;
   typedef TrivialSampler<MyMesh>  BaseSampler ;
  

@@ -1,6 +1,3 @@
-#PKG_FCFLAGS=-fopenmp
 PKG_CPPFLAGS=-I./vcglib
-#-I/usr/lib/R/site-library/Rcpp/include/
 PKG_LIBS=`$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"`
-#`$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"`
 PKG_CXXFLAGS=`$(R_HOME)/bin/Rscript -e "Rcpp:::CxxFlags()"`

@@ -49,29 +49,35 @@ struct MyUsedTypes: public UsedTypes<Use<MyVertex>::AsVertexType,
 
 class MyEdge : public Edge<MyUsedTypes>{};
 class MyVertex  : public Vertex< MyUsedTypes, 
-                                 vertex::InfoOcf,
+		  //vertex::InfoOcf,
                                  vertex::Coord3f, 
                                  vertex::BitFlags, 
                                  vertex::Normal3f, 
                                  vertex::Mark,
                                  vertex::Color4b, 
                                  vertex::Qualityf,
-                                 vertex::VFAdjOcf,
-                                 vertex::CurvaturefOcf,
-                                 vertex::CurvatureDirfOcf
+		  /* vertex::VFAdjOcf,
+		     vertex::CurvaturefOcf,
+		     vertex::CurvatureDirfOcf,*/
+                                 vertex::VFAdj,
+                                 vertex::Curvaturef,
+                                 vertex::CurvatureDirf
 				 >{};
 class MyFace: public Face  <MyUsedTypes, 
-                                face::InfoOcf,
+	      //face::InfoOcf,
                                 face::VFAdj,
                                 face::VertexRef,
                                 face::BitFlags,
                                 face::Mark,
-	                        face::FFAdjOcf, 
+	      //face::FFAdjOcf, 
+                                face::FFAdj, 
                                 face::Normal3f> {};
 
 
-class MyMesh : public vcg::tri::TriMesh< vcg::vertex::vector_ocf<MyVertex>, vcg::face::vector_ocf<MyFace > >{};
-//class MyMesh : public vcg::tri::TriMesh< std::vector<MyVertex>, std::vector<MyFace > >{};
+// ocf class
+//class MyMesh : public vcg::tri::TriMesh< vcg::vertex::vector_ocf<MyVertex>, vcg::face::vector_ocf<MyFace > >{};
+// default class
+class MyMesh : public vcg::tri::TriMesh< std::vector<MyVertex>, std::vector<MyFace > >{};
 typedef  MyMesh::ScalarType ScalarType;
 typedef  MyMesh::VertexIterator VertexIterator;
 typedef  MyMesh::VertexPointer VertexPointer;

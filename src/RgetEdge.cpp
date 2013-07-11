@@ -20,9 +20,9 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
   // allocate and fill mesh
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
   //enable ocf
-  m.vert.EnableVFAdjacency();
+  /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();
+  m.face.EnableVFAdjacency();*/
   
   // create int indices per face and per vertex to return to R
   SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);

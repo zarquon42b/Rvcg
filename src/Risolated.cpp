@@ -19,9 +19,9 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
   FaceIterator fi;
   
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
-  m.vert.EnableVFAdjacency();
+  /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();
+  m.face.EnableVFAdjacency();*/
   
   double diameter = Rcpp::as<double>(_diam);
   int connect = Rcpp::as<int>(_facenum); 
