@@ -37,7 +37,7 @@
 //#include <algorithm>
 extern "C" {
 
-  void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign,int *border, int *barycentric, double *barycoord,int *faceptr)
+  void Rclost(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis,int *sign,int *border, int *barycentric, double *barycoord,int *faceptr, int* smooth)
   {
     /*typedef MyMesh::CoordType CoordType;
       typedef  MyMesh::ScalarType ScalarType;
@@ -122,6 +122,8 @@ extern "C" {
     tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
     //tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
     tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
+    if (*smooth == 1)
+      tri::Smooth<MyMesh>::VertexNormalLaplacian(m,2,false);
     tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
     float maxDist = m.bbox.Diag()*2;
     float minDist = 1e-10;

@@ -9,6 +9,7 @@
 #' @param sign logical: if TRUE, signed distances are returned.
 #' @param barycentric logical: if TRUE, barycentric coordinates of the hit
 #' points are returned.
+#' @param smoothNormal logical: if TRUE, laplacian smoothed normals are used.
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{ 4xn matrix containing n vertices as homolougous coordinates.}
 #' \item{normals }{4xn matrix containing vertex normals.}
@@ -31,7 +32,7 @@
 #' 
 #' 
 #' @export vcgClost
-vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE)
+vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE)
   
   {
     vb <- mesh$vb[1:3,]
@@ -60,7 +61,8 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE)
     barycoord <- normals <- clost*0
     sign <- as.integer(sign)
     barycentric <- as.integer(barycentric)
-    tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,clost,dis,sign,border,barycentric,barycoord,faceptr=faceptr)
+    smooth <- as.integer(smoothNormals)
+    tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,clost,dis,sign,border,barycentric,barycoord,faceptr=faceptr,smooth)
     x$vb[1:3,] <- tmp[[5]]
     x$normals <- rbind(tmp[[7]],1)
     chcknorm <- which(is.nan(x$normals))
