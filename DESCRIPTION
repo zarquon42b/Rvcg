@@ -30,3 +30,4 @@ Collate:
     'vcgQEdecim.r'
     'vcgSmooth.r'
     'vcgSample.r'
+    'vcgPlyWrite.r'

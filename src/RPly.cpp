@@ -35,7 +35,8 @@
 #include <vcg/container/simple_temporary_data.h>
 #include <wrap/io_trimesh/import.h>
 #include <string.h>
-  
+#include <../RvcgIO.h> 
+#include <Rcpp.h>  
   
 extern "C" {
 
@@ -154,4 +155,30 @@ extern "C" {
 	
       }
   }
-} 
+}
+
+  using namespace Rcpp;
+RcppExport SEXP RPlyWrite(SEXP _vb, SEXP _it, SEXP _binary, SEXP _addNormals, SEXP _filename)
+{ 
+  MyMesh m;
+   //set up parameters 
+  bool binary = Rcpp::as<bool>(_binary);
+  bool addNormals = Rcpp::as<bool>(_addNormals);
+  std::string str = Rcpp::as<std::string>(_filename);
+  const char *filename = str.c_str();
+  //char *filename[256] = strcpy(cstr
+  //strcpy(filename1, filename);
+  //allocate mesh and fill it
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  int mask0 = 0;
+  
+  if (addNormals)
+    {
+      tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+      mask0 = mask0 + tri::io::Mask::IOM_VERTNORMAL;
+    }
+  
+    tri::io::ExporterPLY<MyMesh>::Save(m, filename, mask0, binary);
+  return Rcpp::wrap(0);
+}
+
