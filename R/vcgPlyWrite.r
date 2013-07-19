@@ -8,13 +8,15 @@
 #' @param addNormals logical: compute per-vertex normals and add to file
 #' @examples
 #' data(humface)
-#' vcgPlyWrite(humface,filename = humface)
+#' vcgPlyWrite(humface,filename = "humface")
 #' @export vcgPlyWrite
 vcgPlyWrite <- function(mesh, filename="default", binary = TRUE, addNormals = FALSE)
 {
     vb <- mesh$vb[1:3,]
     it <- (mesh$it-1)
     storage.mode(it) <- "integer"
+     if ( FALSE %in% is.integer(c(it)) || FALSE %in% is.numeric(c(vb)) || !is.character(filename) )
+         stop("Please provide sensible arguments!")
     filename <- paste(filename,".ply",sep="")
     tmp <- .Call("RPlyWrite", vb, it , binary, addNormals, filename)
 }

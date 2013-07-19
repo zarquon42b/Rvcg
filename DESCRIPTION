@@ -1,8 +1,8 @@
 Package: Rvcg
 Type: Package
 Title: Interface between R and the vcglib mesh library.
-Version: 0.3
-Date: 2013-06-27
+Version: 0.4-00
+Date: 
 Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
 Description: Meshing operation based on vcglib.

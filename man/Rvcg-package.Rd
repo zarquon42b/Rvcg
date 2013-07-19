@@ -10,8 +10,8 @@
 }
 \details{
   \tabular{ll}{ Package: \tab Rvcg\cr Type: \tab Package\cr
-  Version: \tab 0.22.1\cr Date: \tab 2013-03-07\cr License:
-  \tab GPL\cr LazyLoad: \tab yes\cr }
+  Version: \tab 0.4-00\cr Date: \tab \cr License: \tab
+  GPL\cr LazyLoad: \tab yes\cr }
 }
 \author{
   Stefan Schlager
