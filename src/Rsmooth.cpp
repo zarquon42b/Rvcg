@@ -32,7 +32,8 @@ RcppExport SEXP Rsmooth(SEXP _vb, SEXP _it, SEXP _iteration, SEXP _method, SEXP 
     { tri::Smooth<MyMesh>::VertexCoordLaplacian(m, iter);
     }
   else if (method == 2)
-    { tri::Smooth<MyMesh>::VertexCoordLaplacianHC(m, iter);
+    { tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+      tri::Smooth<MyMesh>::VertexCoordLaplacianHC(m, iter);
     }
   else if (method == 3)
     { tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
