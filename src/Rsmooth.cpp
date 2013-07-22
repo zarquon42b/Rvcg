@@ -16,14 +16,17 @@ RcppExport SEXP Rsmooth(SEXP _vb, SEXP _it, SEXP _iteration, SEXP _method, SEXP 
   //set up parameters 
   int iter = Rcpp::as<int>(_iteration);
   int method = Rcpp::as<int>(_method);
-  double lambda =  Rcpp::as<double>(_lambda);
-  double mu =  Rcpp::as<double>(_mu);
+  float lambda =  Rcpp::as<float>(_lambda);
+  float mu =  Rcpp::as<float>(_mu);
   ScalarType delta = Rcpp::as<double>(_delta);
   //allocate mesh and fill it
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
        
   if (method == 0)
-    { tri::Smooth<MyMesh>::VertexCoordTaubin(m, iter, lambda, mu);
+    { tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+      size_t cnt=tri::UpdateSelection<MyMesh>::VertexFromFaceStrict(m);
+      tri::Smooth<MyMesh>::VertexCoordTaubin(m, iter, lambda, mu, cnt>0);
+     
     }
   else if (method == 1)
     { tri::Smooth<MyMesh>::VertexCoordLaplacian(m, iter);

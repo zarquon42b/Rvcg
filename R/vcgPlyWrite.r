@@ -10,10 +10,12 @@
 #' data(humface)
 #' vcgPlyWrite(humface,filename = "humface")
 #' @export vcgPlyWrite
-vcgPlyWrite <- function(mesh, filename="default", binary = TRUE, addNormals = FALSE)
+vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE)
 {
     vb <- mesh$vb[1:3,]
     it <- (mesh$it-1)
+    dataname <- deparse(substitute(mesh))
+    filename <- as.character(filename)
     storage.mode(it) <- "integer"
      if ( FALSE %in% is.integer(c(it)) || FALSE %in% is.numeric(c(vb)) || !is.character(filename) )
          stop("Please provide sensible arguments!")
