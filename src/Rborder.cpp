@@ -30,7 +30,7 @@ using namespace std;
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>*/
-#include <../typedef.h>
+#include "typedef.h"
 //#include <wrap/ply/plylib.cpp>
 
   

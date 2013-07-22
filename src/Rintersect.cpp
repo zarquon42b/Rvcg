@@ -1,4 +1,4 @@
-#include <../typedef.h>
+#include "typedef.h"
 //#include <wrap/ply/plylib.cpp>
 
   

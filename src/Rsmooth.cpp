@@ -1,8 +1,8 @@
 // Author: Stefan Schlager
 // Date: 15 September 2010
 
-#include <../typedef.h>
-#include <../RvcgIO.h> 
+#include "typedef.h"
+#include "RvcgIO.h" 
 #include <Rcpp.h>
 
 using namespace Rcpp;

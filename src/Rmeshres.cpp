@@ -12,8 +12,8 @@
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
 #include <vcg/simplex/face/pos.h>
-#include <../typedef.h>
-#include <../RvcgIO.h>
+#include "typedef.h"
+#include "RvcgIO.h"
 #include <Rcpp.h>
 
 using namespace vcg;

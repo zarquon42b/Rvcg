@@ -22,7 +22,7 @@
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
 
-#include <../RvcgIO.h>
+#include "RvcgIO.h"
 #include <Rcpp.h>
 using namespace vcg;
 using namespace tri;

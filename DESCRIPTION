@@ -1,12 +1,28 @@
 Package: Rvcg
 Type: Package
-Title: Interface between R and the vcglib mesh library.
+Title: Provide manipulations of triangular meshes by using the API of the VCGLIB library.
 Version: 0.4-00
 Date: 
 Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
-Description: Meshing operation based on vcglib.
-SystemRequirements: 
+Description: Operations on triangular meshes based on VCGLIB.
+ .
+ The Visualization and Computer Graphics Library (VCG for short) 
+    	    is an open source portable C++ templated library 
+	    for manipulation, processing and displaying with OpenGL of
+	    triangle and tetrahedral meshes.
+	    The library, composed by more than 100k lines of code, 
+	    is released under the GPL license, and it is the base of 
+	    most of the software tools of the Visual Computing Lab of 
+	    the Italian National Research Council Institute ISTI 
+	    (http://vcg.isti.cnr.it), like metro and MeshLab.
+ .
+ The vcglib source is pulled from trunk (svn://svn.code.sf.net/p/vcg/code/trunk/vcglib) and includes parts of the Eigen library also included in this package)
+ .
+ Eigen is licensed under the GNU LGPL version 3 or later, and also under
+            the GNU GPL version 2 or later.  RcppEigen (the Rcpp
+            bindings/bridge to Eigen) is licensed under the GNU GPL version
+            2 or later. 
 Depends:
     R (>= 2.14.0),
     Rcpp
@@ -14,8 +30,9 @@ Suggests:
     Morpho,
     rgl
 LinkingTo: Rcpp
-License: GPL-2
+License: GPL (>= 2)
 LazyLoad: yes
+URL: http://vcg.isti.cnr.it/~cignoni/newvcglib/html/
 Collate:
     'Rvcg-package.R'
     'vcgBorder.r'

@@ -1,5 +1,5 @@
-#include <../typedef.h>
-#include <../RvcgIO.h>
+#include "typedef.h"
+#include "RvcgIO.h"
 #include <Rcpp.h>
 #include <vcg/complex/algorithms/point_sampling.h>
 #include <vcg/complex/algorithms/point_sampling.h>

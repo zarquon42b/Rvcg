@@ -3,8 +3,8 @@
 // of trimeshinfo
 // included in the vcglib sources
 // to work with R
-#include <../typedef.h>
-#include <../RvcgIO.h>
+#include "typedef.h"
+#include "RvcgIO.h"
 #include <Rcpp.h>
 using namespace vcg;
 using namespace tri;

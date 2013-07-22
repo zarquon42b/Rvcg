@@ -30,12 +30,12 @@
   #include <wrap/io_trimesh/export.h>
   #include <wrap/io_trimesh/export_ply.h>
   #include <vcg/complex/algorithms/update/color.h>*/
-#include <../typedef.h>
+#include "typedef.h"
 #include <wrap/ply/plylib.cpp>
 #include <vcg/container/simple_temporary_data.h>
 #include <wrap/io_trimesh/import.h>
 #include <string.h>
-#include <../RvcgIO.h> 
+#include "RvcgIO.h" 
 #include <Rcpp.h>  
   
 extern "C" {
