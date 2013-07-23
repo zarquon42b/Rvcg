@@ -2,7 +2,7 @@
 \alias{vcgPlyWrite}
 \title{Export meshes to PLY-files}
 \usage{
-  vcgPlyWrite(mesh, filename = "default", binary = TRUE,
+  vcgPlyWrite(mesh, filename = dataname, binary = TRUE,
     addNormals = FALSE)
 }
 \arguments{
