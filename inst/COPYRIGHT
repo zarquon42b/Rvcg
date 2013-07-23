@@ -1,0 +1,12 @@
+	inst/include/vcglib/wrap/ 
+	inst/include/vcglib/img/
+        inst/include/vcglib/vcg/
+	are Copyright (C) Visual Computing Lab ISTI - Italian National Research
+        Council
+	
+	inst/include/vcg/eigenlib 
+	is Copyright (C)
+	   2006-2008 Benoit Jacob <jacob@math.jussieu.fr>
+           2007 Michael Olbrich <michael.olbrich@gmx.net>
+           2008 Gael Guennebaud <g.gael@free.fr>
+           2008 Konstantinos Margaritis <markos@codex.gr>
