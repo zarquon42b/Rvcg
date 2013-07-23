@@ -15,7 +15,7 @@ vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FAL
     vb <- mesh$vb[1:3,]
     it <- (mesh$it-1)
     dataname <- deparse(substitute(mesh))
-    filename <- as.character(filename)
+    filename <- path.expand(as.character(filename))
     storage.mode(it) <- "integer"
      if ( FALSE %in% is.integer(c(it)) || FALSE %in% is.numeric(c(vb)) || !is.character(filename) )
          stop("Please provide sensible arguments!")

@@ -30,6 +30,7 @@ vcgPlyRead <-function (file,updateNormals=TRUE,clean=TRUE)
   if (ext != "ply" && ext != "PLY")
     stop("please select PLY file")
 ### get infos from file header
+  file <- path.expand(file)
   x <- file
   A <- readLines(x, n = 100, warn=FALSE)
   end <- which(A == "end_header")
