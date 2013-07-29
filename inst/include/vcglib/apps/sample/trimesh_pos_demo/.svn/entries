@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_pos_demo
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+trimesh_pos_demo.cpp
+file
+
+
+
+
+2013-06-21T07:05:23.646825Z
+4f675c91a5ef2448c132a1927e178bd5
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1423
 
 mesh_type.h
 file
@@ -297,38 +331,4 @@ cignoni
 
 
 1084
-
-trimesh_pos_demo.cpp
-file
-
-
-
-
-2013-06-21T07:05:23.646825Z
-4f675c91a5ef2448c132a1927e178bd5
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1423
 

@@ -6,7 +6,7 @@ Version: 0.4-00
 Date: 
 Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
-Description: Operations on triangular meshes based on VCGLIB 
+Description: Operations on triangular meshes based on VCGLIB
     #.
     The Visualization and Computer Graphics Library (VCG for short) is an
     open source portable C++ templated library for manipulation, processing

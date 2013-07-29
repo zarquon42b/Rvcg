@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/qt
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ granzuglia
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+gl_label.h
+file
+
+
+
+
+2013-06-21T07:08:08.987645Z
+e5cb0c889dfb5888f373f3db88fff461
+2013-03-24T19:50:48.636151Z
+4860
+granzuglia
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6444
+
+anttweakbarMapper.cpp
+file
+
+
+
+
+2013-06-21T07:08:08.987645Z
+f0ccfabdba5f40bca4a6a182136107ce
+2012-03-04T16:27:02.381539Z
+4339
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2688
 
 outline2_rasterizer.cpp
 file
@@ -94,40 +162,6 @@ has-props
 
 9196
 
-anttweakbarMapper.h
-file
-
-
-
-
-2013-06-21T07:08:08.991645Z
-5a6df9f04a3049c41a3d5251907e3391
-2012-02-14T11:39:27.403341Z
-4330
-malomo
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-419
-
 to_string.h
 file
 
@@ -161,6 +195,40 @@ has-props
 
 
 744
+
+anttweakbarMapper.h
+file
+
+
+
+
+2013-06-21T07:08:08.991645Z
+5a6df9f04a3049c41a3d5251907e3391
+2012-02-14T11:39:27.403341Z
+4330
+malomo
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+419
 
 checkGLError.h
 file
@@ -230,40 +298,6 @@ has-props
 
 713
 
-img_qt.h
-file
-
-
-
-
-2013-06-21T07:08:08.987645Z
-10781583b22685222c6c415b0118f33b
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-221
-
 img_qt_convert.h
 file
 
@@ -298,17 +332,18 @@ has-props
 
 5200
 
-col_qt_convert.h
+img_qt.h
 file
 
 
 
 
 2013-06-21T07:08:08.987645Z
-8c042a9aac22615df1c0efadc2d9d6c8
+10781583b22685222c6c415b0118f33b
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -329,8 +364,7 @@ cignoni
 
 
 
-
-421
+221
 
 shot_qt.h
 file
@@ -365,6 +399,40 @@ has-props
 
 
 5837
+
+col_qt_convert.h
+file
+
+
+
+
+2013-06-21T07:08:08.987645Z
+8c042a9aac22615df1c0efadc2d9d6c8
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+421
 
 Outline2ToQImage.cpp
 file
@@ -467,72 +535,4 @@ cignoni
 
 
 4195
-
-gl_label.h
-file
-
-
-
-
-2013-06-21T07:08:08.987645Z
-e5cb0c889dfb5888f373f3db88fff461
-2013-03-24T19:50:48.636151Z
-4860
-granzuglia
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6444
-
-anttweakbarMapper.cpp
-file
-
-
-
-
-2013-06-21T07:08:08.987645Z
-f0ccfabdba5f40bca4a6a182136107ce
-2012-03-04T16:27:02.381539Z
-4339
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2688
 

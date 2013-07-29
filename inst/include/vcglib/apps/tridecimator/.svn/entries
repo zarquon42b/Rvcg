@@ -1,14 +1,14 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/tridecimator
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2011-10-24T11:23:49.777468Z
-4198
+2013-07-23T07:37:29.006637Z
+4922
 cignoni
 
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-tridecimator.pro
-file
-
-
-
-
-2013-06-21T07:05:39.222902Z
-5fa76e530f94a9a23dc90962fe103d54
-2011-10-24T11:23:49.777468Z
-4198
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-278
-
-tridecimator.cpp
-file
-
-
-
-
-2013-06-21T07:05:39.226902Z
-9fc895027ccd918a5261e7aed34501ef
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-7978
 
 Tetraascii.ply
 file
@@ -297,4 +229,72 @@ cignoni
 
 
 286
+
+tridecimator.pro
+file
+
+
+
+
+2013-06-21T07:05:39.222902Z
+5fa76e530f94a9a23dc90962fe103d54
+2011-10-24T11:23:49.777468Z
+4198
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+278
+
+tridecimator.cpp
+file
+
+
+
+
+2013-07-25T06:52:24.690398Z
+0226dc43a2102cf7304b640635fc3a64
+2013-07-23T07:37:29.006637Z
+4922
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7770
 

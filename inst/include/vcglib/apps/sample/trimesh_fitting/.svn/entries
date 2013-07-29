@@ -1,14 +1,14 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_fitting
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2012-11-10T16:57:26.357169Z
-4716
+2013-07-23T07:33:48.618537Z
+4920
 cignoni
 
 
@@ -66,10 +66,10 @@ file
 
 
 
-2013-06-21T07:05:21.182813Z
-e82b0ef7d452fb1e25524727ef543b9a
-2012-11-10T16:57:26.357169Z
-4716
+2013-07-25T06:52:24.590398Z
+6db8de0180d7d6a7b64902709c618fba
+2013-07-23T07:33:48.618537Z
+4920
 cignoni
 has-props
 
@@ -92,5 +92,5 @@ has-props
 
 
 
-5101
+5054
 

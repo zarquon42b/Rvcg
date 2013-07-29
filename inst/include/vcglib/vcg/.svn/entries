@@ -1,14 +1,14 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-06-24T10:51:53.920813Z
-4909
+2013-07-24T12:00:47.297259Z
+4928
 cignoni
 
 
@@ -26,15 +26,6 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-space
-dir
-
-connectors
-dir
-
-simplex
-dir
-
 container
 dir
 
@@ -42,5 +33,14 @@ complex
 dir
 
 math
+dir
+
+space
+dir
+
+connectors
+dir
+
+simplex
 dir
 

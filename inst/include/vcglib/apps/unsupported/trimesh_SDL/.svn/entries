@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/unsupported/trimesh_SDL
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimesh_sdl.cpp
-file
-
-
-
-
-2013-06-21T07:06:53.571271Z
-73248b5102c62aa5c056ae7d1e0e2ab1
-2013-01-28T15:15:14.079360Z
-4807
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8958
 
 trimesh_sdl.pro
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 702
+
+trimesh_sdl.cpp
+file
+
+
+
+
+2013-06-21T07:06:53.571271Z
+73248b5102c62aa5c056ae7d1e0e2ab1
+2013-01-28T15:15:14.079360Z
+4807
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8958
 

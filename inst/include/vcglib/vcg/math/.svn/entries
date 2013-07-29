@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/math
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,210 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+camera.h
+file
+
+
+
+
+2013-06-21T07:05:10.162758Z
+a868c0b2ba8b7711c30054d88e6d5bba
+2012-12-05T11:37:19.944597Z
+4763
+ganovelli
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17605
+
+quadric.h
+file
+
+
+
+
+2013-06-21T07:05:10.162758Z
+36fafede65aea8108942459675313ee0
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11397
+
+old_lin_algebra.h
+file
+
+
+
+
+2013-06-21T07:05:10.154758Z
+b8c751f39847d09e2cb7339fb5759a12
+2013-03-19T17:05:56.433202Z
+4841
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18314
+
+histogram.h
+file
+
+
+
+
+2013-06-21T07:05:10.154758Z
+5e26b0b67d0ee9311d8116c324bb6bbe
+2012-05-05T14:55:50.371418Z
+4399
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12916
+
+eigen_matrixbase_addons.h
+file
+
+
+
+
+2013-06-21T07:05:10.154758Z
+f0aa7243461ffd3581b86f0c3eb9a8fa
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11517
+
+disjoint_set.h
+file
+
+
+
+
+2013-06-21T07:05:10.154758Z
+647b6198ad214b4146c8c2eb6e9a1766
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5440
 
 old_matrix.h
 file
@@ -60,40 +264,6 @@ cignoni
 
 5522
 
-eigen_matrix_addons.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-869db7b70d66dfef27765221bf826d72
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6233
-
 point_matching.h
 file
 
@@ -127,6 +297,40 @@ pietroni
 
 
 14698
+
+eigen_matrix_addons.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+869db7b70d66dfef27765221bf826d72
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6233
 
 factorial.h
 file
@@ -162,40 +366,6 @@ cignoni
 
 11968
 
-similarity2.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-bc75cb476bd474e425ae277c7e0de170
-2011-10-20T22:29:20.159536Z
-4196
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2505
-
 old_matrix33.h
 file
 
@@ -229,6 +399,40 @@ cignoni
 
 
 8725
+
+similarity2.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+bc75cb476bd474e425ae277c7e0de170
+2011-10-20T22:29:20.159536Z
+4196
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2505
 
 polar_decomposition.h
 file
@@ -264,17 +468,18 @@ cignoni
 
 2824
 
-old_matrix44.h
+matrix33.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-f901bc09d6b86d8fccc9e78777f730b0
-2013-03-19T21:51:13.509472Z
-4846
+b6f9a1049ba5dc90c4a44e4aac2aa796
+2013-03-19T22:04:35.242318Z
+4849
 cignoni
+has-props
 
 
 
@@ -295,42 +500,7 @@ cignoni
 
 
 
-
-16502
-
-base.h
-file
-
-
-
-
-2013-06-21T07:05:10.158758Z
-4717b0cfa4eb8a80d8a232a5baaef737
-2013-03-22T16:43:59.187666Z
-4855
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-7379
+16557
 
 linear.h
 file
@@ -366,18 +536,17 @@ cignoni
 
 3085
 
-matrix33.h
+base.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-b6f9a1049ba5dc90c4a44e4aac2aa796
-2013-03-19T22:04:35.242318Z
-4849
+4717b0cfa4eb8a80d8a232a5baaef737
+2013-03-22T16:43:59.187666Z
+4855
 cignoni
-has-props
 
 
 
@@ -398,7 +567,42 @@ has-props
 
 
 
-16557
+
+7379
+
+old_matrix44.h
+file
+
+
+
+
+2013-06-21T07:05:10.158758Z
+f901bc09d6b86d8fccc9e78777f730b0
+2013-03-19T21:51:13.509472Z
+4846
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16502
 
 matrix44.h
 file
@@ -434,17 +638,18 @@ has-props
 
 19871
 
-spherical_harmonics.h
+quadric5.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-7e6b468d2a61f181405a2cb671e62d44
+6bd86374cd9f8dcdb4f12cb0dadc0cad
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -465,8 +670,7 @@ cignoni
 
 
 
-
-6316
+18070
 
 shot.h
 file
@@ -502,18 +706,17 @@ cignoni
 
 20685
 
-quadric5.h
+spherical_harmonics.h
 file
 
 
 
 
 2013-06-21T07:05:10.158758Z
-6bd86374cd9f8dcdb4f12cb0dadc0cad
+7e6b468d2a61f181405a2cb671e62d44
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -534,7 +737,8 @@ has-props
 
 
 
-18070
+
+6316
 
 gen_normal.h
 file
@@ -807,208 +1011,4 @@ cignoni
 
 
 12003
-
-camera.h
-file
-
-
-
-
-2013-06-21T07:05:10.162758Z
-a868c0b2ba8b7711c30054d88e6d5bba
-2012-12-05T11:37:19.944597Z
-4763
-ganovelli
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-17605
-
-quadric.h
-file
-
-
-
-
-2013-06-21T07:05:10.162758Z
-36fafede65aea8108942459675313ee0
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-11397
-
-old_lin_algebra.h
-file
-
-
-
-
-2013-06-21T07:05:10.154758Z
-b8c751f39847d09e2cb7339fb5759a12
-2013-03-19T17:05:56.433202Z
-4841
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-18314
-
-histogram.h
-file
-
-
-
-
-2013-06-21T07:05:10.154758Z
-5e26b0b67d0ee9311d8116c324bb6bbe
-2012-05-05T14:55:50.371418Z
-4399
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-12916
-
-eigen_matrixbase_addons.h
-file
-
-
-
-
-2013-06-21T07:05:10.154758Z
-f0aa7243461ffd3581b86f0c3eb9a8fa
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-11517
-
-disjoint_set.h
-file
-
-
-
-
-2013-06-21T07:05:10.154758Z
-647b6198ad214b4146c8c2eb6e9a1766
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5440
 

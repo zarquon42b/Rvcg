@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/unsupported
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,12 +26,6 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-texdeci
-dir
-
-shadevis
-dir
-
 trimesh_SDL
 dir
 
@@ -42,5 +36,11 @@ trackball_SDL
 dir
 
 ptx2ply
+dir
+
+texdeci
+dir
+
+shadevis
 dir
 

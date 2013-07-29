@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/test
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,15 +26,15 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-tetramesh
-dir
-
-trackball
-dir
-
 quaternion
 dir
 
 camerashot
+dir
+
+tetramesh
+dir
+
+trackball
 dir
 

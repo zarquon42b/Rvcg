@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/polygonmesh_quadsimpl
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-polygonmesh_quadsimpl.pro
-file
-
-
-
-
-2013-06-21T07:05:22.766821Z
-717887970c01c6f8c19e5466aa4759e2
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-184
 
 quadsimpl.cpp
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 13689
+
+polygonmesh_quadsimpl.pro
+file
+
+
+
+
+2013-06-21T07:05:22.766821Z
+717887970c01c6f8c19e5466aa4759e2
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+184
 

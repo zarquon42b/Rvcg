@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/trimeshinfo/trimeshinfo1.02
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,12 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimeshinfo1.02
-dir
-
-trimeshinfosample
-dir
 
 trimeshinfosample.zip
 file
@@ -99,4 +93,10 @@ has-props
 
 
 106042
+
+trimeshinfo1.02
+dir
+
+trimeshinfosample
+dir
 

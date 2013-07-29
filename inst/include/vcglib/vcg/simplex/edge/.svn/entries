@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/simplex/edge
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+topology.h
+file
+
+
+
+
+2013-06-21T07:04:54.734682Z
+009b582da51add17755ca39573fc00c8
+2012-04-27T09:23:01.738505Z
+4392
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3196
 
 pos.h
 file
@@ -161,38 +195,4 @@ cignoni
 
 
 3509
-
-topology.h
-file
-
-
-
-
-2013-06-21T07:04:54.734682Z
-009b582da51add17755ca39573fc00c8
-2012-04-27T09:23:01.738505Z
-4392
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3196
 

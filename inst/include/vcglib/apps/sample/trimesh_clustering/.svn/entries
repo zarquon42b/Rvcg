@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_clustering
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimesh_clustering.cpp
-file
-
-
-
-
-2013-06-21T07:05:21.886816Z
-0107524139ac063e76bb5b51e353479b
-2012-10-16T09:08:19.337521Z
-4601
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4698
 
 trimesh_clustering.pro
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 114
+
+trimesh_clustering.cpp
+file
+
+
+
+
+2013-06-21T07:05:21.886816Z
+0107524139ac063e76bb5b51e353479b
+2012-10-16T09:08:19.337521Z
+4601
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4698
 

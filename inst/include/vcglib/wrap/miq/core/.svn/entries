@@ -1,15 +1,15 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/miq/core
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-01-30T17:18:55.488904Z
-4811
-ganovelli
+2013-07-23T11:24:38.954326Z
+4927
+pietroni
 
 
 
@@ -25,6 +25,74 @@ ganovelli
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+glUtils.h
+file
+
+
+
+
+2013-07-25T06:52:24.794399Z
+8a995c21525f5103c79ab7d5bbebbcd7
+2013-07-23T11:24:38.954326Z
+4927
+pietroni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8703
+
+poisson_solver.h
+file
+
+
+
+
+2013-06-21T07:08:11.595658Z
+f9f333fe6c5c4d2b98507248d51daa25
+2012-11-12T11:17:33.619286Z
+4719
+pietroni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+25718
 
 auxmath.h
 file
@@ -66,11 +134,11 @@ file
 
 
 
-2013-06-21T07:08:11.591658Z
-517214a90be99a4e8c9350ad9f3a3cc2
-2013-01-30T17:18:55.488904Z
-4811
-ganovelli
+2013-07-25T06:52:24.794399Z
+5e09fca1481b5bac024c7350cc08d699
+2013-07-23T11:23:21.585077Z
+4925
+pietroni
 has-props
 
 
@@ -92,7 +160,7 @@ has-props
 
 
 
-12077
+12138
 
 sparsesystemdata.h
 file
@@ -229,72 +297,4 @@ has-props
 
 
 14249
-
-glUtils.h
-file
-
-
-
-
-2013-06-21T07:08:11.591658Z
-37dc409ac2fc3c46fda7ac8f4f960b6b
-2013-01-22T10:02:05.894642Z
-4800
-pietroni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8639
-
-poisson_solver.h
-file
-
-
-
-
-2013-06-21T07:08:11.595658Z
-f9f333fe6c5c4d2b98507248d51daa25
-2012-11-12T11:17:33.619286Z
-4719
-pietroni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-25718
 

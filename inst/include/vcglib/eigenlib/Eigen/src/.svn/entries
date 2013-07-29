@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,43 +26,49 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-misc
+Jacobi
+dir
+
+Core
 dir
 
 Geometry
 dir
 
-SuperLUSupport
+misc
 dir
 
 SVD
 dir
 
-OrderingMethods
+SuperLUSupport
 dir
 
 Sparse
 dir
 
-PardisoSupport
+OrderingMethods
 dir
 
-SparseCholesky
+PardisoSupport
 dir
 
 StlSupport
 dir
 
-PaStiXSupport
+SparseCholesky
 dir
 
 IterativeLinearSolvers
 dir
 
-Eigen2Support
+PaStiXSupport
 dir
 
 SparseCore
+dir
+
+Eigen2Support
 dir
 
 Eigenvalues
@@ -121,11 +127,5 @@ QR
 dir
 
 UmfPackSupport
-dir
-
-Jacobi
-dir
-
-Core
 dir
 

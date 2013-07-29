@@ -1,14 +1,14 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_color
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2012-10-19T12:32:05.842918Z
-4639
+2013-07-23T07:33:48.618537Z
+4920
 cignoni
 
 
@@ -66,10 +66,10 @@ file
 
 
 
-2013-06-21T07:05:21.710815Z
-d1c755f67b59d254cd571d4d45139068
-2012-10-19T12:32:05.842918Z
-4639
+2013-07-25T06:52:24.618398Z
+58337c4816719f0621302fbd3574e9fa
+2013-07-23T07:33:48.618537Z
+4920
 cignoni
 has-props
 
@@ -92,5 +92,5 @@ has-props
 
 
 
-3297
+3276
 

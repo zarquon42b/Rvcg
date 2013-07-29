@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/unsupported/shadevis
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-visshader.h
-file
-
-
-
-
-2013-06-21T07:06:53.395270Z
-99ac0468fc368b79b336ff0874aa175f
-2012-03-04T17:48:04.145977Z
-4340
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-16663
-
-history.txt
-file
-
-
-
-
-2013-06-21T07:06:53.395270Z
-46f1ccc07b839120e5e9d0e7928116dc
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-700
 
 shadevis.txt
 file
@@ -195,4 +127,72 @@ cignoni
 
 
 3061
+
+visshader.h
+file
+
+
+
+
+2013-06-21T07:06:53.395270Z
+99ac0468fc368b79b336ff0874aa175f
+2012-03-04T17:48:04.145977Z
+4340
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16663
+
+history.txt
+file
+
+
+
+
+2013-06-21T07:06:53.395270Z
+46f1ccc07b839120e5e9d0e7928116dc
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+700
 

@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Core
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,731 +26,14 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-VectorwiseOp.h
-file
-
-
-
-
-2013-06-21T07:08:32.639762Z
-a11cab920bb89acbb7fead4611870295
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-24824
-
-DenseBase.h
-file
-
-
-
-
-2013-06-21T07:08:32.639762Z
-d607f4f9afb512a42c4a3e16be3a3821
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-23660
-
-Stride.h
-file
-
-
-
-
-2013-06-21T07:08:32.639762Z
-ce6a2b32531f88448dff0cb2d47c0e7d
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3620
-
-SelfAdjointView.h
-file
-
-
-
-
-2013-06-21T07:08:32.639762Z
-d98fa4497657aae306d56eb5203d9cf7
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-11510
-
-MatrixBase.h
-file
-
-
-
-
-2013-06-21T07:08:32.639762Z
-275760eeba960ed03649fb4374f37e1a
-2013-02-27T21:07:14.867394Z
-4823
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-22569
-
-Transpositions.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-975dfb0b55a71265c50b5775dd4c241c
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-15331
-
-NestByValue.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-fd4b5acc96fba4a2fe9db88caad9a3f7
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3211
-
-Functors.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-9c04fe18787d99d0771762b3169cd489
-2013-02-27T21:07:14.867394Z
-4823
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-36372
-
-ReturnByValue.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-14eaea14b369a4fe9abd6da8fb273dff
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3158
-
-MapBase.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-e9b634f15d4fc7fa92e3f60b40fba29c
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8156
-
-Replicate.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-7ab66e44a14765478f2667f5ff03959b
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6967
-
-ProductBase.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-26e89fd7434018579d5f2b94f5a1cef5
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-10489
-
-VectorBlock.h
-file
-
-
-
-
-2013-06-21T07:08:32.643762Z
-233c51e4e7deca76a23c9b746b35dfaf
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-9638
-
-products
-dir
-
-Array.h
-file
-
-
-
-
-2013-06-21T07:08:32.647762Z
-90ad1c46199ee95a81e8645fcfb35992
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-11613
-
-GenericPacketMath.h
-file
-
-
-
-
-2013-06-21T07:08:32.647762Z
-90d46fb05b82d3a0252dea1bc7b572ed
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-11300
-
-DiagonalProduct.h
-file
-
-
-
-
-2013-06-21T07:08:32.647762Z
-28cec217ada5069565486d4522a237db
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5387
-
-DenseCoeffsBase.h
-file
-
-
-
-
-2013-06-21T07:08:32.647762Z
-38621510e6bcb803660672e663b79fc2
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-27623
-
-SolveTriangular.h
-file
-
-
-
-
-2013-06-21T07:08:32.647762Z
-86772a7a09b6e5737c62f2ec036fe145
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-10229
-
-NumTraits.h
-file
-
-
-
-
-2013-06-21T07:08:32.651762Z
-de50a3c8247c282bea2618dfd5ba9863
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6177
-
-NoAlias.h
-file
-
-
-
-
-2013-06-21T07:08:32.651762Z
-d1b0cf6f0af1ad2519c05de472e00cfd
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5128
-
-Flagged.h
-file
-
-
-
-
-2013-06-21T07:08:32.623762Z
-51c5bb653576b4a179710b4dc6d53423
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4199
-
-BandMatrix.h
+PermutationMatrix.h
 file
 
 
 
 
 2013-06-21T07:08:32.627762Z
-ba6d139a70d94d92f8686ea213608cfb
+87c3f8d6d8de2b710f2963e901d82b31
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -775,7 +58,7 @@ has-props
 
 
 
-13049
+23841
 
 DiagonalMatrix.h
 file
@@ -879,14 +162,14 @@ has-props
 
 7523
 
-ArrayBase.h
+Map.h
 file
 
 
 
 
 2013-06-21T07:08:32.631762Z
-c75ec7425327feb064640f5acc1e8163
+87ade0ef792240f927852ad7cadbc89b
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -911,16 +194,16 @@ has-props
 
 
 
-8497
+8091
 
-Reverse.h
+Product.h
 file
 
 
 
 
 2013-06-21T07:08:32.631762Z
-395a13564d5f6e9179a8d5815f9f69ff
+1ad45c0afe96c427e10c7ca84ba2a4af
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -945,41 +228,7 @@ has-props
 
 
 
-7795
-
-CwiseBinaryOp.h
-file
-
-
-
-
-2013-06-21T07:08:32.631762Z
-a0c5304488d2631eafb6b2a113259a53
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-9831
+3758
 
 CwiseNullaryOp.h
 file
@@ -1015,14 +264,14 @@ has-props
 
 29228
 
-EigenBase.h
+MathFunctions.h
 file
 
 
 
 
 2013-06-21T07:08:32.635762Z
-35761152c8c49a74dfe53389e4ff34d7
+78f6aea2d3e1a2874c63411830dc01ea
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1047,7 +296,7 @@ has-props
 
 
 
-5659
+24671
 
 DenseStorage.h
 file
@@ -1083,14 +332,14 @@ has-props
 
 13407
 
-PlainObjectBase.h
+Redux.h
 file
 
 
 
 
 2013-06-21T07:08:32.635762Z
-f302498950da9575afe4e7b4ff825eae
+cbc7bdb2d9a119071ff938453748c91c
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1115,75 +364,7 @@ has-props
 
 
 
-33745
-
-Dot.h
-file
-
-
-
-
-2013-06-21T07:08:32.635762Z
-e1be0965f84db120861eb1e20a92774a
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-9390
-
-Fuzzy.h
-file
-
-
-
-
-2013-06-21T07:08:32.639762Z
-2d21a8e62ac10c8530bbc431d8ae470f
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5509
+13968
 
 Assign_MKL.h
 file
@@ -1253,14 +434,14 @@ has-props
 
 4705
 
-Block.h
+DenseBase.h
 file
 
 
 
 
 2013-06-21T07:08:32.639762Z
-ba1e11d992b3d69f7113303a4914e950
+d607f4f9afb512a42c4a3e16be3a3821
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1285,16 +466,50 @@ has-props
 
 
 
-14169
+23660
 
-Visitor.h
+SelfAdjointView.h
+file
+
+
+
+
+2013-06-21T07:08:32.639762Z
+d98fa4497657aae306d56eb5203d9cf7
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11510
+
+NestByValue.h
 file
 
 
 
 
 2013-06-21T07:08:32.643762Z
-8baaf9f57bd8211cd18f6b74d3a42671
+fd4b5acc96fba4a2fe9db88caad9a3f7
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1319,7 +534,109 @@ has-props
 
 
 
-6834
+3211
+
+ReturnByValue.h
+file
+
+
+
+
+2013-06-21T07:08:32.643762Z
+14eaea14b369a4fe9abd6da8fb273dff
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3158
+
+Replicate.h
+file
+
+
+
+
+2013-06-21T07:08:32.643762Z
+7ab66e44a14765478f2667f5ff03959b
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6967
+
+MapBase.h
+file
+
+
+
+
+2013-06-21T07:08:32.643762Z
+e9b634f15d4fc7fa92e3f60b40fba29c
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8156
 
 Swap.h
 file
@@ -1355,14 +672,14 @@ has-props
 
 4326
 
-Transpose.h
+ProductBase.h
 file
 
 
 
 
-2013-06-21T07:08:32.647762Z
-05af8c5427afacaa47265b7be14b867c
+2013-06-21T07:08:32.643762Z
+26e89fd7434018579d5f2b94f5a1cef5
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1387,7 +704,41 @@ has-props
 
 
 
-14430
+10489
+
+VectorBlock.h
+file
+
+
+
+
+2013-06-21T07:08:32.643762Z
+233c51e4e7deca76a23c9b746b35dfaf
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9638
 
 GeneralProduct.h
 file
@@ -1423,6 +774,74 @@ has-props
 
 27005
 
+Array.h
+file
+
+
+
+
+2013-06-21T07:08:32.647762Z
+90ad1c46199ee95a81e8645fcfb35992
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11613
+
+GenericPacketMath.h
+file
+
+
+
+
+2013-06-21T07:08:32.647762Z
+90d46fb05b82d3a0252dea1bc7b572ed
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11300
+
 Select.h
 file
 
@@ -1456,6 +875,108 @@ has-props
 
 
 6073
+
+DiagonalProduct.h
+file
+
+
+
+
+2013-06-21T07:08:32.647762Z
+28cec217ada5069565486d4522a237db
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5387
+
+DenseCoeffsBase.h
+file
+
+
+
+
+2013-06-21T07:08:32.647762Z
+38621510e6bcb803660672e663b79fc2
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+27623
+
+SolveTriangular.h
+file
+
+
+
+
+2013-06-21T07:08:32.647762Z
+86772a7a09b6e5737c62f2ec036fe145
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10229
 
 CwiseUnaryView.h
 file
@@ -1491,17 +1012,14 @@ has-props
 
 5102
 
-util
-dir
-
-SelfCwiseBinaryOp.h
+NumTraits.h
 file
 
 
 
 
 2013-06-21T07:08:32.651762Z
-5b24aac48c52749578a9fed263139b02
+de50a3c8247c282bea2618dfd5ba9863
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1526,16 +1044,53 @@ has-props
 
 
 
-7147
+6177
 
-GlobalFunctions.h
+NoAlias.h
+file
+
+
+
+
+2013-06-21T07:08:32.651762Z
+d1b0cf6f0af1ad2519c05de472e00cfd
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5128
+
+util
+dir
+
+Flagged.h
 file
 
 
 
 
 2013-06-21T07:08:32.623762Z
-1679ebe7251cafe4c75fcacfe7e9e18f
+51c5bb653576b4a179710b4dc6d53423
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1560,41 +1115,7 @@ has-props
 
 
 
-4204
-
-PermutationMatrix.h
-file
-
-
-
-
-2013-06-21T07:08:32.627762Z
-87c3f8d6d8de2b710f2963e901d82b31
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-23841
+4199
 
 TriangularMatrix.h
 file
@@ -1664,40 +1185,6 @@ has-props
 
 4779
 
-ForceAlignedAccess.h
-file
-
-
-
-
-2013-06-21T07:08:32.627762Z
-111ea74b2d24c6052f9312029747d569
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4460
-
 Matrix.h
 file
 
@@ -1732,14 +1219,14 @@ has-props
 
 17030
 
-Map.h
+ForceAlignedAccess.h
 file
 
 
 
 
-2013-06-21T07:08:32.631762Z
-87ade0ef792240f927852ad7cadbc89b
+2013-06-21T07:08:32.627762Z
+111ea74b2d24c6052f9312029747d569
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1764,7 +1251,75 @@ has-props
 
 
 
-8091
+4460
+
+ArrayBase.h
+file
+
+
+
+
+2013-06-21T07:08:32.631762Z
+c75ec7425327feb064640f5acc1e8163
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8497
+
+Reverse.h
+file
+
+
+
+
+2013-06-21T07:08:32.631762Z
+395a13564d5f6e9179a8d5815f9f69ff
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7795
 
 Diagonal.h
 file
@@ -1799,6 +1354,40 @@ has-props
 
 
 8995
+
+CwiseBinaryOp.h
+file
+
+
+
+
+2013-06-21T07:08:32.631762Z
+a0c5304488d2631eafb6b2a113259a53
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9831
 
 ArrayWrapper.h
 file
@@ -1868,48 +1457,14 @@ has-props
 
 5396
 
-Product.h
-file
-
-
-
-
-2013-06-21T07:08:32.631762Z
-1ad45c0afe96c427e10c7ca84ba2a4af
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3758
-
-MathFunctions.h
+EigenBase.h
 file
 
 
 
 
 2013-06-21T07:08:32.635762Z
-78f6aea2d3e1a2874c63411830dc01ea
+35761152c8c49a74dfe53389e4ff34d7
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -1934,7 +1489,7 @@ has-props
 
 
 
-24671
+5659
 
 Assign.h
 file
@@ -1970,16 +1525,16 @@ has-props
 
 22859
 
-CMakeLists.txt
+PlainObjectBase.h
 file
 
 
 
 
 2013-06-21T07:08:32.635762Z
-099895d1839148dc196c4caea197a70e
-2011-10-05T15:04:40.740408Z
-4180
+f302498950da9575afe4e7b4ff825eae
+2012-10-05T07:27:34.803522Z
+4539
 cignoni
 has-props
 
@@ -2002,7 +1557,44 @@ has-props
 
 
 
-215
+33745
+
+Dot.h
+file
+
+
+
+
+2013-06-21T07:08:32.635762Z
+e1be0965f84db120861eb1e20a92774a
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9390
+
+arch
+dir
 
 BooleanRedux.h
 file
@@ -2038,17 +1630,48 @@ has-props
 
 3519
 
-arch
-dir
-
-Redux.h
+CMakeLists.txt
 file
 
 
 
 
 2013-06-21T07:08:32.635762Z
-cbc7bdb2d9a119071ff938453748c91c
+099895d1839148dc196c4caea197a70e
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+215
+
+Fuzzy.h
+file
+
+
+
+
+2013-06-21T07:08:32.639762Z
+2d21a8e62ac10c8530bbc431d8ae470f
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -2073,5 +1696,382 @@ has-props
 
 
 
-13968
+5509
+
+VectorwiseOp.h
+file
+
+
+
+
+2013-06-21T07:08:32.639762Z
+a11cab920bb89acbb7fead4611870295
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24824
+
+Block.h
+file
+
+
+
+
+2013-06-21T07:08:32.639762Z
+ba1e11d992b3d69f7113303a4914e950
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14169
+
+Stride.h
+file
+
+
+
+
+2013-06-21T07:08:32.639762Z
+ce6a2b32531f88448dff0cb2d47c0e7d
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3620
+
+Visitor.h
+file
+
+
+
+
+2013-06-21T07:08:32.643762Z
+8baaf9f57bd8211cd18f6b74d3a42671
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6834
+
+Transpositions.h
+file
+
+
+
+
+2013-06-21T07:08:32.643762Z
+975dfb0b55a71265c50b5775dd4c241c
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15331
+
+MatrixBase.h
+file
+
+
+
+
+2013-06-21T07:08:32.639762Z
+275760eeba960ed03649fb4374f37e1a
+2013-02-27T21:07:14.867394Z
+4823
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+22569
+
+Functors.h
+file
+
+
+
+
+2013-06-21T07:08:32.643762Z
+9c04fe18787d99d0771762b3169cd489
+2013-02-27T21:07:14.867394Z
+4823
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+36372
+
+products
+dir
+
+Transpose.h
+file
+
+
+
+
+2013-06-21T07:08:32.647762Z
+05af8c5427afacaa47265b7be14b867c
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14430
+
+SelfCwiseBinaryOp.h
+file
+
+
+
+
+2013-06-21T07:08:32.651762Z
+5b24aac48c52749578a9fed263139b02
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7147
+
+GlobalFunctions.h
+file
+
+
+
+
+2013-06-21T07:08:32.623762Z
+1679ebe7251cafe4c75fcacfe7e9e18f
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4204
+
+BandMatrix.h
+file
+
+
+
+
+2013-06-21T07:08:32.627762Z
+ba6d139a70d94d92f8686ea213608cfb
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13049
 

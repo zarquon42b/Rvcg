@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_isosurface
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+trimesh_isosurface.cpp
+file
+
+
+
+
+2013-06-21T07:05:20.998812Z
+6a2251aadbfe5755d968f86288309e29
+2013-03-22T17:06:41.310674Z
+4857
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3422
 
 simple_volume.h
 file
@@ -93,38 +127,4 @@ cignoni
 
 
 114
-
-trimesh_isosurface.cpp
-file
-
-
-
-
-2013-06-21T07:05:20.998812Z
-6a2251aadbfe5755d968f86288309e29
-2013-03-22T17:06:41.310674Z
-4857
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3422
 

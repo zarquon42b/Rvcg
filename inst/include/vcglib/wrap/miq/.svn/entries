@@ -1,15 +1,15 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/miq
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-01-30T17:18:55.488904Z
-4811
-ganovelli
+2013-07-23T11:24:38.954326Z
+4927
+pietroni
 
 
 
@@ -25,9 +25,6 @@ ganovelli
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-core
-dir
 
 MIQ.h
 file
@@ -69,10 +66,10 @@ file
 
 
 
-2013-06-21T07:08:11.595658Z
-e7680e2d4da646a564fbb8d1d6ff7401
-2012-10-18T00:44:25.431471Z
-4624
+2013-07-25T06:52:24.802399Z
+83f2ac052f4fc184cac7e837485dd183
+2013-07-23T11:24:05.089690Z
+4926
 pietroni
 has-props
 
@@ -95,5 +92,8 @@ has-props
 
 
 
-18180
+18233
+
+core
+dir
 

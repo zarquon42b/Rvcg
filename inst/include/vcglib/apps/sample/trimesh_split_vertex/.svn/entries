@@ -1,7 +1,7 @@
 10
 
 dir
-4909
+4928
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_split_vertex
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimesh_split_vertex.cpp
-file
-
-
-
-
-2013-06-21T07:05:20.638810Z
-6608e343819aca39519d95c8c2eebc1d
-2013-04-16T15:15:33.264748Z
-4889
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5279
 
 trimesh_split_vertex.pro
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 118
+
+trimesh_split_vertex.cpp
+file
+
+
+
+
+2013-06-21T07:05:20.638810Z
+6608e343819aca39519d95c8c2eebc1d
+2013-04-16T15:15:33.264748Z
+4889
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5279
 
