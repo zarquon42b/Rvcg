@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,15 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-KroneckerProduct
-dir
-
-Polynomials
-dir
-
-NumericalDiff
-dir
 
 IterativeSolvers
 dir
@@ -97,5 +88,14 @@ SparseExtra
 dir
 
 MoreVectorization
+dir
+
+KroneckerProduct
+dir
+
+Polynomials
+dir
+
+NumericalDiff
 dir
 

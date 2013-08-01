@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,12 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+Eigen
+dir
+
+unsupported
+dir
 
 howto.txt
 file
@@ -59,10 +65,4 @@ has-props
 
 
 366
-
-Eigen
-dir
-
-unsupported
-dir
 

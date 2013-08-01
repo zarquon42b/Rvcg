@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/polygonmesh_base
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-polygonmesh_base.pro
-file
-
-
-
-
-2013-06-21T07:05:21.178813Z
-f14b34dbb8f70017d1069225eebf7801
-2012-10-09T08:43:35.607016Z
-4566
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-108
 
 polygonmesh.cpp
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 8537
+
+polygonmesh_base.pro
+file
+
+
+
+
+2013-06-21T07:05:21.178813Z
+f14b34dbb8f70017d1069225eebf7801
+2012-10-09T08:43:35.607016Z
+4566
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+108
 

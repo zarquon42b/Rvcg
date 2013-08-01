@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,153 +26,14 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-MoreVectorization
+SparseExtra
 file
 
 
 
 
 2013-06-21T07:08:51.419855Z
-7475a69194352f145ab4a516d296e2ae
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-318
-
-KroneckerProduct
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-bdde6f91e05d06a178b646ab5c5bb04b
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-624
-
-src
-dir
-
-NonLinearOptimization
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-ef8b75b85ca2fdcb98f3c72b88349ddb
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5807
-
-MatrixFunctions
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-04a51f27b0f72d06516dc2be5921e3cf
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-13532
-
-AutoDiff
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-068021dc4d23601124e5dfe53087b39e
+e4ab405d155f1ea64aeb041ce7750235
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -199,14 +60,14 @@ has-props
 
 1083
 
-SparseExtra
+AutoDiff
 file
 
 
 
 
 2013-06-21T07:08:51.419855Z
-e4ab405d155f1ea64aeb041ce7750235
+068021dc4d23601124e5dfe53087b39e
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -403,14 +264,14 @@ has-props
 
 1297
 
-MPRealSupport
+Splines
 file
 
 
 
 
 2013-06-21T07:08:51.419855Z
-2d8c00320d91bda5cf0f2ff1d03547cd
+36e3071c1350bb2e8b4fa9f8ee015e9e
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -435,7 +296,7 @@ has-props
 
 
 
-4538
+900
 
 CMakeLists.txt
 file
@@ -471,14 +332,14 @@ has-props
 
 425
 
-Splines
+MPRealSupport
 file
 
 
 
 
 2013-06-21T07:08:51.419855Z
-36e3071c1350bb2e8b4fa9f8ee015e9e
+2d8c00320d91bda5cf0f2ff1d03547cd
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -503,7 +364,7 @@ has-props
 
 
 
-900
+4538
 
 Skyline
 file
@@ -640,4 +501,143 @@ has-props
 
 
 19012
+
+MoreVectorization
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+7475a69194352f145ab4a516d296e2ae
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+318
+
+KroneckerProduct
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+bdde6f91e05d06a178b646ab5c5bb04b
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+624
+
+src
+dir
+
+NonLinearOptimization
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+ef8b75b85ca2fdcb98f3c72b88349ddb
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5807
+
+MatrixFunctions
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+04a51f27b0f72d06516dc2be5921e3cf
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13532
 

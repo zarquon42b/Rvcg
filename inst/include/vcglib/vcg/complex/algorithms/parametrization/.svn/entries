@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex/algorithms/parametrization
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ pietroni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+tangent_field_operators.h
+file
+
+
+
+
+2013-06-21T07:04:58.518700Z
+534f628c16fdf03f8d12412e909ee4c6
+2013-01-22T09:58:20.090287Z
+4799
+pietroni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24853
+
+poisson_solver.h
+file
+
+
+
+
+2013-07-25T06:52:24.418397Z
+5e61c1715fc4703225a5bfeb48171584
+2013-07-23T11:22:06.031850Z
+4924
+pietroni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24815
 
 uv_utils.h
 file
@@ -127,72 +195,4 @@ has-props
 
 
 8181
-
-tangent_field_operators.h
-file
-
-
-
-
-2013-06-21T07:04:58.518700Z
-534f628c16fdf03f8d12412e909ee4c6
-2013-01-22T09:58:20.090287Z
-4799
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-24853
-
-poisson_solver.h
-file
-
-
-
-
-2013-07-25T06:52:24.418397Z
-5e61c1715fc4703225a5bfeb48171584
-2013-07-23T11:22:06.031850Z
-4924
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-24815
 

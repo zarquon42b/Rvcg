@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/test
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-kronecker_product.cpp
-file
-
-
-
-
-2013-06-21T07:08:44.495821Z
-94525d168bf87069c660e0fa7d9de395
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6622
 
 matrix_square_root.cpp
 file
@@ -94,40 +60,6 @@ has-props
 
 2100
 
-CMakeLists.txt
-file
-
-
-
-
-2013-06-21T07:08:44.499821Z
-3f1186b7ea7d9e3e29d77d41e1077dd8
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2591
-
 NonLinearOptimization.cpp
 file
 
@@ -161,6 +93,40 @@ has-props
 
 
 65196
+
+CMakeLists.txt
+file
+
+
+
+
+2013-06-21T07:08:44.499821Z
+3f1186b7ea7d9e3e29d77d41e1077dd8
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2591
 
 mpreal
 dir
@@ -267,40 +233,6 @@ has-props
 
 3574
 
-forward_adolc.cpp
-file
-
-
-
-
-2013-06-21T07:08:44.491821Z
-e605a33f050be498e8f310f8bea0d459
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3839
-
 FFTW.cpp
 file
 
@@ -334,6 +266,40 @@ has-props
 
 
 9160
+
+forward_adolc.cpp
+file
+
+
+
+
+2013-06-21T07:08:44.491821Z
+e605a33f050be498e8f310f8bea0d459
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3839
 
 NumericalDiff.cpp
 file
@@ -369,40 +335,6 @@ has-props
 
 2850
 
-matrix_function.cpp
-file
-
-
-
-
-2013-06-21T07:08:44.491821Z
-8df6d6152fbc025cef84c443fb2abc38
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6730
-
 alignedvector3.cpp
 file
 
@@ -436,6 +368,40 @@ has-props
 
 
 1816
+
+matrix_function.cpp
+file
+
+
+
+
+2013-06-21T07:08:44.491821Z
+8df6d6152fbc025cef84c443fb2abc38
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6730
 
 matrix_exponential.cpp
 file
@@ -708,4 +674,38 @@ has-props
 
 
 10694
+
+kronecker_product.cpp
+file
+
+
+
+
+2013-06-21T07:08:44.495821Z
+94525d168bf87069c660e0fa7d9de395
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6622
 

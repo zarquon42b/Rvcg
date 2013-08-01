@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_pos_demo
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+trimesh_pos_demo.pro
+file
+
+
+
+
+2013-06-21T07:05:23.646825Z
+7d9de2ae210674db7a5cd8727bc64d52
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+563
+
+trimesh_vfiter_demo.cpp
+file
+
+
+
+
+2013-06-21T07:05:23.646825Z
+4f0b76310bbb55d494c0ceef09fac12c
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1084
 
 trimesh_pos_demo.cpp
 file
@@ -263,72 +331,4 @@ cignoni
 
 
 2368
-
-trimesh_pos_demo.pro
-file
-
-
-
-
-2013-06-21T07:05:23.646825Z
-7d9de2ae210674db7a5cd8727bc64d52
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-563
-
-trimesh_vfiter_demo.cpp
-file
-
-
-
-
-2013-06-21T07:05:23.646825Z
-4f0b76310bbb55d494c0ceef09fac12c
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1084
 

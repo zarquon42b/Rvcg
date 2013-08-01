@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/unsupported/ptx2ply
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-ptx2ply.pro
-file
-
-
-
-
-2013-06-21T07:06:52.879267Z
-fdf38d31ba6f205450ec90ea9d089ff3
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-286
 
 ptx2ply.cpp
 file
@@ -161,4 +127,38 @@ cignoni
 
 
 882
+
+ptx2ply.pro
+file
+
+
+
+
+2013-06-21T07:06:52.879267Z
+fdf38d31ba6f205450ec90ea9d089ff3
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+286
 

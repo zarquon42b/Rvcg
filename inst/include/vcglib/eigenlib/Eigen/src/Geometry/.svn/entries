@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Geometry
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,108 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-OrthoMethods.h
-file
-
-
-
-
-2013-06-21T07:08:34.219770Z
-9ffe0d95389c4f0f0d51758a7243baf9
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8278
-
-Scaling.h
-file
-
-
-
-
-2013-06-21T07:08:34.219770Z
-129abb6c5c244875378e67ff25edc187
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6248
-
-Rotation2D.h
-file
-
-
-
-
-2013-06-21T07:08:34.219770Z
-dfc053d090bef9d2069ceee7a0554c7f
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5075
 
 Quaternion.h
 file
@@ -162,6 +60,43 @@ has-props
 
 28929
 
+Rotation2D.h
+file
+
+
+
+
+2013-06-21T07:08:34.219770Z
+dfc053d090bef9d2069ceee7a0554c7f
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5075
+
+arch
+dir
+
 CMakeLists.txt
 file
 
@@ -195,9 +130,6 @@ has-props
 
 
 177
-
-arch
-dir
 
 Homogeneous.h
 file
@@ -267,40 +199,6 @@ has-props
 
 7699
 
-Umeyama.h
-file
-
-
-
-
-2013-06-21T07:08:34.215770Z
-a44f265790dc6fd0beb78b4809b08ce6
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6652
-
 Translation.h
 file
 
@@ -334,6 +232,40 @@ has-props
 
 
 7201
+
+Umeyama.h
+file
+
+
+
+
+2013-06-21T07:08:34.215770Z
+a44f265790dc6fd0beb78b4809b08ce6
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6652
 
 ParametrizedLine.h
 file
@@ -437,40 +369,6 @@ has-props
 
 11053
 
-Transform.h
-file
-
-
-
-
-2013-06-21T07:08:34.219770Z
-6a51d80694868cbc90681257fa29411e
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-55634
-
 AngleAxis.h
 file
 
@@ -505,6 +403,40 @@ has-props
 
 7542
 
+Transform.h
+file
+
+
+
+
+2013-06-21T07:08:34.219770Z
+6a51d80694868cbc90681257fa29411e
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+55634
+
 AlignedBox.h
 file
 
@@ -538,4 +470,72 @@ has-props
 
 
 12802
+
+OrthoMethods.h
+file
+
+
+
+
+2013-06-21T07:08:34.219770Z
+9ffe0d95389c4f0f0d51758a7243baf9
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8278
+
+Scaling.h
+file
+
+
+
+
+2013-06-21T07:08:34.219770Z
+129abb6c5c244875378e67ff25edc187
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6248
 

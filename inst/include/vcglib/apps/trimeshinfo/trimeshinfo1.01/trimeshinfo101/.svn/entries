@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/trimeshinfo/trimeshinfo1.01/trimeshinfo101
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-main.cpp
-file
-
-
-
-
-2013-06-21T07:05:41.426913Z
-e2d58cd95563ff050893e31d60043eae
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-15429
-
-defs.h
-file
-
-
-
-
-2013-06-21T07:05:41.426913Z
-9c5143baa3ad0f1cf7e8695d092bfd22
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2162
 
 readme.txt
 file
@@ -161,4 +93,72 @@ cignoni
 
 
 482
+
+main.cpp
+file
+
+
+
+
+2013-06-21T07:05:41.426913Z
+e2d58cd95563ff050893e31d60043eae
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15429
+
+defs.h
+file
+
+
+
+
+2013-06-21T07:05:41.426913Z
+9c5143baa3ad0f1cf7e8695d092bfd22
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2162
 

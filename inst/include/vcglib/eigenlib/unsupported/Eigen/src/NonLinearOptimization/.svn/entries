@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+HybridNonLinearSolver.h
+file
+
+
+
+
+2013-06-21T07:08:48.375840Z
+03c23d5c68cb824328408ea88e9e7139
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19782
+
+rwupdt.h
+file
+
+
+
+
+2013-06-21T07:08:48.375840Z
+ad3c34be2984b0c7a5f6db4ea4041533
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1356
 
 qrsolv.h
 file
@@ -365,72 +433,4 @@ has-props
 
 
 3193
-
-HybridNonLinearSolver.h
-file
-
-
-
-
-2013-06-21T07:08:48.375840Z
-03c23d5c68cb824328408ea88e9e7139
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-19782
-
-rwupdt.h
-file
-
-
-
-
-2013-06-21T07:08:48.375840Z
-ad3c34be2984b0c7a5f6db4ea4041533
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1356
 

@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/trimeshinfo/trimeshinfo1.02/trimeshinfosample
 svn://svn.code.sf.net/p/vcg/code
 
@@ -60,40 +60,6 @@ cignoni
 
 830367
 
-kite_degenerate2.ply
-file
-
-
-
-
-2013-06-21T07:06:43.851223Z
-a94506c94b26603e70cc8a77d0214bfc
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-414
-
 test2.ply
 file
 
@@ -127,6 +93,40 @@ cignoni
 
 
 1568040
+
+kite_degenerate2.ply
+file
+
+
+
+
+2013-06-21T07:06:43.851223Z
+a94506c94b26603e70cc8a77d0214bfc
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+414
 
 test3.ply
 file
@@ -162,18 +162,17 @@ cignoni
 
 3660031
 
-moebius.ply
+degenerate.ply
 file
 
 
 
 
 2013-06-21T07:06:43.859223Z
-072c2bf9d305462f5d4bc43cfb2dce25
+df7c679d70946c70b9608ae29789a46a
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -194,7 +193,8 @@ has-props
 
 
 
-3275
+
+245
 
 kite_hole.ply
 file
@@ -230,17 +230,18 @@ cignoni
 
 445
 
-degenerate.ply
+moebius.ply
 file
 
 
 
 
 2013-06-21T07:06:43.859223Z
-df7c679d70946c70b9608ae29789a46a
+072c2bf9d305462f5d4bc43cfb2dce25
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -261,8 +262,7 @@ cignoni
 
 
 
-
-245
+3275
 
 nonmanifold.ply
 file
@@ -298,40 +298,6 @@ cignoni
 
 307
 
-kleine.ply
-file
-
-
-
-
-2013-06-21T07:06:43.859223Z
-c077677d86622fd459bbcb3dff836fcf
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-14257
-
 three.ply
 file
 
@@ -365,6 +331,40 @@ cignoni
 
 
 275
+
+kleine.ply
+file
+
+
+
+
+2013-06-21T07:06:43.859223Z
+c077677d86622fd459bbcb3dff836fcf
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14257
 
 readme.txt
 file
@@ -468,40 +468,6 @@ cignoni
 
 0
 
-kite_degenerate.ply
-file
-
-
-
-
-2013-06-21T07:06:43.847223Z
-eacba21b0aee8d6899bccae9a1e8835f
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-412
-
 knot_vcg_simplified.ply
 file
 
@@ -535,6 +501,40 @@ has-props
 
 
 40237
+
+kite_degenerate.ply
+file
+
+
+
+
+2013-06-21T07:06:43.847223Z
+eacba21b0aee8d6899bccae9a1e8835f
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+412
 
 one.ply
 file

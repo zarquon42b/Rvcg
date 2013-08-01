@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/simplex/edge
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+base.h
+file
+
+
+
+
+2013-06-21T07:04:54.734682Z
+b15561d1ae08dd21d0a6ac05b561a9ed
+2012-11-07T01:24:45.064120Z
+4687
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9564
+
+distance.h
+file
+
+
+
+
+2013-06-21T07:04:54.734682Z
+4db3ac5cf829d854b4b4b5d4c4887e49
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3509
 
 topology.h
 file
@@ -127,72 +195,4 @@ has-props
 
 
 16575
-
-base.h
-file
-
-
-
-
-2013-06-21T07:04:54.734682Z
-b15561d1ae08dd21d0a6ac05b561a9ed
-2012-11-07T01:24:45.064120Z
-4687
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-9564
-
-distance.h
-file
-
-
-
-
-2013-06-21T07:04:54.734682Z
-4db3ac5cf829d854b4b4b5d4c4887e49
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3509
 

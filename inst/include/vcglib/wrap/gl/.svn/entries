@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/gl
 svn://svn.code.sf.net/p/vcg/code
 
@@ -60,40 +60,6 @@ cignoni
 
 12975
 
-gl_object.h
-file
-
-
-
-
-2013-06-21T07:08:18.515692Z
-b09309ab9910a1b170ccc8aca05f7af0
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2490
-
 camera.h
 file
 
@@ -128,14 +94,14 @@ cignoni
 
 32921
 
-math.h
+gl_object.h
 file
 
 
 
 
 2013-06-21T07:08:18.515692Z
-25ff776fd76c9938b1536514ae6e95b2
+b09309ab9910a1b170ccc8aca05f7af0
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -160,7 +126,7 @@ cignoni
 
 
 
-5870
+2490
 
 shaders.h
 file
@@ -196,18 +162,17 @@ ponchio
 
 12478
 
-glu_tessellator_cap.h
+math.h
 file
 
 
 
 
 2013-06-21T07:08:18.515692Z
-9399f318ecaaeaeae68ed7ba501b9059
-2012-01-18T16:48:06.042804Z
-4296
+25ff776fd76c9938b1536514ae6e95b2
+2011-10-05T15:04:40.740408Z
+4180
 cignoni
-has-props
 
 
 
@@ -228,7 +193,8 @@ has-props
 
 
 
-2276
+
+5870
 
 space.h
 file
@@ -264,17 +230,18 @@ cignoni
 
 13275
 
-glu_tesselator.h
+glu_tessellator_cap.h
 file
 
 
 
 
 2013-06-21T07:08:18.515692Z
-480cea7fe7b7329cdd6a7c099fe18781
-2012-05-23T08:50:03.107360Z
-4414
+9399f318ecaaeaeae68ed7ba501b9059
+2012-01-18T16:48:06.042804Z
+4296
 cignoni
+has-props
 
 
 
@@ -295,8 +262,7 @@ cignoni
 
 
 
-
-7351
+2276
 
 tetramesh.h
 file
@@ -332,6 +298,40 @@ cignoni
 
 10655
 
+glu_tesselator.h
+file
+
+
+
+
+2013-06-21T07:08:18.515692Z
+480cea7fe7b7329cdd6a7c099fe18781
+2012-05-23T08:50:03.107360Z
+4414
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7351
+
 pos.h
 file
 
@@ -366,9 +366,6 @@ cignoni
 
 3419
 
-splatting_apss
-dir
-
 gl_field.h
 file
 
@@ -402,6 +399,9 @@ pietroni
 
 
 6538
+
+splatting_apss
+dir
 
 fbo.h
 file

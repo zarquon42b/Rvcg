@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/qt
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ granzuglia
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+trackball.h
+file
+
+
+
+
+2013-06-21T07:08:08.987645Z
+f2dfa4f4a8ba5e0ec9b70483fb07affd
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4195
 
 gl_label.h
 file
@@ -162,40 +196,6 @@ has-props
 
 9196
 
-to_string.h
-file
-
-
-
-
-2013-06-21T07:08:08.991645Z
-014ba50cb2a7f46671b157ff2ae00686
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-744
-
 anttweakbarMapper.h
 file
 
@@ -229,6 +229,40 @@ has-props
 
 
 419
+
+to_string.h
+file
+
+
+
+
+2013-06-21T07:08:08.991645Z
+014ba50cb2a7f46671b157ff2ae00686
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+744
 
 checkGLError.h
 file
@@ -298,40 +332,6 @@ has-props
 
 713
 
-img_qt_convert.h
-file
-
-
-
-
-2013-06-21T07:08:08.987645Z
-62eac7a5457e18e8e5122801994fb6a1
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5200
-
 img_qt.h
 file
 
@@ -366,14 +366,14 @@ has-props
 
 221
 
-shot_qt.h
+img_qt_convert.h
 file
 
 
 
 
 2013-06-21T07:08:08.987645Z
-77bfd209c52a449f61147a2c31d58c6b
+62eac7a5457e18e8e5122801994fb6a1
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -398,7 +398,7 @@ has-props
 
 
 
-5837
+5200
 
 col_qt_convert.h
 file
@@ -433,6 +433,40 @@ cignoni
 
 
 421
+
+shot_qt.h
+file
+
+
+
+
+2013-06-21T07:08:08.987645Z
+77bfd209c52a449f61147a2c31d58c6b
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5837
 
 Outline2ToQImage.cpp
 file
@@ -501,38 +535,4 @@ has-props
 
 
 5577
-
-trackball.h
-file
-
-
-
-
-2013-06-21T07:08:08.987645Z
-f2dfa4f4a8ba5e0ec9b70483fb07affd
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4195
 

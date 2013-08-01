@@ -1,14 +1,14 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex/algorithms
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-07-24T12:00:47.297259Z
-4928
+2013-07-26T12:21:40.300260Z
+4936
 cignoni
 
 
@@ -26,17 +26,18 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-local_optimization.h
+refine_loop.h
 file
 
 
 
 
 2013-06-21T07:05:06.106738Z
-553ce9a4409c09c806664019cb25f200
-2011-10-05T15:04:40.740408Z
-4180
+57a6168c0978e49acbe1d5244f30093c
+2012-11-27T12:19:09.668963Z
+4749
 cignoni
+has-props
 
 
 
@@ -57,8 +58,7 @@ cignoni
 
 
 
-
-13900
+18248
 
 attribute_seam.h
 file
@@ -128,6 +128,74 @@ cignoni
 
 41882
 
+halfedge_quad_clean.h
+file
+
+
+
+
+2013-06-21T07:05:06.106738Z
+0af1fd2081c41004538268d4cb5b8569
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24521
+
+outline_support.h
+file
+
+
+
+
+2013-06-21T07:05:06.106738Z
+f3e8680823f27e2b22a7e86747342501
+2013-04-03T10:02:19.303093Z
+4878
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8336
+
 autoalign_4pcs.h
 file
 
@@ -162,16 +230,16 @@ cignoni
 
 20814
 
-closest.h
+nring.h
 file
 
 
 
 
-2013-06-21T07:05:06.102738Z
-9493c1ad3e5f32240431deefd34b0860
-2012-10-11T11:19:37.211062Z
-4579
+2013-06-21T07:05:06.106738Z
+a14ebb4e1f3743f9e37f6fc18eb94587
+2011-10-05T15:04:40.740408Z
+4180
 cignoni
 
 
@@ -194,7 +262,7 @@ cignoni
 
 
 
-19338
+4536
 
 bitquad_creation.h
 file
@@ -233,19 +301,16 @@ tarini
 create
 dir
 
-parametrization
-dir
-
-bitquad_support.h
+clean.h
 file
 
 
 
 
-2013-06-21T07:05:06.102738Z
-22f97d677895e74de1b3f193f49e85b0
-2012-11-15T19:07:34.785185Z
-4732
+2013-06-24T13:55:27.906354Z
+f5017bcad6b6ca7b1b57165c707f0cec
+2013-06-24T10:50:14.179533Z
+4908
 cignoni
 
 
@@ -268,18 +333,18 @@ cignoni
 
 
 
-33733
+60801
 
-edge_collapse.h
+polygon_support.h
 file
 
 
 
 
-2013-06-21T07:05:06.102738Z
-56b1a5139e96db3f1289edd9a3f67e24
-2012-02-25T14:40:23.718510Z
-4335
+2013-06-21T07:05:06.106738Z
+4865806d61b65854d870e5de59f463e9
+2012-10-23T23:41:41.113838Z
+4652
 cignoni
 
 
@@ -302,7 +367,7 @@ cignoni
 
 
 
-9762
+8144
 
 hole.h
 file
@@ -372,17 +437,18 @@ cignoni
 
 28570
 
-inertia.h
+pointcloud_normal.h
 file
 
 
 
 
-2013-07-25T06:52:24.542398Z
-3a00cd388c546e3f29f0d89dbbf8e657
-2013-07-03T21:44:39.487228Z
-4914
+2013-06-24T13:55:27.906354Z
+6ed8d833318ecf0a9ad18d628d2c7b44
+2013-06-24T08:36:08.849269Z
+4906
 cignoni
+has-props
 
 
 
@@ -403,8 +469,7 @@ cignoni
 
 
 
-
-11991
+4404
 
 bitquad_optimization.h
 file
@@ -439,40 +504,6 @@ cignoni
 
 
 10449
-
-refine_loop.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-57a6168c0978e49acbe1d5244f30093c
-2012-11-27T12:19:09.668963Z
-4749
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-18248
 
 overlap_estimation.h
 file
@@ -579,52 +610,17 @@ cignoni
 local_optimization
 dir
 
-outline_support.h
+inside.h
 file
 
 
 
 
-2013-06-21T07:05:06.106738Z
-f3e8680823f27e2b22a7e86747342501
-2013-04-03T10:02:19.303093Z
-4878
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8336
-
-halfedge_quad_clean.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-0af1fd2081c41004538268d4cb5b8569
+2013-06-21T07:05:06.102738Z
+8be5cc4d635dcf1fc16f1f87a49db28c
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -645,7 +641,8 @@ has-props
 
 
 
-24521
+
+4609
 
 stat.h
 file
@@ -681,16 +678,16 @@ cignoni
 
 10534
 
-inside.h
+closest.h
 file
 
 
 
 
 2013-06-21T07:05:06.102738Z
-8be5cc4d635dcf1fc16f1f87a49db28c
-2011-10-05T15:04:40.740408Z
-4180
+9493c1ad3e5f32240431deefd34b0860
+2012-10-11T11:19:37.211062Z
+4579
 cignoni
 
 
@@ -713,7 +710,7 @@ cignoni
 
 
 
-4609
+19338
 
 crease_cut.h
 file
@@ -748,40 +745,6 @@ cignoni
 
 
 6087
-
-nring.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-a14ebb4e1f3743f9e37f6fc18eb94587
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4536
 
 clustering.h
 file
@@ -857,44 +820,10 @@ file
 
 
 
-2013-06-21T07:05:06.102738Z
-fa066dd7421d3032b6fde8e5e92d5311
-2013-01-30T17:14:47.671353Z
-4810
-ganovelli
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-19706
-
-clean.h
-file
-
-
-
-
-2013-06-24T13:55:27.906354Z
-f5017bcad6b6ca7b1b57165c707f0cec
-2013-06-24T10:50:14.179533Z
-4908
+2013-08-01T07:24:02.618587Z
+ce1b01b4db25f18253a0fbd94b1f68ff
+2013-07-26T12:13:45.424205Z
+4933
 cignoni
 
 
@@ -917,7 +846,7 @@ cignoni
 
 
 
-60801
+23456
 
 point_sampling.h
 file
@@ -953,52 +882,20 @@ has-props
 
 61860
 
-polygon_support.h
-file
-
-
-
-
-2013-06-21T07:05:06.106738Z
-4865806d61b65854d870e5de59f463e9
-2012-10-23T23:41:41.113838Z
-4652
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8144
+parametrization
+dir
 
-pointcloud_normal.h
+bitquad_support.h
 file
 
 
 
 
-2013-06-24T13:55:27.906354Z
-6ed8d833318ecf0a9ad18d628d2c7b44
-2013-06-24T08:36:08.849269Z
-4906
+2013-06-21T07:05:06.102738Z
+22f97d677895e74de1b3f193f49e85b0
+2012-11-15T19:07:34.785185Z
+4732
 cignoni
-has-props
 
 
 
@@ -1019,7 +916,42 @@ has-props
 
 
 
-4404
+
+33733
+
+edge_collapse.h
+file
+
+
+
+
+2013-06-21T07:05:06.102738Z
+56b1a5139e96db3f1289edd9a3f67e24
+2012-02-25T14:40:23.718510Z
+4335
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9762
 
 voronoi_clustering.h
 file
@@ -1027,10 +959,10 @@ file
 
 
 
-2013-07-25T06:52:24.542398Z
-bb9f1a3f83d1c9f3591739aadee914b2
-2013-07-05T14:46:48.577791Z
-4916
+2013-08-01T07:24:02.618587Z
+337a0f58dc416d8227bd366b68664ae9
+2013-07-26T12:20:40.442418Z
+4935
 cignoni
 has-props
 
@@ -1053,8 +985,76 @@ has-props
 
 
 
-15808
+23340
+
+inertia.h
+file
+
+
+
+
+2013-07-25T06:52:24.542398Z
+3a00cd388c546e3f29f0d89dbbf8e657
+2013-07-03T21:44:39.487228Z
+4914
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11991
 
 update
 dir
+
+local_optimization.h
+file
+
+
+
+
+2013-06-21T07:05:06.106738Z
+553ce9a4409c09c806664019cb25f200
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13900
 

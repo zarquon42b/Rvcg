@@ -1,7 +1,7 @@
 10
 
 dir
-4928
+4937
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/metro/sample
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+knot_max_simplified.STL
+file
+
+
+
+
+2013-06-21T07:05:38.694899Z
+7c72cdea4936d011a15e426b84697a5e
+2013-04-15T20:59:56.745507Z
+4888
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+80084
 
 knot_vcg_simplified_metro.ply
 file
@@ -263,38 +297,4 @@ has-props
 
 
 589106
-
-knot_max_simplified.STL
-file
-
-
-
-
-2013-06-21T07:05:38.694899Z
-7c72cdea4936d011a15e426b84697a5e
-2013-04-15T20:59:56.745507Z
-4888
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-80084
 
