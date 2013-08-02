@@ -2,8 +2,8 @@ Package: Rvcg
 Type: Package
 Title: Provide manipulations of triangular meshes by using the API of the
     VCGLIB library.
-Version: 0.4-00
-Date: 
+Version: 0.4
+Date: 2013-08-02
 Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
 Description: Operations on triangular meshes based on VCGLIB
