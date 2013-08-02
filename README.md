@@ -1,6 +1,6 @@
-RVCG
+Rvcg
 ====
-__RVCG__ is an R-package providing methods for manipulations on triangular meshes by using the API of the [VCGLIB](http://vcg.isti.cnr.it/~cignoni/newvcglib/html/) library.
+__Rvcg__ is an R-package providing methods for manipulations on triangular meshes by using the API of the [VCGLIB](http://vcg.isti.cnr.it/~cignoni/newvcglib/html/) library.
 
 #### Installation of the R-package "Rvcg": ####
    0. Make sure to work with the latest version of R and install dependencies (type the following commands into your R terminal): 
