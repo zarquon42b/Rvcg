@@ -3,19 +3,19 @@ Rvcg
 __Rvcg__ is an R-package providing methods for manipulations on triangular meshes by using the API of the [VCGLIB](http://vcg.isti.cnr.it/~cignoni/newvcglib/html/) library.
 
 #### Installation of the R-package "Rvcg": ####
-   0. Make sure to work with the latest version of R and install dependencies (type the following commands into your R terminal): 
+0. Make sure to work with the latest version of R and install dependencies (type the following commands into your R terminal): 
                
         
-	install.packages("Rcpp")
+	  install.packages("Rcpp")
 
 
-* Download the version suitable for your OS from [here](https://github.com/zarquon42b/Rvcg/releases/). Either the compiled package (for Windows and OS X) or the source tarball (Linux).
+1. Download the version suitable for your OS from [here](https://github.com/zarquon42b/Rvcg/releases/). Either the compiled package (for Windows and OS X) or the source tarball (Linux).
 
-* Installation command from within R: 
+2. Installation command from within R: 
    
         install.packages("Path_to_downloaded_package_Rvcg[Version_OS]",repos=NULL)
 
-* check if the package can be loaded:
+3. check if the package can be loaded:
         
         load package: library(Rvcg)
 
