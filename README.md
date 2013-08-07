@@ -5,7 +5,7 @@ __Rvcg__ is an R-package providing methods for manipulations on triangular meshe
 #### Installation of the R-package "Rvcg": ####
 0. Make sure to work with the latest version of R and install dependencies (type the following commands into your R terminal):                
         
-	  install.packages("Rcpp")
+	    install.packages("Rcpp")
 
 1. Download the version suitable for your OS from [here](https://github.com/zarquon42b/Rvcg/releases/). Either the compiled package (for Windows and OS X) or the source tarball (Linux).
 
