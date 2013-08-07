@@ -24,11 +24,33 @@ NULL
 
 #' Example mesh
 #'
-#' A triangular mesh representing a human face
-#'
+#' A triangular mesh representing a human face - called by \code{data(humface)}
+#' 
 #' @name humface
 #' @docType data
 #' 
 NULL
+#' landmarks on mesh 'humface'
+#' @usage data(humface)
+#' landmarks on mesh 'humface'- called by \code{data(humface)}
+#' @name humface.lm
+#' @docType data
+#' 
+NULL
 
-
+#' dummyhead mesh - called by data(dummyhead)
+#'
+#' A triangular mesh representing a dummyhead - called by \code{data(dummyhead)}
+#' 
+#' @name dummyhead
+#' @docType data
+#' 
+NULL
+#' landmarks on mesh 'dummyhead'
+#' 
+#' landmarks on mesh 'dummyhead'- called by \code{data(dummyhead)}
+#'
+#' @name dummyhead.lm
+#' @docType data
+#' 
+NULL

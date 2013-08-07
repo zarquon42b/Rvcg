@@ -3,7 +3,8 @@
 \alias{humface}
 \title{Example mesh}
 \description{
-  A triangular mesh representing a human face
+  A triangular mesh representing a human face - called by
+  \code{data(humface)}
 }
 \keyword{datasets}
 
