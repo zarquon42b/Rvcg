@@ -5,8 +5,9 @@
 #' 
 #' 
 #' @param mesh triangular mesh stored as object of class "mesh3d"
-#' @return Item res average edge length (a.k.a. mesh resolution)
-#' @return Item edgelength vector containing lengths for each edge
+#' @return
+#' \item{res }{average edge length (a.k.a. mesh resolution)}
+#' \item{edgelength }{vector containing lengths for each edge}
 #' @author Stefan Schlager
 #' @examples
 #' data(humface)

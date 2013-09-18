@@ -9,9 +9,9 @@
   "mesh3d"}
 }
 \value{
-  Item res average edge length (a.k.a. mesh resolution)
-
-  Item edgelength vector containing lengths for each edge
+  \item{res }{average edge length (a.k.a. mesh resolution)}
+  \item{edgelength }{vector containing lengths for each
+  edge}
 }
 \description{
   calculate average edge length of a triangular mesh, by
