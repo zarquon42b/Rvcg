@@ -42,7 +42,7 @@ NULL
 #'
 #' A triangular mesh representing a dummyhead - called by \code{data(dummyhead)}
 #' 
-#' @name dummyhead
+#' @name dummyhead.mesh
 #' @docType data
 #' 
 NULL

@@ -42,6 +42,7 @@ vcgGetEdge <- function(mesh,unique=TRUE)
 #'
 #' Get all non-border edges and both faces adjacent to them.
 #' @param mesh triangular mesh of class 'mesh3d
+#' @param silent logical: suppress output of information about number of border edges
 #' @return returns a dataframe containing:
 #' \item{vert1}{integer indicating the position of the first vertex belonging to this edge}
 #' \item{vert2}{integer indicating the position of the second vertex belonging to this edge}
@@ -61,15 +62,15 @@ vcgGetEdge <- function(mesh,unique=TRUE)
 #' shade3d(humface, col=3)
 #' ## now find the edge - hint: it is at the neck.
 #' @export vcgNonBorderEdge
-vcgNonBorderEdge <- function(mesh)
+vcgNonBorderEdge <- function(mesh, silent=FALSE)
     {
         edges <- vcgGetEdge(mesh,unique=FALSE)
         border <- which(edges$border == 1)
         edgesClean <- edges
         if (length(border) != 0)
             edgesClean <- edgesClean[-border,]
-
-        cat(paste("mesh contains ",length(border), "border edges\n"))
+        if (!silent)
+            cat(paste("mesh contains ",length(border), "border edges\n"))
         n <- dim(edgesClean)[1]/2
         n2 <- (1:n)*2
         n1 <- n2-1
