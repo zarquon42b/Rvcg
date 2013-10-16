@@ -2,10 +2,13 @@
 \alias{vcgNonBorderEdge}
 \title{Get all non-border edges}
 \usage{
-  vcgNonBorderEdge(mesh)
+  vcgNonBorderEdge(mesh, silent = FALSE)
 }
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d}
+
+  \item{silent}{logical: suppress output of information
+  about number of border edges}
 }
 \value{
   returns a dataframe containing: \item{vert1}{integer

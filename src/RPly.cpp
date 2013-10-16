@@ -65,118 +65,122 @@ extern "C" {
     //printf("%i",err2);
     if (err2 == 0)
       {
-	if (updateNorm == 1)
-	  {
-	    tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
-	    tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
-	  }
-	if (*clean == 1)
-	  {
-	    int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
-	    int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
-	  }
+	if (updateNorm == 1) {
+	  tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+	  tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+	}
+	if (*clean == 1) {
+	  int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
+	  int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+	}
 	vcg::tri::Allocator<MyMesh>::CompactVertexVector(m);
 	vcg::tri::Allocator<MyMesh>::CompactFaceVector(m);
-
-	if (m.vn > *dim || m.fn > *dimit)
-	  {
-	    *fail = 1;
-	    *dim=m.vn;
-	    *dimit=m.fn;
-	  }
 	
-	else
-	  {
-	    *dim=m.vn;
-	    *dimit=m.fn;
-		
-	    //--------------------------------------------------------------------------------------//
-	    //                                   WRITE BACK
-	    // Create meshes,
-	    // Update the bounding box and initialize max search distance
-	    // Remove duplicates and update mesh properties
-	    //--------------------------------------------------------------------------------------//
-	    SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
-	
-	    //VertexPointer ivp[d];
-	    if (m.vn > 0)
-	      {
-		VertexIterator vi=m.vert.begin();
-	    
-		for (i=0;  i < m.vn; i++) 
-		  {
-		    indices[vi] = i;//important: updates vertex indices
-		    //	ivp[i]=&*vi;
-		    vb[i*3] = (*vi).P()[0];
-		    vb[i*3+1] = (*vi).P()[1];
-		    vb[i*3+2] = (*vi).P()[2];
-		    if (importNorm == 1)
-		      {
-			normals[i*3] = (*vi).N()[0];
-			normals[i*3+1] = (*vi).N()[1];
-			normals[i*3+2] = (*vi).N()[2];
-		      }
-		    if (*col == 1)
-		      {
-			colvec[i*3] = (*vi).C()[0];
-			colvec[i*3+1] = (*vi).C()[1];
-			colvec[i*3+2] = (*vi).C()[2];
-		      }
-		    ++vi;
-		  }
-	      }
-	
-	    FacePointer fp;
-	    int vv[3];
-	    *dim = m.vn;
-	    faced=m.fn;
-	
-	    FaceIterator fi=m.face.begin();
-	
-	    if (m.fn > 0)
-	      {
-		for (i=0; i < faced;i++) 
-		  {
-		    fp=&(*fi);
-		    if( ! fp->IsD() )
-		      {
-			vv[0]=indices[fp->cV(0)];
-			vv[1]=indices[fp->cV(1)];
-			vv[2]=indices[fp->cV(2)];
-			it[i*3]=vv[0];
-			it[i*3+1]=vv[1];
-			it[i*3+2]=vv[2];
-			++fi;
-		      }
-		  }
-	      }
+	if (m.vn > *dim || m.fn > *dimit) {
+	  *fail = 1;
+	  *dim=m.vn;
+	  *dimit=m.fn;
+	} else {
+	  *dim=m.vn;
+	  *dimit=m.fn;
 	  
+	  //--------------------------------------------------------------------------------------//
+	  //                                   WRITE BACK
+	  // Create meshes,
+	  // Update the bounding box and initialize max search distance
+	  // Remove duplicates and update mesh properties
+	  //--------------------------------------------------------------------------------------//
+	  SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
+	  
+	  //VertexPointer ivp[d];
+	  if (m.vn > 0) {
+	    VertexIterator vi=m.vert.begin();
+	    for (i=0;  i < m.vn; i++) {
+	      indices[vi] = i;//important: updates vertex indices
+	      //	ivp[i]=&*vi;
+	      vb[i*3] = (*vi).P()[0];
+	      vb[i*3+1] = (*vi).P()[1];
+	      vb[i*3+2] = (*vi).P()[2];
+	      if (importNorm == 1) {
+		normals[i*3] = (*vi).N()[0];
+		normals[i*3+1] = (*vi).N()[1];
+		normals[i*3+2] = (*vi).N()[2];
+	      }
+	      if (*col == 1) {
+		colvec[i*3] = (*vi).C()[0];
+		colvec[i*3+1] = (*vi).C()[1];
+		colvec[i*3+2] = (*vi).C()[2];
+	      }
+	      ++vi;
+	    }
 	  }
-	
+	  
+	  FacePointer fp;
+	  int vv[3];
+	  *dim = m.vn;
+	  faced=m.fn;
+	  
+	  FaceIterator fi=m.face.begin();
+	  
+	  if (m.fn > 0)
+	    {
+	      for (i=0; i < faced;i++) 
+		{
+		  fp=&(*fi);
+		  if( ! fp->IsD() )
+		    {
+		      vv[0]=indices[fp->cV(0)];
+		      vv[1]=indices[fp->cV(1)];
+		      vv[2]=indices[fp->cV(2)];
+		      it[i*3]=vv[0];
+		      it[i*3+1]=vv[1];
+		      it[i*3+2]=vv[2];
+		      ++fi;
+		    }
+		}
+	    }
+	}
       }
   }
 }
 
-  using namespace Rcpp;
-RcppExport SEXP RPlyWrite(SEXP _vb, SEXP _it, SEXP _binary, SEXP _addNormals, SEXP _filename)
+using namespace Rcpp;
+RcppExport SEXP RPlyWrite(SEXP _vb, SEXP _it, SEXP _binary, SEXP _addNormals, SEXP _filename, SEXP _colvec, SEXP _hasCol)
 { 
   MyMesh m;
    //set up parameters 
   bool binary = Rcpp::as<bool>(_binary);
   bool addNormals = Rcpp::as<bool>(_addNormals);
+  bool hasCol =  Rcpp::as<bool>(_hasCol);
   std::string str = Rcpp::as<std::string>(_filename);
   const char *filename = str.c_str();
   //char *filename[256] = strcpy(cstr
   //strcpy(filename1, filename);
   //allocate mesh and fill it
+  Rcpp::IntegerMatrix colvec(_colvec);
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
   int mask0 = 0;
   
-  if (addNormals)
-    {
-      tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
-      mask0 = mask0 + tri::io::Mask::IOM_VERTNORMAL;
+  if (addNormals) {
+    tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+    mask0 = mask0 + tri::io::Mask::IOM_VERTNORMAL;
+  }
+  if (hasCol) {
+    mask0 =mask0+ tri::io::Mask::IOM_VERTCOLOR;
+    if (m.vn > 0) {
+      int i;
+      VertexIterator vi=m.vert.begin();
+      for (i=0;  i < m.vn; i++) {
+	(*vi).C()[0] = colvec(0, i);
+	(*vi).C()[1] = colvec(1, i);
+	(*vi).C()[2] = colvec(2, i);
+	++vi;
+      }
+     
     }
+    
+    
+  }
   
     tri::io::ExporterPLY<MyMesh>::Save(m, filename, mask0, binary);
   return Rcpp::wrap(0);
