@@ -3,9 +3,9 @@
 #' subsample surface of a triangular mesh
 #' @param mesh triangular mesh of class 'mesh3d'
 #' @param SampleNum integer Number of sampled points
-#' @param type seclect sampling type (1=MonteCarlo Sampling, 2=PoissonDisk Sampling)
+#' @param type seclect sampling type ("mc"=MonteCarlo Sampling, "pd"=PoissonDisk Sampling,"km"=kmean clustering)
 #' @param MCsamp MonteCarlo sample iterations used in PoissonDisk sampling.
-#' @param geodes maximise geodesic distance between sample points
+#' @param geodes maximise geodesic distance between sample points (only for Poisson Disk sampling)
 #' @details not ready yet
 #' @return sampled points
 #' @examples
@@ -14,20 +14,34 @@
 #' ss <- vcgSample(humface,SampleNum = 500, type=2)
 #' points3d(ss)
 #' @export vcgSample
-vcgSample <- function(mesh, SampleNum=10,type=1,MCsamp=20,geodes=TRUE)
+vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE)
     {
-        vb <- mesh$vb[1:3,]
-        it <- mesh$it - 1
-        dimit <- dim(it)[2]
-        dimvb <- dim(vb)[2]
-        storage.mode(it) <- "integer"
-        type <- as.integer(type)
-        SampleNum <- as.integer(SampleNum)
-        MCsamp <- as.integer(MCsamp)
-        if (!is.logical(geodes) || (FALSE %in% is.integer(c(it,type, MCsamp, SampleNum))) || (FALSE %in% is.numeric(vb)))
-            stop("Please provide sensible arguments!")
-        tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
-        tmp <- t(tmp)
-        
+        type <- type[1]
+        if (type == "mc")
+            type <- 1
+        else if (type == "pd")
+            type <- 2
+        else if (type == "km")
+            type <- 3
+
+        if (type %in% 1:2) {
+            
+            vb <- mesh$vb[1:3,]
+            it <- mesh$it - 1
+            dimit <- dim(it)[2]
+            dimvb <- dim(vb)[2]
+            storage.mode(it) <- "integer"
+            type <- as.integer(type)
+            SampleNum <- as.integer(SampleNum)
+            MCsamp <- as.integer(MCsamp)
+            if (!is.logical(geodes) || (FALSE %in% is.integer(c(it,type, MCsamp, SampleNum))) || (FALSE %in% is.numeric(vb)))
+                stop("Please provide sensible arguments!")
+            tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
+            tmp <- t(tmp)
+        }
+        else {
+            tmp <- kmeans(t(mesh$vb[1:3,]),centers=SampleNum, iter.max=100)$centers
+            tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
+        }
         return(tmp)
     }

@@ -2,22 +2,23 @@
 \alias{vcgSample}
 \title{Subsample mesh surface}
 \usage{
-  vcgSample(mesh, SampleNum = 10, type = 1, MCsamp = 20,
-    geodes = TRUE)
+  vcgSample(mesh, SampleNum = 100,
+    type = c("km", "pd", "mc"), MCsamp = 20, geodes = TRUE)
 }
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d'}
 
   \item{SampleNum}{integer Number of sampled points}
 
-  \item{type}{seclect sampling type (1=MonteCarlo Sampling,
-  2=PoissonDisk Sampling)}
+  \item{type}{seclect sampling type ("mc"=MonteCarlo
+  Sampling, "pd"=PoissonDisk Sampling,"km"=kmean
+  clustering)}
 
   \item{MCsamp}{MonteCarlo sample iterations used in
   PoissonDisk sampling.}
 
   \item{geodes}{maximise geodesic distance between sample
-  points}
+  points (only for Poisson Disk sampling)}
 }
 \value{
   sampled points
