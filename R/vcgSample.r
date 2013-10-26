@@ -6,7 +6,8 @@
 #' @param type seclect sampling type ("mc"=MonteCarlo Sampling, "pd"=PoissonDisk Sampling,"km"=kmean clustering)
 #' @param MCsamp MonteCarlo sample iterations used in PoissonDisk sampling.
 #' @param geodes maximise geodesic distance between sample points (only for Poisson Disk sampling)
-#' @details not ready yet
+#' @param strict if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},  the resulting coordinates will be subsampled again by kmean clustering to reach the requested number.
+#' @details Poisson disk subsampling will not generate the exact amount of coordinates specified in \code{SampleNum}, depending on \code{MCsamp} the result wil bee more or less coordinates.
 #' @return sampled points
 #' @examples
 #' require(rgl)
@@ -14,7 +15,7 @@
 #' ss <- vcgSample(humface,SampleNum = 500, type=2)
 #' points3d(ss)
 #' @export vcgSample
-vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE)
+vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=TRUE)
     {
         type <- type[1]
         if (type == "mc")
@@ -38,6 +39,9 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
                 stop("Please provide sensible arguments!")
             tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
             tmp <- t(tmp)
+            if (strict && nrow(tmp) > SampleNum)
+                tmp <- kmeans(tmp,centers=SampleNum, iter.max=100)$centers
+
         }
         else {
             tmp <- kmeans(t(mesh$vb[1:3,]),centers=SampleNum, iter.max=100)$centers
