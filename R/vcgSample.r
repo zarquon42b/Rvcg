@@ -17,6 +17,8 @@
 #' @export vcgSample
 vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=TRUE)
     {
+        if (!inherits(mesh,"mesh3d"))
+            stop("argument 'mesh' needs to be object of class 'mesh3d'")
         type <- type[1]
         if (type == "mc")
             type <- 1
@@ -42,8 +44,7 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             if (strict && nrow(tmp) > SampleNum)
                 tmp <- kmeans(tmp,centers=SampleNum, iter.max=100)$centers
 
-        }
-        else {
+        } else {
             tmp <- kmeans(t(mesh$vb[1:3,]),centers=SampleNum, iter.max=100)$centers
             tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
         }

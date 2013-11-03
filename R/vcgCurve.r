@@ -22,6 +22,8 @@
 #' @export vcgCurve
 vcgCurve <- function(mesh)
     {
+        if (!inherits(mesh,"mesh3d"))
+            stop("argument 'mesh' needs to be object of class 'mesh3d'")
         vb <- mesh$vb[1:3,]
         it <- mesh$it - 1
         dimit <- dim(it)[2]
@@ -29,4 +31,4 @@ vcgCurve <- function(mesh)
         storage.mode(it) <- "integer"
         tmp <- .Call("Rcurvature",vb,it)
         return(tmp)
-  }
+    }

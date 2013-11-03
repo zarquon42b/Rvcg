@@ -12,7 +12,8 @@
 #' @export vcgIntersect
 vcgIntersect <- function(x,mesh)
 {
-  
+  if (!inherits(mesh,"mesh3d") || !inherits(x,"mesh3d"))
+            stop("arguments 'x' and 'mesh' needs to be object of class 'mesh3d'")
   vb <- mesh$vb[1:3,]
   it <- mesh$it - 1
   dimit <- dim(it)[2]

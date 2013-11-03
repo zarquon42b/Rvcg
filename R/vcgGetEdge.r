@@ -20,6 +20,8 @@
 #' @export vcgGetEdge
 vcgGetEdge <- function(mesh,unique=TRUE)
     {
+        if (!inherits(mesh,"mesh3d"))
+            stop("argument 'mesh' needs to be object of class 'mesh3d'")
         vb <- mesh$vb[1:3,]
         it <- mesh$it - 1
         dimit <- dim(it)[2]
@@ -64,6 +66,8 @@ vcgGetEdge <- function(mesh,unique=TRUE)
 #' @export vcgNonBorderEdge
 vcgNonBorderEdge <- function(mesh, silent=FALSE)
     {
+        if (!inherits(mesh,"mesh3d"))
+            stop("argument 'mesh' needs to be object of class 'mesh3d'")
         edges <- vcgGetEdge(mesh,unique=FALSE)
         border <- which(edges$border == 1)
         edgesClean <- edges

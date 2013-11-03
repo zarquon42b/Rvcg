@@ -20,9 +20,11 @@
 #' 
 #' @export vcgMeshres
 vcgMeshres <- function(mesh)
-  {
-    vb <- mesh$vb[1:3,]
-    it <- mesh$it-1
-    tmp <- .Call("Rmeshres",vb,it)
-    return(tmp)
-  }
+    {
+        if (!inherits(mesh,"mesh3d"))
+            stop("argument 'mesh' needs to be object of class 'mesh3d'")
+        vb <- mesh$vb[1:3,]
+        it <- mesh$it-1
+        tmp <- .Call("Rmeshres",vb,it)
+        return(tmp)
+    }
