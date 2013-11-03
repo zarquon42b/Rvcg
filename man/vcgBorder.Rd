@@ -5,15 +5,13 @@
   vcgBorder(mesh)
 }
 \arguments{
-  \item{mesh}{triangular mesh of class "mesh3d" %%
-  ~~Describe \code{mesh} here~~}
+  \item{mesh}{triangular mesh of class "mesh3d"}
 }
 \value{
-  Item bordervb logical: vector containing boolean value
-  for each vertex, if it is a border vertex.
-
-  Item borderit logical: vector containing boolean value
-  for each face, if it is a border vertex.
+  \item{bordervb}{logical: vector containing boolean value
+  for each vertex, if it is a border vertex.}
+  \item{borderit}{logical: vector containing boolean value
+  for each face, if it is a border vertex.}
 }
 \description{
   Detect faces and vertices at the borders of a mesh and

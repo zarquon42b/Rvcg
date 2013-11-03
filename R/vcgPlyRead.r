@@ -12,12 +12,11 @@
 #' @return Object of class "mesh3d"
 #' 
 #' with:
-#' @return Item vb 4xn matrix containing n vertices as homolougous coordinates.
-#' @return Item normals 4xn matrix containing vertex normals.
-#' @return Item it 4xm matrix containing vertex indices forming triangular
-#' faces.
-#' @return Item material$color Per vertex colors if specified in the imported
-#' file
+#' @return
+#' \item{vb }{4xn matrix containing n vertices as homolougous coordinates}
+#' \item{normals }{4xn matrix containing vertex normals}
+#' \item{it }{4xm matrix containing vertex indices forming triangular faces}
+#' \item{material$color }{Per vertex colors if specified in the imported file}
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgSmooth}},
 #' @keywords ~kwd1 ~kwd2

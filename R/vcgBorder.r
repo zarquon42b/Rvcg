@@ -4,10 +4,9 @@
 #' 
 #' 
 #' @param mesh triangular mesh of class "mesh3d"
-#' @return Item bordervb logical: vector containing boolean value for each
-#' vertex, if it is a border vertex.
-#' @return Item borderit logical: vector containing boolean value for each face,
-#' if it is a border vertex.
+#' @return
+#' \item{bordervb}{logical: vector containing boolean value for each vertex, if it is a border vertex.}
+#' \item{borderit}{logical: vector containing boolean value for each face, if it is a border vertex.}
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgPlyRead}}
 #' @keywords ~kwd1 ~kwd2
