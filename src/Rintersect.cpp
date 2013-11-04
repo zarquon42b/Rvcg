@@ -1,87 +1,47 @@
 #include "typedef.h"
+#include "RvcgIO.h" 
+#include <Rcpp.h>
+
+using namespace Rcpp;
 //#include <wrap/ply/plylib.cpp>
-
-  
-  
-extern "C" {
-
-void Rintersect(double *vb ,int *dim, int *it, int *dimit, double *ioclost, int *clostDim, double *normals, double *dis, int *hitbool)
+ 
+RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SEXP _tol)
   {
-    /*typedef MyMesh::CoordType CoordType;
-    typedef  MyMesh::ScalarType ScalarType;
-    */
-    //typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
     typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
     ScalarType x,y,z;
     int i;
-    
+    VertexIterator vi;
     MyMesh m;
     MyMesh refmesh;
     MyMesh outmesh;
+    float tol = Rcpp::as<float>(_tol);	
+    Rcpp::NumericMatrix ioclost(_ioclost);
+    Rcpp::NumericMatrix normals(_normals);
+    int dref =  ioclost.ncol();
+    std::vector<float> dis;
+    std::vector<float> hitbool;
     // section read from input
-    const int d = *dim;
-    const int faced = *dimit;
-    const int dref = *clostDim;
-    
-    
+   
     float t;
-    //--------------------------------------------------------------------------------------//
-    //
-    //                                   PREPROCESS
-    // Create meshes,
-    // Update the bounding box and initialize max search distance
-    // Remove duplicates and update mesh properties
-    //--------------------------------------------------------------------------------------//
+    Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
     //Allocate target
-    vcg::tri::Allocator<MyMesh>::AddVertices(m,d);
-    vcg::tri::Allocator<MyMesh>::AddFaces(m,faced);
     typedef MyMesh::VertexPointer VertexPointer;
     std::vector<VertexPointer> ivp;
-    ivp.resize(d);
-    
-    VertexIterator vi=m.vert.begin();
-    for (i=0; i < d; i++) 
-      {
-	ivp[i]=&*vi;
-	x = vb[i*3];
-	y = vb[i*3+1];
-	z=  vb[i*3+2];
-	(*vi).P() = CoordType(x,y,z);
-	++vi;
-      }
-    int itx,ity,itz;
-    FaceIterator fi=m.face.begin();
-    for (i=0; i < faced ; i++) 
-      {
-	itx = it[i*3];
-	ity = it[i*3+1];
-	itz = it[i*3+2];
-	(*fi).V(0)=ivp[itx];
-	(*fi).V(1)=ivp[ity];
-	(*fi).V(2)=ivp[itz];
-	++fi;
-      }
-vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
-    
-    //VertexPointer ivref[dref];
+    vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
     vi=refmesh.vert.begin();
     Point3f normtmp;
-    for (i=0; i < dref; i++) 
-      {
-	
-	x = ioclost[i*3];
-	y = ioclost[i*3+1];
-	z = ioclost[i*3+2];
-	(*vi).P() = CoordType(x,y,z);
-	x = normals[i*3];
-	y = normals[i*3+1];
-	z = normals[i*3+2];
-	normtmp = CoordType(x,y,z);
-	//normtmp = normtmp/sqrt(normtmp.dot(normtmp));
-	(*vi).N() = normtmp;
-	++vi;
-      }
- //--------------------------------------------------------------------------------------//
+    for (i=0; i < dref; i++) {
+      x = ioclost(0,i);
+      y = ioclost(1,i);
+      z = ioclost(2,i);
+      (*vi).P() = CoordType(x,y,z);
+      x = normals(0,i);
+      y = normals(1,i);
+      z = normals(2,i);
+      (*vi).N() = CoordType(x,y,z);
+      ++vi;
+    }
+    //--------------------------------------------------------------------------------------//
     //
     //                              INITIALIZE SEARCH STRUCTURES
     //
@@ -96,44 +56,68 @@ vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
     tri::UpdateNormal<MyMesh>::NormalizePerVertex(refmesh);
     float maxDist = m.bbox.Diag();
     float minDist = 1e-10;
-    
     vcg::tri::FaceTmark<MyMesh> mf; 
+    vcg::tri::VertTmark<MyMesh> mv;
     mf.SetMesh( &m );
+    mv.SetMesh( &m );
     vcg::RayTriangleIntersectionFunctor<true> FintFunct;
     vcg::face::PointDistanceBaseFunctor<float> PDistFunct;
+    vcg::vertex::PointNormalDistanceFunctor<MyVertex> VDistFunct;
     TriMeshGrid static_grid;    
     static_grid.Set(m.face.begin(), m.face.end());
     // run search 
-    for(i=0; i < refmesh.vn; i++)
-      {
-	hitbool[i] = 0;
-	vcg::Ray3f ray;
-	Point3f orig = refmesh.vert[i].P();
-	Point3f dir = refmesh.vert[i].N();
-	Point3f dirOrig = dir;
-	
+    for (i=0; i < refmesh.vn; i++) {
+      vcg::Ray3f ray;
+      Point3f orig = refmesh.vert[i].P();
+      Point3f dir = refmesh.vert[i].N();
+      Point3f dirOrig = dir;
+      Point3f clost = CoordType(0,0,0);
+      MyFace* f_ptr;
+      t=0;
+      ray.SetOrigin(orig);
+      ray.SetDirection(dir);
+      f_ptr = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t);
+      
+      if (f_ptr) {
+	if (t >= tol) {
+	  clost = refmesh.vert[i].P()+dir*t;//the hit point
+	  dis.push_back(t);
+	  hitbool.push_back(1);
+	}
+      } else {
+	orig = orig+CoordType(1e-6,1e-6,1e-6);// add some noise to get eventually hit vertices alon the rays
 	ray.SetOrigin(orig);
 	ray.SetDirection(dir);
-	MyFace* f_ptr=GridDoRay(static_grid,FintFunct, mf, ray, maxDist, t);
-	
-	if (f_ptr)
-	  {
-	    if (t > 0)
-	      {
-		MyMesh::CoordType clost = refmesh.vert[i].P()+dir*t;//the hit point
-		int f_i = vcg::tri::Index(m, f_ptr);
-		MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;//the smoothed normal at that point
-		
-		ioclost[i*3] = clost[0];
-		ioclost[i*3+1] =clost[1];
-		ioclost[i*3+2] =clost[2];
-		dis[i]=t;
-		
-		hitbool[i] = 1;
-	      }
+	f_ptr = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t);
+	if (f_ptr) {
+	  if (t >= tol) {
+	    clost = refmesh.vert[i].P()+dir*t;//the hit point
+	    dis.push_back(t);
+	    hitbool.push_back(1);
 	  }
+	} else {
+	  Point3f& currp = refmesh.vert[i].P();
+	  f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
+	  dis.push_back(minDist);
+	  hitbool.push_back(0);
+	}
       }
+      int f_i = vcg::tri::Index(m, f_ptr);
+      MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;//the smoothed normal at that point
+      ioclost(0,i) = clost[0];
+      ioclost(1,i) = clost[1];
+      ioclost(2,i) = clost[2];
+      normals(0,i) = ti[0];
+      normals(1,i) = ti[1];
+      normals(2,i) = ti[2];
+    }
+    return Rcpp::List::create(Rcpp::Named("vb") = ioclost,
+			      Rcpp::Named("normals") = normals,
+			      Rcpp::Named("hitbool") = hitbool,
+			      Rcpp::Named("dis") = dis
+			      );
   }
-}
-	 
+    
+
+
 	

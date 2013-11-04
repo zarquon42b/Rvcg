@@ -1,7 +1,7 @@
 Package: Rvcg
 Type: Package
-Title: Provide manipulations of triangular meshes by using the API of the
-    VCGLIB library.
+Title: Manipulations of triangular meshes (smoothing, quadric edge collapse
+    decimation, im- and export of PLY-files, etc.) based on the VCGLIB API.
 Version: 0.4
 Date: 2013-08-02
 Author: Stefan Schlager
@@ -23,7 +23,7 @@ Description: Operations on triangular meshes based on VCGLIB
     (http://eigen.tuxfamily.org) is licensed under the GNU LGPL version 3 or
     later, and also under the GNU GPL version 2 or later.
 Depends:
-    R (>= 2.14.0)
+    R (>= 3.0.0)
 Imports:
     Rcpp
 Suggests:
