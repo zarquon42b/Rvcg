@@ -13,7 +13,6 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   VertexIterator vi;
   MyMesh m;
   MyMesh refmesh;
-  MyMesh outmesh;
   float tol = Rcpp::as<float>(_tol);	
   Rcpp::NumericMatrix ioclost(_ioclost);
   Rcpp::NumericMatrix normals(_normals);
@@ -48,7 +47,6 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   // Update the FaceProjection flags needed for projection/distance queries
   // Create a static grid (for fast indexing) and fill it 
   //--------------------------------------------------------------------------------------//
-  vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
   tri::UpdateBounding<MyMesh>::Box(m);
   tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
   tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
@@ -57,12 +55,9 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   float maxDist = m.bbox.Diag();
   float minDist = 1e-10;
   vcg::tri::FaceTmark<MyMesh> mf; 
-  vcg::tri::VertTmark<MyMesh> mv;
   mf.SetMesh( &m );
-  mv.SetMesh( &m );
   vcg::RayTriangleIntersectionFunctor<true> FintFunct;
   vcg::face::PointDistanceBaseFunctor<float> PDistFunct;
-  vcg::vertex::PointNormalDistanceFunctor<MyVertex> VDistFunct;
   TriMeshGrid static_grid;    
   static_grid.Set(m.face.begin(), m.face.end());
   // run search 
