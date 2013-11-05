@@ -22,15 +22,15 @@
   normals are used.}
 }
 \value{
-  returns an object of class "mesh3d" with: \item{vb }{ 4xn
-  matrix containing n vertices as homolougous coordinates.}
-  \item{normals }{4xn matrix containing vertex normals.}
-  \item{quality }{vector: containing distances to target.}
-  \item{it }{4xm matrix containing vertex indices forming
-  triangular faces.Only available, when x is a mesh.}
-  \item{barycoords }{3xm Matrix containing barycentric
-  coordinates of closest points; only available if
-  barycentric=TRUE.}
+  returns an object of class "mesh3d" with: \item{vb }{ 4 x
+  n matrix containing n vertices as homolougous
+  coordinates.} \item{normals }{4 x n matrix containing
+  vertex normals.} \item{quality }{vector: containing
+  distances to target.} \item{it }{4xm matrix containing
+  vertex indices forming triangular faces.Only available,
+  when x is a mesh.} \item{barycoords }{3xm Matrix
+  containing barycentric coordinates of closest points;
+  only available if barycentric=TRUE.}
 }
 \description{
   For a set of 3D-coordinates the closest matches on a
@@ -42,6 +42,10 @@
   target surface, calculation can become very slow. For
   this case, the function "closemeshKD" from the package
   "Morpho" is suggested.
+}
+\examples{
+data(humface)
+clost <- vcgClost(humface.lm, humface)
 }
 \author{
   Stefan Schlager

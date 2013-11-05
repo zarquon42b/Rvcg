@@ -41,7 +41,6 @@ Collate:
     'vcgClost.r'
     'vcgCurve.r'
     'vcgGetEdge.r'
-    'vcgIntersect.r'
     'vcgIsolated.r'
     'vcgMeshres.r'
     'vcgPlyRead.r'
@@ -49,3 +48,4 @@ Collate:
     'vcgSmooth.r'
     'vcgSample.r'
     'vcgPlyWrite.r'
+    'vcgRaySearch.r'
