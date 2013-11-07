@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,16 +26,37 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-PaStiXSupport
+SuperLUSupport
+dir
+
+SVD
+dir
+
+OrderingMethods
+dir
+
+Sparse
+dir
+
+PardisoSupport
+dir
+
+SparseCholesky
+dir
+
+StlSupport
 dir
 
 IterativeLinearSolvers
 dir
 
-Eigen2Support
+PaStiXSupport
 dir
 
 SparseCore
+dir
+
+Eigen2Support
 dir
 
 Eigenvalues
@@ -78,19 +99,19 @@ has-props
 LU
 dir
 
-plugins
+Householder
 dir
 
 Cholesky
 dir
 
-Householder
-dir
-
-CholmodSupport
+plugins
 dir
 
 QR
+dir
+
+CholmodSupport
 dir
 
 UmfPackSupport
@@ -106,26 +127,5 @@ misc
 dir
 
 Geometry
-dir
-
-SuperLUSupport
-dir
-
-SVD
-dir
-
-OrderingMethods
-dir
-
-Sparse
-dir
-
-PardisoSupport
-dir
-
-SparseCholesky
-dir
-
-StlSupport
 dir
 

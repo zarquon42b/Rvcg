@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex/algorithms/local_optimization
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-quad_diag_collapse.h
-file
-
-
-
-
-2013-06-21T07:04:56.754692Z
-02a29ca74154df8707131c146f81489d
-2012-10-08T09:03:25.280307Z
-4549
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-21434
-
-tri_edge_collapse.h
-file
-
-
-
-
-2013-06-21T07:04:56.754692Z
-a365c8e34acd74ff51c5e5f645099eeb
-2013-01-28T15:42:24.503745Z
-4808
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8566
 
 tetra_edge_collapse.h
 file
@@ -229,4 +161,72 @@ cignoni
 
 
 16112
+
+quad_diag_collapse.h
+file
+
+
+
+
+2013-06-21T07:04:56.754692Z
+02a29ca74154df8707131c146f81489d
+2012-10-08T09:03:25.280307Z
+4549
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21434
+
+tri_edge_collapse.h
+file
+
+
+
+
+2013-06-21T07:04:56.754692Z
+a365c8e34acd74ff51c5e5f645099eeb
+2013-01-28T15:42:24.503745Z
+4808
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8566
 

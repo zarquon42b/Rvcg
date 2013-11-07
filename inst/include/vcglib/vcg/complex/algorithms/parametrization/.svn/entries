@@ -1,15 +1,15 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/complex/algorithms/parametrization
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-07-23T11:22:06.031850Z
-4924
-pietroni
+2013-10-10T10:36:39.459903Z
+4976
+cignoni
 
 
 
@@ -25,40 +25,6 @@ pietroni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-tangent_field_operators.h
-file
-
-
-
-
-2013-06-21T07:04:58.518700Z
-534f628c16fdf03f8d12412e909ee4c6
-2013-01-22T09:58:20.090287Z
-4799
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-24853
 
 poisson_solver.h
 file
@@ -168,10 +134,10 @@ file
 
 
 
-2013-06-21T07:04:58.518700Z
-b3050025ec71936e1ee0e647c824021c
-2013-04-03T10:07:29.655724Z
-4879
+2013-11-07T10:26:56.313767Z
+2c03667cddbffae56aa2a99135c3938d
+2013-10-10T10:36:39.459903Z
+4976
 cignoni
 has-props
 
@@ -194,5 +160,39 @@ has-props
 
 
 
-8181
+8228
+
+tangent_field_operators.h
+file
+
+
+
+
+2013-06-21T07:04:58.518700Z
+534f628c16fdf03f8d12412e909ee4c6
+2013-01-22T09:58:20.090287Z
+4799
+pietroni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24853
 

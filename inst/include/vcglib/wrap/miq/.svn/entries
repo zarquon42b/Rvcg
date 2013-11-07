@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/miq
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ pietroni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+quadrangulator.h
+file
+
+
+
+
+2013-07-25T06:52:24.802399Z
+83f2ac052f4fc184cac7e837485dd183
+2013-07-23T11:24:05.089690Z
+4926
+pietroni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+18233
 
 core
 dir
@@ -62,38 +96,4 @@ has-props
 
 
 3126
-
-quadrangulator.h
-file
-
-
-
-
-2013-07-25T06:52:24.802399Z
-83f2ac052f4fc184cac7e837485dd183
-2013-07-23T11:24:05.089690Z
-4926
-pietroni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-18233
 

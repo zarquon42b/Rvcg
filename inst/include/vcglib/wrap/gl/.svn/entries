@@ -1,14 +1,14 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/gl
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-05-24T16:31:16.302391Z
-4895
+2013-10-17T17:22:16.926813Z
+4979
 granzuglia
 
 
@@ -25,6 +25,40 @@ granzuglia
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+picking.h
+file
+
+
+
+
+2013-06-21T07:08:18.515692Z
+8ffeb8601ba65733f726365d0541a966
+2012-05-23T08:50:03.107360Z
+4414
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5251
 
 pick.h
 file
@@ -60,40 +94,6 @@ cignoni
 
 12975
 
-camera.h
-file
-
-
-
-
-2013-06-21T07:08:18.515692Z
-789277da9a30a3f93ee1e90e00ca5729
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-32921
-
 gl_object.h
 file
 
@@ -128,17 +128,17 @@ cignoni
 
 2490
 
-shaders.h
+camera.h
 file
 
 
 
 
 2013-06-21T07:08:18.515692Z
-93a8cf5bb11526bfc27342ee1a732062
-2011-12-09T16:06:08.628319Z
-4246
-ponchio
+789277da9a30a3f93ee1e90e00ca5729
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
 
 
 
@@ -160,7 +160,7 @@ ponchio
 
 
 
-12478
+32921
 
 math.h
 file
@@ -196,17 +196,17 @@ cignoni
 
 5870
 
-space.h
+shaders.h
 file
 
 
 
 
 2013-06-21T07:08:18.515692Z
-7da71ef8551e40e249f824d56867f995
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
+93a8cf5bb11526bfc27342ee1a732062
+2011-12-09T16:06:08.628319Z
+4246
+ponchio
 
 
 
@@ -228,7 +228,7 @@ cignoni
 
 
 
-13275
+12478
 
 glu_tessellator_cap.h
 file
@@ -264,14 +264,14 @@ has-props
 
 2276
 
-tetramesh.h
+space.h
 file
 
 
 
 
 2013-06-21T07:08:18.515692Z
-96de94bf320449bb4b9c506a3bf44e73
+7da71ef8551e40e249f824d56867f995
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -296,7 +296,7 @@ cignoni
 
 
 
-10655
+13275
 
 glu_tesselator.h
 file
@@ -332,6 +332,40 @@ cignoni
 
 7351
 
+tetramesh.h
+file
+
+
+
+
+2013-06-21T07:08:18.515692Z
+96de94bf320449bb4b9c506a3bf44e73
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10655
+
 pos.h
 file
 
@@ -366,6 +400,9 @@ cignoni
 
 3419
 
+splatting_apss
+dir
+
 gl_field.h
 file
 
@@ -399,9 +436,6 @@ pietroni
 
 
 6538
-
-splatting_apss
-dir
 
 fbo.h
 file
@@ -579,11 +613,11 @@ file
 
 
 
-2013-06-21T07:08:18.515692Z
-e83cc6afc22fdfefeb55f942349616bc
-2012-10-08T05:30:34.906568Z
-4545
-cignoni
+2013-11-07T10:26:57.989775Z
+b5e46d19f4f4550a114d56529b127879
+2013-10-17T17:22:16.926813Z
+4979
+granzuglia
 
 
 
@@ -605,7 +639,7 @@ cignoni
 
 
 
-24154
+24186
 
 gl_geometry.h
 file
@@ -674,38 +708,4 @@ corsini
 
 
 7800
-
-picking.h
-file
-
-
-
-
-2013-06-21T07:08:18.515692Z
-8ffeb8601ba65733f726365d0541a966
-2012-05-23T08:50:03.107360Z
-4414
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5251
 

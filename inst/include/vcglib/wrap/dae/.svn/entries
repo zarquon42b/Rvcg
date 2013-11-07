@@ -1,14 +1,14 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/dae
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-03-24T19:51:43.635840Z
-4861
+2013-10-24T20:51:03.286511Z
+4985
 granzuglia
 
 
@@ -26,17 +26,51 @@ granzuglia
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
+util_dae.h
+file
+
+
+
+
+2013-11-07T10:26:57.513773Z
+d2f30c5fed5f09cd6b739581588edd32
+2013-10-24T16:18:13.496601Z
+4983
+granzuglia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14680
+
 colladaformat.h
 file
 
 
 
 
-2013-06-21T07:08:11.943659Z
-cc4e88cb75a79515a85f772727458dc3
-2012-11-27T22:31:48.050124Z
-4752
-cignoni
+2013-11-07T10:26:57.513773Z
+709166850e906d2250b43e1670fba775
+2013-10-24T16:18:13.496601Z
+4983
+granzuglia
 
 
 
@@ -58,7 +92,7 @@ cignoni
 
 
 
-34333
+33270
 
 xmldocumentmanaging.cpp
 file
@@ -94,6 +128,40 @@ cignoni
 
 2469
 
+poly_triangulator.h
+file
+
+
+
+
+2013-11-07T10:26:57.513773Z
+4281ce161ac914cfc38fa46db1378be9
+2013-10-24T20:51:03.286511Z
+4985
+granzuglia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3747
+
 xmldocumentmanaging.h
 file
 
@@ -127,38 +195,4 @@ granzuglia
 
 
 5199
-
-util_dae.h
-file
-
-
-
-
-2013-06-21T07:08:11.943659Z
-75425bcfd03bc40b6051a569e613049e
-2013-03-24T19:51:43.635840Z
-4861
-granzuglia
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-18205
 

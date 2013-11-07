@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/miq/core
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ pietroni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+seams_initializer.h
+file
+
+
+
+
+2013-07-25T06:52:24.794399Z
+5e09fca1481b5bac024c7350cc08d699
+2013-07-23T11:23:21.585077Z
+4925
+pietroni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12138
 
 sparsesystemdata.h
 file
@@ -263,38 +297,4 @@ has-props
 
 
 873
-
-seams_initializer.h
-file
-
-
-
-
-2013-07-25T06:52:24.794399Z
-5e09fca1481b5bac024c7350cc08d699
-2013-07-23T11:23:21.585077Z
-4925
-pietroni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-12138
 

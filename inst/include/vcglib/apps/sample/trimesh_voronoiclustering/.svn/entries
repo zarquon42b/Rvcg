@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_voronoiclustering
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimesh_voronoiclustering.cpp
-file
-
-
-
-
-2013-07-25T06:52:24.622398Z
-a3f419a7876da59434e35edf887d3589
-2013-07-05T14:21:48.086758Z
-4915
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4005
 
 trimesh_voronoiclustering.pro
 file
@@ -93,4 +59,38 @@ has-props
 
 
 128
+
+trimesh_voronoiclustering.cpp
+file
+
+
+
+
+2013-07-25T06:52:24.622398Z
+a3f419a7876da59434e35edf887d3589
+2013-07-05T14:21:48.086758Z
+4915
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4005
 

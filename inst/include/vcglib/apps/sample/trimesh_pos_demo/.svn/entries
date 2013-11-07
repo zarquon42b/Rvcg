@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_pos_demo
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+glwidget.h
+file
+
+
+
+
+2013-06-21T07:05:23.650825Z
+f2344b5abc5f60dff29ca97a7ac56867
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3795
+
+window.h
+file
+
+
+
+
+2013-06-21T07:05:23.650825Z
+fc69f2effa4e99f24aef70e5acec9af2
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2368
 
 trimesh_pos_demo.pro
 file
@@ -263,72 +331,4 @@ cignoni
 
 
 3190
-
-glwidget.h
-file
-
-
-
-
-2013-06-21T07:05:23.650825Z
-f2344b5abc5f60dff29ca97a7ac56867
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3795
-
-window.h
-file
-
-
-
-
-2013-06-21T07:05:23.650825Z
-fc69f2effa4e99f24aef70e5acec9af2
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2368
 

@@ -1,14 +1,14 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-07-26T12:16:02.285007Z
-4934
+2013-10-09T09:20:21.048395Z
+4975
 cignoni
 
 
@@ -25,24 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimesh_kdtree
-dir
-
-trimesh_ant_freeglut
-dir
-
-trimesh_clustering
-dir
-
-trimesh_curvature
-dir
-
-polygonmesh_zonohedra
-dir
-
-trimesh_geodesic
-dir
 
 trimesh_allocate
 dir
@@ -90,52 +72,67 @@ has-props
 
 177
 
-trimesh_voronoisampling
+polygonmesh_quadsimpl
 dir
 
-trimesh_ball_pivoting
+trimesh_ray
 dir
 
-trimesh_inertia
-dir
-
-colorspace
+trimesh_voronoiclustering
 dir
 
 trimesh_join
 dir
 
-trimesh_attribute
+colorspace
 dir
 
-trimesh_fitting
+trimesh_texture
 dir
 
 trimesh_edge
 dir
 
+trimesh_pointmatching
+dir
+
 trimesh_pos_demo
+dir
+
+space_minimal
 dir
 
 trimesh_smooth
 dir
 
-trimesh_copy
+img_filters
 dir
 
 trimesh_sampling
 dir
 
+trimesh_copy
+dir
+
+trimesh_voroatlas
+dir
+
+trimesh_diskparam
+dir
+
 trimesh_topology
+dir
+
+trimesh_closest
 dir
 
 aabb_binary_tree
 dir
 
-trimesh_color
+trimesh_curvature
 dir
 
-space_packer
+polygonmesh_zonohedra
 dir
 
 sample.pro
@@ -172,10 +169,13 @@ cignoni
 
 1123
 
-trimesh_hole
+space_packer
 dir
 
-polygonmesh_quadsimpl
+trimesh_voronoisampling
+dir
+
+trimesh_hole
 dir
 
 trimesh_normal
@@ -184,13 +184,13 @@ dir
 trimesh_split_vertex
 dir
 
-trimesh_ray
+trimesh_ball_pivoting
 dir
 
-trimesh_voronoiclustering
+trimesh_inertia
 dir
 
-trimesh_texture
+trimesh_attribute
 dir
 
 trimesh_isosurface
@@ -199,10 +199,7 @@ dir
 polygonmesh_base
 dir
 
-trimesh_pointmatching
-dir
-
-space_minimal
+trimesh_fitting
 dir
 
 trimesh_intersection
@@ -211,21 +208,27 @@ dir
 trimesh_refine
 dir
 
-img_filters
-dir
-
-trimesh_voroatlas
-dir
-
 trimesh_base
 dir
 
-trimesh_diskparam
+trimesh_pointcloud_sampling
 dir
 
 hashing_2D
 dir
 
-trimesh_closest
+trimesh_color
+dir
+
+trimesh_kdtree
+dir
+
+trimesh_ant_freeglut
+dir
+
+trimesh_clustering
+dir
+
+trimesh_geodesic
 dir
 

@@ -141,7 +141,8 @@ public:
     tri::Allocator<MeshType>::AddVertices(m,1);
     m.vert.back().P() = f.cP(0)*p[0] + f.cP(1)*p[1] +f.cP(2)*p[2];
     m.vert.back().N() = f.cV(0)->N()*p[0] + f.cV(1)->N()*p[1] + f.cV(2)->N()*p[2];
-    m.vert.back().Q() = f.cV(0)->Q()*p[0] + f.cV(1)->Q()*p[1] + f.cV(2)->Q()*p[2];
+    if(tri::HasPerVertexQuality(m) )
+       m.vert.back().Q() = f.cV(0)->Q()*p[0] + f.cV(1)->Q()*p[1] + f.cV(2)->Q()*p[2];
   }
 }; // end class BaseSampler
 
@@ -432,8 +433,41 @@ static void VertexUniform(MetroMesh & m, VertexSampler &ps, int sampleNum)
 		ps.AddVert(*vertVec[i]);
 }
 
+/// \brief Sample all the border corner vertices
+///
+/// It assumes that the border flag have been set over the mesh.
+/// All the vertices on the border where the surface forms an angle smaller than the given threshold are sampled.
+///
+static void VertexBorderCorner(MetroMesh & m, VertexSampler &ps, float angleRad)
+{
+  typename MetroMesh::template PerVertexAttributeHandle  <float> angleSumH = tri::Allocator<MetroMesh>:: template GetPerVertexAttribute<float> (m);
+
+  for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
+    angleSumH[vi]=0;
+
+  for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
+  {
+    for(int i=0;i<3;++i)
+    {
+      angleSumH[fi->V(i)] += vcg::Angle(fi->P2(i) - fi->P0(i),fi->P1(i) - fi->P0(i));
+    }
+  }
+
+  for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
+  {
+    if(angleSumH[vi]<angleRad)
+        ps.AddVert(*vi);
+  }
+
+  tri::Allocator<MetroMesh>:: template DeletePerVertexAttribute<float> (m,angleSumH);
+}
+
 /// Sample all the crease vertices.
-/// e.g. all the vertices where there are at least three non faux edges.
+/// It assumes that the crease edges had been marked as non-faux edges
+/// for example by using
+/// tri::UpdateFlags<MeshType>::FaceFauxCrease(mesh,creaseAngleRad);
+/// Then it chooses all the vertices where there are at least three non faux edges.
+///
 static void VertexCrease(MetroMesh & m, VertexSampler &ps)
 {
   typedef typename UpdateTopology<MetroMesh>::PEdge SimpleEdge;
@@ -1154,37 +1188,6 @@ static void FaceSimilar(MetroMesh & m, VertexSampler &ps,int sampleNum, bool dua
     }
 }
 
-// generate Poisson-disk sample using a set of pre-generated samples (with the Montecarlo algorithm)
-// It always return a point.
-static VertexPointer getPrecomputedMontecarloSample(Point3i &cell, MontecarloSHT & samplepool,float &currentRadius, bool adaptiveRadiusFlag)
-{
-	MontecarloSHTIterator cellBegin, cellEnd;
-	samplepool.Grid(cell, cellBegin, cellEnd);
-	if(adaptiveRadiusFlag)  currentRadius = (*cellBegin)->Q();
-	return *cellBegin;
-}
-
-static VertexPointer getBestPrecomputedMontecarloSample(Point3i &cell, MontecarloSHT & samplepool,float &currentRadius, bool adaptiveRadiusFlag)
-{
-  MontecarloSHTIterator cellBegin,cellEnd;
-  samplepool.Grid(cell, cellBegin, cellEnd);
-  VertexPointer bestSample=0;
-  int minRemoveCnt = std::numeric_limits<int>::max();
-  std::vector<typename MontecarloSHT::HashIterator> inSphVec;
-  for(MontecarloSHTIterator ci=cellBegin;ci!=cellEnd;++ci)
-  {
-    VertexPointer sp = *ci;
-    if(adaptiveRadiusFlag)  currentRadius = sp->Q();
-    int curRemoveCnt = samplepool.CountInSphere(sp->cP(),currentRadius,inSphVec);
-    if(curRemoveCnt < minRemoveCnt)
-    {
-      bestSample = sp;
-      minRemoveCnt = curRemoveCnt;
-    }
-  }
-  return bestSample;
-}
-
 // check the radius constrain
 static bool checkPoissonDisk(SampleSHT & sht, const Point3<ScalarType> & p, ScalarType radius)
 {
@@ -1210,6 +1213,7 @@ struct PoissonDiskParam
   {
     adaptiveRadiusFlag = false;
     bestSampleChoiceFlag = true;
+    bestSamplePoolSize = 10;
     radiusVariance =1;
     MAXLEVELS = 5;
     invertQuality = false;
@@ -1233,15 +1237,52 @@ struct PoissonDiskParam
 
   bool geodesicDistanceFlag;
   bool bestSampleChoiceFlag; // In poisson disk pruning when we choose a sample in a cell, we choose the sample that remove the minimal number of other samples. This previlege the "on boundary" samples.
+  int bestSamplePoolSize;
   bool adaptiveRadiusFlag;
   float radiusVariance;
   bool invertQuality;
-  bool preGenFlag;   // when generating a poisson distribution, you can initialize the set of computed points with ALL the vertices of another mesh. Useful for building progressive refinements.
+  bool preGenFlag;        // when generating a poisson distribution, you can initialize the set of computed points with ALL the vertices of another mesh. Useful for building progressive refinements.
   MetroMesh *preGenMesh;
   int MAXLEVELS;
 
   Stat *pds;
 };
+
+
+// generate Poisson-disk sample using a set of pre-generated samples (with the Montecarlo algorithm)
+// It always return a point.
+static VertexPointer getSampleFromCell(Point3i &cell, MontecarloSHT & samplepool)
+{
+	MontecarloSHTIterator cellBegin, cellEnd;
+	samplepool.Grid(cell, cellBegin, cellEnd);
+	return *cellBegin;
+}
+
+// Given a cell of the grid it search the point that remove the minimum number of other samples
+// it linearly scan all the points of a cell.
+
+static VertexPointer getBestPrecomputedMontecarloSample(Point3i &cell, MontecarloSHT & samplepool, ScalarType diskRadius, const PoissonDiskParam &pp)
+{
+  MontecarloSHTIterator cellBegin,cellEnd;
+  samplepool.Grid(cell, cellBegin, cellEnd);
+  VertexPointer bestSample=0;
+  int minRemoveCnt = std::numeric_limits<int>::max();
+  std::vector<typename MontecarloSHT::HashIterator> inSphVec;
+  int i=0;
+  for(MontecarloSHTIterator ci=cellBegin; ci!=cellEnd && i<pp.bestSamplePoolSize; ++ci,i++)
+  {
+    VertexPointer sp = *ci;
+    if(pp.adaptiveRadiusFlag)  diskRadius = sp->Q();
+    int curRemoveCnt = samplepool.CountInSphere(sp->cP(),diskRadius,inSphVec);
+    if(curRemoveCnt < minRemoveCnt)
+    {
+      bestSample = sp;
+      minRemoveCnt = curRemoveCnt;
+    }
+  }
+  return bestSample;
+}
+
 
 static ScalarType ComputePoissonDiskRadius(MetroMesh &origMesh, int sampleNum)
 {
@@ -1282,18 +1323,18 @@ static void ComputePoissonSampleRadii(MetroMesh &sampleMesh, ScalarType diskRadi
 	}
 }
 
-// Trivial approach that puts all the samples in a UG and removes all the ones that surely do not fit the
-static void PoissonDiskPruning(VertexSampler &ps, MetroMesh &montecarloMesh,
-                               ScalarType diskRadius, const struct PoissonDiskParam pp=PoissonDiskParam())
-{
-    // spatial index of montecarlo samples - used to choose a new sample to insert
-    MontecarloSHT montecarloSHT;
-    // initialize spatial hash table for searching
-    // radius is the radius of empty disk centered over the samples (e.g. twice of the empty space disk)
-    // This radius implies that when we pick a sample in a cell all that cell will not be touched again.
-    ScalarType cellsize = 4.0f* diskRadius / sqrt(3.0);
-    int t0 = clock();
+// initialize spatial hash table for searching
+// radius is the radius of empty disk centered over the samples (e.g. twice of the empty space disk)
+// This radius implies that when we pick a sample in a cell all that cell probably will not be touched again.
+// Howvever we must ensure that we do not put too many vertices inside each hash cell
 
+static void InitSpatialHashTable(MetroMesh &montecarloMesh, MontecarloSHT &montecarloSHT, ScalarType diskRadius,
+                                 const struct PoissonDiskParam pp=PoissonDiskParam())
+{
+  ScalarType cellsize = 2.0f* diskRadius / sqrt(3.0);
+  float occupancyRatio=0;
+  do
+  {
     // inflating
     BoxType bb=montecarloMesh.bbox;
     assert(!bb.IsNull());
@@ -1303,30 +1344,46 @@ static void PoissonDiskPruning(VertexSampler &ps, MetroMesh &montecarloMesh,
     int sizeY = std::max(1.0f,bb.DimY() / cellsize);
     int sizeZ = std::max(1.0f,bb.DimZ() / cellsize);
     Point3i gridsize(sizeX, sizeY, sizeZ);
-    if(pp.pds) pp.pds->gridSize = gridsize;
+
+    montecarloSHT.InitEmpty(bb, gridsize);
+
+    for (VertexIterator vi = montecarloMesh.vert.begin(); vi != montecarloMesh.vert.end(); vi++)
+      montecarloSHT.Add(&(*vi));
+    montecarloSHT.UpdateAllocatedCells();
+    if(pp.pds)
+    {
+      pp.pds->gridSize = gridsize;
+      pp.pds->gridCellNum = (int)montecarloSHT.AllocatedCells.size();
+    }
+    cellsize/=2.0f;
+    occupancyRatio = float(montecarloMesh.vn) / float(montecarloSHT.AllocatedCells.size());
+//    qDebug(" %i / %i = %6.3f", montecarloMesh.vn , montecarloSHT.AllocatedCells.size(),occupancyRatio);
+  }
+  while( occupancyRatio> 100);
+}
+
+// Trivial approach that puts all the samples in a UG and removes all the ones that surely do not fit the
+static void PoissonDiskPruning(VertexSampler &ps, MetroMesh &montecarloMesh,
+                               ScalarType diskRadius, const struct PoissonDiskParam pp=PoissonDiskParam())
+{
+    int t0 = clock();
+    // spatial index of montecarlo samples - used to choose a new sample to insert
+    MontecarloSHT montecarloSHT;
+    InitSpatialHashTable(montecarloMesh,montecarloSHT,diskRadius,pp);
 
     // if we are doing variable density sampling we have to prepare the random samples quality with the correct expected radii.
     // At this point we just assume that there is the quality values as sampled from the base mesh
     if(pp.adaptiveRadiusFlag)
         ComputePoissonSampleRadii(montecarloMesh, diskRadius, pp.radiusVariance, pp.invertQuality);
 
-    montecarloSHT.InitEmpty(bb, gridsize);
-
-    for (VertexIterator vi = montecarloMesh.vert.begin(); vi != montecarloMesh.vert.end(); vi++)
-        montecarloSHT.Add(&(*vi));
-
-    montecarloSHT.UpdateAllocatedCells();
-
-
     unsigned int (*p_myrandom)(unsigned int) = RandomInt;
     std::random_shuffle(montecarloSHT.AllocatedCells.begin(),montecarloSHT.AllocatedCells.end(), p_myrandom);
     int t1 = clock();
     if(pp.pds) {
-      pp.pds->gridCellNum = (int)montecarloSHT.AllocatedCells.size();
       pp.pds->montecarloSampleNum = montecarloMesh.vn;
     }
     int removedCnt=0;
-    if(pp.preGenFlag)
+    if(pp.preGenFlag && pp.preGenMesh !=0)
     {
       // Initial pass for pruning the Hashed grid with the an eventual pre initialized set of samples
       for(VertexIterator vi =pp.preGenMesh->vert.begin(); vi!=pp.preGenMesh->vert.end();++vi)
@@ -1345,9 +1402,14 @@ static void PoissonDiskPruning(VertexSampler &ps, MetroMesh &montecarloMesh,
             if( montecarloSHT.EmptyCell(montecarloSHT.AllocatedCells[i])  ) continue;
             ScalarType currentRadius =diskRadius;
             VertexPointer sp;
-            if(pp.geodesicDistanceFlag)
-            sp= getPrecomputedMontecarloSample(montecarloSHT.AllocatedCells[i], montecarloSHT, currentRadius, pp.adaptiveRadiusFlag);
-            sp = getBestPrecomputedMontecarloSample(montecarloSHT.AllocatedCells[i], montecarloSHT, currentRadius, pp.adaptiveRadiusFlag);
+            if(pp.bestSampleChoiceFlag)
+              sp = getBestPrecomputedMontecarloSample(montecarloSHT.AllocatedCells[i], montecarloSHT, diskRadius, pp);
+            else
+              sp = getSampleFromCell(montecarloSHT.AllocatedCells[i], montecarloSHT);
+
+            if(pp.adaptiveRadiusFlag)
+              currentRadius = sp->Q();
+
             ps.AddVert(*sp);
             if(pp.geodesicDistanceFlag) removedCnt += montecarloSHT.RemoveInSphereNormal(sp->cP(),sp->cN(),GDF,currentRadius);
                             else        removedCnt += montecarloSHT.RemoveInSphere(sp->cP(),currentRadius);
@@ -1648,8 +1710,8 @@ void PoissonSampling(MeshType &m, // the mesh that has to be sampled
 // simpler wrapper for the pruning
 //
 template <class MeshType>
-void PoissonPruning(MeshType &m, // the mesh that has to be sampled
-                    std::vector<Point3f> &poissonSamples, // the vector that will contain the set of points
+void PoissonPruning(MeshType &m, // the mesh that has to be pruned
+                    std::vector<Point3f> &poissonSamples, // the vector that will contain the chosen set of points
                     float & radius)
 {
     typedef tri::TrivialSampler<MeshType> BaseSampler;

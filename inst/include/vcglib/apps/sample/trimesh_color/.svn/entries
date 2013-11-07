@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_color
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimesh_color.cpp
-file
-
-
-
-
-2013-07-25T06:52:24.618398Z
-58337c4816719f0621302fbd3574e9fa
-2013-07-23T07:33:48.618537Z
-4920
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3276
 
 trimesh_color.pro
 file
@@ -93,4 +59,38 @@ has-props
 
 
 104
+
+trimesh_color.cpp
+file
+
+
+
+
+2013-07-25T06:52:24.618398Z
+58337c4816719f0621302fbd3574e9fa
+2013-07-23T07:33:48.618537Z
+4920
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3276
 

@@ -1,15 +1,15 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-07-26T14:01:17.531085Z
-4937
-cignoni
+2013-11-04T18:09:34.707783Z
+4986
+matteodelle
 
 
 
@@ -25,79 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-tsai
-dir
-
-gl
-dir
-
-io_trimesh
-dir
-
-ply
-dir
-
-io_edgemesh
-dir
-
-gcache
-dir
-
-mt
-dir
-
-callback.h
-file
-
-
-
-
-2013-06-21T07:08:21.863709Z
-f9a6dff9925fc1e740d399ae15c852dc
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2760
-
-bmt
-dir
-
-minpack
-dir
-
-io_tetramesh
-dir
-
-system
-dir
-
-qt
-dir
-
-gui
-dir
 
 miq
 dir
@@ -146,5 +73,78 @@ math
 dir
 
 opensg
+dir
+
+tsai
+dir
+
+io_trimesh
+dir
+
+gl
+dir
+
+ply
+dir
+
+io_edgemesh
+dir
+
+gcache
+dir
+
+mt
+dir
+
+minpack
+dir
+
+bmt
+dir
+
+callback.h
+file
+
+
+
+
+2013-06-21T07:08:21.863709Z
+f9a6dff9925fc1e740d399ae15c852dc
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2760
+
+io_tetramesh
+dir
+
+gui
+dir
+
+qt
+dir
+
+system
 dir
 

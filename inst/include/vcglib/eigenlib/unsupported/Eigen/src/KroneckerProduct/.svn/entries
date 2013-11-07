@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src/KroneckerProduct
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-KroneckerTensorProduct.h
-file
-
-
-
-
-2013-06-21T07:08:46.435831Z
-e8c7079bbb37b01049ed6d4cb27c20ab
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4862
 
 CMakeLists.txt
 file
@@ -93,4 +59,38 @@ has-props
 
 
 189
+
+KroneckerTensorProduct.h
+file
+
+
+
+
+2013-06-21T07:08:46.435831Z
+e8c7079bbb37b01049ed6d4cb27c20ab
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4862
 

@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,142 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-SparseExtra
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-e4ab405d155f1ea64aeb041ce7750235
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1083
-
-AutoDiff
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-068021dc4d23601124e5dfe53087b39e
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1083
-
-Polynomials
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-406461028c22b8cbc2e4ef529a8ee7a7
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4514
-
-AdolcForward
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-83b14b0d2f120cc1676ef30e4a795915
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4273
 
 NumericalDiff
 file
@@ -264,14 +128,14 @@ has-props
 
 1297
 
-Splines
+MPRealSupport
 file
 
 
 
 
 2013-06-21T07:08:51.419855Z
-36e3071c1350bb2e8b4fa9f8ee015e9e
+2d8c00320d91bda5cf0f2ff1d03547cd
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -296,7 +160,7 @@ has-props
 
 
 
-900
+4538
 
 CMakeLists.txt
 file
@@ -332,14 +196,14 @@ has-props
 
 425
 
-MPRealSupport
+Splines
 file
 
 
 
 
 2013-06-21T07:08:51.419855Z
-2d8c00320d91bda5cf0f2ff1d03547cd
+36e3071c1350bb2e8b4fa9f8ee015e9e
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -364,7 +228,7 @@ has-props
 
 
 
-4538
+900
 
 Skyline
 file
@@ -400,40 +264,6 @@ has-props
 
 644
 
-BVH
-file
-
-
-
-
-2013-06-21T07:08:51.419855Z
-38ff422557baef97ce47f9916baf352c
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5534
-
 FFT
 file
 
@@ -467,6 +297,40 @@ has-props
 
 
 13945
+
+BVH
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+38ff422557baef97ce47f9916baf352c
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5534
 
 OpenGLSupport
 file
@@ -640,4 +504,140 @@ has-props
 
 
 13532
+
+AutoDiff
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+068021dc4d23601124e5dfe53087b39e
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1083
+
+SparseExtra
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+e4ab405d155f1ea64aeb041ce7750235
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1083
+
+Polynomials
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+406461028c22b8cbc2e4ef529a8ee7a7
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4514
+
+AdolcForward
+file
+
+
+
+
+2013-06-21T07:08:51.419855Z
+83b14b0d2f120cc1676ef30e4a795915
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4273
 

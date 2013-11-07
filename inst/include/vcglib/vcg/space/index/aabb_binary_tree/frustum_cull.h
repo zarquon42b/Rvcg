@@ -183,7 +183,7 @@ protected:
 			if (
 				((fp->normal[0] * bminmax[fp->pVertexIndex[0]][0]) +
 				(fp->normal[1] * bminmax[fp->pVertexIndex[1]][1]) +
-				(fp->normal[2] * bminmax[fp->pVertexIndex[2]][2]) +
+				(fp->normal[2] * bminmax[fp->pVertexIndex[2]][2]) -
 				(fp->offset)) < ((ScalarType)0)
 			) {
 				return;
@@ -192,7 +192,7 @@ protected:
 			if (
 				((fp->normal[0] * bminmax[1 - fp->pVertexIndex[0]][0]) +
 				(fp->normal[1] * bminmax[1 - fp->pVertexIndex[1]][1]) +
-				(fp->normal[2] * bminmax[1 - fp->pVertexIndex[2]][2]) +
+				(fp->normal[2] * bminmax[1 - fp->pVertexIndex[2]][2]) -
 				(fp->offset)) < ((ScalarType)0)
 			) {
 				newMask |=  k;
@@ -207,7 +207,7 @@ protected:
 				if (
 					((fp->normal[0] * bminmax[fp->pVertexIndex[0]][0]) +
 					(fp->normal[1] * bminmax[fp->pVertexIndex[1]][1]) +
-					(fp->normal[2] * bminmax[fp->pVertexIndex[2]][2]) +
+					(fp->normal[2] * bminmax[fp->pVertexIndex[2]][2]) -
 					(fp->offset)) < ((ScalarType)0)
 				) {
 					node->Flags() = (node->Flags() & ((~0x0) & (0x7 << ClassType::FC_FIRST_PLANE_BIT))) | (i << ClassType::FC_FIRST_PLANE_BIT);
@@ -217,7 +217,7 @@ protected:
 				if (
 					((fp->normal[0] * bminmax[1 - fp->pVertexIndex[0]][0]) +
 					(fp->normal[1] * bminmax[1 - fp->pVertexIndex[1]][1]) +
-					(fp->normal[2] * bminmax[1 - fp->pVertexIndex[2]][2]) +
+					(fp->normal[2] * bminmax[1 - fp->pVertexIndex[2]][2]) -
 					(fp->offset)) < ((ScalarType)0)
 				) {
 					newMask |=  k;
@@ -226,13 +226,20 @@ protected:
 			}
 		}
 
-		if (fullInside || (node->IsLeaf()) || (node->ObjectsCount() <= minNodeObjectsCount)) {
+		// Intermediate BVs containing a sufficient number of objects are marked fully visible even if they don't
+		if (fullInside || (node->ObjectsCount() <= minNodeObjectsCount)) {
 			node->Flags() |= FC_FULLY_VISIBLE_BIT;
 			nodeApply(*node);
 			return;
 		}
 
 		node->Flags() |= FC_PARTIALLY_VISIBLE_BIT;
+
+		if ((node->IsLeaf()))
+		{
+			nodeApply(*node);
+			return;
+		}
 
 		//ClassType::NodeVsFrustum(node->children[0], viewerPosition, f, newMask, minNodeObjectsCount, nodeApply);
 		//ClassType::NodeVsFrustum(node->children[1], viewerPosition, f, newMask, minNodeObjectsCount, nodeApply);

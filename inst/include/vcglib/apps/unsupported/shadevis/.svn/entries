@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/unsupported/shadevis
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-shadevis.txt
-file
-
-
-
-
-2013-06-21T07:06:53.395270Z
-70e88db8774477f7eed7a2c1e2ad50f1
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6236
 
 shadevis.cpp
 file
@@ -195,4 +161,38 @@ cignoni
 
 
 700
+
+shadevis.txt
+file
+
+
+
+
+2013-06-21T07:06:53.395270Z
+70e88db8774477f7eed7a2c1e2ad50f1
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6236
 

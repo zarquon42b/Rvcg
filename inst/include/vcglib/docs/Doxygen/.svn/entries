@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/docs/Doxygen
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,108 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-vcg.css
-file
-
-
-
-
-2013-06-21T07:08:07.227636Z
-c9433629e608b2b61a4ec501bf5ef5a1
-2012-10-15T07:59:28.051873Z
-4591
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-145
-
-install.dxy
-file
-
-
-
-
-2013-07-25T06:52:24.722399Z
-58303b504d74221c5c9ff12d748630cc
-2013-06-25T10:23:25.607913Z
-4910
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2375
-
-index.dxy
-file
-
-
-
-
-2013-06-21T07:08:07.227636Z
-f2c2b4995df5739fc744bdb3bafc75a8
-2012-10-30T18:49:32.008158Z
-4678
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2707
 
 img
 dir
@@ -199,40 +97,6 @@ has-props
 
 194
 
-groups.dxy
-file
-
-
-
-
-2013-06-21T07:08:07.223636Z
-ed0a39d6089374c3c96c5324774a0273
-2012-11-07T01:24:45.064120Z
-4687
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1165
-
 namespaces.dxy
 file
 
@@ -266,6 +130,40 @@ cignoni
 
 
 1016
+
+groups.dxy
+file
+
+
+
+
+2013-06-21T07:08:07.223636Z
+ed0a39d6089374c3c96c5324774a0273
+2012-11-07T01:24:45.064120Z
+4687
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1165
 
 doxyfile
 file
@@ -369,40 +267,6 @@ has-props
 
 4040
 
-attributes.dxy
-file
-
-
-
-
-2013-06-21T07:08:07.227636Z
-a2a63e0e1199b1b1d8574ca9a009daff
-2012-10-11T10:36:05.183822Z
-4571
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2819
-
 metro.dxy
 file
 
@@ -436,6 +300,40 @@ has-props
 
 
 2488
+
+attributes.dxy
+file
+
+
+
+
+2013-06-21T07:08:07.227636Z
+a2a63e0e1199b1b1d8574ca9a009daff
+2012-10-11T10:36:05.183822Z
+4571
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2819
 
 fileformat.dxy
 file
@@ -606,4 +504,106 @@ cignoni
 
 
 3124
+
+vcg.css
+file
+
+
+
+
+2013-06-21T07:08:07.227636Z
+c9433629e608b2b61a4ec501bf5ef5a1
+2012-10-15T07:59:28.051873Z
+4591
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+145
+
+install.dxy
+file
+
+
+
+
+2013-07-25T06:52:24.722399Z
+58303b504d74221c5c9ff12d748630cc
+2013-06-25T10:23:25.607913Z
+4910
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2375
+
+index.dxy
+file
+
+
+
+
+2013-06-21T07:08:07.227636Z
+f2c2b4995df5739fc744bdb3bafc75a8
+2012-10-30T18:49:32.008158Z
+4678
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2707
 

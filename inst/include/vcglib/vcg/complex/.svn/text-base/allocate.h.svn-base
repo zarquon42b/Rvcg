@@ -26,6 +26,8 @@
 
 #include <map>
 #include <set>
+#include <vcg/container/simple_temporary_data.h>
+#include <vcg/space/color4.h>
 
 namespace vcg {
 
@@ -97,6 +99,8 @@ namespace tri {
 			typedef typename MeshType::HEdgePointer  HEdgePointer;
 			typedef typename MeshType::HEdgeIterator HEdgeIterator;
 			typedef typename MeshType::HEdgeContainer HEdgeContainer;
+
+			typedef typename MeshType::CoordType     CoordType;
 
 
 			typedef typename MeshType::PointerToAttribute PointerToAttribute;
@@ -226,10 +230,29 @@ namespace tri {
 				VertexIterator v_ret =  AddVertices(m, n,pu);
 
                 typename std::vector<VertexPointer *>::iterator vi;
-            for(vi=local_vec.begin();vi!=local_vec.end();++vi)
-               pu.Update(**vi);
+                for(vi=local_vec.begin();vi!=local_vec.end();++vi)
+                  pu.Update(**vi);
                 return v_ret;
             }
+
+            /** \brief Wrapper to AddVertices() to add a single vertex with given coords
+            */
+            static VertexIterator AddVertex(MeshType &m, const CoordType &p)
+            {
+              VertexIterator v_ret =  AddVertices(m, 1);
+              v_ret->P()=p;
+              return v_ret;
+            }
+            /** \brief Wrapper to AddVertices() to add a single vertex with given coords and color
+            */
+            static VertexIterator AddVertex(MeshType &m, const CoordType &p, const Color4b &c)
+            {
+              VertexIterator v_ret =  AddVertices(m, 1);
+              v_ret->P()=p;
+              v_ret->C()=c;
+              return v_ret;
+            }
+
 
       /* ++++++++++ edges +++++++++++++ */
             /** \brief Add n edges to the mesh.
@@ -432,6 +455,10 @@ namespace tri {
 			*/
 			static FaceIterator AddFace(MeshType &m, VertexPointer v0, VertexPointer v1, VertexPointer v2)
 			{
+			  assert(m.vert.size()>0);
+			  assert(v0>=&m.vert.front() && v0<=&m.vert.back());
+			  assert(v1>=&m.vert.front() && v1<=&m.vert.back());
+			  assert(v2>=&m.vert.front() && v2<=&m.vert.back());
 				PointerUpdater<FacePointer> pu;
 				FaceIterator fi = AddFaces(m,1,pu);
 				fi->V(0)=v0;

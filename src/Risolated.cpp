@@ -35,7 +35,7 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
   std::vector<float> chunks;
   std::vector<int> chunkface;
   //int CCm = tri::Clean<MyMesh>::ConnectedComponents(m);
-  tri::ConnectedIterator<MyMesh> ci;
+  tri::ConnectedComponentIterator<MyMesh> ci;
   for(unsigned int i1=0;i1<CCV.size();++i1)
     {
       Box3f bb;

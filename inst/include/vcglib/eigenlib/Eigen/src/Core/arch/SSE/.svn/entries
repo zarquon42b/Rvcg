@@ -1,7 +1,7 @@
 10
 
 dir
-4937
+4987
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Core/arch/SSE
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-PacketMath.h
-file
-
-
-
-
-2013-06-21T07:08:27.683737Z
-05e4cbfd5c4275b680e3b97ee6311d14
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-25805
-
-MathFunctions.h
-file
-
-
-
-
-2013-06-21T07:08:27.683737Z
-f1232c1e4691eb58be0a8ef861a01621
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-12634
 
 CMakeLists.txt
 file
@@ -161,4 +93,72 @@ has-props
 
 
 17843
+
+PacketMath.h
+file
+
+
+
+
+2013-06-21T07:08:27.683737Z
+05e4cbfd5c4275b680e3b97ee6311d14
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+25805
+
+MathFunctions.h
+file
+
+
+
+
+2013-06-21T07:08:27.683737Z
+f1232c1e4691eb58be0a8ef861a01621
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12634
 
