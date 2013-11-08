@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,10 +26,16 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-SuperLUSupport
+Geometry
+dir
+
+misc
 dir
 
 SVD
+dir
+
+SuperLUSupport
 dir
 
 OrderingMethods
@@ -47,16 +53,16 @@ dir
 StlSupport
 dir
 
-IterativeLinearSolvers
-dir
-
 PaStiXSupport
 dir
 
-SparseCore
+IterativeLinearSolvers
 dir
 
 Eigen2Support
+dir
+
+SparseCore
 dir
 
 Eigenvalues
@@ -68,7 +74,7 @@ file
 
 
 
-2013-06-21T07:08:40.971803Z
+2013-11-08T10:03:39.909040Z
 2ebef3f13165f24e7bc3f09b782f73b2
 2011-10-05T15:04:40.740408Z
 4180
@@ -121,11 +127,5 @@ Jacobi
 dir
 
 Core
-dir
-
-misc
-dir
-
-Geometry
 dir
 

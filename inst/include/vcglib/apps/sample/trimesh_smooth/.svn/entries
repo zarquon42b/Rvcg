@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_smooth
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,47 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-trimesh_smooth.cpp
-file
-
-
-
-
-2013-06-21T07:05:23.822826Z
-a43a7bf51f713eddcb3a831fc7d28faa
-2012-10-11T10:40:07.933527Z
-4572
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3738
-
 trimesh_smooth.pro
 file
 
 
 
 
-2013-06-21T07:05:23.822826Z
+2013-11-08T10:03:34.481014Z
 a6e93e14ba465a630c783d9baa7dfc0d
 2012-10-09T08:43:35.607016Z
 4566
@@ -93,4 +59,38 @@ cignoni
 
 
 106
+
+trimesh_smooth.cpp
+file
+
+
+
+
+2013-11-08T10:03:34.481014Z
+a43a7bf51f713eddcb3a831fc7d28faa
+2012-10-11T10:40:07.933527Z
+4572
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3738
 

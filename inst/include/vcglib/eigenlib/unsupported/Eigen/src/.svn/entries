@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,12 +26,6 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-IterativeSolvers
-dir
-
-NonLinearOptimization
-dir
-
 MatrixFunctions
 dir
 
@@ -44,7 +38,7 @@ file
 
 
 
-2013-06-21T07:08:50.315850Z
+2013-11-08T10:03:40.437043Z
 8c78291a0bde4acfc056dda019e2b99b
 2012-10-05T07:27:34.803522Z
 4539
@@ -97,5 +91,11 @@ Polynomials
 dir
 
 NumericalDiff
+dir
+
+IterativeSolvers
+dir
+
+NonLinearOptimization
 dir
 

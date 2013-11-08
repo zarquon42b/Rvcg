@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_ball_pivoting
 svn://svn.code.sf.net/p/vcg/code
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-21T07:05:20.642810Z
+2013-11-08T10:03:34.005011Z
 877c08581232a9d803ebf21d1c264cdd
 2012-10-09T08:43:35.607016Z
 4566
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-21T07:05:20.642810Z
+2013-11-08T10:03:34.005011Z
 0640131004dbe3684c76de17511c0f2c
 2012-10-15T07:52:40.844928Z
 4590

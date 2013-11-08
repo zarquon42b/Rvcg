@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_inertia
 svn://svn.code.sf.net/p/vcg/code
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-21T07:05:20.994812Z
+2013-11-08T10:03:34.017011Z
 3ccd9dfefb88e435e9a078f12e6fa507
 2012-10-12T06:07:06.906058Z
 4582
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-21T07:05:20.994812Z
+2013-11-08T10:03:34.017011Z
 935b7a0e1cbe8e37947ae44fd6c70dae
 2012-10-16T09:08:19.337521Z
 4601

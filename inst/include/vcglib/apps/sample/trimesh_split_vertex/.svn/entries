@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_split_vertex
 svn://svn.code.sf.net/p/vcg/code
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-21T07:05:20.638810Z
+2013-11-08T10:03:34.001011Z
 b5513fa63060bcb8f132c584385c5589
 2012-11-05T10:10:33.340500Z
 4682
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-21T07:05:20.638810Z
+2013-11-08T10:03:34.001011Z
 6608e343819aca39519d95c8c2eebc1d
 2013-04-16T15:15:33.264748Z
 4889

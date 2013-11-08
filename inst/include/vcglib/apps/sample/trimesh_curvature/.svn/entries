@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_curvature
 svn://svn.code.sf.net/p/vcg/code
 
@@ -32,7 +32,7 @@ file
 
 
 
-2013-06-21T07:05:24.354828Z
+2013-11-08T10:03:34.569014Z
 fbe2f99538733fffbcf68426a4935b53
 2012-10-09T10:25:00.890420Z
 4568
@@ -66,7 +66,7 @@ file
 
 
 
-2013-06-21T07:05:24.354828Z
+2013-11-08T10:03:34.569014Z
 1461fd386be7cc68f7c83bee9b8b1aa3
 2013-01-30T17:18:55.488904Z
 4811

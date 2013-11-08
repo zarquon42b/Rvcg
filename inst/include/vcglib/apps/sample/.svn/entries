@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,10 +26,140 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-trimesh_allocate
+img_filters
+dir
+
+trimesh_smooth
+dir
+
+trimesh_copy
+dir
+
+trimesh_sampling
+dir
+
+trimesh_voroatlas
+dir
+
+trimesh_diskparam
+dir
+
+trimesh_closest
+dir
+
+trimesh_topology
+dir
+
+aabb_binary_tree
+dir
+
+trimesh_curvature
+dir
+
+polygonmesh_zonohedra
+dir
+
+space_packer
+dir
+
+sample.pro
+file
+
+
+
+
+2013-11-08T10:03:34.601014Z
+960b7c5cd41ba966eaa60742e18eccf0
+2013-03-26T11:33:17.680890Z
+4874
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1123
+
+trimesh_voronoisampling
+dir
+
+trimesh_hole
+dir
+
+trimesh_normal
+dir
+
+trimesh_split_vertex
+dir
+
+trimesh_ball_pivoting
+dir
+
+trimesh_inertia
+dir
+
+trimesh_isosurface
+dir
+
+polygonmesh_base
+dir
+
+trimesh_attribute
+dir
+
+trimesh_fitting
+dir
+
+trimesh_intersection
+dir
+
+trimesh_refine
+dir
+
+trimesh_base
+dir
+
+trimesh_pointcloud_sampling
+dir
+
+hashing_2D
+dir
+
+trimesh_color
+dir
+
+trimesh_kdtree
+dir
+
+trimesh_clustering
+dir
+
+trimesh_ant_freeglut
+dir
+
+trimesh_geodesic
 dir
 
 trimesh_QT
+dir
+
+trimesh_allocate
 dir
 
 trimesh_optional
@@ -44,7 +174,7 @@ file
 
 
 
-2013-06-21T07:05:24.410829Z
+2013-11-08T10:03:34.601014Z
 eb3fd98ff28db5159a8fd50ef96b4659
 2012-10-16T09:08:19.337521Z
 4601
@@ -100,135 +230,5 @@ trimesh_pos_demo
 dir
 
 space_minimal
-dir
-
-trimesh_smooth
-dir
-
-img_filters
-dir
-
-trimesh_sampling
-dir
-
-trimesh_copy
-dir
-
-trimesh_voroatlas
-dir
-
-trimesh_diskparam
-dir
-
-trimesh_topology
-dir
-
-trimesh_closest
-dir
-
-aabb_binary_tree
-dir
-
-trimesh_curvature
-dir
-
-polygonmesh_zonohedra
-dir
-
-sample.pro
-file
-
-
-
-
-2013-06-21T07:05:24.410829Z
-960b7c5cd41ba966eaa60742e18eccf0
-2013-03-26T11:33:17.680890Z
-4874
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1123
-
-space_packer
-dir
-
-trimesh_voronoisampling
-dir
-
-trimesh_hole
-dir
-
-trimesh_normal
-dir
-
-trimesh_split_vertex
-dir
-
-trimesh_ball_pivoting
-dir
-
-trimesh_inertia
-dir
-
-trimesh_attribute
-dir
-
-trimesh_isosurface
-dir
-
-polygonmesh_base
-dir
-
-trimesh_fitting
-dir
-
-trimesh_intersection
-dir
-
-trimesh_refine
-dir
-
-trimesh_base
-dir
-
-trimesh_pointcloud_sampling
-dir
-
-hashing_2D
-dir
-
-trimesh_color
-dir
-
-trimesh_kdtree
-dir
-
-trimesh_ant_freeglut
-dir
-
-trimesh_clustering
-dir
-
-trimesh_geodesic
 dir
 

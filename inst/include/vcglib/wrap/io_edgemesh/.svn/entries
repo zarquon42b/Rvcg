@@ -1,7 +1,7 @@
 10
 
 dir
-4987
+4988
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/io_edgemesh
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,47 +26,13 @@ cignoni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-export_dxf.h
-file
-
-
-
-
-2013-06-21T07:08:19.043695Z
-56fad818dde082d64221d729f07814b3
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3541
-
 export_svg.h
 file
 
 
 
 
-2013-06-21T07:08:19.043695Z
+2013-11-08T10:03:38.665034Z
 e631914ca5c9a2ab995c7d3689c51788
 2011-10-05T15:04:40.740408Z
 4180
@@ -93,4 +59,38 @@ cignoni
 
 
 7849
+
+export_dxf.h
+file
+
+
+
+
+2013-11-08T10:03:38.665034Z
+56fad818dde082d64221d729f07814b3
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3541
 
