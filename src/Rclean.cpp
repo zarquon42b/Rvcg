@@ -13,7 +13,7 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
   // declare Mesh and helper variables
   int select = Rcpp::as<int>(_type);  
   double tol = Rcpp::as<double>(_tol);  
-  int i, j;
+  int i, j, rem;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
@@ -37,27 +37,24 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
    
   // do all the cleaning
     
-  if (select == 1)
-    { int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
-      printf("removed %d unreferenced vertices\n",unref);
-    }
-  int rem;
-  if (select == 2)
-    { rem = tri::Clean<MyMesh>::RemoveNonManifoldFace(m);
-      printf("removed %d Non-manifold faces\n",rem);
-    }
-  if (select == 3)
-    { rem = tri::Clean<MyMesh>::RemoveDegenerateFace(m);
-      printf("removed %d degenerate faces\n",rem);
-    }
-  if (select == 4)
-    { rem = tri::Clean<MyMesh>::RemoveNonManifoldVertex(m);
-      printf("removed %d Non-manifold vertices\n",rem);
-    }
-  if (select == 5)
-    { int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
-      printf("split %d non-manifold vertices\n",split);
-    }
+  if (select == 1) { 
+    int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+    printf("removed %d unreferenced vertices\n",unref);
+  } else if (select == 2) { 
+    rem = tri::Clean<MyMesh>::RemoveNonManifoldFace(m);
+    printf("removed %d Non-manifold faces\n",rem);
+  } else if (select == 3) { 
+    rem = tri::Clean<MyMesh>::RemoveDegenerateFace(m);
+    printf("removed %d degenerate faces\n",rem);
+  } else if (select == 4) {
+    rem = tri::Clean<MyMesh>::RemoveNonManifoldVertex(m);
+    printf("removed %d Non-manifold vertices\n",rem);
+  } else if (select == 5) { 
+    int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
+    printf("split %d non-manifold vertices\n",split);
+  } else {
+    printf("unknown parameter\n");
+  }
   
  
   // write back
@@ -73,35 +70,31 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
   vi=m.vert.begin();
   SimpleTempData<MyMesh::VertContainer,int> indiceout(m.vert);
  
-  for (i=0;  i < m.vn; i++) 
-    {
-      if( ! vi->IsD() )
-	{
-	  indiceout[vi] = i;//important: updates vertex indices
-	  vbout(0,i) = (*vi).P()[0];
-	  vbout(1,i) = (*vi).P()[1];
-	  vbout(2,i) = (*vi).P()[2];
-	  normals(0,i) = (*vi).N()[0];
-	  normals(1,i) = (*vi).N()[1];
-	  normals(2,i) = (*vi).N()[2];
-	}
-	  ++vi;
+  for (i=0;  i < m.vn; i++) {
+    if( ! vi->IsD() )	{
+      indiceout[vi] = i;//important: updates vertex indices
+      vbout(0,i) = (*vi).P()[0];
+      vbout(1,i) = (*vi).P()[1];
+      vbout(2,i) = (*vi).P()[2];
+      normals(0,i) = (*vi).N()[0];
+      normals(1,i) = (*vi).N()[1];
+      normals(2,i) = (*vi).N()[2];
     }
+    ++vi;
+  }
   
   FacePointer fp;
   fi=m.face.begin();
-       
-  for (i=0; i < m.fn; i++) 
-    {
-      fp=&(*fi);
-      if( ! fp->IsD() )
-	{
-	  itout(0,i) = indiceout[fp->cV(0)]+1;
-	  itout(1,i) = indiceout[fp->cV(1)]+1;
-	  itout(2,i) = indiceout[fp->cV(2)]+1;
-	  ++fi;
-	}
+  
+  for (i=0; i < m.fn; i++) {
+    fp=&(*fi);
+    if( ! fp->IsD() ) {
+      itout(0,i) = indiceout[fp->cV(0)]+1;
+      itout(1,i) = indiceout[fp->cV(1)]+1;
+      itout(2,i) = indiceout[fp->cV(2)]+1;
+      ++fi;
     }
+  }
   
   return Rcpp::List::create(Rcpp::Named("vb") = vbout,
 			    Rcpp::Named("it") = itout,

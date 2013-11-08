@@ -42,31 +42,27 @@ namespace Rvcg
 	vcg::SimpleTempData<typename MeshType::FaceContainer, int> indicesf(m.face);
 	vcg::SimpleTempData<typename MeshType::VertContainer, int> indices(m.vert);
 	VertexIterator vi = m.vert.begin();
-	for (i=0; i < d; i++) 
-	  {
-	    ivp[i]=&*vi;
-	    x = vb(0,i);
-	    y = vb(1,i);
-	    z = vb(2,i);
-	    (*vi).P() = CoordType(x,y,z);
-	    ++vi;
-	  } 
-    
+	for (i=0; i < d; i++) {
+	  ivp[i]=&*vi;
+	  x = vb(0,i);
+	  y = vb(1,i);
+	  z = vb(2,i);
+	  (*vi).P() = CoordType(x,y,z);
+	  ++vi;
+	} 
+	
 	int itx,ity,itz;
 	FaceIterator fi=m.face.begin();
-	for (i=0; i < faced ; i++) 
-	  {
-	    indicesf[fi] = i;
-	    itx = it(0,i);
-	    ity = it(1,i);
-	    itz = it(2,i);
-	    (*fi).V(0)=ivp[itx];
-	    (*fi).V(1)=ivp[ity];
-	    (*fi).V(2)=ivp[itz];
-	    ++fi;
-	  }
-	
+	for (i=0; i < faced ; i++) {
+	  indicesf[fi] = i;
+	  itx = it(0,i);
+	  ity = it(1,i);
+	  itz = it(2,i);
+	  (*fi).V(0)=ivp[itx];
+	  (*fi).V(1)=ivp[ity];
+	  (*fi).V(2)=ivp[itz];
+	  ++fi;
+	}
       }
     };
-	
 }

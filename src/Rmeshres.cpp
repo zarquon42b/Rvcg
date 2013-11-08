@@ -1,17 +1,3 @@
-// stuff to define the mesh
-#include <vcg/complex/complex.h>
-#include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/complex/algorithms/update/bounding.h>
-#include <vcg/complex/algorithms/update/flag.h>
-//#include <vcg/math/quadric.h>
-#include <vcg/complex/algorithms/clean.h>
-// update
-#include <vcg/complex/algorithms/update/topology.h>
-#include <vcg/container/simple_temporary_data.h>
-#include<vcg/complex/allocate.h>
-#include <wrap/callback.h>
-#include <vcg/complex/append.h>
-#include <vcg/simplex/face/pos.h>
 #include "typedef.h"
 #include "RvcgIO.h"
 #include <Rcpp.h>
@@ -46,8 +32,7 @@ RcppExport SEXP Rmeshres(SEXP _vb , SEXP _it)
     double tmp1;
     Point3f tmp0;
     VertexPointer vp , vp1;
-    for (i = 0;i < size;i++)
-    {
+    for (i = 0;i < size;i++) {
       vp=Edges[i].v[0];
       vp1=Edges[i].v[1];
       tmp0 = vp->P()-vp1->P();

@@ -28,15 +28,15 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
   SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
   SimpleTempData<MyMesh::FaceContainer,int> indicesf(m.face);
   vi = m.vert.begin();
-  for (i=0; i < m.vn; i++) 
-    {indices[vi] = i;
-      ++vi;
-    }
+  for (i=0; i < m.vn; i++) {
+    indices[vi] = i;
+    ++vi;
+  }
   fi = m.face.begin();
-  for (i=0; i < m.fn ; i++) 
-    {indicesf[fi] = i;
-      ++fi;
-    }
+  for (i=0; i < m.fn ; i++) {
+    indicesf[fi] = i;
+    ++fi;
+  }
     
   std::vector<SimpleEdge> Edges;
   std::vector< SimpleEdge >::iterator ei;
@@ -45,12 +45,12 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
   tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
   tri::UpdateTopology<MyMesh>::FaceFace(m);
   tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m); 
-    
+  
   if (unique)
     tri::UpdateTopology<MyMesh>::FillUniqueEdgeVector(m,Edges,true);
   else
     tri::UpdateTopology<MyMesh>::FillEdgeVector(m,Edges,true);
-   
+  
   size=Edges.size();
   Rcpp::IntegerVector facept(size), border(size);
   Rcpp::IntegerMatrix edges(size,2);
@@ -59,25 +59,23 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
   VertexPointer vp , vp1;
   FacePointer fp;
   i=0;
-    
+  
   // for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
-  for (i = 0;i < size;i++)
-    {
-      vp=Edges[i].v[0];
-      vp1=Edges[i].v[1];
-      fp=Edges[i].f;
-      if( (*fp).IsB(Edges[i].z)==true )
-	border[i] = 1;
-		
-      edges(i,0)=indices[vp]+1;
-      edges(i,1)=indices[vp1]+1;
-      facept[i] = indicesf[Edges[i].f]+1;
-    }
+  for (i = 0;i < size;i++) {
+    vp=Edges[i].v[0];
+    vp1=Edges[i].v[1];
+    fp=Edges[i].f;
+    if( (*fp).IsB(Edges[i].z)==true )
+      border[i] = 1;
     
+    edges(i,0)=indices[vp]+1;
+    edges(i,1)=indices[vp1]+1;
+    facept[i] = indicesf[Edges[i].f]+1;
+  }
+  
   return Rcpp::List::create(Rcpp::Named("edges") = edges,
 			    Rcpp::Named("facept") = facept,    
 			    Rcpp::Named("border") = border
 			    );
-  
 }
     

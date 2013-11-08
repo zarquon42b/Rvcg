@@ -36,34 +36,30 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
   std::vector<int> chunkface;
   //int CCm = tri::Clean<MyMesh>::ConnectedComponents(m);
   tri::ConnectedComponentIterator<MyMesh> ci;
-  for(unsigned int i1=0;i1<CCV.size();++i1)
-    {
-      Box3f bb;
-      std::vector<MyMesh::FacePointer> FPV;
-      for(ci.start(m,CCV[i1].second);!ci.completed();++ci)
-	{
-	  FPV.push_back(*ci);
-	  bb.Add((*ci)->P(0));
-	  bb.Add((*ci)->P(1));
-	  bb.Add((*ci)->P(2));
-	} 
-      float diag = bb.Diag();
-      chunks.push_back(diag);
-      chunkface.push_back(CCV[i1].first);
-    }
-   
+  for(unsigned int i1=0;i1<CCV.size();++i1) {
+    Box3f bb;
+    std::vector<MyMesh::FacePointer> FPV;
+    for(ci.start(m,CCV[i1].second);!ci.completed();++ci) {
+      FPV.push_back(*ci);
+      bb.Add((*ci)->P(0));
+      bb.Add((*ci)->P(1));
+      bb.Add((*ci)->P(2));
+    } 
+    float diag = bb.Diag();
+    chunks.push_back(diag);
+    chunkface.push_back(CCV[i1].first);
+  }
+  
   if (diameter == 0)
     diameter = *std::max_element(chunks.begin(),chunks.end());
-    
-  if (connect < 0)
+  
+  if (connect < 0) {
     delInfo= tri::Clean<MyMesh>::RemoveSmallConnectedComponentsDiameter(m,diameter);
-     
-  else 
-    {
-      if (connect == 0)
-	connect = *std::max_element(chunkface.begin(),chunkface.end());
-      delInfo = tri::Clean<MyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
-    }
+  } else {
+    if (connect == 0)
+      connect = *std::max_element(chunkface.begin(),chunkface.end());
+    delInfo = tri::Clean<MyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
+  }
       
   printf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
   int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
@@ -76,31 +72,28 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
   Rcpp::NumericMatrix vb(3, m.vn), normals(3, m.vn);
   Rcpp::IntegerMatrix itout(3, m.fn);
   vi=m.vert.begin();
-  for (i=0;  i < m.vn; i++) 
-    {
-      indices[vi] = i;//important: updates vertex indices
-      vb(0,i) = (*vi).P()[0];
-      vb(1,i) = (*vi).P()[1];
-      vb(2,i) = (*vi).P()[2];
-      normals(0,i) = (*vi).N()[0];
-      normals(1,i) = (*vi).N()[1];
-      normals(2,i) = (*vi).N()[2];
-      ++vi;
-    }
-    
+  for (i=0;  i < m.vn; i++) {
+    indices[vi] = i;//important: updates vertex indices
+    vb(0,i) = (*vi).P()[0];
+    vb(1,i) = (*vi).P()[1];
+    vb(2,i) = (*vi).P()[2];
+    normals(0,i) = (*vi).N()[0];
+    normals(1,i) = (*vi).N()[1];
+    normals(2,i) = (*vi).N()[2];
+    ++vi;
+  }
+  
   FacePointer fp;
   fi=m.face.begin();
-  for (i=0; i < m.fn;i++) 
-    {
-      fp=&(*fi);
-      if( ! fp->IsD() )
-	{
-	  itout(0,i) = indices[fp->cV(0)]+1;
-	  itout(1,i) = indices[fp->cV(1)]+1;
-	  itout(2,i) = indices[fp->cV(2)]+1;
-	  ++fi;
-	}
+  for (i=0; i < m.fn;i++) {
+    fp=&(*fi);
+    if( ! fp->IsD() ) {
+      itout(0,i) = indices[fp->cV(0)]+1;
+      itout(1,i) = indices[fp->cV(1)]+1;
+      itout(2,i) = indices[fp->cV(2)]+1;
+      ++fi;
     }
+  }
   return Rcpp::List::create(Rcpp::Named("vb") = vb,
 			    Rcpp::Named("normals") = normals,
 			    Rcpp::Named("it") = itout

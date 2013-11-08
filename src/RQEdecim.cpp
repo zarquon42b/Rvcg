@@ -41,7 +41,7 @@ class CVertex  : public Vertex< CUsedTypes,
 				vertex::Normal3f,
 				vertex::Mark,
 				vertex::BitFlags  >
-                 {
+{
 		 public:
 		   vcg::math::Quadric<double> &Qd() {return q;}
 		 private:
@@ -148,31 +148,28 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   
   //write back data
   vi=m.vert.begin();
-  for (i=0;  i < m.vn; i++) 
-    {
-      indices[vi] = i;//important: updates vertex indices
-      vb(0,i) = (*vi).P()[0];
-      vb(1,i) = (*vi).P()[1];
-      vb(2,i) = (*vi).P()[2];
-      normals(0,i) = (*vi).N()[0];
-      normals(1,i) = (*vi).N()[1];
-      normals(2,i) = (*vi).N()[2];
-      ++vi;
-    }
-    
+  for (i=0;  i < m.vn; i++) {
+    indices[vi] = i;//important: updates vertex indices
+    vb(0,i) = (*vi).P()[0];
+    vb(1,i) = (*vi).P()[1];
+    vb(2,i) = (*vi).P()[2];
+    normals(0,i) = (*vi).N()[0];
+    normals(1,i) = (*vi).N()[1];
+    normals(2,i) = (*vi).N()[2];
+    ++vi;
+  }
+  
   FacePointer fp;
   fi=m.face.begin();
-  for (i=0; i < m.fn;i++) 
-    {
-      fp=&(*fi);
-      if( ! fp->IsD() )
-	{
-	  itout(0,i) = indices[fp->cV(0)]+1;
-	  itout(1,i) = indices[fp->cV(1)]+1;
-	  itout(2,i) = indices[fp->cV(2)]+1;
-	  ++fi;
-	}
+  for (i=0; i < m.fn;i++) {
+    fp=&(*fi);
+    if( ! fp->IsD() ) {
+      itout(0,i) = indices[fp->cV(0)]+1;
+      itout(1,i) = indices[fp->cV(1)]+1;
+      itout(2,i) = indices[fp->cV(2)]+1;
+      ++fi;
     }
+  }
   return Rcpp::List::create(Rcpp::Named("vb") = vb,
 			    Rcpp::Named("normals") = normals,
 			    Rcpp::Named("it") = itout
