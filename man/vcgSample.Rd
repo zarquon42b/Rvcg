@@ -4,7 +4,7 @@
 \usage{
   vcgSample(mesh, SampleNum = 100,
     type = c("km", "pd", "mc"), MCsamp = 20, geodes = TRUE,
-    strict = TRUE)
+    strict = FALSE)
 }
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d'}

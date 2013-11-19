@@ -15,7 +15,7 @@
 #' ss <- vcgSample(humface,SampleNum = 500, type=2)
 #' points3d(ss)
 #' @export vcgSample
-vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=TRUE)
+vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=FALSE)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
