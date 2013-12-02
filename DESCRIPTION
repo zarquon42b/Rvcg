@@ -49,3 +49,4 @@ Collate:
     'vcgSample.r'
     'vcgPlyWrite.r'
     'vcgRaySearch.r'
+    'vertAdj.r'
