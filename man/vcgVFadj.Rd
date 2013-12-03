@@ -1,8 +1,8 @@
-\name{vertAdj}
-\alias{vertAdj}
+\name{vcgVFadj}
+\alias{vcgVFadj}
 \title{get all faces belonging to each vertex in a mesh}
 \usage{
-  vertAdj(mesh)
+  vcgVFadj(mesh)
 }
 \arguments{
   \item{mesh}{triangular mesh}

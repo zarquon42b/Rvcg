@@ -4,13 +4,13 @@
 #' @param mesh triangular mesh
 #'
 #' @return list containing one vector per vertex with the indices of the adjacent faces 
-#' @export vertAdj
+#' @export vcgVFadj
 #' 
-vertAdj <- function(mesh) {
+vcgVFadj <- function(mesh) {
     it <- mesh$it-1
     storage.mode(it) <- "integer"
-    vn <- ncol(mesh$vb)
-    out <- .Call("RvertAdj",vn,it)
+    vb <- mesh$vb
+    out <- .Call("RVFadj",vb,it)
     
     return(out)
 }
