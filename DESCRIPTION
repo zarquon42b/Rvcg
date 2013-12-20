@@ -2,8 +2,8 @@ Package: Rvcg
 Type: Package
 Title: Manipulations of triangular meshes (smoothing, quadric edge collapse
     decimation, im- and export of PLY-files, etc.) based on the VCGLIB API.
-Version: 0.5.131108
-Date: 2013-11-08
+Version: 0.5.131220
+Date: 2013-12-20
 Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
 Description: Operations on triangular meshes based on VCGLIB
@@ -34,19 +34,3 @@ License: GPL (>= 2)
 Copyright: see COPYRIGHTS file for detailed information
 LazyLoad: yes
 URL: http://vcg.isti.cnr.it/~cignoni/newvcglib/html/
-Collate:
-    'Rvcg-package.R'
-    'vcgBorder.r'
-    'vcgClean.r'
-    'vcgClost.r'
-    'vcgCurve.r'
-    'vcgGetEdge.r'
-    'vcgIsolated.r'
-    'vcgMeshres.r'
-    'vcgPlyRead.r'
-    'vcgQEdecim.r'
-    'vcgSmooth.r'
-    'vcgSample.r'
-    'vcgPlyWrite.r'
-    'vcgRaySearch.r'
-    'vcgVFadj.r'

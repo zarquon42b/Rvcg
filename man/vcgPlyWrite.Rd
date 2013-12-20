@@ -2,8 +2,8 @@
 \alias{vcgPlyWrite}
 \title{Export meshes to PLY-files}
 \usage{
-  vcgPlyWrite(mesh, filename = dataname, binary = TRUE,
-    addNormals = FALSE, writeCol = TRUE)
+vcgPlyWrite(mesh, filename = dataname, binary = TRUE, addNormals = FALSE,
+  writeCol = TRUE)
 }
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d'}
@@ -20,7 +20,7 @@
   stored in mesh$material$color}
 }
 \description{
-  Export meshes to PLY-files (binary or ascii)
+Export meshes to PLY-files (binary or ascii)
 }
 \examples{
 data(humface)

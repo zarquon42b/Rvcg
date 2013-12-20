@@ -2,9 +2,8 @@
 \alias{vcgSample}
 \title{Subsample mesh surface}
 \usage{
-  vcgSample(mesh, SampleNum = 100,
-    type = c("km", "pd", "mc"), MCsamp = 20, geodes = TRUE,
-    strict = FALSE)
+vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
+  geodes = TRUE, strict = FALSE)
 }
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d'}
@@ -27,16 +26,15 @@
   to reach the requested number.}
 }
 \value{
-  sampled points
+sampled points
 }
 \description{
-  subsample surface of a triangular mesh
+subsample surface of a triangular mesh
 }
 \details{
-  Poisson disk subsampling will not generate the exact
-  amount of coordinates specified in \code{SampleNum},
-  depending on \code{MCsamp} the result wil bee more or
-  less coordinates.
+Poisson disk subsampling will not generate the exact amount
+of coordinates specified in \code{SampleNum}, depending on
+\code{MCsamp} the result wil bee more or less coordinates.
 }
 \examples{
 require(rgl)

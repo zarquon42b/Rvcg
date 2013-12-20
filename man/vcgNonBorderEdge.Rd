@@ -2,7 +2,7 @@
 \alias{vcgNonBorderEdge}
 \title{Get all non-border edges}
 \usage{
-  vcgNonBorderEdge(mesh, silent = FALSE)
+vcgNonBorderEdge(mesh, silent = FALSE)
 }
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d}
@@ -11,18 +11,18 @@
   about number of border edges}
 }
 \value{
-  returns a dataframe containing: \item{vert1}{integer
-  indicating the position of the first vertex belonging to
-  this edge} \item{vert2}{integer indicating the position
-  of the second vertex belonging to this edge}
-  \item{border}{integer indicating if the edge is at the
-  border of the mesh. = = no border, 1 = border}
-  \item{face1 }{integer pointing to the first face adjacent
-  to the edge} \item{face2 }{integer pointing to the first
-  face adjacent to the edge}
+returns a dataframe containing: \item{vert1}{integer
+indicating the position of the first vertex belonging to
+this edge} \item{vert2}{integer indicating the position of
+the second vertex belonging to this edge}
+\item{border}{integer indicating if the edge is at the
+border of the mesh. = = no border, 1 = border} \item{face1
+}{integer pointing to the first face adjacent to the edge}
+\item{face2 }{integer pointing to the first face adjacent
+to the edge}
 }
 \description{
-  Get all non-border edges and both faces adjacent to them.
+Get all non-border edges and both faces adjacent to them.
 }
 \examples{
 require(rgl)
