@@ -22,35 +22,32 @@
 #' @useDynLib Rvcg
 NULL
 
-#' Example mesh
+#' Example mesh and landmarks
 #'
-#' A triangular mesh representing a human face - called by \code{data(humface)}
+#' A triangular mesh representing a human face - called by data(humface)
 #' 
 #' @name humface
+#' @aliases humface humface.lm
 #' @docType data
-#' 
-NULL
-#' landmarks on mesh 'humface'
-#' @usage data(humface)
-#' landmarks on mesh 'humface'- called by \code{data(humface)}
-#' @name humface.lm
-#' @docType data
-#' 
+#' @format \code{humface}: triangular mesh representing a human face.
+#'
+#' \code{humface.lm}: landmarks on mesh 'humface'- called by data(humface)
+#'
+#' @keywords datasets
+
 NULL
 
-#' dummyhead mesh - called by data(dummyhead)
+
+#' dummyhead - dummy head and landmarks
 #'
-#' A triangular mesh representing a dummyhead - called by \code{data(dummyhead)}
+#' A triangular mesh representing a dummyhead - called by data(dummyhead)
 #' 
-#' @name dummyhead.mesh
+#' @name dummyhead
+#' @aliases dummyhead dummyhead.lm
 #' @docType data
-#' 
-NULL
-#' landmarks on mesh 'dummyhead'
-#' 
-#' landmarks on mesh 'dummyhead'- called by \code{data(dummyhead)}
+#' @format \code{dummyhead}: triangular mesh representing a dummyhead.
 #'
-#' @name dummyhead.lm
-#' @docType data
+#' \code{dummyhead.lm}: landmarks on mesh 'dummyhead'
+#' @keywords datasets
 #' 
 NULL

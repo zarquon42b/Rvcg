@@ -18,7 +18,9 @@
 #' data(humface)
 #' curv <- vcgCurve(humface)
 #' ##visualise per vertex mean curvature
+#' \dontrun{
 #' meshDist(humface,distvec=curv$meanvb,from=-0.2,to=0.2,tol=0.01)
+#' }
 #' @export vcgCurve
 vcgCurve <- function(mesh)
     {
