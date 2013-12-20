@@ -5,7 +5,7 @@ License: GPL-2+
 Files:	inst/include/vcglib/wrap/*
 	inst/include/vcglib/img/*
         inst/include/vcglib/vcg/*
-
+        src/ply/* ##copied from inst/include/vcglib/wrap/ 
 Copyright: Visual Computing Lab ISTI - Italian National Research Council
 License: GPL-2	
 

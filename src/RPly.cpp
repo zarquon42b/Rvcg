@@ -1,5 +1,5 @@
 #include "typedef.h"
-#include <wrap/ply/plylib.h>
+#include "ply/plylib.h"
 #include <vcg/container/simple_temporary_data.h>
 #include <wrap/io_trimesh/import.h>
 #include <string.h>
