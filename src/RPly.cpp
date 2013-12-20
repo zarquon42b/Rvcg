@@ -25,7 +25,7 @@ extern "C" {
     //load file
     int err2 = tri::io::ImporterPLY<MyMesh>::Open(m,file);
     if(err2) {
-      printf("Error in reading %s: '%s'\n",file,tri::io::Importer<MyMesh>::ErrorMsg(err2));
+      //printf("Error in reading %s: '%s'\n",file,tri::io::Importer<MyMesh>::ErrorMsg(err2));
       //exit(-1);  
     }
     //printf("%i",err2);

@@ -117,7 +117,7 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   int dup = tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
   int unref =  tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);
   
-  printf("reducing it to %i faces\n",FinalSize);
+  //printf("reducing it to %i faces\n",FinalSize);
     
   vcg::tri::UpdateBounding<CMeshDec>::Box(m);
     
@@ -141,7 +141,7 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   SimpleTempData<CMeshDec::VertContainer,int> indices(m.vert);
   tri::UpdateNormal<CMeshDec>::PerVertexAngleWeighted(m);
   tri::UpdateNormal<CMeshDec>::NormalizePerVertex(m);
-  printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
+  //printf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
     
   Rcpp::NumericMatrix vb(3, m.vn), normals(3, m.vn);
   Rcpp::IntegerMatrix itout(3, m.fn);

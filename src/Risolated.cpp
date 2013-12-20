@@ -61,7 +61,7 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
     delInfo = tri::Clean<MyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
   }
       
-  printf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
+  //printf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
   int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
   vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
