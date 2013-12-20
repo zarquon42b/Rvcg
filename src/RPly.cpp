@@ -88,13 +88,10 @@ extern "C" {
 	  
 	  FaceIterator fi=m.face.begin();
 	  
-	  if (m.fn > 0)
-	    {
-	      for (i=0; i < faced;i++) 
-		{
-		  fp=&(*fi);
-		  if( ! fp->IsD() )
-		    {
+	  if (m.fn > 0) {
+	    for (i=0; i < faced;i++) {
+	      fp=&(*fi);
+	      if( ! fp->IsD() ) {
 		      vv[0]=indices[fp->cV(0)];
 		      vv[1]=indices[fp->cV(1)];
 		      vv[2]=indices[fp->cV(2)];
@@ -102,9 +99,9 @@ extern "C" {
 		      it[i*3+1]=vv[1];
 		      it[i*3+2]=vv[2];
 		      ++fi;
-		    }
-		}
+	      }
 	    }
+	  }
 	}
       }
   }

@@ -20,7 +20,7 @@
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgSmooth}},
 #' @keywords ~kwd1 ~kwd2
-#' @export vcgPlyRead
+#' @export 
 
 vcgPlyRead <-function (file,updateNormals=TRUE,clean=TRUE)
 {
