@@ -125,12 +125,13 @@ public:
 	}
 
 	/// Assignment operator
-	inline FaceType & operator = ( const FaceType & h ){
+	inline PosType & operator = ( const PosType & h ){
 		f=h.f;
 		z=h.z;
 		v=h.v;
 		return *this;
 		}
+
 	/// Set to null the half-edge
 	void SetNull(){
 		f=0;
@@ -189,10 +190,11 @@ public:
 	void FlipF()
 	{
 		assert( f->FFp(z)->FFp(f->FFi(z))==f );  // two manifoldness check
+		// Check that pos vertex is one of the current z-th edge and it is different from the vert opposite to the edge.
 		assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z))==v));
 		FaceType *nf=f->FFp(z);
 		int nz=f->FFi(z);
-		assert(nf->V(f->Prev(nz))!=v && (nf->V(f->Next(nz))==v || nf->V((nz))==v));
+		assert(nf->V(nf->Prev(nz))!=v && (nf->V(nf->Next(nz))==v || nf->V((nz))==v));
 		f=nf;
 		z=nz;
 		assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));

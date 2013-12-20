@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/simplex/vertex
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+component.h
+file
+
+
+
+
+2013-11-08T10:03:31.841000Z
+36b161c4b0ae90130b24228069432903
+2013-09-24T13:55:23.069734Z
+4959
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+25041
 
 component_occ.h
 file
@@ -195,38 +229,4 @@ has-props
 
 
 2618
-
-component.h
-file
-
-
-
-
-2013-11-08T10:03:31.841000Z
-36b161c4b0ae90130b24228069432903
-2013-09-24T13:55:23.069734Z
-4959
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-25041
 

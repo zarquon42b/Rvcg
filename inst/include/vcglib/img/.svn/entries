@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/img
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-img_base.h
-file
-
-
-
-
-2013-11-08T10:03:38.801035Z
-e5563e454c9ab6f19f30597e117c6464
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1912
-
-img_info.h
-file
-
-
-
-
-2013-11-08T10:03:38.801035Z
-a8505acdd1405960d53f859647c1a34a
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1102
 
 img_cs_base.h
 file
@@ -365,4 +297,72 @@ has-props
 
 
 2647
+
+img_base.h
+file
+
+
+
+
+2013-11-08T10:03:38.801035Z
+e5563e454c9ab6f19f30597e117c6464
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1912
+
+img_info.h
+file
+
+
+
+
+2013-11-08T10:03:38.801035Z
+a8505acdd1405960d53f859647c1a34a
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1102
 

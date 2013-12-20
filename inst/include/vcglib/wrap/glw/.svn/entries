@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/glw
 svn://svn.code.sf.net/p/vcg/code
 
@@ -26,16 +26,16 @@ has-props
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-vertexshader.h
+renderbuffer.h
 file
 
 
 
 
 2013-11-08T10:03:37.969031Z
-5a50bbdcef70e77779c0e12191f35191
-2012-05-07T13:18:05.629767Z
-4407
+b80c38d5bd5df6491480227ac61e1d66
+2012-05-08T10:46:00.837775Z
+4410
 dibenedetto
 
 
@@ -58,177 +58,7 @@ dibenedetto
 
 
 
-3631
-
-config.h
-file
-
-
-
-
-2013-11-08T10:03:37.969031Z
-1fb26369d111ad673dd30faa30e124d6
-2012-05-19T17:59:50.630000Z
-4412
-dibenedetto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-383
-
-object.h
-file
-
-
-
-
-2013-11-08T10:03:37.969031Z
-2bdb0781f1868004aa819a95d08ae925
-2012-05-07T19:21:47.050983Z
-4409
-dibenedetto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6020
-
-shader.h
-file
-
-
-
-
-2013-11-08T10:03:37.969031Z
-cb9c4ffb901f6ceb1afa813952322db8
-2012-05-07T16:12:40.729865Z
-4408
-dibenedetto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6055
-
-program.h
-file
-
-
-
-
-2013-11-08T10:03:37.969031Z
-4701baa400535ea381716b34b255b0c2
-2012-06-02T00:35:04.072474Z
-4429
-dibenedetto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-20908
-
-noncopyable.h
-file
-
-
-
-
-2013-11-08T10:03:37.969031Z
-daa0a22ee1378fd0bafd0dd881b4295a
-2012-04-30T18:23:53.926492Z
-4393
-dibenedetto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-486
+5938
 
 buffer.h
 file
@@ -264,16 +94,16 @@ dibenedetto
 
 16754
 
-renderbuffer.h
+noncopyable.h
 file
 
 
 
 
 2013-11-08T10:03:37.969031Z
-b80c38d5bd5df6491480227ac61e1d66
-2012-05-08T10:46:00.837775Z
-4410
+daa0a22ee1378fd0bafd0dd881b4295a
+2012-04-30T18:23:53.926492Z
+4393
 dibenedetto
 
 
@@ -296,7 +126,7 @@ dibenedetto
 
 
 
-5938
+486
 
 objectdeleter.h
 file
@@ -400,40 +230,6 @@ dibenedetto
 
 3743
 
-framebuffer.h
-file
-
-
-
-
-2013-11-08T10:03:37.969031Z
-eb53ca2bac75d7d68e89be63b2fd731c
-2012-08-22T12:38:09.043025Z
-4494
-dibenedetto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-21046
-
 context.h
 file
 
@@ -467,6 +263,40 @@ dibenedetto
 
 
 23112
+
+framebuffer.h
+file
+
+
+
+
+2013-11-08T10:03:37.969031Z
+eb53ca2bac75d7d68e89be63b2fd731c
+2012-08-22T12:38:09.043025Z
+4494
+dibenedetto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21046
 
 texture2d.h
 file
@@ -807,4 +637,174 @@ dibenedetto
 
 
 9606
+
+vertexshader.h
+file
+
+
+
+
+2013-11-08T10:03:37.969031Z
+5a50bbdcef70e77779c0e12191f35191
+2012-05-07T13:18:05.629767Z
+4407
+dibenedetto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3631
+
+config.h
+file
+
+
+
+
+2013-11-08T10:03:37.969031Z
+1fb26369d111ad673dd30faa30e124d6
+2012-05-19T17:59:50.630000Z
+4412
+dibenedetto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+383
+
+shader.h
+file
+
+
+
+
+2013-11-08T10:03:37.969031Z
+cb9c4ffb901f6ceb1afa813952322db8
+2012-05-07T16:12:40.729865Z
+4408
+dibenedetto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6055
+
+object.h
+file
+
+
+
+
+2013-11-08T10:03:37.969031Z
+2bdb0781f1868004aa819a95d08ae925
+2012-05-07T19:21:47.050983Z
+4409
+dibenedetto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6020
+
+program.h
+file
+
+
+
+
+2013-11-08T10:03:37.969031Z
+4701baa400535ea381716b34b255b0c2
+2012-06-02T00:35:04.072474Z
+4429
+dibenedetto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20908
 

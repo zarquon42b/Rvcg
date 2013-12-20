@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/trimeshinfo/trimeshinfo1.02/trimeshinfosample
 svn://svn.code.sf.net/p/vcg/code
 
@@ -60,40 +60,6 @@ cignoni
 
 247
 
-eight2D.ply
-file
-
-
-
-
-2013-11-08T10:03:36.065021Z
-e0f25b6407ec20883a9c587628742405
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-491
-
 degenerate3.ply
 file
 
@@ -128,14 +94,14 @@ cignoni
 
 248
 
-four_twoconnected.ply
+eight2D.ply
 file
 
 
 
 
 2013-11-08T10:03:36.065021Z
-384e8836b1132412a08ffb8197eeb692
+e0f25b6407ec20883a9c587628742405
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -160,7 +126,7 @@ cignoni
 
 
 
-290
+491
 
 eight3D.ply
 file
@@ -195,6 +161,40 @@ cignoni
 
 
 45420
+
+four_twoconnected.ply
+file
+
+
+
+
+2013-11-08T10:03:36.065021Z
+384e8836b1132412a08ffb8197eeb692
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+290
 
 knot_subsampled.ply
 file
@@ -332,40 +332,6 @@ cignoni
 
 830367
 
-test2.ply
-file
-
-
-
-
-2013-11-08T10:03:36.069021Z
-3b169ce102732dab40da9b62651eb35e
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1568040
-
 kite_degenerate2.ply
 file
 
@@ -399,6 +365,40 @@ cignoni
 
 
 414
+
+test2.ply
+file
+
+
+
+
+2013-11-08T10:03:36.069021Z
+3b169ce102732dab40da9b62651eb35e
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1568040
 
 test3.ply
 file
@@ -434,18 +434,17 @@ cignoni
 
 3660031
 
-moebius.ply
+degenerate.ply
 file
 
 
 
 
-2013-11-08T10:03:36.073021Z
-072c2bf9d305462f5d4bc43cfb2dce25
+2013-11-08T10:03:36.077021Z
+df7c679d70946c70b9608ae29789a46a
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -466,7 +465,8 @@ has-props
 
 
 
-3275
+
+245
 
 kite_hole.ply
 file
@@ -502,17 +502,18 @@ cignoni
 
 445
 
-degenerate.ply
+moebius.ply
 file
 
 
 
 
-2013-11-08T10:03:36.077021Z
-df7c679d70946c70b9608ae29789a46a
+2013-11-08T10:03:36.073021Z
+072c2bf9d305462f5d4bc43cfb2dce25
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -533,8 +534,7 @@ cignoni
 
 
 
-
-245
+3275
 
 nonmanifold.ply
 file

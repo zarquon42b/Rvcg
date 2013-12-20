@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/wrap/miq/core
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ pietroni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-vertex_indexing.h
-file
-
-
-
-
-2013-11-08T10:03:37.805030Z
-a2a3cfcd8b99b21b0042f9ad0abdd23d
-2013-01-30T17:18:55.488904Z
-4811
-ganovelli
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-14249
 
 glUtils.h
 file
@@ -297,4 +263,38 @@ has-props
 
 
 7224
+
+vertex_indexing.h
+file
+
+
+
+
+2013-11-08T10:03:37.805030Z
+a2a3cfcd8b99b21b0042f9ad0abdd23d
+2013-01-30T17:18:55.488904Z
+4811
+ganovelli
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14249
 

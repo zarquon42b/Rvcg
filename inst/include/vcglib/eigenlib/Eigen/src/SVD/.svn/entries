@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/SVD
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,74 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-UpperBidiagonalization.h
-file
-
-
-
-
-2013-11-08T10:03:39.589039Z
-7657bb08e37f86b6ffd9e52420292562
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5703
-
-JacobiSVD.h
-file
-
-
-
-
-2013-11-08T10:03:39.589039Z
-416c32b67cffe5d8e1a7fc597bf2aa30
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-35836
 
 CMakeLists.txt
 file
@@ -161,4 +93,72 @@ has-props
 
 
 4654
+
+UpperBidiagonalization.h
+file
+
+
+
+
+2013-11-08T10:03:39.589039Z
+7657bb08e37f86b6ffd9e52420292562
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5703
+
+JacobiSVD.h
+file
+
+
+
+
+2013-11-08T10:03:39.589039Z
+416c32b67cffe5d8e1a7fc597bf2aa30
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+35836
 

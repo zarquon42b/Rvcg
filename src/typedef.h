@@ -24,7 +24,7 @@
 #include <vcg/space/index/spatial_hashing.h>
 #include <vcg/complex/algorithms/closest.h>
 #include <vcg/complex/algorithms/smooth.h>
-#include <vcg/complex/allocate.h>
+//#include <vcg/complex/allocate.h>
 #include <wrap/callback.h>
 #include <vcg/complex/append.h>
 #include <vcg/container/simple_temporary_data.h>

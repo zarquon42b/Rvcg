@@ -1,14 +1,14 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-10-09T09:20:21.048395Z
-4975
+2013-12-20T02:33:36.751920Z
+5050
 cignoni
 
 
@@ -25,12 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-pivoting
-dir
-
-test
-dir
 
 sample
 dir
@@ -51,5 +45,11 @@ quadrangulator
 dir
 
 plyrefine
+dir
+
+pivoting
+dir
+
+test
 dir
 

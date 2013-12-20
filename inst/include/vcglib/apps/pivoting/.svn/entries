@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/pivoting
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,40 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+pivot.dev
+file
+
+
+
+
+2013-11-08T10:03:33.813010Z
+8d909c6421cead640e3fdc28e313dcf2
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3477
 
 glarea.h
 file
@@ -297,38 +331,4 @@ cignoni
 
 
 10547
-
-pivot.dev
-file
-
-
-
-
-2013-11-08T10:03:33.813010Z
-8d909c6421cead640e3fdc28e313dcf2
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3477
 

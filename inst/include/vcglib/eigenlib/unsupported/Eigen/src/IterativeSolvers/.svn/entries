@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+IterationController.h
+file
+
+
+
+
+2013-11-08T10:03:40.309042Z
+49b3dd451042009c38eb3e099bddf29e
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5546
+
+CMakeLists.txt
+file
+
+
+
+
+2013-11-08T10:03:40.309042Z
+b33ede05ad58b564af1e905b55eef56f
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+189
 
 GMRES.h
 file
@@ -161,72 +229,4 @@ has-props
 
 
 5508
-
-IterationController.h
-file
-
-
-
-
-2013-11-08T10:03:40.309042Z
-49b3dd451042009c38eb3e099bddf29e
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5546
-
-CMakeLists.txt
-file
-
-
-
-
-2013-11-08T10:03:40.309042Z
-b33ede05ad58b564af1e905b55eef56f
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-189
 

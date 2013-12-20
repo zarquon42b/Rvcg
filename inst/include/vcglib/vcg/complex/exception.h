@@ -22,8 +22,7 @@
 ****************************************************************************/
 #ifndef __VCG_EXCEPTION_H
 #define __VCG_EXCEPTION_H
-#include <iostream>
-#include <stdexcept>
+
 namespace vcg
 {
 class MissingComponentException : public std::runtime_error
@@ -36,6 +35,19 @@ public:
     virtual const char *what() const throw ()
     {
       static char buf[128]="Missing Component";
+      return buf;
+    }
+};
+class MissingCompactnessException : public std::runtime_error
+{
+public:
+  MissingCompactnessException(const std::string &err):std::runtime_error(err)
+  {
+    std::cout << "Lack of Compactness Exception -" << err << "- \n";
+  }
+    virtual const char *what() const throw ()
+    {
+      static char buf[128]="Lack of Compactness";
       return buf;
     }
 };

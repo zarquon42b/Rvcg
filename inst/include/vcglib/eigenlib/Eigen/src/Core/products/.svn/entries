@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/eigenlib/Eigen/src/Core/products
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,6 +25,74 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
+
+SelfadjointRank2Update.h
+file
+
+
+
+
+2013-11-08T10:03:39.345038Z
+73c174248ab4f9aba6262d5e604c75b4
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3950
+
+SelfadjointProduct.h
+file
+
+
+
+
+2013-11-08T10:03:39.345038Z
+41d52b3cd6e8cbb035b98021178a1ff0
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5863
 
 GeneralBlockPanelKernel.h
 file
@@ -196,40 +264,6 @@ has-props
 
 10419
 
-GeneralMatrixMatrixTriangular.h
-file
-
-
-
-
-2013-11-08T10:03:39.349038Z
-a455b6c4e2a3bb19e64dbbe780263d48
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-10367
-
 TriangularMatrixVector.h
 file
 
@@ -264,14 +298,14 @@ has-props
 
 14083
 
-CoeffBasedProduct.h
+GeneralMatrixMatrixTriangular.h
 file
 
 
 
 
 2013-11-08T10:03:39.349038Z
-095c6f13c0889be5d160bc4e8d3af9ad
+a455b6c4e2a3bb19e64dbbe780263d48
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -296,7 +330,7 @@ has-props
 
 
 
-18474
+10367
 
 TriangularMatrixMatrix.h
 file
@@ -332,14 +366,14 @@ has-props
 
 17048
 
-GeneralMatrixMatrixTriangular_MKL.h
+CoeffBasedProduct.h
 file
 
 
 
 
 2013-11-08T10:03:39.349038Z
-41f9a143ca46f157ee71c2035817ad36
+095c6f13c0889be5d160bc4e8d3af9ad
 2012-10-05T07:27:34.803522Z
 4539
 cignoni
@@ -364,7 +398,7 @@ has-props
 
 
 
-6537
+18474
 
 TriangularMatrixVector_MKL.h
 file
@@ -400,16 +434,16 @@ has-props
 
 9887
 
-GeneralMatrixVector.h
+GeneralMatrixMatrixTriangular_MKL.h
 file
 
 
 
 
 2013-11-08T10:03:39.349038Z
-8e3c189a625544ba73f9dcc2a0d78ee6
-2013-02-27T21:07:14.867394Z
-4823
+41f9a143ca46f157ee71c2035817ad36
+2012-10-05T07:27:34.803522Z
+4539
 cignoni
 has-props
 
@@ -432,7 +466,7 @@ has-props
 
 
 
-22147
+6537
 
 TriangularMatrixMatrix_MKL.h
 file
@@ -468,16 +502,16 @@ has-props
 
 13025
 
-Parallelizer.h
+GeneralMatrixVector.h
 file
 
 
 
 
-2013-11-08T10:03:39.353038Z
-232c1391681fdead8643f048beb0f3a7
-2012-10-05T07:27:34.803522Z
-4539
+2013-11-08T10:03:39.349038Z
+8e3c189a625544ba73f9dcc2a0d78ee6
+2013-02-27T21:07:14.867394Z
+4823
 cignoni
 has-props
 
@@ -500,7 +534,7 @@ has-props
 
 
 
-4137
+22147
 
 TriangularSolverVector.h
 file
@@ -535,6 +569,40 @@ has-props
 
 
 5380
+
+Parallelizer.h
+file
+
+
+
+
+2013-11-08T10:03:39.353038Z
+232c1391681fdead8643f048beb0f3a7
+2012-10-05T07:27:34.803522Z
+4539
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4137
 
 GeneralMatrixMatrix.h
 file
@@ -739,72 +807,4 @@ has-props
 
 
 5877
-
-SelfadjointRank2Update.h
-file
-
-
-
-
-2013-11-08T10:03:39.345038Z
-73c174248ab4f9aba6262d5e604c75b4
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3950
-
-SelfadjointProduct.h
-file
-
-
-
-
-2013-11-08T10:03:39.345038Z
-41d52b3cd6e8cbb035b98021178a1ff0
-2012-10-05T07:27:34.803522Z
-4539
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5863
 

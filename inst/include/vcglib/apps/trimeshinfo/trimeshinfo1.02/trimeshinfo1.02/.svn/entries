@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/trimeshinfo/trimeshinfo1.02/trimeshinfo1.02
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-trimeshinfo.exe
-file
-
-
-
-
-2013-11-08T10:03:35.249017Z
-4c26f3992a63806d3e28c947aa432418
-2011-10-05T15:04:40.740408Z
-4180
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-225280
 
 readme.txt
 file
@@ -93,4 +59,38 @@ cignoni
 
 
 2832
+
+trimeshinfo.exe
+file
+
+
+
+
+2013-11-08T10:03:35.249017Z
+4c26f3992a63806d3e28c947aa432418
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+225280
 

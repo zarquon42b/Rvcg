@@ -1,15 +1,15 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_QT
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-03-08T09:07:25.075811Z
-4828
-ganovelli
+2013-12-13T07:57:08.621160Z
+5038
+cignoni
 
 
 
@@ -32,44 +32,10 @@ file
 
 
 
-2013-11-08T10:03:34.269012Z
-4873563a013575a47a3b0cf52c2abec0
-2013-03-08T09:07:25.075811Z
-4828
-ganovelli
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6242
-
-mainwindow.cpp
-file
-
-
-
-
-2013-11-08T10:03:34.269012Z
-6b16da6bbbe152764ebd0273a28f3042
-2011-10-05T15:04:40.740408Z
-4180
+2013-12-20T08:12:25.667078Z
+c563c103f5ee6c20e62ec39f5f97163e
+2013-12-13T07:57:08.621160Z
+5038
 cignoni
 
 
@@ -92,7 +58,41 @@ cignoni
 
 
 
-3114
+6457
+
+mainwindow.cpp
+file
+
+
+
+
+2013-12-20T08:12:25.667078Z
+9b09dd7426d0fe1472eff23df0a4ded0
+2013-11-28T11:04:59.202119Z
+5014
+gianpaolopalma
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3121
 
 trimesh_qt.pro
 file
@@ -134,11 +134,11 @@ file
 
 
 
-2013-11-08T10:03:34.269012Z
-0efe2e0edb40a1d2ff7b1b2c3219e07b
-2013-03-08T09:07:25.075811Z
-4828
-ganovelli
+2013-12-20T08:12:25.667078Z
+2282eef93288d41756bf5c77e46cc43c
+2013-11-28T11:04:59.202119Z
+5014
+gianpaolopalma
 
 
 
@@ -160,7 +160,7 @@ ganovelli
 
 
 
-4203
+4194
 
 mainwindow.h
 file

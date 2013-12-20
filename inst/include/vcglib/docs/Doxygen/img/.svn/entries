@@ -1,7 +1,7 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/docs/Doxygen/img
 svn://svn.code.sf.net/p/vcg/code
 
@@ -25,40 +25,6 @@ cignoni
 
 
 e8973e21-934d-0410-ac44-de4585f5606d
-
-vcglogo.png
-file
-
-
-
-
-2013-11-08T10:03:37.325028Z
-e63e6a66836b1245fe345d3eae494cf4
-2012-10-03T11:56:27.764346Z
-4520
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-30286
 
 triord.png
 file
@@ -400,6 +366,40 @@ has-props
 
 37995
 
+figure.xar
+file
+
+
+
+
+2013-11-08T10:03:37.329028Z
+9b749651b9ae58f90e27427d744c562e
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4351
+
 shot-Projection.png
 file
 
@@ -434,14 +434,14 @@ has-props
 
 2964
 
-figure.xar
+ff.png
 file
 
 
 
 
 2013-11-08T10:03:37.329028Z
-9b749651b9ae58f90e27427d744c562e
+f1e586645e9f349f530b53195ade55b2
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -466,7 +466,7 @@ has-props
 
 
 
-4351
+12637
 
 shot-Focal.jpg
 file
@@ -502,16 +502,16 @@ has-props
 
 3239
 
-ff.png
+vcglogo.png
 file
 
 
 
 
-2013-11-08T10:03:37.329028Z
-f1e586645e9f349f530b53195ade55b2
-2011-10-05T15:04:40.740408Z
-4180
+2013-11-08T10:03:37.325028Z
+e63e6a66836b1245fe345d3eae494cf4
+2012-10-03T11:56:27.764346Z
+4520
 cignoni
 has-props
 
@@ -534,5 +534,5 @@ has-props
 
 
 
-12637
+30286
 

@@ -1,14 +1,14 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample/trimesh_allocate
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2012-10-31T06:58:08.212590Z
-4679
+2013-12-06T07:07:45.207829Z
+5030
 cignoni
 
 
@@ -66,10 +66,10 @@ file
 
 
 
-2013-11-08T10:03:34.241012Z
-65cb827eed1b35b505859cc1a110fe4b
-2012-10-31T06:58:08.212590Z
-4679
+2013-12-20T08:12:25.499078Z
+d948a59e30eee7beb26c96d5235f8281
+2013-12-06T07:07:45.207829Z
+5030
 cignoni
 has-props
 
@@ -92,5 +92,5 @@ has-props
 
 
 
-4420
+4853
 

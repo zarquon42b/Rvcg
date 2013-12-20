@@ -1,15 +1,15 @@
 10
 
 dir
-4988
+5050
 svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg/math
 svn://svn.code.sf.net/p/vcg/code
 
 
 
-2013-10-23T16:57:28.546308Z
-4981
-pietroni
+2013-12-01T22:54:33.028304Z
+5024
+cignoni
 
 
 
@@ -26,16 +26,50 @@ pietroni
 
 e8973e21-934d-0410-ac44-de4585f5606d
 
-matrix33.h
+old_matrix33.h
 file
 
 
 
 
-2013-11-08T10:03:33.157007Z
-8943c3df0810d48d9a2434b8b6f0f9c5
-2013-07-26T07:01:21.950672Z
-4929
+2013-11-08T10:03:33.153007Z
+f8d85aa9fac646a20670980f0522ba50
+2013-03-19T21:51:13.509472Z
+4846
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8725
+
+similarity2.h
+file
+
+
+
+
+2013-11-08T10:03:33.153007Z
+bc75cb476bd474e425ae277c7e0de170
+2011-10-20T22:29:20.159536Z
+4196
 cignoni
 has-props
 
@@ -58,18 +92,18 @@ has-props
 
 
 
-16554
+2505
 
-linear.h
+polar_decomposition.h
 file
 
 
 
 
-2013-11-08T10:03:33.157007Z
-f0497e2b2b6c931be5c7b63831f65c3b
-2011-10-05T15:04:40.740408Z
-4180
+2013-11-08T10:03:33.153007Z
+822f16409d541d2fa2f396a8d7bf611a
+2011-11-21T09:09:58.603625Z
+4230
 cignoni
 
 
@@ -92,41 +126,7 @@ cignoni
 
 
 
-3085
-
-base.h
-file
-
-
-
-
-2013-11-08T10:03:33.157007Z
-0fc161b571f3a1e152b00f9f23af5428
-2013-07-26T07:01:21.950672Z
-4929
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-7345
+2824
 
 old_matrix44.h
 file
@@ -162,6 +162,108 @@ cignoni
 
 16502
 
+base.h
+file
+
+
+
+
+2013-11-08T10:03:33.157007Z
+0fc161b571f3a1e152b00f9f23af5428
+2013-07-26T07:01:21.950672Z
+4929
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7345
+
+linear.h
+file
+
+
+
+
+2013-11-08T10:03:33.157007Z
+f0497e2b2b6c931be5c7b63831f65c3b
+2011-10-05T15:04:40.740408Z
+4180
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3085
+
+matrix33.h
+file
+
+
+
+
+2013-11-08T10:03:33.157007Z
+8943c3df0810d48d9a2434b8b6f0f9c5
+2013-07-26T07:01:21.950672Z
+4929
+cignoni
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+16554
+
 matrix44.h
 file
 
@@ -196,18 +298,17 @@ has-props
 
 19882
 
-quadric5.h
+spherical_harmonics.h
 file
 
 
 
 
 2013-11-08T10:03:33.157007Z
-6bd86374cd9f8dcdb4f12cb0dadc0cad
+7e6b468d2a61f181405a2cb671e62d44
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
-has-props
 
 
 
@@ -228,7 +329,8 @@ has-props
 
 
 
-18070
+
+6316
 
 shot.h
 file
@@ -264,17 +366,18 @@ cignoni
 
 20685
 
-spherical_harmonics.h
+quadric5.h
 file
 
 
 
 
 2013-11-08T10:03:33.157007Z
-7e6b468d2a61f181405a2cb671e62d44
+6bd86374cd9f8dcdb4f12cb0dadc0cad
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
+has-props
 
 
 
@@ -295,8 +398,7 @@ cignoni
 
 
 
-
-6316
+18070
 
 gen_normal.h
 file
@@ -366,40 +468,6 @@ has-props
 
 20399
 
-legendre.h
-file
-
-
-
-
-2013-11-08T10:03:33.157007Z
-1b0d4802a315afdc5656cac2afe1a85f
-2013-07-26T07:01:21.950672Z
-4929
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6708
-
 quaternion.h
 file
 
@@ -434,14 +502,48 @@ cignoni
 
 13518
 
-perlin_noise.h
+legendre.h
 file
 
 
 
 
 2013-11-08T10:03:33.157007Z
-68cbe424593ee5932085c0930ef8e225
+1b0d4802a315afdc5656cac2afe1a85f
+2013-07-26T07:01:21.950672Z
+4929
+cignoni
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6708
+
+similarity.h
+file
+
+
+
+
+2013-11-08T10:03:33.157007Z
+e0a966732851cb464691f8a37afce8e4
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -466,7 +568,7 @@ cignoni
 
 
 
-5999
+9338
 
 random_generator.h
 file
@@ -502,14 +604,14 @@ cignoni
 
 14580
 
-similarity.h
+perlin_noise.h
 file
 
 
 
 
 2013-11-08T10:03:33.157007Z
-e0a966732851cb464691f8a37afce8e4
+68cbe424593ee5932085c0930ef8e225
 2011-10-05T15:04:40.740408Z
 4180
 cignoni
@@ -534,7 +636,7 @@ cignoni
 
 
 
-9338
+5999
 
 eigen.h
 file
@@ -842,40 +944,6 @@ cignoni
 
 6233
 
-point_matching.h
-file
-
-
-
-
-2013-11-08T10:03:33.153007Z
-74fc6f952931df840c965ed084ff3742
-2012-01-12T00:52:04.199938Z
-4284
-pietroni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-14698
-
 factorial.h
 file
 
@@ -909,106 +977,4 @@ cignoni
 
 
 11968
-
-old_matrix33.h
-file
-
-
-
-
-2013-11-08T10:03:33.153007Z
-f8d85aa9fac646a20670980f0522ba50
-2013-03-19T21:51:13.509472Z
-4846
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8725
-
-similarity2.h
-file
-
-
-
-
-2013-11-08T10:03:33.153007Z
-bc75cb476bd474e425ae277c7e0de170
-2011-10-20T22:29:20.159536Z
-4196
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2505
-
-polar_decomposition.h
-file
-
-
-
-
-2013-11-08T10:03:33.153007Z
-822f16409d541d2fa2f396a8d7bf611a
-2011-11-21T09:09:58.603625Z
-4230
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2824
 
