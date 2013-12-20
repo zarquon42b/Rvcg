@@ -1,3 +1,5 @@
+SOURCES=$(wildcard *.cpp) ../inst/include/vcglib/wrap/ply/plylib.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
 PKG_CPPFLAGS=-I../inst/include/vcglib
 PKG_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
 PKG_CXXFLAGS= $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::CxxFlags()")
