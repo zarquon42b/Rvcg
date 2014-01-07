@@ -1,3 +1,5 @@
 src/vcglib/apps
 src/vcglib/docs
 src/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h
+^.*\\.o$
+
