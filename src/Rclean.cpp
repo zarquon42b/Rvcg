@@ -32,28 +32,28 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
   tri::UpdateTopology<MyMesh>::VertexFace(m);
   vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
   vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
-  //printf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
+  Rprintf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
   //tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m); 
    
   // do all the cleaning
     
   if (select == 1) { 
     int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
-    //printf("removed %d unreferenced vertices\n",unref);
+    Rprintf("removed %d unreferenced vertices\n",unref);
   } else if (select == 2) { 
     rem = tri::Clean<MyMesh>::RemoveNonManifoldFace(m);
-    //printf("removed %d Non-manifold faces\n",rem);
+    Rprintf("removed %d Non-manifold faces\n",rem);
   } else if (select == 3) { 
     rem = tri::Clean<MyMesh>::RemoveDegenerateFace(m);
-    //printf("removed %d degenerate faces\n",rem);
+    Rprintf("removed %d degenerate faces\n",rem);
   } else if (select == 4) {
     rem = tri::Clean<MyMesh>::RemoveNonManifoldVertex(m);
-    //printf("removed %d Non-manifold vertices\n",rem);
+    Rprintf("removed %d Non-manifold vertices\n",rem);
   } else if (select == 5) { 
     int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
-    //printf("split %d non-manifold vertices\n",split);
+    Rprintf("split %d non-manifold vertices\n",split);
   } else {
-    //printf("unknown parameter\n");
+    Rprintf("unknown parameter\n");
   }
   
  

@@ -31,7 +31,7 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
   std::pair<int,int> delInfo;
   std::vector< std::pair<int,MyMesh::FacePointer> > CCV;
   int TotalCC=tri::Clean<MyMesh>::ConnectedComponents(m, CCV);
-  //printf("%i\n",TotalCC);
+  Rprintf("%i\n",TotalCC);
   std::vector<float> chunks;
   std::vector<int> chunkface;
   //int CCm = tri::Clean<MyMesh>::ConnectedComponents(m);
@@ -61,7 +61,7 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
     delInfo = tri::Clean<MyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
   }
       
-  //printf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
+  Rprintf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
   int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
   vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
