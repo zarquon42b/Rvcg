@@ -1,3 +1,3 @@
-inst/include/vcglib/apps
-inst/include/vcglib/docs
-inst/include/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h
+src/vcglib/apps
+src/vcglib/docs
+src/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h

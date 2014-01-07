@@ -1,46 +1,0 @@
-10
-
-dir
-5050
-svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/vcg
-svn://svn.code.sf.net/p/vcg/code
-
-
-
-2013-12-20T02:33:36.751920Z
-5050
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-e8973e21-934d-0410-ac44-de4585f5606d
-
-complex
-dir
-
-math
-dir
-
-space
-dir
-
-connectors
-dir
-
-simplex
-dir
-
-container
-dir
-

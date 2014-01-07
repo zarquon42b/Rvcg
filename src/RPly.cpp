@@ -1,5 +1,5 @@
 #include "typedef.h"
-#include "ply/plylib.h"
+#include <wrap/ply/plylib.h>
 #include <vcg/container/simple_temporary_data.h>
 #include <wrap/io_trimesh/import.h>
 #include <string.h>
@@ -28,7 +28,7 @@ extern "C" {
       Rprintf("Error in reading %s: '%s'\n",file,tri::io::Importer<MyMesh>::ErrorMsg(err2));
       //exit(-1);  
     }
-    Rprintf("%i",err2);
+    //Rprintf("%i",err2);
     if (err2 == 0)
       {
 	if (updateNorm == 1) {

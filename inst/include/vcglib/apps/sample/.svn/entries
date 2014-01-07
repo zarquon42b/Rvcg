@@ -1,237 +1,0 @@
-10
-
-dir
-5050
-svn://svn.code.sf.net/p/vcg/code/trunk/vcglib/apps/sample
-svn://svn.code.sf.net/p/vcg/code
-
-
-
-2013-12-20T02:33:36.751920Z
-5050
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-e8973e21-934d-0410-ac44-de4585f5606d
-
-trimesh_voronoisampling
-dir
-
-trimesh_hole
-dir
-
-trimesh_split_vertex
-dir
-
-trimesh_normal
-dir
-
-trimesh_ball_pivoting
-dir
-
-trimesh_inertia
-dir
-
-trimesh_cylclip
-dir
-
-trimesh_attribute
-dir
-
-polygonmesh_base
-dir
-
-trimesh_isosurface
-dir
-
-trimesh_fitting
-dir
-
-trimesh_intersection
-dir
-
-trimesh_refine
-dir
-
-trimesh_pointcloud_sampling
-dir
-
-trimesh_base
-dir
-
-hashing_2D
-dir
-
-trimesh_kdtree
-dir
-
-trimesh_color
-dir
-
-trimesh_clustering
-dir
-
-trimesh_ant_freeglut
-dir
-
-trimesh_geodesic
-dir
-
-trimesh_QT
-dir
-
-trimesh_allocate
-dir
-
-trimesh_optional
-dir
-
-trimesh_ant_qt
-dir
-
-common.pri
-file
-
-
-
-
-2013-11-08T10:03:34.601014Z
-eb3fd98ff28db5159a8fd50ef96b4659
-2012-10-16T09:08:19.337521Z
-4601
-cignoni
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-177
-
-polygonmesh_quadsimpl
-dir
-
-trimesh_ray
-dir
-
-trimesh_voronoiclustering
-dir
-
-trimesh_join
-dir
-
-colorspace
-dir
-
-trimesh_texture
-dir
-
-trimesh_edge
-dir
-
-trimesh_pointmatching
-dir
-
-trimesh_pos_demo
-dir
-
-space_minimal
-dir
-
-img_filters
-dir
-
-trimesh_smooth
-dir
-
-trimesh_copy
-dir
-
-trimesh_sampling
-dir
-
-trimesh_voroatlas
-dir
-
-trimesh_diskparam
-dir
-
-trimesh_closest
-dir
-
-trimesh_topology
-dir
-
-aabb_binary_tree
-dir
-
-trimesh_curvature
-dir
-
-polygonmesh_zonohedra
-dir
-
-space_packer
-dir
-
-sample.pro
-file
-
-
-
-
-2013-11-08T10:03:34.601014Z
-960b7c5cd41ba966eaa60742e18eccf0
-2013-03-26T11:33:17.680890Z
-4874
-cignoni
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1123
-

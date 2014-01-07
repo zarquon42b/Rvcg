@@ -1,27 +1,26 @@
-Files: *
+lsFiles: *
 Copyright: Stefan Schlager
 License: GPL-2+
 
-Files:	inst/include/vcglib/wrap/*
-	inst/include/vcglib/img/*
-        inst/include/vcglib/vcg/*
-        src/ply/* ##copied from inst/include/vcglib/wrap/ 
+Files:	src/vcglib/wrap/*
+	src/vcglib/img/*
+        src/vcglib/vcg/*
 Copyright: Visual Computing Lab ISTI - Italian National Research Council
 License: GPL-2	
 
-Files:  inst/include/vcglib/wrap/system/getopt.*
+Files:  src/vcglib/wrap/system/getopt.*
 Copyright: 1987-1993 Free Software Foundation, Inc.
 License: GPL-2+
 
-Files:  inst/include/vcglib/vcg/complex/trimesh/create/mc_lookup_table.h
+Files:  src/vcglib/vcg/complex/trimesh/create/mc_lookup_table.h
 Copyright: 2002 Thomas Lewiner <thomas.lewiner@polytechnique.org>
 License: GPL-2+
 
-Files:  inst/include/vcglib/vcg/complex/trimesh/create/emc_lookup_table.h
+Files:  src/vcglib/vcg/complex/trimesh/create/emc_lookup_table.h
 Copyright: 2002 by Computer Graphics Group, RWTH Aachen
 License: GPL-2+
 
-Files: inst/include/vcglib/vcg/math/random_generator.h
+Files: src/vcglib/vcg/math/random_generator.h
 Copyright: 2005-2013 Visual Computing Lab  ISTI - Italian National
  Research Council,
  	  1994 Everett F. Carter Jr. [Polar form of the Box-Muller Transformation]
@@ -29,32 +28,32 @@ Copyright: 2005-2013 Visual Computing Lab  ISTI - Italian National
 License: GPL-2+
 
 
-Files:	inst/include/vcg/eigenlib/* 
+Files:	src/vcglib/eigenlib/* 
 Copyright: 2006-2008 Benoit Jacob <jacob@math.jussieu.fr>
            2007 Michael Olbrich <michael.olbrich@gmx.net>
            2008 Gael Guennebaud <g.gael@free.fr>
            2008 Konstantinos Margaritis <markos@codex.gr>
 License: MPL-2
 
-Files:  inst/include/vcg/eigenlib/unsupported/test/mpreal/* 
-	inst/include/vcg/eigenlib/unsupported/Eigen/src/IterativeSolvers/* 
-	inst/include/vcg/eigenlibEigen/src/SparseCholesky/SimplicialCholesky.h 
-	inst/include/vcg/eigenlib/Eigen/src/OrderingMethods/Amd.h
+Files:  src/vcglib/eigenlib/unsupported/test/mpreal/* 
+	src/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers/* 
+	src/vcglib/eigenlibEigen/src/SparseCholesky/SimplicialCholesky.h 
+	src/vcglib/eigenlib/Eigen/src/OrderingMethods/Amd.h
 Copyright: 2002-2007 Yves Renard
            2008-2009 Gael Guennebaud <g.gael@free.fr>
 License:   LGPL-2.1+ or MPL-2
 
-Files: inst/include/vcg/eigenlib/Eigen/src/LU/PartialPivLU_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/PardisoSupport/PardisoSupport.h 
-       inst/include/vcg/eigenlib/Eigen/src/Core/Assign_MKL.h inst/include/vcg/eigenlib/Eigen/src/Core/util/MKL_support.h 
-       inst/include/vcg/eigenlib/Eigen/src/Core/products/*_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/SVD/JacobiSVD_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/Cholesky/LLT_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/QR/HouseholderQR_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/QR/ColPivHouseholderQR_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/Eigenvalues/ComplexSchur_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h 
-       inst/include/vcg/eigenlib/Eigen/src/Eigenvalues/RealSchur_MKL.h
+Files: src/vcglib/eigenlib/Eigen/src/LU/PartialPivLU_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/PardisoSupport/PardisoSupport.h 
+       src/vcglib/eigenlib/Eigen/src/Core/Assign_MKL.h src/vcglib/eigenlib/Eigen/src/Core/util/MKL_support.h 
+       src/vcglib/eigenlib/Eigen/src/Core/products/*_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/SVD/JacobiSVD_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/Cholesky/LLT_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/QR/HouseholderQR_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/QR/ColPivHouseholderQR_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/Eigenvalues/ComplexSchur_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h 
+       src/vcglib/eigenlib/Eigen/src/Eigenvalues/RealSchur_MKL.h
 Copyright: 2011 Intel Corporation
 License:   BSD
 
