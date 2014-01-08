@@ -2,7 +2,7 @@
 \alias{vcgRaySearch}
 \title{check if a mesh is intersected by a set of rays}
 \usage{
-vcgRaySearch(x, mesh, tol = 0)
+vcgRaySearch(x, mesh, tol = 0, mindist = FALSE)
 }
 \arguments{
   \item{x}{a triangular mesh of class 'mesh3d' or a list
@@ -12,6 +12,9 @@ vcgRaySearch(x, mesh, tol = 0)
   \item{mesh}{triangular mesh to be intersected.}
 
   \item{tol}{minimum distance to target mesh}
+
+  \item{mindist}{search both ways (ray and -ray) and select
+  closest point.}
 }
 \value{
 list with following items: \item{vb }{4 x n matrix

@@ -5,7 +5,7 @@
 using namespace Rcpp;
 //#include <wrap/ply/plylib.cpp>
  
-RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SEXP _tol)
+RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SEXP _tol, SEXP mindist_)
 {
   typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
   ScalarType x,y,z;
@@ -20,8 +20,8 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   std::vector<float> dis;
   std::vector<float> hitbool;
   // section read from input
-   
-  float t;
+  bool mindist = as<bool>(mindist_);
+  float t, t1;
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
   //Allocate target
   typedef MyMesh::VertexPointer VertexPointer;
@@ -64,17 +64,37 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   for (i=0; i < refmesh.vn; i++) {
     vcg::Ray3f ray;
     Point3f orig = refmesh.vert[i].P();
+    Point3f orig0 = orig;
     Point3f dir = refmesh.vert[i].N();
     Point3f dirOrig = dir;
     Point3f clost = CoordType(0,0,0);
-    MyFace* f_ptr;
-    t=0;
+    MyFace* f_ptr; MyFace* f_ptr1;
+    t=0; t1=0;
     ray.SetOrigin(orig);
     ray.SetDirection(dir);
     f_ptr = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t);
-      
+    if (! f_ptr) {
+      orig0 = orig+CoordType(1e-6,1e-6,1e-6);// add some noise to get eventually hit vertices alon the rays
+      ray.SetOrigin(orig0);
+      ray.SetDirection(dir);
+      f_ptr = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t);
+    }
+    if (mindist) {   
+      ray.SetDirection(-dir);
+      f_ptr1 = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t1);
+      if (! f_ptr1) {
+	orig0 = orig+CoordType(1e-6,1e-6,1e-6);// add some noise to get eventually hit vertices alon the rays
+	ray.SetOrigin(orig0);
+	ray.SetDirection(-dir);
+	f_ptr1 = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t1);
+      }
+      if ((f_ptr && f_ptr1 && t1 < t) || (!f_ptr && f_ptr1) ) {
+	f_ptr = f_ptr1;
+	t = -t1;
+      } 
+    }  
     if (f_ptr) {
-      if (t >= tol) {
+      if (abs(t) >= tol) {
 	clost = refmesh.vert[i].P()+dir*t;//the hit point
 	dis.push_back(t);
 	hitbool.push_back(1);
@@ -83,26 +103,12 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
 	hitbool.push_back(0);
       }
     } else {
-      orig = orig+CoordType(1e-6,1e-6,1e-6);// add some noise to get eventually hit vertices alon the rays
-      ray.SetOrigin(orig);
-      ray.SetDirection(dir);
-      f_ptr = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t);
-      if (f_ptr) {
-	if (t >= tol) {
-	  clost = refmesh.vert[i].P()+dir*t;//the hit point
-	  dis.push_back(t);
-	  hitbool.push_back(1);
-	} else {
-	  dis.push_back(t);
-	  hitbool.push_back(0);
-	}
-      } else {
-	Point3f& currp = refmesh.vert[i].P();
-	f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
-	dis.push_back(minDist);
-	hitbool.push_back(0);
-      }
+      Point3f& currp = refmesh.vert[i].P();
+      f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
+      dis.push_back(minDist);
+      hitbool.push_back(0);
     }
+  
     int f_i = vcg::tri::Index(m, f_ptr);
     MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;//the smoothed normal at that point
     ioclost(0,i) = clost[0];

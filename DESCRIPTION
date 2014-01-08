@@ -2,8 +2,8 @@ Package: Rvcg
 Type: Package
 Title: Manipulations of triangular meshes (smoothing, quadric edge collapse
     decimation, im- and export of PLY-files, etc.) based on the VCGLIB API.
-Version: 0.5.140107
-Date: 2014-01-07
+Version: 0.5.140108
+Date: 2014-01-08
 Author: Stefan Schlager
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
 Description: Operations on triangular meshes based on VCGLIB

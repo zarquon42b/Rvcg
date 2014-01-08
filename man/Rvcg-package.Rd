@@ -9,7 +9,7 @@ E.g. mesh smoothing, mesh decimation, closest point search.
 }
 \details{
 \tabular{ll}{ Package: \tab Rvcg\cr Type: \tab Package\cr
-Version: \tab 0.5.140107\cr Date: \tab 2014-01-07\cr
+Version: \tab 0.5.140108\cr Date: \tab 2014-01-08\cr
 License: \tab GPL\cr LazyLoad: \tab yes\cr }
 }
 \author{
