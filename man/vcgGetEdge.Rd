@@ -28,9 +28,11 @@ and vertices
 require(rgl)
 data(humface)
 edges <-vcgGetEdge(humface)
+\dontrun{
 ## show first edge
 lines3d(t(humface$vb[1:3,])[c(edges$vert1[1],edges$vert2[2]),],col=2,lwd=3)
 shade3d(humface, col=3)
 ## now find the edge - hint: it is at the neck.
+}
 }
 

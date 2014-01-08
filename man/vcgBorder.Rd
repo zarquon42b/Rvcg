@@ -18,12 +18,14 @@ Detect faces and vertices at the borders of a mesh and mark
 them.
 }
 \examples{
-require(rgl)
 data(humface)
 borders <- vcgBorder(humface)
 ## view border vertices
+\dontrun{
 points3d(t(humface$vb[1:3,])[which(borders$bordervb == 1),],col=2)
 wire3d(humface)
+require(rgl)
+}
 }
 \author{
 Stefan Schlager

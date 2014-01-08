@@ -37,9 +37,11 @@ of coordinates specified in \code{SampleNum}, depending on
 \code{MCsamp} the result wil bee more or less coordinates.
 }
 \examples{
-require(rgl)
 data(humface)
 ss <- vcgSample(humface,SampleNum = 500, type=2)
+\dontrun{
+require(rgl)
 points3d(ss)
+}
 }
 

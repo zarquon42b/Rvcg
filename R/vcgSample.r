@@ -10,10 +10,13 @@
 #' @details Poisson disk subsampling will not generate the exact amount of coordinates specified in \code{SampleNum}, depending on \code{MCsamp} the result wil bee more or less coordinates.
 #' @return sampled points
 #' @examples
-#' require(rgl)
+#' 
 #' data(humface)
 #' ss <- vcgSample(humface,SampleNum = 500, type=2)
+#' \dontrun{
+#' require(rgl)
 #' points3d(ss)
+#' }
 #' @export vcgSample
 vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=FALSE)
     {

@@ -30,11 +30,14 @@ require(Morpho)
 data(humface)
 edges <-vcgNonBorderEdge(humface)
 ## show first edge (not at the border)
+\dontrun{
 lines3d(t(humface$vb[1:3,])[c(edges$vert1[1],edges$vert2[2]),],col=2,lwd=3)
+
 ## plot barycenters of adjacent faces
 bary <- barycenter(humface)
 points3d(bary[c(edges$face1[1],edges$face2[1]),])
 shade3d(humface, col=3)
 ## now find the edge - hint: it is at the neck.
+}
 }
 

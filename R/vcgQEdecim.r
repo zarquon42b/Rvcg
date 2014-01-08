@@ -34,12 +34,12 @@
 #' ##reduce faces to 50% 
 #' decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = TRUE)
 #' ## view
+#' \dontrun{
 #' shade3d(decimface, col=3)
+#' }
 #' ## some light smoothing
 #' decimface <- vcgSmooth(decimface,iteration = 1)
-#' 
-#' 
-#' 
+#'  
 #' @export vcgQEdecim
 vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=TRUE,quality=TRUE,bound=TRUE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, safeheap =FALSE, qthresh=0.1, boundweight = 0.5, normalthr = pi/2)
     {

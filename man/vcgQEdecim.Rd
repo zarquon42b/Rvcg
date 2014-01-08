@@ -69,7 +69,9 @@ data(humface)
 ##reduce faces to 50\%
 decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = TRUE)
 ## view
+\dontrun{
 shade3d(decimface, col=3)
+}
 ## some light smoothing
 decimface <- vcgSmooth(decimface,iteration = 1)
 }

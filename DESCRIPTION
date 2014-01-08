@@ -24,8 +24,6 @@ Description: Operations on triangular meshes based on VCGLIB
     later, and also under the GNU GPL version 2 or later.
 Depends:
     R (>= 3.0.0)
-Imports:
-    Rcpp
 Suggests:
     Morpho,
     rgl

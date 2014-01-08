@@ -37,13 +37,14 @@
 #' using diffusion and curvature flow: 317-324.
 #' @keywords ~kwd1 ~kwd2
 #' @examples
-#' 
-#' require(rgl)
+#'  
 #' data(humface)
 #' smoothface <- vcgSmooth(humface)
 #' ## view
+#' \dontrun{
+#' require(rgl)
 #' shade3d(smoothface, col=3)
-#' 
+#' }
 #' 
 #' @export vcgSmooth
 vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","angWeight"),iteration=10,lambda=0.5,mu=-0.53,delta=0.1)

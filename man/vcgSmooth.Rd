@@ -49,11 +49,13 @@ to the default values of meshlab, as they appear to be the
 least distorting
 }
 \examples{
-require(rgl)
 data(humface)
 smoothface <- vcgSmooth(humface)
 ## view
+\dontrun{
+require(rgl)
 shade3d(smoothface, col=3)
+}
 }
 \author{
 Stefan Schlager
