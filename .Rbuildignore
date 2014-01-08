@@ -1,3 +1,4 @@
+src/vcglib/deprecated_patch
 src/vcglib/apps
 src/vcglib/docs
 src/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h
