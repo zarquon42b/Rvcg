@@ -2,7 +2,7 @@
 \alias{vcgRaySearch}
 \title{check if a mesh is intersected by a set of rays}
 \usage{
-vcgRaySearch(x, mesh, tol = 0, mindist = FALSE)
+vcgRaySearch(x, mesh, mintol = 0, maxtol = 1e+15, mindist = FALSE)
 }
 \arguments{
   \item{x}{a triangular mesh of class 'mesh3d' or a list
@@ -11,7 +11,9 @@ vcgRaySearch(x, mesh, tol = 0, mindist = FALSE)
 
   \item{mesh}{triangular mesh to be intersected.}
 
-  \item{tol}{minimum distance to target mesh}
+  \item{mintol}{minimum distance to target mesh}
+
+  \item{maxtol}{maximum distance to search along ray}
 
   \item{mindist}{search both ways (ray and -ray) and select
   closest point.}
@@ -32,10 +34,9 @@ check if a mesh is intersected by a set of rays
 project a mesh along a set of given rays (stored as
 normals) onto a target and return the hit points as well as
 information if the target mesh was hit at all. If nothing
-is hit along the ray, the original point's value will be
-retrurned. If the point is already on the surface distance
-will be 0 but be considered as non intersecting along its
-normal.
+is hit along the ray(within the given thresholds), the
+ordinary closest point's value will be returned and the
+corresponding entry in \code{quality} will be zero.
 }
 \examples{
 data(humface)

@@ -5,7 +5,7 @@
 using namespace Rcpp;
 //#include <wrap/ply/plylib.cpp>
  
-RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SEXP _tol, SEXP mindist_)
+RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SEXP _tol, SEXP maxtol_, SEXP mindist_)
 {
   typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
   ScalarType x,y,z;
@@ -13,7 +13,8 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   VertexIterator vi;
   MyMesh m;
   MyMesh refmesh;
-  float tol = Rcpp::as<float>(_tol);	
+  float tol = Rcpp::as<float>(_tol);
+  float maxtol = as<float>(maxtol_);
   Rcpp::NumericMatrix ioclost(_ioclost);
   Rcpp::NumericMatrix normals(_normals);
   int dref =  ioclost.ncol();
@@ -93,7 +94,7 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
 	t = -t1;
       } 
     }  
-    if (f_ptr) {
+    if (f_ptr && abs(t) < maxtol) {
       if (abs(t) >= tol) {
 	clost = refmesh.vert[i].P()+dir*t;//the hit point
 	dis.push_back(t);
