@@ -14,11 +14,12 @@
 #' \item{meanitmax }{per face maximum mean curvature of adjacent vertices}
 #'
 #' @examples
-#' require(Morpho)
+#' 
 #' data(humface)
 #' curv <- vcgCurve(humface)
 #' ##visualise per vertex mean curvature
 #' \dontrun{
+#' require(Morpho)
 #' meshDist(humface,distvec=curv$meanvb,from=-0.2,to=0.2,tol=0.01)
 #' }
 #' @export vcgCurve

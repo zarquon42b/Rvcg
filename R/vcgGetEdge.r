@@ -54,12 +54,13 @@ vcgGetEdge <- function(mesh,unique=TRUE)
 #' \item{face1 }{integer pointing to the first face adjacent to the edge}
 #' \item{face2 }{integer pointing to the first face adjacent to the edge}
 #' @examples
-#' require(rgl)
-#' require(Morpho)
+#' 
 #' data(humface)
 #' edges <-vcgNonBorderEdge(humface)
 #' ## show first edge (not at the border)
 #' \dontrun{
+#' require(Morpho)
+#' require(rgl)
 #' lines3d(t(humface$vb[1:3,])[c(edges$vert1[1],edges$vert2[2]),],col=2,lwd=3)
 #' 
 #' ## plot barycenters of adjacent faces

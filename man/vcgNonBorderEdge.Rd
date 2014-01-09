@@ -25,12 +25,12 @@ to the edge}
 Get all non-border edges and both faces adjacent to them.
 }
 \examples{
-require(rgl)
-require(Morpho)
 data(humface)
 edges <-vcgNonBorderEdge(humface)
 ## show first edge (not at the border)
 \dontrun{
+require(Morpho)
+require(rgl)
 lines3d(t(humface$vb[1:3,])[c(edges$vert1[1],edges$vert2[2]),],col=2,lwd=3)
 
 ## plot barycenters of adjacent faces
