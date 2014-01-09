@@ -35,33 +35,8 @@
 #include <limits>
 
 // some stuff for portable hashes...
-#ifdef WIN32
- #ifndef __MINGW32__
-  #include <hash_map>
-  #include <hash_set>
-  #define STDEXT stdext
- #else
-#if (__GNUC__ ==4) && (__GNUC_MINOR__ > 3) && (defined(__DEPRECATED))
-  #undef __DEPRECATED // since gcc 4.4 <ext/hash_map> was deprecated and generate warnings. Relax Deprecation Just for this...
-  #define ___WE_UNDEFINED_DEPRECATED__
-#endif
-  #include <ext/hash_map>
-  #include <ext/hash_set>
-  #define STDEXT __gnu_cxx
- #endif
-#else // We are in the *nix gcc branch
-#if (__GNUC__ ==4) && (__GNUC_MINOR__ > 3) && (defined(__DEPRECATED))
-  #undef __DEPRECATED // since gcc 4.4 <ext/hash_map> was deprecated and generate warnings. Relax Deprecation Just for this...
-  #define ___WE_UNDEFINED_DEPRECATED__
-#endif
- #include <ext/hash_map>
- #include <ext/hash_set>
- #define STDEXT __gnu_cxx
-#if defined(___WE_UNDEFINED_DEPRECATED__)
-#define __DEPRECATED
-#endif
-#endif
-
+#include <tr1/unordered_map>
+#include <tr1/unordered_set>
 
 
 namespace vcg{
@@ -85,11 +60,13 @@ public:
 
 // needed for gcc compilation
 #ifndef _MSC_VER
-}} namespace STDEXT {
-  template <> struct hash<vcg::tri::HashedPoint3i>{
-  inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
-};
-} namespace vcg{ namespace tri{
+}} 
+namespace std {
+  namespace tr1 {
+    template <> struct hash<vcg::tri::HashedPoint3i>{
+      inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
+    };
+  }} namespace vcg{ namespace tri{
 #endif
 
 //
@@ -274,18 +251,13 @@ class Clustering
 
   BasicGrid<ScalarType> Grid;
 
-#ifdef _MSC_VER
-  STDEXT::hash_set<SimpleTri> TriSet;
-  typedef typename STDEXT::hash_set<SimpleTri>::iterator TriHashSetIterator;
-#else
   struct SimpleTriHashFunc{
     inline	size_t	operator ()(const SimpleTri &p) const {return size_t(p);}
   };
-  STDEXT::hash_set<SimpleTri,SimpleTriHashFunc> TriSet;
-  typedef typename STDEXT::hash_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
-#endif
+  std::tr1::unordered_set<SimpleTri,SimpleTriHashFunc> TriSet;
+  typedef typename std::tr1::unordered_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
 
-  STDEXT::hash_map<HashedPoint3i,CellType> GridCell;
+  std::tr1::unordered_map<HashedPoint3i,CellType> GridCell;
 
 
 	void AddPointSet(MeshType &m, bool UseOnlySelected=false)
@@ -328,7 +300,7 @@ class Clustering
 
   void SelectPointSet(MeshType &m)
   {
-        typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
+    typename std::tr1::unordered_map<HashedPoint3i,CellType>::iterator gi;
                 UpdateSelection<MeshType>::VertexClear(m);
         for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
@@ -344,7 +316,7 @@ class Clustering
         if (GridCell.empty()) return;
 
     Allocator<MeshType>::AddVertices(m,GridCell.size());
-    typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
+    typename std::tr1::unordered_map<HashedPoint3i,CellType>::iterator gi;
     int i=0;
     for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
@@ -364,7 +336,7 @@ class Clustering
     if (GridCell.empty())  return;
 
     Allocator<MeshType>::AddVertices(m,GridCell.size());
-    typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
+    typename std::tr1::unordered_map<HashedPoint3i,CellType>::iterator gi;
     int i=0;
     for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {

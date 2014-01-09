@@ -1,3 +1,4 @@
+src/vcglib/unordered_map.patch
 src/vcglib/deprecated_patch
 src/vcglib/apps
 src/vcglib/docs
