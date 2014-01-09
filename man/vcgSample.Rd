@@ -38,7 +38,7 @@ of coordinates specified in \code{SampleNum}, depending on
 }
 \examples{
 data(humface)
-ss <- vcgSample(humface,SampleNum = 500, type=2)
+ss <- vcgSample(humface,SampleNum = 500, type="pd")
 \dontrun{
 require(rgl)
 points3d(ss)
