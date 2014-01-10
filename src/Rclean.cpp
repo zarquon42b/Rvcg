@@ -52,7 +52,7 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
   } else if (select == 5) { 
     int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
     Rprintf("split %d non-manifold vertices\n",split);
-  } else {
+  } else if (select != 0) {
     Rprintf("unknown parameter\n");
   }
   
