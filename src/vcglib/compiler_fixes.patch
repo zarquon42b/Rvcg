@@ -21,34 +21,30 @@ Index: vcg/complex/algorithms/clustering.h
 - #include <ext/hash_set>
 - #define STDEXT __gnu_cxx
 -#endif
-+#include <tr1/unordered_map>
-+#include <tr1/unordered_set>
++#include <unordered_map>
++#include <unordered_set>
  
  
 -
  namespace vcg{
  namespace tri{
  #define HASH_P0 73856093
-@@ -74,11 +60,13 @@
+@@ -74,10 +60,11 @@
  
  // needed for gcc compilation
  #ifndef _MSC_VER
 -}} namespace STDEXT {
--  template <> struct hash<vcg::tri::HashedPoint3i>{
--  inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
--};
--} namespace vcg{ namespace tri{
 +}} 
 +namespace std {
-+  namespace tr1 {
-+    template <> struct hash<vcg::tri::HashedPoint3i>{
-+      inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
-+    };
-+  }} namespace vcg{ namespace tri{
+   template <> struct hash<vcg::tri::HashedPoint3i>{
+-  inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
+-};
++    inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
++  };
+ } namespace vcg{ namespace tri{
  #endif
  
- //
-@@ -263,18 +251,13 @@
+@@ -263,18 +250,13 @@
  
    BasicGrid<ScalarType> Grid;
  
@@ -62,38 +58,38 @@ Index: vcg/complex/algorithms/clustering.h
 -  STDEXT::hash_set<SimpleTri,SimpleTriHashFunc> TriSet;
 -  typedef typename STDEXT::hash_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
 -#endif
-+  std::tr1::unordered_set<SimpleTri,SimpleTriHashFunc> TriSet;
-+  typedef typename std::tr1::unordered_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
++  std::unordered_set<SimpleTri,SimpleTriHashFunc> TriSet;
++  typedef typename std::unordered_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
  
 -  STDEXT::hash_map<HashedPoint3i,CellType> GridCell;
-+  std::tr1::unordered_map<HashedPoint3i,CellType> GridCell;
++  std::unordered_map<HashedPoint3i,CellType> GridCell;
  
  
  	void AddPointSet(MeshType &m, bool UseOnlySelected=false)
-@@ -317,7 +300,7 @@
+@@ -317,7 +299,7 @@
  
    void SelectPointSet(MeshType &m)
    {
 -        typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
-+    typename std::tr1::unordered_map<HashedPoint3i,CellType>::iterator gi;
++    typename std::unordered_map<HashedPoint3i,CellType>::iterator gi;
                  UpdateSelection<MeshType>::VertexClear(m);
          for(gi=GridCell.begin();gi!=GridCell.end();++gi)
      {
-@@ -333,7 +316,7 @@
+@@ -333,7 +315,7 @@
          if (GridCell.empty()) return;
  
      Allocator<MeshType>::AddVertices(m,GridCell.size());
 -    typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
-+    typename std::tr1::unordered_map<HashedPoint3i,CellType>::iterator gi;
++    typename std::unordered_map<HashedPoint3i,CellType>::iterator gi;
      int i=0;
      for(gi=GridCell.begin();gi!=GridCell.end();++gi)
      {
-@@ -353,7 +336,7 @@
+@@ -353,7 +335,7 @@
      if (GridCell.empty())  return;
  
      Allocator<MeshType>::AddVertices(m,GridCell.size());
 -    typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
-+    typename std::tr1::unordered_map<HashedPoint3i,CellType>::iterator gi;
++    typename std::unordered_map<HashedPoint3i,CellType>::iterator gi;
      int i=0;
      for(gi=GridCell.begin();gi!=GridCell.end();++gi)
      {
@@ -145,7 +141,7 @@ Index: vcg/space/index/spatial_hashing.h
 -#define __DEPRECATED
 -#endif
 -#endif
-+#include <tr1/unordered_map>
++#include <unordered_map>
  
 -
  namespace vcg{
@@ -156,7 +152,7 @@ Index: vcg/space/index/spatial_hashing.h
  	// We use a MultiMap because we need to store many object (faces) inside each cell of the grid.
  
 -	typedef typename STDEXT::hash_multimap<Point3i, ObjType *, HashFunctor> HashType;
-+	typedef typename std::tr1::unordered_multimap<Point3i, ObjType *, HashFunctor> HashType;
++	typedef typename std::unordered_multimap<Point3i, ObjType *, HashFunctor> HashType;
  	typedef typename HashType::iterator HashIterator;
  	HashType hash_table; // The real HASH TABLE **************************************
  
