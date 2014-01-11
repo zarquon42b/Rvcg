@@ -1,7 +1,3 @@
-config.status
-aclocal.m4
-autom4te.cache
-src/vcglib/src/vcglib/compiler_fixes.patch
 src/vcglib/unordered_map.patch
 src/vcglib/deprecated_patch
 src/vcglib/apps

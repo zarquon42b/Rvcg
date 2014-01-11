@@ -29,7 +29,7 @@
 //#include <map>
 #include <vector>
 #include <algorithm>
-#include <unordered_map>
+#include <tr1/unordered_map>
 
 namespace vcg{
 
@@ -82,7 +82,7 @@ namespace vcg{
 	// the hash index directly the grid structure.
 	// We use a MultiMap because we need to store many object (faces) inside each cell of the grid.
 
-	typedef typename std::unordered_multimap<Point3i, ObjType *, HashFunctor> HashType;
+	typedef typename std::tr1::unordered_multimap<Point3i, ObjType *, HashFunctor> HashType;
 	typedef typename HashType::iterator HashIterator;
 	HashType hash_table; // The real HASH TABLE **************************************
 
