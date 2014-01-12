@@ -27,9 +27,16 @@
 #include <vcg/space/index/grid_util.h>
 #include <vcg/space/index/grid_closest.h>
 //#include <map>
+#include <config.h>
 #include <vector>
 #include <algorithm>
+#ifdef HAVE_TR1
+#include <tr1/unordered_map>
+#define STDEXT std::tr1
+#else
 #include <unordered_map>
+#define STDEXT std
+#endif
 
 namespace vcg{
 
@@ -82,7 +89,7 @@ namespace vcg{
 	// the hash index directly the grid structure.
 	// We use a MultiMap because we need to store many object (faces) inside each cell of the grid.
 
-	typedef typename std::unordered_multimap<Point3i, ObjType *, HashFunctor> HashType;
+	typedef typename STDEXT::unordered_multimap<Point3i, ObjType *, HashFunctor> HashType;
 	typedef typename HashType::iterator HashIterator;
 	HashType hash_table; // The real HASH TABLE **************************************
 

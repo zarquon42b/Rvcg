@@ -23,6 +23,7 @@
 
 #ifndef __VCGLIB_CLUSTERING
 #define __VCGLIB_CLUSTERING
+#include <config.h>
 
 #include<vcg/complex/complex.h>
 #include <vcg/complex/algorithms/clean.h>
@@ -35,10 +36,15 @@
 #include <limits>
 
 // some stuff for portable hashes...
+#ifdef HAVE_TR1
+#include <tr1/unordered_map>
+#include <tr1/unordered_set>
+#define STDEXT std::tr1
+#else
 #include <unordered_map>
 #include <unordered_set>
-
-
+#define STDEXT std
+#endif
 namespace vcg{
 namespace tri{
 #define HASH_P0 73856093
@@ -62,10 +68,17 @@ public:
 #ifndef _MSC_VER
 }} 
 namespace std {
+#ifdef HAVE_TR1
+  namespace tr1 {
+#endif
   template <> struct hash<vcg::tri::HashedPoint3i>{
     inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
   };
-} namespace vcg{ namespace tri{
+#ifdef HAVE_TR1
+  }
+#endif
+} 
+namespace vcg{ namespace tri{
 #endif
 
 //
@@ -253,10 +266,10 @@ class Clustering
   struct SimpleTriHashFunc{
     inline	size_t	operator ()(const SimpleTri &p) const {return size_t(p);}
   };
-  std::unordered_set<SimpleTri,SimpleTriHashFunc> TriSet;
-  typedef typename std::unordered_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
+  STDEXT::unordered_set<SimpleTri,SimpleTriHashFunc> TriSet;
+  typedef typename STDEXT::unordered_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
 
-  std::unordered_map<HashedPoint3i,CellType> GridCell;
+  STDEXT::unordered_map<HashedPoint3i,CellType> GridCell;
 
 
 	void AddPointSet(MeshType &m, bool UseOnlySelected=false)
@@ -299,7 +312,7 @@ class Clustering
 
   void SelectPointSet(MeshType &m)
   {
-    typename std::unordered_map<HashedPoint3i,CellType>::iterator gi;
+    typename STDEXT::unordered_map<HashedPoint3i,CellType>::iterator gi;
                 UpdateSelection<MeshType>::VertexClear(m);
         for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
@@ -315,7 +328,7 @@ class Clustering
         if (GridCell.empty()) return;
 
     Allocator<MeshType>::AddVertices(m,GridCell.size());
-    typename std::unordered_map<HashedPoint3i,CellType>::iterator gi;
+    typename STDEXT::unordered_map<HashedPoint3i,CellType>::iterator gi;
     int i=0;
     for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
@@ -335,7 +348,7 @@ class Clustering
     if (GridCell.empty())  return;
 
     Allocator<MeshType>::AddVertices(m,GridCell.size());
-    typename std::unordered_map<HashedPoint3i,CellType>::iterator gi;
+    typename STDEXT::unordered_map<HashedPoint3i,CellType>::iterator gi;
     int i=0;
     for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
