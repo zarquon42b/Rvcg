@@ -20,42 +20,138 @@ Files:  src/vcglib/vcg/complex/trimesh/create/emc_lookup_table.h
 Copyright: 2002 by Computer Graphics Group, RWTH Aachen
 License: GPL-2+
 
-Files: src/vcglib/vcg/math/random_generator.h
-Copyright: 2005-2013 Visual Computing Lab  ISTI - Italian National
- Research Council,
- 	  1994 Everett F. Carter Jr. [Polar form of the Box-Muller Transformation]
- 	  1997-2002 Makoto Matsumoto and Takuji Nishimura [Mersenne RNG]
-License: GPL-2+
-
-
-Files:	src/vcglib/eigenlib/* 
-Copyright: 2006-2008 Benoit Jacob <jacob@math.jussieu.fr>
-           2007 Michael Olbrich <michael.olbrich@gmx.net>
-           2008 Gael Guennebaud <g.gael@free.fr>
-           2008 Konstantinos Margaritis <markos@codex.gr>
+Files: src/vcg/eigenlib/Eigen/* src/vcg/eigenlib/unsupported/Eigen/*
+Copyright: 2006 - 2012  Gael Guennebaud, Benoit Jacob
 License: MPL-2
 
-Files:  src/vcglib/eigenlib/unsupported/test/mpreal/* 
-	src/vcglib/eigenlib/unsupported/Eigen/src/IterativeSolvers/* 
-	src/vcglib/eigenlibEigen/src/SparseCholesky/SimplicialCholesky.h 
-	src/vcglib/eigenlib/Eigen/src/OrderingMethods/Amd.h
-Copyright: 2002-2007 Yves Renard
-           2008-2009 Gael Guennebaud <g.gael@free.fr>
-License:   LGPL-2.1+ or MPL-2
+Files: unsupported/Eigen/FFT unsupported/Eigen/src/FFT/ei_fftw_impl.h unsupported/Eigen/src/FFT/ei_kissfft_impl.h
+Copyright: 2003 - 2009  Mark Borgerding
+License: MPL-2
 
-Files: src/vcglib/eigenlib/Eigen/src/LU/PartialPivLU_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/PardisoSupport/PardisoSupport.h 
-       src/vcglib/eigenlib/Eigen/src/Core/Assign_MKL.h src/vcglib/eigenlib/Eigen/src/Core/util/MKL_support.h 
-       src/vcglib/eigenlib/Eigen/src/Core/products/*_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/SVD/JacobiSVD_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/Cholesky/LLT_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/QR/HouseholderQR_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/QR/ColPivHouseholderQR_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/Eigenvalues/ComplexSchur_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h 
-       src/vcglib/eigenlib/Eigen/src/Eigenvalues/RealSchur_MKL.h
-Copyright: 2011 Intel Corporation
-License:   BSD
+Files: src/vcg/eigenlib/Eigen/src/SuperLUSupport/SuperLUSupport.h
+Copyright: 1994  Xerox Corporation
+License: 
+   THIS MATERIAL IS PROVIDED AS IS, WITH ABSOLUTELY NO WARRANTY
+   EXPRESSED OR IMPLIED.  ANY USE IS AT YOUR OWN RISK.
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/IterativeSolvers/IterationController.h
+Copyright: 1997 - 2001 Andrew Lumsdaine and Lie-Quan Lee
+License:
+   This file is part of the Iterative Template Library
+
+   You should have received a copy of the License Agreement for the
+   Iterative Template Library along with the software;  see the
+   file LICENSE.  
+
+   Permission to modify the code and to distribute modified code is
+   granted, provided the text of this NOTICE is retained, a notice that
+   the code was modified is included with the above COPYRIGHT NOTICE and
+   with the COPYRIGHT NOTICE in the LICENSE file, and that the LICENSE
+   file is distributed with the modified code.
+
+   LICENSOR MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED.
+   By way of example, but not limitation, Licensor MAKES NO
+   REPRESENTATIONS OR WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY
+   PARTICULAR PURPOSE OR THAT THE USE OF THE LICENSED SOFTWARE COMPONENTS
+   OR DOCUMENTATION WILL NOT INFRINGE ANY PATENTS, COPYRIGHTS, TRADEMARKS
+   OR OTHER RIGHTS.
+
+Files: src/vcg/eigenlib/unsupported/Eigen/Splines src/vcg/eigenlib/unsupported/Eigen/src/Splines/SplineFitting.h src/vcg/eigenlib/unsupported/Eigen/src/Splines/SplineFwd.h src/vcg/eigenlib/unsupported/Eigen/src/Splines/Spline.h src/vcg/eigenlib/Eigen/src/Geometry/Umeyama.h src/vcg/eigenlib/Eigen/src/StlSupport/details.h src/vcg/eigenlib/Eigen/src/StlSupport/StdDeque.h src/vcg/eigenlib/Eigen/src/StlSupport/StdList.h src/vcg/eigenlib/Eigen/src/StlSupport/StdVector.h src/vcg/eigenlib/Eigen/StdDeque src/vcg/eigenlib/Eigen/StdList src/vcg/eigenlib/Eigen/StdVector src/vcg/eigenlib/Eigen/src/Core/DenseStorage.h src/vcg/eigenlib/Eigen/src/Core/util/Memory.h src/vcg/eigenlib/Eigen/src/Geometry/Transform.h
+Copyright: 2009 - 2011 Hauke Heibel <hauke.heibel@gmail.com>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/LU/arch/Inverse_SSE.h src/vcg/eigenlib/Eigen/src/Cholesky/LLT_MKL.h src/vcg/eigenlib/Eigen/src/Core/Assign_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/GeneralMatrixMatrix_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/GeneralMatrixMatrixTriangular_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/GeneralMatrixVector_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/SelfadjointMatrixMatrix_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/SelfadjointMatrixVector_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/TriangularMatrixMatrix_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/TriangularMatrixVector_MKL.h src/vcg/eigenlib/Eigen/src/Core/products/TriangularSolverMatrix_MKL.h src/vcg/eigenlib/Eigen/src/Core/util/MKL_support.h src/vcg/eigenlib/Eigen/src/Eigenvalues/ComplexSchur_MKL.h src/vcg/eigenlib/Eigen/src/Eigenvalues/RealSchur_MKL.h src/vcg/eigenlib/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_MKL.h src/vcg/eigenlib/Eigen/src/LU/PartialPivLU_MKL.h src/vcg/eigenlib/Eigen/src/PardisoSupport/PardisoSupport.h src/vcg/eigenlib/Eigen/src/QR/ColPivHouseholderQR_MKL.h src/vcg/eigenlib/Eigen/src/QR/HouseholderQR_MKL.h src/vcg/eigenlib/Eigen/src/SVD/JacobiSVD_MKL.h
+Copyright: 2001 Intel Corporation
+License:
+   Permition is granted to use, copy, distribute and prepare derivative works
+   of this library for any purpose and without fee, provided, that the above
+   copyright notice and this statement appear in all copies.
+   Intel makes no representations about the suitability of this software for
+   any purpose, and specifically disclaims all warranties.
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/IterativeSolvers/ConstrainedConjGrad.h
+Copyright: 2002 - 2007 Yves Renard
+License: LPGL-2.1
+
+Files: src/vcg/eigenlib/Eigen/src/OrderingMethods/Amd.h
+Copyright: 2006 Timothy A. Davis
+License: LGPL-2.1
+
+Files: src/vcg/eigenlib/Eigen/src/Core/arch/SSE/MathFunctions.h
+Copyright: 2007 Julien Pommier
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Core/Assign.h
+Copyright: 2007 Michael Olbrich
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/Skyline/SkylineMatrixBase.h src/vcg/eigenlib/unsupported/Eigen/src/Skyline/SkylineMatrix.h src/vcg/eigenlib/unsupported/Eigen/src/Skyline/SkylineProduct.h src/vcg/eigenlib/unsupported/Eigen/src/Skyline/SkylineStorage.h src/vcg/eigenlib/unsupported/Eigen/src/Skyline/SkylineInplaceLU.h src/vcg/eigenlib/unsupported/Eigen/src/Skyline/SkylineUtil.h
+Copyright: 2008 - 2009 Guillaume Saupin <guillaume.saupin@cea.fr>;
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Core/arch/AltiVec/PacketMath.h src/vcg/eigenlib/Eigen/src/Core/arch/NEON/PacketMath.h
+Copyright: 2008 Konstantinos Margaritis
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunctions/MatrixExponential.h src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunction.h src/vcg/eigenlib/unsupported/Eigen/MatrixFunctions src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunctions/MatrixFunctionAtomic.h src/vcg/eigenlib/Eigen/src/Eigenvalues/ComplexEigenSolver.h src/vcg/eigenlib/Eigen/src/Eigenvalues/ComplexSchur.h src/vcg/eigenlib/Eigen/src/Eigenvalues/EigenSolver.h src/vcg/eigenlib/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h src/vcg/eigenlib/Eigen/src/Eigenvalues/HessenbergDecomposition.h src/vcg/eigenlib/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h src/vcg/eigenlib/Eigen/src/Eigenvalues/RealSchur.h src/vcg/eigenlib/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h src/vcg/eigenlib/Eigen/src/Eigenvalues/Tridiagonalization.h src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunctions/StemFunction.h src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunctions/MatrixLogarithm.h src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunctions/MatrixSquareRoot.h
+Copyright: 2009 - 2010 Jitse Niesen <jitse@maths.leeds.ac.uk>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Eigenvalues/ComplexEigenSolver.h src/vcg/eigenlib/Eigen/src/Eigenvalues/ComplexSchur.h
+Copyright: 2009 Claire Maurice
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/BVH src/vcg/eigenlib/unsupported/Eigen/src/BVH/BVAlgorithms.h src/vcg/eigenlib/unsupported/Eigen/src/BVH/KdBVH.h
+Copyright: 2009 Ilya Baran <ibaran@mit.edu>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Cholesky/LDLT.h
+Copyright: 2009 Keir Mierle <mierle@gmail.com>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Geometry/Quaternion.h
+Copyright: 2009 Mathieu Gautier <mathieu.gautier@cea.fr>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Geometry/arch/Geometry_SSE.h src/vcg/eigenlib/unsupported/Eigen/src/MoreVectorization/MathFunctions.h
+Copyright: 2009 Rohit Garg <rpg.314@gmail.com>
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/NonLinearOptimization src/vcg/eigenlib/unsupported/Eigen/NumericalDiff src/vcg/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h src/vcg/eigenlib/unsupported/Eigen/src/NonLinearOptimization/LevenbergMarquardt.h src/vcg/eigenlib/unsupported/Eigen/src/NumericalDiff/NumericalDiff.h src/vcg/eigenlib/Eigen/src/Core/util/Memory.h
+Copyright: 2009 - 2010 Thomas Capricelli <orzel@freehackers.org>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/SparseCore/SparseView.h src/vcg/eigenlib/Eigen/src/Sparse/SparseView.h
+Copyright: 2010 Daniel Lowengrub <lowdanie@gmail.com>
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/Polynomials/Companion.h src/vcg/eigenlib/unsupported/Eigen/src/Polynomials/PolynomialSolver.h src/vcg/eigenlib/unsupported/Eigen/src/Polynomials/PolynomialUtils.h
+Copyright: 2010 Manuel Yguel <manuel.yguel@gmail.com>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Householder/BlockHouseholder.h src/vcg/eigenlib/Eigen/src/QR/HouseholderQR.h
+Copyright: 2010 Vincent Lejeune
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/KroneckerProduct/KroneckerTensorProduct.h
+Copyright: 2011 Andreas Platen <andiplaten@gmx.de>
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunctions/MatrixExponential.h src/vcg/eigenlib/unsupported/Eigen/src/MatrixFunctions/MatrixLogarithm.h
+Copyright: 2011 Chen-Pang He <jdh8@ms63.hinet.net>
+License: MPL-2
+
+Files: src/vcg/eigenlib/unsupported/Eigen/src/KroneckerProduct/KroneckerTensorProduct.h src/vcg/eigenlib/unsupported/Eigen/src/IterativeSolvers/GMRES.h
+Copyright: 2012 Kolja Brix <brix@igpm.rwth-aachen.de>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/Cholesky/LDLT.h
+Copyright: 2011 Timothy E. Holy <tim.holy@gmail.com>
+License: MPL-2
+
+Files: src/vcg/eigenlib/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h src/vcg/eigenlib/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h src/vcg/eigenlib/Eigen/src/PaStiXSupport/PaStiXSupport.h src/vcg/eigenlib/unsupported/Eigen/src/IterativeSolvers/Scaling.h src/vcg/eigenlib/unsupported/Eigen/src/SparseExtra/MarketIO.h src/vcg/eigenlib/unsupported/Eigen/src/SparseExtra/MatrixMarketIterator.h 
+Copyright: 2012 Desire Nuentsa-Wakam <desire.nuentsa_wakam@inria.fr>
+License: MPL-2
 
 Files: parts of src/RQEdecim.cpp [General setup for decimation]
 Copyright: 2003-2012 Visual Computing Lab I.S.T.I. C.N.R.
