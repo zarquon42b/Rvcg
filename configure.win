@@ -1,1 +1,2 @@
 cp src/Makevars.in.win src/Makevars
+cp src/config.in.win src/config.h

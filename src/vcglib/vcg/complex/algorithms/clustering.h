@@ -23,7 +23,6 @@
 
 #ifndef __VCGLIB_CLUSTERING
 #define __VCGLIB_CLUSTERING
-#include <config.h>
 
 #include<vcg/complex/complex.h>
 #include <vcg/complex/algorithms/clean.h>
@@ -36,15 +35,34 @@
 #include <limits>
 
 // some stuff for portable hashes...
-#ifdef HAVE_TR1
-#include <tr1/unordered_map>
-#include <tr1/unordered_set>
-#define STDEXT std::tr1
+#ifdef WIN32
+ #ifndef __MINGW32__
+  #include <hash_map>
+  #include <hash_set>
+  #define STDEXT stdext
+ #else
+  #include <tr1/unordered_map>
+  #include <tr1/unordered_set>
+  #define STDEXT std::tr1
+ #endif
 #else
-#include <unordered_map>
-#include <unordered_set>
-#define STDEXT std
+#ifdef HAVE_TR1
+ #include <tr1/unordered_map>
+ #include <tr1/unordered_set>
+ #define STDEXT std::tr1
+ #define  hash_map unordered_map
+ #define  hash_set unordered_set
+#else
+ #include <unordered_map>
+ #include <unordered_set>
+ #define STDEXT std
+ #define hash_map unordered_map
+ #define hash_set unordered_set
 #endif
+#endif
+
+
+
 namespace vcg{
 namespace tri{
 #define HASH_P0 73856093
@@ -66,19 +84,19 @@ public:
 
 // needed for gcc compilation
 #ifndef _MSC_VER
-}} 
-namespace std {
-#ifdef HAVE_TR1
+}} namespace std {
+ #ifdef HAVE_TR1
   namespace tr1 {
-#endif
+ #endif
+
   template <> struct hash<vcg::tri::HashedPoint3i>{
-    inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
-  };
-#ifdef HAVE_TR1
+  inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
+};
+ #ifdef HAVE_TR1
   }
-#endif
-} 
-namespace vcg{ namespace tri{
+ #endif
+
+} namespace vcg{ namespace tri{
 #endif
 
 //
@@ -263,13 +281,18 @@ class Clustering
 
   BasicGrid<ScalarType> Grid;
 
+#ifdef _MSC_VER
+  STDEXT::hash_set<SimpleTri> TriSet;
+  typedef typename STDEXT::hash_set<SimpleTri>::iterator TriHashSetIterator;
+#else
   struct SimpleTriHashFunc{
     inline	size_t	operator ()(const SimpleTri &p) const {return size_t(p);}
   };
-  STDEXT::unordered_set<SimpleTri,SimpleTriHashFunc> TriSet;
-  typedef typename STDEXT::unordered_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
+  STDEXT::hash_set<SimpleTri,SimpleTriHashFunc> TriSet;
+  typedef typename STDEXT::hash_set<SimpleTri,SimpleTriHashFunc>::iterator TriHashSetIterator;
+#endif
 
-  STDEXT::unordered_map<HashedPoint3i,CellType> GridCell;
+  STDEXT::hash_map<HashedPoint3i,CellType> GridCell;
 
 
 	void AddPointSet(MeshType &m, bool UseOnlySelected=false)
@@ -312,7 +335,7 @@ class Clustering
 
   void SelectPointSet(MeshType &m)
   {
-    typename STDEXT::unordered_map<HashedPoint3i,CellType>::iterator gi;
+        typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
                 UpdateSelection<MeshType>::VertexClear(m);
         for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
@@ -328,7 +351,7 @@ class Clustering
         if (GridCell.empty()) return;
 
     Allocator<MeshType>::AddVertices(m,GridCell.size());
-    typename STDEXT::unordered_map<HashedPoint3i,CellType>::iterator gi;
+    typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
     int i=0;
     for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
@@ -348,7 +371,7 @@ class Clustering
     if (GridCell.empty())  return;
 
     Allocator<MeshType>::AddVertices(m,GridCell.size());
-    typename STDEXT::unordered_map<HashedPoint3i,CellType>::iterator gi;
+    typename STDEXT::hash_map<HashedPoint3i,CellType>::iterator gi;
     int i=0;
     for(gi=GridCell.begin();gi!=GridCell.end();++gi)
     {
