@@ -23,13 +23,33 @@
 
 #ifndef VCGLIB_SPATIAL_HASHING
 #define VCGLIB_SPATIAL_HASHING
-
+#include<config.h>
 #include <vcg/space/index/grid_util.h>
 #include <vcg/space/index/grid_closest.h>
 //#include <map>
 #include <vector>
 #include <algorithm>
-#include <tr1/unordered_map>
+#ifdef _WIN32
+ #ifndef __MINGW32__
+  #include <hash_map>
+  #define STDEXT stdext
+ #else
+ #include <tr1/unordered_map>
+ #define STDEXT std::tr1
+ #define  hash_multimap unordered_multimap
+ #endif
+#else
+#ifdef HAVE_TR1
+ #include <tr1/unordered_map>
+ #define STDEXT std::tr1
+ #define  hash_multimap unordered_multimap
+#else
+ #include <unordered_map>
+ #define STDEXT std
+ #define hash_multimap unordered_multimap
+#endif
+#endif
+
 
 namespace vcg{
 
@@ -82,7 +102,7 @@ namespace vcg{
 	// the hash index directly the grid structure.
 	// We use a MultiMap because we need to store many object (faces) inside each cell of the grid.
 
-	typedef typename std::tr1::unordered_multimap<Point3i, ObjType *, HashFunctor> HashType;
+	typedef typename STDEXT::hash_multimap<Point3i, ObjType *, HashFunctor> HashType;
 	typedef typename HashType::iterator HashIterator;
 	HashType hash_table; // The real HASH TABLE **************************************
 

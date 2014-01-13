@@ -1,0 +1,21 @@
+Index: vcg/space/index/kdtree/kdtree.h
+===================================================================
+--- vcg/space/index/kdtree/kdtree.h	(revision 5054)
++++ vcg/space/index/kdtree/kdtree.h	(working copy)
+@@ -56,14 +56,14 @@
+ 	{
+ 		union {
+                         //standard node
+-			struct {
++			struct ano{
+ 				Scalar splitValue;
+ 				unsigned int firstChildId:24;
+ 				unsigned int dim:2;
+ 				unsigned int leaf:1;
+ 			};
+                         //leaf
+-			struct {
++			struct ano0{
+ 				unsigned int start;
+ 				unsigned short size;
+ 			};
