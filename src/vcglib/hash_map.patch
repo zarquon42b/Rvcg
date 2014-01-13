@@ -1,0 +1,111 @@
+Index: vcg/space/index/spatial_hashing.h
+===================================================================
+--- vcg/space/index/spatial_hashing.h	(revision 5054)
++++ vcg/space/index/spatial_hashing.h	(working copy)
+@@ -23,7 +23,7 @@
+ 
+ #ifndef VCGLIB_SPATIAL_HASHING
+ #define VCGLIB_SPATIAL_HASHING
+-
++#include<config.h>
+ #include <vcg/space/index/grid_util.h>
+ #include <vcg/space/index/grid_closest.h>
+ //#include <map>
+@@ -34,20 +34,21 @@
+   #include <hash_map>
+   #define STDEXT stdext
+  #else
+-  #include <ext/hash_map>
+-  #define STDEXT __gnu_cxx
++ #include <tr1/unordered_map>
++ #define STDEXT std::tr1
++ #define  hash_multimap unordered_multimap
+  #endif
+-#else  // We are in the *nix gcc branch
+-#if (__GNUC__ ==4) && (__GNUC_MINOR__ > 3) && (defined(__DEPRECATED))
+-  #undef __DEPRECATED // since gcc 4.4 <ext/hash_map> was deprecated and generate warnings. Relax Deprecation Just for this...
+-  #define ___WE_UNDEFINED_DEPRECATED__
++#else
++#ifdef HAVE_TR1
++ #include <tr1/unordered_map>
++ #define STDEXT std::tr1
++ #define  hash_multimap unordered_multimap
++#else
++ #include <unordered_map>
++ #define STDEXT std
++ #define hash_multimap unordered_multimap
+ #endif
+- #include <ext/hash_map>
+- #define STDEXT __gnu_cxx
+-#if defined(___WE_UNDEFINED_DEPRECATED__)
+-#define __DEPRECATED
+ #endif
+-#endif
+ 
+ 
+ namespace vcg{
+Index: vcg/complex/algorithms/clustering.h
+===================================================================
+--- vcg/complex/algorithms/clustering.h	(revision 5054)
++++ vcg/complex/algorithms/clustering.h	(working copy)
+@@ -23,7 +23,7 @@
+ 
+ #ifndef __VCGLIB_CLUSTERING
+ #define __VCGLIB_CLUSTERING
+-
++#include<config.h>
+ #include<vcg/complex/complex.h>
+ #include <vcg/complex/algorithms/clean.h>
+ #include<vcg/space/triangle3.h>
+@@ -41,15 +41,25 @@
+   #include <hash_set>
+   #define STDEXT stdext
+  #else
+-  #include <ext/hash_map>
+-  #include <ext/hash_set>
+-  #define STDEXT __gnu_cxx
++  #include <tr1/unordered_map>
++  #include <tr1/unordered_set>
++  #define STDEXT std::tr1
+  #endif
+ #else
+- #include <ext/hash_map>
+- #include <ext/hash_set>
+- #define STDEXT __gnu_cxx
++#ifdef HAVE_TR1
++ #include <tr1/unordered_map>
++ #include <tr1/unordered_set>
++ #define STDEXT std::tr1
++ #define  hash_map unordered_map
++ #define  hash_set unordered_set
++#else
++ #include <unordered_map>
++ #include <unordered_set>
++ #define STDEXT std
++ #define hash_map unordered_map
++ #define hash_set unordered_set
+ #endif
++#endif
+ 
+ 
+ 
+@@ -74,10 +84,18 @@
+ 
+ // needed for gcc compilation
+ #ifndef _MSC_VER
+-}} namespace STDEXT {
++}} namespace std {
++ #ifdef HAVE_TR1
++  namespace tr1 {
++ #endif
++
+   template <> struct hash<vcg::tri::HashedPoint3i>{
+   inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
+ };
++ #ifdef HAVE_TR1
++  }
++ #endif
++
+ } namespace vcg{ namespace tri{
+ #endif
+ 

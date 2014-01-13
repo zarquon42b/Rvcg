@@ -23,7 +23,7 @@
 
 #ifndef __VCGLIB_CLUSTERING
 #define __VCGLIB_CLUSTERING
-
+#include<config.h>
 #include<vcg/complex/complex.h>
 #include <vcg/complex/algorithms/clean.h>
 #include<vcg/space/triangle3.h>
