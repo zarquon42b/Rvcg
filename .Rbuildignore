@@ -1,5 +1,5 @@
-src/vcglib/unordered_map.patch
-src/vcglib/deprecated_patch
+src/vcglib/hash_map.patch
+src/vcglib/kdtree.h_anon_struct.patch
 src/vcglib/apps
 src/vcglib/docs
 src/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h
