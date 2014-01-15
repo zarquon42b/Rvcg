@@ -8,12 +8,13 @@
 
 using namespace Rcpp;
 
-RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_) 
+RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, SEXP clean_) 
 {
   std::string str = Rcpp::as<std::string>(filename_);
   const char *filename = str.c_str();
   bool updateNormals = as<bool>(updateNormals_);
   bool colorread = as<bool>(colorread_);
+  bool clean = as<bool>(clean_);
   MyMesh m;
   int err2 = tri::io::Importer<MyMesh>::Open(m,filename);
   if (err2) {
@@ -26,7 +27,12 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_)
       tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
       tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
     }
-          
+    if (clean) {
+      int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
+      int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+      if (dup > 0 || unref > 0)
+      Rprintf("Removed %i duplicate and %i unreferenced vertices\n",dup,unref);
+    }      
     NumericVector vb(3*m.vn);
     NumericVector colvec(3*m.vn);
     IntegerVector it(3*m.fn);

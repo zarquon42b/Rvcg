@@ -8,6 +8,7 @@
 #' @param updateNormals logical: if TRUE and the imported file contais faces,
 #' vertex normals will be (re)calculated. Otherwise, normals will be a matrix containing zeros.
 #' @param readcolor if TRUE, vertex colors will be read if available, otherwise all vertices will be colored white.
+#' @param clean if TRUE, duplicated and unreferenced vertices are removed (be careful when importing point clouds).
 #' @return Object of class "mesh3d"
 #' 
 #' with:
@@ -19,14 +20,14 @@
 #' @keywords ~kwd1 ~kwd2
 #' @export 
 
-vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE) {
+vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE) {
     ncfile <- nchar(file)
     ext <- substr(file,ncfile-2,ncfile)
     file <- path.expand(file)
     x <- file
     if (! file.exists(x))
         stop("no such file")
-    tmp <- .Call("RallRead", file, updateNormals, readcolor)
+    tmp <- .Call("RallRead", file, updateNormals, readcolor, clean)
     if (!is.list(tmp))
         stop("mesh is not readable")
     out <- list()

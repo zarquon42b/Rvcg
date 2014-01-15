@@ -2,7 +2,7 @@
 \alias{vcgImport}
 \title{Import common mesh file formats.}
 \usage{
-vcgImport(file, updateNormals = TRUE, readcolor = FALSE)
+vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE)
 }
 \arguments{
   \item{file}{character: file to be read.}
@@ -14,6 +14,10 @@ vcgImport(file, updateNormals = TRUE, readcolor = FALSE)
 
   \item{readcolor}{if TRUE, vertex colors will be read if
   available, otherwise all vertices will be colored white.}
+
+  \item{clean}{if TRUE, duplicated and unreferenced
+  vertices are removed (be careful when importing point
+  clouds),}
 }
 \value{
 Object of class "mesh3d"
