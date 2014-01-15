@@ -1,0 +1,46 @@
+Index: vcg/complex/used_types.h
+===================================================================
+--- vcg/complex/used_types.h	(revision 5055)
++++ vcg/complex/used_types.h	(working copy)
+@@ -90,6 +90,6 @@
+ struct _Face  : public  Face<_UsedTypes>{};
+ struct _HEdge : public  HEdge<_UsedTypes>{};
+ 
+-};
++}
+ 
+ #endif // USED_TYPES_H
+Index: vcg/space/intersection3.h
+===================================================================
+--- vcg/space/intersection3.h	(revision 5055)
++++ vcg/space/intersection3.h	(working copy)
+@@ -121,7 +121,7 @@
+ 			solution_count++;
+ 		}
+ 		return solution_count;
+-	}; // end of IntersectionSegmentSphere
++	} // end of IntersectionSegmentSphere
+ 
+ 	
+ 	/*!
+@@ -215,7 +215,7 @@
+ 		penetration_detected = (witness.SquaredNorm() <= (radius*radius));
+ 		witness += center;
+ 		return penetration_detected;
+-	}; //end of IntersectionSphereTriangle
++	} //end of IntersectionSphereTriangle
+ 
+   /// intersection between line and plane
+   template<class T>
+Index: wrap/ply/plylib.cpp
+===================================================================
+--- wrap/ply/plylib.cpp	(revision 5055)
++++ wrap/ply/plylib.cpp	(working copy)
+@@ -3673,6 +3673,6 @@
+ 		output[io++]=a[ia++]; 
+ 	};
+ 	output[io]=0;
+-};
++}
+ } 
+ }

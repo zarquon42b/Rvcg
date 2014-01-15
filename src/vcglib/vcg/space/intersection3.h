@@ -121,7 +121,7 @@ namespace vcg {
 			solution_count++;
 		}
 		return solution_count;
-	}; // end of IntersectionSegmentSphere
+	} // end of IntersectionSegmentSphere
 
 	
 	/*!
@@ -215,7 +215,7 @@ namespace vcg {
 		penetration_detected = (witness.SquaredNorm() <= (radius*radius));
 		witness += center;
 		return penetration_detected;
-	}; //end of IntersectionSphereTriangle
+	} //end of IntersectionSphereTriangle
 
   /// intersection between line and plane
   template<class T>
