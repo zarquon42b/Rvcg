@@ -4,4 +4,5 @@ src/vcglib/eigenlib
 src/vcglib/apps
 src/vcglib/docs
 ^.*.o$
-
+^.*.m4$
+src/Makevars$

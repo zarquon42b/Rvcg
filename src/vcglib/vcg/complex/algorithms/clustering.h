@@ -43,6 +43,8 @@
  #else
   #include <tr1/unordered_map>
   #include <tr1/unordered_set>
+  #define  hash_map unordered_map
+  #define  hash_set unordered_set
   #define STDEXT std::tr1
  #endif
 #else

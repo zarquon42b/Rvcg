@@ -1,6 +1,6 @@
 Index: vcg/space/index/spatial_hashing.h
 ===================================================================
---- vcg/space/index/spatial_hashing.h	(revision 5054)
+--- vcg/space/index/spatial_hashing.h	(revision 5055)
 +++ vcg/space/index/spatial_hashing.h	(working copy)
 @@ -23,7 +23,7 @@
  
@@ -46,7 +46,7 @@ Index: vcg/space/index/spatial_hashing.h
  namespace vcg{
 Index: vcg/complex/algorithms/clustering.h
 ===================================================================
---- vcg/complex/algorithms/clustering.h	(revision 5054)
+--- vcg/complex/algorithms/clustering.h	(revision 5055)
 +++ vcg/complex/algorithms/clustering.h	(working copy)
 @@ -23,7 +23,7 @@
  
@@ -57,7 +57,7 @@ Index: vcg/complex/algorithms/clustering.h
  #include<vcg/complex/complex.h>
  #include <vcg/complex/algorithms/clean.h>
  #include<vcg/space/triangle3.h>
-@@ -41,15 +41,25 @@
+@@ -41,15 +41,27 @@
    #include <hash_set>
    #define STDEXT stdext
   #else
@@ -66,6 +66,8 @@ Index: vcg/complex/algorithms/clustering.h
 -  #define STDEXT __gnu_cxx
 +  #include <tr1/unordered_map>
 +  #include <tr1/unordered_set>
++  #define  hash_map unordered_map
++  #define  hash_set unordered_set
 +  #define STDEXT std::tr1
   #endif
  #else
@@ -89,7 +91,7 @@ Index: vcg/complex/algorithms/clustering.h
  
  
  
-@@ -74,10 +84,18 @@
+@@ -74,10 +86,18 @@
  
  // needed for gcc compilation
  #ifndef _MSC_VER
