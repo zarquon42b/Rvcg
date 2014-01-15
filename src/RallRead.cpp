@@ -8,12 +8,12 @@
 
 using namespace Rcpp;
 
-RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_) 
+RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_) 
 {
   std::string str = Rcpp::as<std::string>(filename_);
   const char *filename = str.c_str();
   bool updateNormals = as<bool>(updateNormals_);
-
+  bool colorread = as<bool>(colorread_);
   MyMesh m;
   int err2 = tri::io::Importer<MyMesh>::Open(m,filename);
   if (err2) {
@@ -28,6 +28,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_)
     }
           
     NumericVector vb(3*m.vn);
+    NumericVector colvec(3*m.vn);
     IntegerVector it(3*m.fn);
     NumericVector normals(3*m.vn);
     VertexIterator vi=m.vert.begin();
@@ -39,6 +40,11 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_)
       normals(i*3) = (*vi).N()[0];
       normals(i*3+1) = (*vi).N()[1];
       normals(i*3+2) = (*vi).N()[2];
+      if (colorread) {
+	colvec(i*3) = (*vi).C()[0];
+	colvec(i*3+1) = (*vi).C()[1];
+	colvec(i*3+2) = (*vi).C()[2];
+      }
     
       ++vi;
     }
@@ -62,7 +68,8 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_)
     //return wrap(vb);
     return List::create(Named("vb") = vb, 
 			Named("it") = it,
-			Named("normals") = normals
+			Named("normals") = normals,
+			Named("colors") = colvec
 			);
   }
  }

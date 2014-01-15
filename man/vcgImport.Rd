@@ -2,7 +2,7 @@
 \alias{vcgImport}
 \title{Import common mesh file formats.}
 \usage{
-vcgImport(file, updateNormals = TRUE)
+vcgImport(file, updateNormals = TRUE, readcolor = FALSE)
 }
 \arguments{
   \item{file}{character: file to be read.}
@@ -11,6 +11,9 @@ vcgImport(file, updateNormals = TRUE)
   file contais faces, vertex normals will be
   (re)calculated. Otherwise, normals will be a matrix
   containing zeros.}
+
+  \item{readcolor}{if TRUE, vertex colors will be read if
+  available, otherwise all vertices will be colored white.}
 }
 \value{
 Object of class "mesh3d"
