@@ -32,7 +32,7 @@
 #include <vcg/complex/algorithms/update/topology.h>
 #include <vcg/complex/algorithms/clean.h>
 #include "emc_lookup_table.h"
-#include <eigenlib/Eigen/SVD>
+#include <Eigen/SVD>
 
 namespace vcg
 {

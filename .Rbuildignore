@@ -1,3 +1,4 @@
+src/vcglib/eigenlib
 src/vcglib/hash_map.patch
 src/vcglib/kdtree.h_anon_struct.patch
 src/vcglib/apps

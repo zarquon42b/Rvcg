@@ -27,7 +27,7 @@ Depends:
 Suggests:
     Morpho,
     rgl
-LinkingTo: Rcpp
+LinkingTo: Rcpp, RcppEigen
 License: GPL (>= 2) | file LICENSE
 Copyright: see COPYRIGHTS file for detailed information
 LazyLoad: yes
