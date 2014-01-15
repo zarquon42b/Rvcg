@@ -1,8 +1,7 @@
+src/vcglib/img
 src/vcglib/eigenlib
-src/vcglib/hash_map.patch
-src/vcglib/kdtree.h_anon_struct.patch
+^src/vcglib/.*.patch$
 src/vcglib/apps
 src/vcglib/docs
-src/vcglib/eigenlib/unsupported/Eigen/src/NonLinearOptimization/HybridNonLinearSolver.h
 ^.*.o$
 
