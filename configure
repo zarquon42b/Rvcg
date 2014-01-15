@@ -1770,8 +1770,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-#AC_HEADER_TR1_UNORDERED_MAP
-# AC_HEADER_STDCXX_TR1
 
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
@@ -2297,7 +2295,7 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-   #include <tr1/unordered_set>
+  #include <tr1/unordered_set>
   #include <tr1/unordered_map>
 
 
@@ -2331,7 +2329,58 @@ $as_echo "#define HAVE_TR1 /**/" >>confdefs.h
 
   fi
 
-#AC_CHECK_HEADER(sys/types.h,[AC_DEFINE([HAVE_TR1],[],["Have tr1"])],[])
+
+
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for inttypes.h" >&5
+$as_echo_n "checking for inttypes.h... " >&6; }
+if ${ac_cv_cxx_stdcxx_inttypes+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+  ac_ext=cpp
+ac_cpp='$CXXCPP $CPPFLAGS'
+ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+  #include <inttypes.h>
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_compile "$LINENO"; then :
+  ac_cv_cxx_stdcxx_inttypes=yes
+else
+  ac_cv_cxx_stdcxx_inttypes=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+  ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_cxx_stdcxx_inttypes" >&5
+$as_echo "$ac_cv_cxx_stdcxx_inttypes" >&6; }
+  if test "$ac_cv_cxx_stdcxx_inttypes" = yes; then
+
+$as_echo "#define HAVE_INTTYPES /**/" >>confdefs.h
+
+  fi
+
+
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'

@@ -1,5 +1,8 @@
 /* src/config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define if inttypes.h header files are present. */
+#undef HAVE_INTTYPES
+
 /* Define if ISO C++ TR1 header files are present. */
 #undef HAVE_TR1
 

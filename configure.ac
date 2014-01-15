@@ -1,7 +1,5 @@
 AC_INIT([RVCG], 0.6) 
 
-#AC_HEADER_TR1_UNORDERED_MAP
-# AC_HEADER_STDCXX_TR1
 AC_DEFUN([AC_HEADER_STDCXX_TR1], [
   AC_CACHE_CHECK(for ISO C++ TR1 include files,
   ac_cv_cxx_stdcxx_tr1,
@@ -20,7 +18,25 @@ AC_DEFUN([AC_HEADER_STDCXX_TR1], [
   fi
 ])
 AC_HEADER_STDCXX_TR1
-#AC_CHECK_HEADER(sys/types.h,[AC_DEFINE([HAVE_TR1],[],["Have tr1"])],[])
+
+AC_DEFUN([AC_HEADER_STDCXX_INTTYPES], [
+  AC_CACHE_CHECK(for inttypes.h,
+  ac_cv_cxx_stdcxx_inttypes,
+  [AC_LANG_SAVE
+  AC_LANG_CPLUSPLUS
+  AC_TRY_COMPILE([
+  #include <inttypes.h>
+  ],,
+  ac_cv_cxx_stdcxx_inttypes=yes, ac_cv_cxx_stdcxx_inttypes=no)
+  AC_LANG_RESTORE
+  ])
+  if test "$ac_cv_cxx_stdcxx_inttypes" = yes; then
+    AC_DEFINE(HAVE_INTTYPES,,[Define if inttypes.h header files are present. ])
+  fi
+])
+
+AC_HEADER_STDCXX_INTTYPES
+
 AX_CHECK_COMPILE_FLAG([-std=c++0x], [CXXFLAGS="$CXXFLAGS -std=c++0x"])
 AC_SUBST(CXXFLAGS)
 AC_CONFIG_HEADERS([src/config.h])
