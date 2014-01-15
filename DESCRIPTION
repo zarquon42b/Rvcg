@@ -16,8 +16,9 @@ Description: Operations on triangular meshes based on VCGLIB
     base of most of the software tools of the Visual Computing Lab of the
     Italian National Research Council Institute ISTI (http://vcg.isti.cnr.it),
     like metro and MeshLab.
-    .# The vcglib source is pulled from trunk
-    (svn://svn.code.sf.net/p/vcg/code/trunk/vcglib)
+    .# The vcglib source is pulled from trunk (svn://svn.code.sf.net/p/vcg/code/trunk/vcglib)
+    and patched to work with options determined by the configure script as well as to work 
+    with the header files included by RcppEigen
 Depends:
     R (>= 3.0.0)
 Suggests:
