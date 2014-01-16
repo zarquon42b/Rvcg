@@ -34,20 +34,24 @@
   #include <hash_map>
   #define STDEXT stdext
  #else
- #include <tr1/unordered_map>
- #define STDEXT std::tr1
- #define  hash_multimap unordered_multimap
- #endif
+  #include <tr1/unordered_map>
+  #define STDEXT std::tr1
+  #define  hash_multimap unordered_multimap
+  #endif
 #else
-#ifdef HAVE_TR1
- #include <tr1/unordered_map>
- #define STDEXT std::tr1
- #define  hash_multimap unordered_multimap
-#else
- #include <unordered_map>
- #define STDEXT std
- #define hash_multimap unordered_multimap
-#endif
+ #ifdef HAVE_TR1
+  #include <tr1/unordered_map>
+  #define STDEXT std::tr1
+  #define  hash_multimap unordered_multimap
+ #elseif HAVE_CXX11_MAP
+  #include <unordered_map>
+  #define STDEXT std
+  #define hash_multimap unordered_multimap
+ #else
+  #include <map>
+  #define STDEXT std
+  #define hash_multimap multimap
+  #endif
 #endif
 
 

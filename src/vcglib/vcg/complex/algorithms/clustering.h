@@ -48,19 +48,25 @@
   #define STDEXT std::tr1
  #endif
 #else
-#ifdef HAVE_TR1
- #include <tr1/unordered_map>
- #include <tr1/unordered_set>
- #define STDEXT std::tr1
- #define  hash_map unordered_map
- #define  hash_set unordered_set
-#else
- #include <unordered_map>
- #include <unordered_set>
- #define STDEXT std
- #define hash_map unordered_map
- #define hash_set unordered_set
-#endif
+ #ifdef HAVE_TR1
+  #include <tr1/unordered_map>
+  #include <tr1/unordered_set>
+  #define STDEXT std::tr1
+  #define  hash_map unordered_map
+  #define  hash_set unordered_set
+ #elif defined HAVE_CXX11_MAP
+  #include <unordered_map>
+  #include <unordered_set>
+  #define STDEXT std
+  #define hash_map unordered_map
+  #define hash_set unordered_set
+#else 
+  #include <map>
+  #include <set>
+  #define STDEXT std
+  #define hash_map map
+  #define hash_set set
+ #endif
 #endif
 
 

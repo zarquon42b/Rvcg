@@ -1,5 +1,8 @@
 /* src/config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define if ISO C++11 unordered_* header files are present. */
+#undef HAVE_CXX11_MAP
+
 /* Define if inttypes.h header files are present. */
 #undef HAVE_INTTYPES
 
