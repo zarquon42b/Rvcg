@@ -54,16 +54,16 @@ public:
 
 	struct Node
 	{
-		union {
+		union namedunion{
                         //standard node
-			struct ano{
+			struct namedstruct0{
 				Scalar splitValue;
 				unsigned int firstChildId:24;
 				unsigned int dim:2;
 				unsigned int leaf:1;
 			};
                         //leaf
-			struct ano0{
+			struct namedstruct1{
 				unsigned int start;
 				unsigned short size;
 			};
