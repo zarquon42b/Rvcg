@@ -1,5 +1,4 @@
-SOURCES=$(wildcard *.cpp) vcglib/wrap/ply/plylib.cpp
-OBJECTS=$(SOURCES:.cpp=.o)
+OBJECTS=vcglib/wrap/ply/plylib.o Rsmooth.o Rclean.o RVFadj.o RgetEdge.o RPly.o Rintersect.o Rborder.o RallRead.o Rsample.o RQEdecim.o Rmeshres.o Risolated.o Rcurvature.o Rclost.o
 PKG_CPPFLAGS=-Ivcglib -I.
 PKG_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
 	
