@@ -6,3 +6,4 @@ src/vcglib/docs
 ^.*.o$
 ^.*.m4$
 src/Makevars$
+src/upOBJ.sh
