@@ -43,7 +43,7 @@
   #include <tr1/unordered_map>
   #define STDEXT std::tr1
   #define  hash_multimap unordered_multimap
- #elseif HAVE_CXX11_MAP
+ #elif defined HAVE_CXX11_MAP
   #include <unordered_map>
   #define STDEXT std
   #define hash_multimap unordered_multimap
