@@ -7,7 +7,7 @@
 #' Package: \tab Rvcg\cr
 #' Type: \tab Package\cr
 #' Version: \tab 0.6-1\cr
-#' Date: \tab 2014-01-15\cr
+#' Date: \tab 2014-01-17\cr
 #' License: \tab GPL\cr
 #' LazyLoad: \tab yes\cr }
 #' 

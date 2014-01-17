@@ -17,7 +17,7 @@ vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE)
 
   \item{clean}{if TRUE, duplicated and unreferenced
   vertices are removed (be careful when importing point
-  clouds),}
+  clouds).}
 }
 \value{
 Object of class "mesh3d"
