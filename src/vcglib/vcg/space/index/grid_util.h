@@ -70,8 +70,8 @@ Removed BestDim function from the grid_static_ptr class and moved to a indipende
 #include <vcg/space/index/space_iterators.h>
 #include <config.h>
 
-#ifndef WIN32
- #ifdef HAVE_INTTYPES
+//#ifndef WIN32
+#ifdef HAVE_INTTYPES
   #include <inttypes.h>
   #define __int64 int64_t
   //#define __cdecl 
@@ -79,7 +79,7 @@ Removed BestDim function from the grid_static_ptr class and moved to a indipende
   #define __int64 long long
   //#define __cdecl 
  #endif
-#endif
+//#endif
 
 namespace vcg {
 
