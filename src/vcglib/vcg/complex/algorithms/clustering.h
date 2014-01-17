@@ -23,7 +23,7 @@
 
 #ifndef __VCGLIB_CLUSTERING
 #define __VCGLIB_CLUSTERING
-#include<config.h>
+
 #include<vcg/complex/complex.h>
 #include <vcg/complex/algorithms/clean.h>
 #include<vcg/space/triangle3.h>
@@ -35,40 +35,24 @@
 #include <limits>
 
 // some stuff for portable hashes...
-#ifdef WIN32
+/*#ifdef WIN32
  #ifndef __MINGW32__
   #include <hash_map>
   #include <hash_set>
   #define STDEXT stdext
  #else
-  #include <tr1/unordered_map>
-  #include <tr1/unordered_set>
-  #define  hash_map unordered_map
-  #define  hash_set unordered_set
-  #define STDEXT std::tr1
+  #include <ext/hash_map>
+  #include <ext/hash_set>
+  #define STDEXT __gnu_cxx
  #endif
 #else
- #ifdef HAVE_TR1
-  #include <tr1/unordered_map>
-  #include <tr1/unordered_set>
-  #define STDEXT std::tr1
-  #define  hash_map unordered_map
-  #define  hash_set unordered_set
- #elif defined HAVE_CXX11_MAP
-  #include <unordered_map>
-  #include <unordered_set>
-  #define STDEXT std
-  #define hash_map unordered_map
-  #define hash_set unordered_set
-#else 
-  #include <map>
-  #include <set>
-  #define STDEXT std
-  #define hash_map map
-  #define hash_set set
- #endif
+ #include <ext/hash_map>
+ #include <ext/hash_set>
+ #define STDEXT __gnu_cxx
 #endif
-
+*/
+//include fix to make code portable
+#include <hashfix.h>
 
 
 namespace vcg{
@@ -96,14 +80,12 @@ public:
  #ifdef HAVE_TR1
   namespace tr1 {
  #endif
-
   template <> struct hash<vcg::tri::HashedPoint3i>{
   inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
 };
  #ifdef HAVE_TR1
   }
  #endif
-
 } namespace vcg{ namespace tri{
 #endif
 

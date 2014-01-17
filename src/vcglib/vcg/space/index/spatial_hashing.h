@@ -23,37 +23,34 @@
 
 #ifndef VCGLIB_SPATIAL_HASHING
 #define VCGLIB_SPATIAL_HASHING
-#include<config.h>
+
 #include <vcg/space/index/grid_util.h>
 #include <vcg/space/index/grid_closest.h>
 //#include <map>
 #include <vector>
 #include <algorithm>
-#ifdef _WIN32
+/*#ifdef _WIN32
  #ifndef __MINGW32__
   #include <hash_map>
   #define STDEXT stdext
  #else
-  #include <tr1/unordered_map>
-  #define STDEXT std::tr1
-  #define  hash_multimap unordered_multimap
-  #endif
-#else
- #ifdef HAVE_TR1
-  #include <tr1/unordered_map>
-  #define STDEXT std::tr1
-  #define  hash_multimap unordered_multimap
- #elif defined HAVE_CXX11_MAP
-  #include <unordered_map>
-  #define STDEXT std
-  #define hash_multimap unordered_multimap
- #else
-  #include <map>
-  #define STDEXT std
-  #define hash_multimap multimap
-  #endif
+  #include <ext/hash_map>
+  #define STDEXT __gnu_cxx
+ #endif
+#else  // We are in the *nix gcc branch
+#if (__GNUC__ ==4) && (__GNUC_MINOR__ > 3) && (defined(__DEPRECATED))
+  #undef __DEPRECATED // since gcc 4.4 <ext/hash_map> was deprecated and generate warnings. Relax Deprecation Just for this...
+  #define ___WE_UNDEFINED_DEPRECATED__
 #endif
-
+ #include <ext/hash_map>
+ #define STDEXT __gnu_cxx
+#if defined(___WE_UNDEFINED_DEPRECATED__)
+#define __DEPRECATED
+#endif
+#endif
+*/
+//include fix to make code portable
+#include <hashfix.h>
 
 namespace vcg{
 

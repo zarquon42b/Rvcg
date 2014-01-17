@@ -68,19 +68,13 @@ Removed BestDim function from the grid_static_ptr class and moved to a indipende
 #include<vcg/space/index/base.h>
 #include<vcg/space/box3.h>
 #include <vcg/space/index/space_iterators.h>
-#include <config.h>
-
-//#ifndef WIN32
-#ifdef HAVE_INTTYPES
-  #include <inttypes.h>
-  #define __int64 int64_t
-  //#define __cdecl 
- #else
-  #define __int64 long long
-  //#define __cdecl 
- #endif
-//#endif
-
+#include <longlong.h>
+/*
+#ifndef WIN32
+#define __int64 long long
+#define __cdecl 
+#endif
+*/
 namespace vcg {
 
 	/** BasicGrid
