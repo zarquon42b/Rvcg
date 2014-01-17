@@ -10,13 +10,10 @@ extern "C" {
 
   void RPlyRead(char **filename, double *vb ,int *dim, int *it, int *dimit, double *normals, int *getNorm, int *updNorm, double *quality,int *col, int *colvec, int *clean,int *fail)
   {
-    ScalarType x,y,z;
     int i;
     MyMesh m;
     // section read from input
-    int d = *dim;
     int faced = *dimit;
-    int faceinput = faced;
     //char file = **filename;
     char file[256];
     strcpy(file, *filename);
@@ -38,6 +35,7 @@ extern "C" {
 	if (*clean == 1) {
 	  int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
 	  int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+	  Rprintf("Removed %i duplicate and %i unreferenced vertices\n",dup,unref);
 	}
 	vcg::tri::Allocator<MyMesh>::CompactVertexVector(m);
 	vcg::tri::Allocator<MyMesh>::CompactFaceVector(m);

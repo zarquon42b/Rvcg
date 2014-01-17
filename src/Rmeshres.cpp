@@ -12,7 +12,7 @@ typedef UpdateTopology<MyMesh>::PEdge SimpleEdge;
 RcppExport SEXP Rmeshres(SEXP _vb , SEXP _it)
   {
     // declare Mesh and helper variables
-    int i, j;
+    int i;
     MyMesh m;
     VertexIterator vi;
     FaceIterator fi;

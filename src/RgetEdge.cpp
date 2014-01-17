@@ -11,7 +11,7 @@ typedef UpdateTopology<MyMesh>::PEdge SimpleEdge;
 
 RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
 {
-  int i, j;
+  int i;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
@@ -55,7 +55,7 @@ RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
   Rcpp::IntegerVector facept(size), border(size);
   Rcpp::IntegerMatrix edges(size,2);
   border = border * 0;
-  EdgePointer ep;
+  
   VertexPointer vp , vp1;
   FacePointer fp;
   i=0;

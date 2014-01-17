@@ -33,7 +33,7 @@ namespace Rvcg
 	int d =  vb.ncol();
 	int faced = it.ncol();
 	ScalarType x,y,z;
-	int i, j;
+	int i;
 	vcg::tri::Allocator<MeshType>::AddVertices(m,d);
 	vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
 	std::vector<VertexPointer> ivp;

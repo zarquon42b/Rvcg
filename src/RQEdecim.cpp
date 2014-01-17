@@ -115,8 +115,8 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   qparams.NormalCheck = boolparams[5];
   qparams.SafeHeapUpdate = boolparams[6];
    
-  int dup = tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
-  int unref =  tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);
+  tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
+  tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);
   
   Rprintf("reducing it to %i faces\n",FinalSize);
     
@@ -125,9 +125,7 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   // decimator initialization
   vcg::LocalOptimization<CMeshDec> DeciSession(m,&qparams);
     
-  int t1=clock();
   DeciSession.Init<CTriEdgeCollapse>();
-  int t2=clock();
   Rprintf("Initial Heap Size %i\n",int(DeciSession.h.size()));
     
   DeciSession.SetTargetSimplices(FinalSize);
@@ -135,8 +133,7 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   if(TargetError< std::numeric_limits<float>::max() ) DeciSession.SetTargetMetric(TargetError);
     
   while(DeciSession.DoOptimization() && m.fn>FinalSize && DeciSession.currMetric < TargetError)
-    int t3=clock();
-  
+    
   vcg::tri::Allocator< CMeshDec >::CompactVertexVector(m);
   vcg::tri::Allocator< CMeshDec >::CompactFaceVector(m);
   SimpleTempData<CMeshDec::VertContainer,int> indices(m.vert);

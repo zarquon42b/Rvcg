@@ -13,7 +13,7 @@ RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
   // declare Mesh and helper variables
   int select = Rcpp::as<int>(_type);  
   double tol = Rcpp::as<double>(_tol);  
-  int i, j, rem;
+  int i, rem;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;

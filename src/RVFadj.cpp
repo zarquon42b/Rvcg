@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 RcppExport SEXP RVFadj(SEXP _vb, SEXP _it)
 {
-  int i, j;
+  int i;
   MyMesh m;
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
   Rcpp::List outlist(m.vn);

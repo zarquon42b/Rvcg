@@ -130,7 +130,7 @@ extern "C" {
 	}
       }
       float vl = sqrt(tt.dot(tt));
-      if (vl > 0 && &vl) {//check for zero length normals
+      if (vl > 0) {//check for zero length normals
 	tt=tt/vl;
       }   
       

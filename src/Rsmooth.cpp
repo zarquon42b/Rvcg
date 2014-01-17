@@ -9,7 +9,7 @@ using namespace Rcpp;
 
 RcppExport SEXP Rsmooth(SEXP _vb, SEXP _it, SEXP _iteration, SEXP _method, SEXP _lambda,  SEXP _mu, SEXP _delta)
 {
-  int i, j;
+  int i;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;

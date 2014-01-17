@@ -24,7 +24,7 @@ RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type, SEXP _M
   const int type = Rcpp::as<int>(_type);  
   const int MCsamp = Rcpp::as<int>(_MCsamp);
   const bool geodes = Rcpp::as<bool>(_geodes);
-  int i, j;
+  int i;
   MyMesh m,msamp;
   float radius;
   VertexIterator vi;

@@ -13,7 +13,7 @@ using namespace Rcpp;
 RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
 {
   // declare Mesh and helper variables
-  int i, j;
+  int i;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
@@ -62,7 +62,7 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
   }
       
   Rprintf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
-  int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
   vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
   
