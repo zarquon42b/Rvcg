@@ -12,13 +12,18 @@ Files:  src/vcglib/wrap/system/getopt.*
 Copyright: 1987-1993 Free Software Foundation, Inc.
 License: GPL-2+
 
-Files:  src/vcglib/vcg/complex/trimesh/create/mc_lookup_table.h
+Files:  src/vcglib/vcg/complex/algorithms/create/mc_lookup_table.h
 Copyright: 2002 Thomas Lewiner <thomas.lewiner@polytechnique.org>
 License: GPL-2+
 
-Files:  src/vcglib/vcg/complex/trimesh/create/emc_lookup_table.h
+Files:  src/vcglib/vcg/complex/algorithms/create/emc_lookup_table.h
 Copyright: 2002 by Computer Graphics Group, RWTH Aachen
 License: GPL-2+
 
 Files: parts of src/RQEdecim.cpp [General setup for decimation]
 Copyright: 2003-2012 Visual Computing Lab I.S.T.I. C.N.R.
+License: GPL-2
+
+GNU R ships with various open source licenses including
+ - the GPL license (version 2), use   RShowDoc("GPL-2")  to display it
+ - the GPL license (version 3), use   RShowDoc("GPL-3")  to display it
