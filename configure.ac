@@ -1,7 +1,7 @@
 AC_INIT([RVCG], 0.6) 
 
 AC_LANG_CPLUSPLUS
-AX_CHECK_COMPILE_FLAG([-std=c++0x], [CXXFLAGS="$CXXFLAGS -std=c++0x"])
+AX_CHECK_COMPILE_FLAG([-std=c++0x], [CXXFLAGS="-std=c++0x"])
 
 AC_DEFUN([AC_HEADER_STDCXX_TR1], [
   AC_CACHE_CHECK(for ISO C++ TR1 include files,

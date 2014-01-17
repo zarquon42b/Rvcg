@@ -2269,7 +2269,7 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_cv_check_cxxflags___std_cpp0x" >&5
 $as_echo "$ax_cv_check_cxxflags___std_cpp0x" >&6; }
 if test x"$ax_cv_check_cxxflags___std_cpp0x" = xyes; then :
-  CXXFLAGS="$CXXFLAGS -std=c++0x"
+  CXXFLAGS="-std=c++0x"
 else
   :
 fi
