@@ -1725,6 +1725,7 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
+
 # ============================================================================
 #  http://www.gnu.org/software/autoconf-archive/ax_cxx_compile_stdcxx_11.html
 # ============================================================================
@@ -1766,7 +1767,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-
+#get R specific compiler and flags
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
   echo "could not determine R_HOME"
@@ -1775,13 +1776,16 @@ fi
 CXX=`"${R_HOME}/bin/R" CMD config CXX`
 echo "using C++ Compiler ...$CXX"
 CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
+
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
 ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
+# check C++11 compliance and flags
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
 ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -2413,6 +2417,7 @@ $as_echo "#define HAVE_CXX11 1" >>confdefs.h
   fi
 
 
+# check availability of TR1 headers
 
 
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ISO C++ TR1 include files" >&5
@@ -2432,7 +2437,6 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
   #include <tr1/unordered_set>
   #include <tr1/unordered_map>
-
 
 int
 main ()
@@ -2465,58 +2469,7 @@ $as_echo "#define HAVE_TR1 /**/" >>confdefs.h
   fi
 
 
-
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ISO C++11 unordered_*.h include files" >&5
-$as_echo_n "checking for ISO C++11 unordered_*.h include files... " >&6; }
-if ${ac_cv_cxx_stdcxx11_map+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-
-  ac_ext=cpp
-ac_cpp='$CXXCPP $CPPFLAGS'
-ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
-
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-  #include <unordered_set>
-  #include <unordered_map>
-
-
-int
-main ()
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_compile "$LINENO"; then :
-  ac_cv_cxx_stdcxx11_map=yes
-else
-  ac_cv_cxx_stdcxx11_map=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-  ac_ext=cpp
-ac_cpp='$CXXCPP $CPPFLAGS'
-ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
-
-
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_cxx_stdcxx11_map" >&5
-$as_echo "$ac_cv_cxx_stdcxx11_map" >&6; }
-  if test "$ac_cv_cxx_stdcxx11_map" = yes; then
-
-$as_echo "#define HAVE_CXX11_MAP /**/" >>confdefs.h
-
-  fi
-
-
+# check for inttypes.h
 
 
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for inttypes.h" >&5

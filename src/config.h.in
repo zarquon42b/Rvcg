@@ -3,9 +3,6 @@
 /* define if the compiler supports basic C++11 syntax */
 #undef HAVE_CXX11
 
-/* Define if ISO C++11 unordered_* header files are present. */
-#undef HAVE_CXX11_MAP
-
 /* Define if inttypes.h header files are present. */
 #undef HAVE_INTTYPES
 
