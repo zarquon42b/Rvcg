@@ -11,11 +11,12 @@ Index: vcg/space/index/spatial_hashing.h
   #ifndef __MINGW32__
    #include <hash_map>
    #define STDEXT stdext
-@@ -48,8 +48,9 @@
+@@ -48,8 +48,10 @@
  #define __DEPRECATED
  #endif
  #endif
 +*/
++//include fix to make code portable
 +#include <hashfix.h>
  
 -
@@ -35,11 +36,12 @@ Index: vcg/complex/algorithms/clustering.h
   #ifndef __MINGW32__
    #include <hash_map>
    #include <hash_set>
-@@ -50,9 +50,10 @@
+@@ -50,9 +50,11 @@
   #include <ext/hash_set>
   #define STDEXT __gnu_cxx
  #endif
 +*/
++//include fix to make code portable
 +#include <hashfix.h>
  
  
@@ -47,19 +49,19 @@ Index: vcg/complex/algorithms/clustering.h
  namespace vcg{
  namespace tri{
  #define HASH_P0 73856093
-@@ -74,10 +75,16 @@
+@@ -74,10 +76,16 @@
  
  // needed for gcc compilation
  #ifndef _MSC_VER
 -}} namespace STDEXT {
 +}} namespace std {
-+ #ifdef HAVE_TR1
++ #if defined HAVE_TR1 && !defined HAVE_CXX11
 +  namespace tr1 {
 + #endif
    template <> struct hash<vcg::tri::HashedPoint3i>{
    inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
  };
-+ #ifdef HAVE_TR1
++ #if defined HAVE_TR1 && !defined HAVE_CXX11
 +  }
 + #endif
  } namespace vcg{ namespace tri{
