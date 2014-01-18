@@ -92,6 +92,7 @@ Edited Comments and GPL license
 #include <limits>
 #include <algorithm>
 
+using namespace std;//as suggested by Brian Ripley
 
   #ifdef __BORLANDC__
     float sqrtf (float v) {return sqrt(v);}

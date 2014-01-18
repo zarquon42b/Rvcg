@@ -1,0 +1,12 @@
+Index: vcg/math/base.h
+===================================================================
+--- vcg/math/base.h	(revision 5055)
++++ vcg/math/base.h	(working copy)
+@@ -92,6 +92,7 @@
+ #include <limits>
+ #include <algorithm>
+ 
++using namespace std;//as suggested by Brian Ripley
+ 
+   #ifdef __BORLANDC__
+     float sqrtf (float v) {return sqrt(v);}
