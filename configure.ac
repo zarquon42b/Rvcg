@@ -1,12 +1,15 @@
 AC_INIT([RVCG], 0.6) 
-AC_CONFIG_MACRO_DIR([m4])
+dnl m4_ifndef([AC_CONFIG_MACRO_DIRS], [m4_defun([_AM_CONFIG_MACRO_DIRS], [])m4_defun([AC_CONFIG_MACRO_DIRS], [_AM_CONFIG_MACRO_DIRS($@)])])
+m4_include([m4/ax_cxx_compile_stdcxx_11.m4])
+
+dnl AC_CONFIG_MACRO_DIR([m4])
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
   echo "could not determine R_HOME"
   exit 1
 fi
 CXX=`"${R_HOME}/bin/R" CMD config CXX`
-echo "using CXX=$CXX"
+echo "using C++ Compiler ...$CXX"
 dnl CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
 CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
 LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
