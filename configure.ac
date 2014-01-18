@@ -1,7 +1,17 @@
 AC_INIT([RVCG], 0.6) 
-
+AC_CONFIG_MACRO_DIR([m4])
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+CXX=`"${R_HOME}/bin/R" CMD config CXX`
+echo "using CXX=$CXX"
+dnl CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
 AC_LANG_CPLUSPLUS
-AX_CHECK_COMPILE_FLAG([-std=c++0x], [CXXFLAGS="-std=c++0x"])
+AX_CXX_COMPILE_STDCXX_11([noext],)
 
 AC_DEFUN([AC_HEADER_STDCXX_TR1], [
   AC_CACHE_CHECK(for ISO C++ TR1 include files,
