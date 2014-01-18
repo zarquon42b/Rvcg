@@ -4,6 +4,6 @@ src/vcglib/eigenlib
 src/vcglib/apps
 src/vcglib/docs
 ^.*.o$
-^.*.m4$
+aclocal.m4$
 src/Makevars$
 src/upOBJ.sh
