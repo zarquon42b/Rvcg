@@ -32,11 +32,16 @@ Import common mesh file formats and store the results in an
 object of class "mesh3d" - momentarily only triangular
 meshes are supported.
 }
+\examples{
+data(humface)
+vcgPlyWrite(humface)
+readit <- vcgImport("humface.ply")
+}
 \author{
 Stefan Schlager
 }
 \seealso{
-\code{\link{vcgSmooth}},
+\code{\link{vcgSmooth}}
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

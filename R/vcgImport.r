@@ -16,7 +16,11 @@
 #' \item{it }{4xm matrix containing vertex indices forming triangular faces}
 #' \item{normals }{4xn matrix containing vertex normals}
 #' @author Stefan Schlager
-#' @seealso \code{\link{vcgSmooth}},
+#' @seealso \code{\link{vcgSmooth}}
+#' @examples
+#' data(humface)
+#' vcgPlyWrite(humface)
+#' readit <- vcgImport("humface.ply")
 #' @keywords ~kwd1 ~kwd2
 #' @export 
 
