@@ -1,6 +1,6 @@
 AC_INIT([RVCG], 0.6) 
 
-m4_include([m4/ax_cxx_compile_stdcxx_11.m4])
+m4_include([src/m4/ax_cxx_compile_stdcxx_11.m4])
 dnl AC_CONFIG_MACRO_DIR([m4])
 #get R specific compiler and flags
 : ${R_HOME=`R RHOME`}
