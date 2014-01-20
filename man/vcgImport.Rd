@@ -22,10 +22,11 @@ vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE)
 \value{
 Object of class "mesh3d"
 
-with: \item{vb }{4xn matrix containing n vertices as
-homolougous coordinates} \item{it }{4xm matrix containing
-vertex indices forming triangular faces} \item{normals
-}{4xn matrix containing vertex normals}
+with: \item{vb }{4 x n matrix containing n vertices as
+homolougous coordinates} \item{it }{3 x m matrix containing
+vertex indices forming triangular faces} \item{normals }{4
+x n matrix containing vertex normals (homologous
+coordinates)}
 }
 \description{
 Import common mesh file formats and store the results in an
