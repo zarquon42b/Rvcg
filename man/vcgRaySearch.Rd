@@ -28,7 +28,8 @@ that a ray has intersected 'mesh' , while 0 means not}
 \item{distance }{numeric vector: distances to intersection}
 }
 \description{
-check if a mesh is intersected by a set of rays
+check if a mesh is intersected by a set of rays (stored as
+normals)
 }
 \details{
 project a mesh along a set of given rays (stored as

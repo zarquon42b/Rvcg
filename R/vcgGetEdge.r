@@ -7,7 +7,7 @@
 #' \item{vert1}{integer indicating the position of the first vertex belonging to this edge}
 #' \item{vert2}{integer indicating the position of the second vertex belonging to this edge}
 #' \item{facept}{integer pointing to the (or a, if unique = T) face adjacent to the edge}
-#' \item{border}{integer indicating if the edge is at the border of the mesh. = = no border, 1 = border}
+#' \item{border}{integer indicating if the edge is at the border of the mesh. 0 = no border, 1 = border}
 #'
 #' @examples
 #' require(rgl)
@@ -19,7 +19,7 @@
 #' shade3d(humface, col=3)
 #' ## now find the edge - hint: it is at the neck.
 #' }
-#' @export vcgGetEdge
+#' @export
 vcgGetEdge <- function(mesh,unique=TRUE)
     {
         if (!inherits(mesh,"mesh3d"))
@@ -50,7 +50,7 @@ vcgGetEdge <- function(mesh,unique=TRUE)
 #' @return returns a dataframe containing:
 #' \item{vert1}{integer indicating the position of the first vertex belonging to this edge}
 #' \item{vert2}{integer indicating the position of the second vertex belonging to this edge}
-#' \item{border}{integer indicating if the edge is at the border of the mesh. = = no border, 1 = border}
+#' \item{border}{integer indicating if the edge is at the border of the mesh. 0 = no border, 1 = border}
 #' \item{face1 }{integer pointing to the first face adjacent to the edge}
 #' \item{face2 }{integer pointing to the first face adjacent to the edge}
 #' @examples
@@ -69,7 +69,7 @@ vcgGetEdge <- function(mesh,unique=TRUE)
 #' shade3d(humface, col=3)
 #' ## now find the edge - hint: it is at the neck.
 #' }
-#' @export vcgNonBorderEdge
+#' @export
 vcgNonBorderEdge <- function(mesh, silent=FALSE)
     {
         if (!inherits(mesh,"mesh3d"))
