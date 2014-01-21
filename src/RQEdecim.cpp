@@ -103,17 +103,17 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   //initiate decimation process
   TriEdgeCollapseQuadricParameter qparams;
   float TargetError=std::numeric_limits<float>::max();
-  qparams.QualityThr = doubleparams[0];
-  qparams.BoundaryWeight = doubleparams[1];
-  qparams.NormalThrRad = doubleparams[2];
+  qparams.QualityThr = doubleparams(0);
+  qparams.BoundaryWeight = doubleparams(1);
+  qparams.NormalThrRad = doubleparams(2);
 
-  qparams.PreserveTopology = boolparams[0];
-  qparams.QualityCheck = boolparams[1];
-  qparams.PreserveBoundary = boolparams[2];
-  qparams.OptimalPlacement = boolparams[3];
-  qparams.ScaleIndependent = boolparams[4];
-  qparams.NormalCheck = boolparams[5];
-  qparams.SafeHeapUpdate = boolparams[6];
+  qparams.PreserveTopology = boolparams(0);
+  qparams.QualityCheck = boolparams(1);
+  qparams.PreserveBoundary = boolparams(2);
+  qparams.OptimalPlacement = boolparams(3);
+  qparams.ScaleIndependent = boolparams(4);
+  qparams.NormalCheck = boolparams(5);
+  qparams.SafeHeapUpdate = boolparams(6);
    
   tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
   tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);
