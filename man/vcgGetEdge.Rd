@@ -17,7 +17,7 @@ this edge} \item{vert2}{integer indicating the position of
 the second vertex belonging to this edge}
 \item{facept}{integer pointing to the (or a, if unique = T)
 face adjacent to the edge} \item{border}{integer indicating
-if the edge is at the border of the mesh. = = no border, 1
+if the edge is at the border of the mesh. 0 = no border, 1
 = border}
 }
 \description{

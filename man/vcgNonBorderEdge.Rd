@@ -16,7 +16,7 @@ indicating the position of the first vertex belonging to
 this edge} \item{vert2}{integer indicating the position of
 the second vertex belonging to this edge}
 \item{border}{integer indicating if the edge is at the
-border of the mesh. = = no border, 1 = border} \item{face1
+border of the mesh. 0 = no border, 1 = border} \item{face1
 }{integer pointing to the first face adjacent to the edge}
 \item{face2 }{integer pointing to the first face adjacent
 to the edge}
