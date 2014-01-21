@@ -1,6 +1,6 @@
 #' check if a mesh is intersected by a set of rays
 #'
-#' check if a mesh is intersected by a set of rays
+#' check if a mesh is intersected by a set of rays (stored as normals)
 #' @param x a triangular mesh of class 'mesh3d' or a list containing vertices and vertex normals (fitting the naming of 'mesh3d'.
 #' @param mesh triangular mesh to be intersected.
 #' @param mintol minimum distance to target mesh
@@ -39,7 +39,7 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
   dimvb <- dim(vb)[2]
   storage.mode(it) <- "integer"
   if (is.null(x$normals))
-    adnormals(x)
+      stop("input is lacking rays (stored as normals)")
   clost <- x$vb[1:3,]
   normals <- x$normals[1:3,]
   clostDim <- ncol(clost)
