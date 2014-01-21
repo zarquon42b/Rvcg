@@ -67,7 +67,7 @@ vcglib
 require(rgl)
 data(humface)
 ##reduce faces to 50\%
-decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = TRUE)
+decimface <- vcgQEdecim(humface, tarface=10000, normcheck = FALSE)
 ## view
 \dontrun{
 shade3d(decimface, col=3)

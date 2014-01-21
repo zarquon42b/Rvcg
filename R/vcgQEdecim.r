@@ -32,7 +32,7 @@
 #' require(rgl)
 #' data(humface)
 #' ##reduce faces to 50% 
-#' decimface <- vcgQEdecim(humface, percent = 0.5, normcheck = TRUE)
+#' decimface <- vcgQEdecim(humface, tarface=10000, normcheck = FALSE)
 #' ## view
 #' \dontrun{
 #' shade3d(decimface, col=3)
@@ -70,7 +70,7 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=TRUE
                 
             }
         ##concatenate parameters
-        boolparams <- c( topo, quality, bound, optiplace, scaleindi, normcheck, safeheap)
+        boolparams <- c(topo, quality, bound, optiplace, scaleindi, normcheck, safeheap)
         doubleparams <- c(qthresh, boundweight, normalthr)
 ###tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb,as.integer(topo),as.integer(quality),as.integer(bound))
         tmp <- .Call("RQEdecim", vb, it, tarface, boolparams, doubleparams)
