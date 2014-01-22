@@ -17,7 +17,8 @@ vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0))
     {
         if (is.matrix(mesh)) {
             tmp <- list()
-            tmp$vb <- t(mesh)
+            tmp$vb <- rbind(t(mesh),1)
+            mesh <- tmp
         }
         vb <- mesh$vb[1:3,]
         it <- mesh$it-1
@@ -27,6 +28,7 @@ vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0))
             stop("please set valid type")
         normals <- .Call("RupdateNormals", vb, it, type, pointcloud)
         mesh$normals <- rbind(normals,1)
+        
         return(mesh)
     }
     
