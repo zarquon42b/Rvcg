@@ -26,20 +26,16 @@ namespace Rvcg
       typedef typename MeshType::VertContainer  VertContainer;
   
       // Fill an empty mesh with vertices and faces from R
-      static void RvcgReadR(MeshType &m, SEXP _vb, SEXP _it)
+      static int RvcgReadR(MeshType &m, SEXP vb_, SEXP it_)
       {
-	Rcpp::IntegerMatrix it(_it);
-	Rcpp::NumericMatrix vb(_vb);
+	Rcpp::NumericMatrix vb(vb_);
 	int d =  vb.ncol();
-	int faced = it.ncol();
 	ScalarType x,y,z;
 	int i;
+	
 	vcg::tri::Allocator<MeshType>::AddVertices(m,d);
-	vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
 	std::vector<VertexPointer> ivp;
 	ivp.resize(d);
-
-	vcg::SimpleTempData<typename MeshType::FaceContainer, int> indicesf(m.face);
 	vcg::SimpleTempData<typename MeshType::VertContainer, int> indices(m.vert);
 	VertexIterator vi = m.vert.begin();
 	for (i=0; i < d; i++) {
@@ -49,19 +45,31 @@ namespace Rvcg
 	  z = vb(2,i);
 	  (*vi).P() = CoordType(x,y,z);
 	  ++vi;
-	} 
+	}
 	
-	int itx,ity,itz;
-	FaceIterator fi=m.face.begin();
-	for (i=0; i < faced ; i++) {
-	  indicesf[fi] = i;
-	  itx = it(0,i);
-	  ity = it(1,i);
-	  itz = it(2,i);
-	  (*fi).V(0)=ivp[itx];
-	  (*fi).V(1)=ivp[ity];
-	  (*fi).V(2)=ivp[itz];
-	  ++fi;
+	bool checkit = Rf_isMatrix(it_);//are there faces?
+	//process faces
+	if (checkit) {
+	  Rcpp::IntegerMatrix it(it_);
+	  int faced = it.ncol();
+	  
+	  vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
+	  vcg::SimpleTempData<typename MeshType::FaceContainer, int> indicesf(m.face);
+	  int itx,ity,itz;
+	  FaceIterator fi=m.face.begin();
+	  for (i=0; i < faced ; i++) {
+	    indicesf[fi] = i;
+	    itx = it(0,i);
+	    ity = it(1,i);
+	    itz = it(2,i);
+	    (*fi).V(0)=ivp[itx];
+	    (*fi).V(1)=ivp[ity];
+	    (*fi).V(2)=ivp[itz];
+	    ++fi;
+	  }
+	  return 0;
+	} else {
+	  return 1;
 	}
       }
     };

@@ -43,10 +43,13 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             if (!is.logical(geodes) || (FALSE %in% is.integer(c(it,type, MCsamp, SampleNum))) || (FALSE %in% is.numeric(vb)))
                 stop("Please provide sensible arguments!")
             tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
-            tmp <- t(tmp)
+            if (!is.list(tmp)) {
+                stop("this is no triangular mesh")
+            } else {
+                tmp <- t(tmp)
             if (strict && nrow(tmp) > SampleNum)
                 tmp <- kmeans(tmp,centers=SampleNum, iter.max=100)$centers
-
+            }
         } else {
             tmp <- kmeans(t(mesh$vb[1:3,]),centers=SampleNum, iter.max=100)$centers
             tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])

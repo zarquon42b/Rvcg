@@ -23,7 +23,15 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   // section read from input
   bool mindist = as<bool>(mindist_);
   float t, t1;
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+   if (check == 1) {
+    Rprintf("%s\n","Warning: mesh has no faces, nothing done");
+     return Rcpp::List::create(Rcpp::Named("vb") = 0,
+			    Rcpp::Named("normals") = 0,
+			    Rcpp::Named("hitbool") = 0,
+			    Rcpp::Named("dis") = 0
+			    );
+   }  else {
   //Allocate target
   typedef MyMesh::VertexPointer VertexPointer;
   std::vector<VertexPointer> ivp;
@@ -124,6 +132,7 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
 			    Rcpp::Named("hitbool") = hitbool,
 			    Rcpp::Named("dis") = dis
 			    );
+   }
 }
     
 

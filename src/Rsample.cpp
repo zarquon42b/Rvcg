@@ -30,7 +30,10 @@ RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type, SEXP _M
   VertexIterator vi;
   FaceIterator fi;
   // allocate mesh and fill it
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  if (check == 1) {
+    return wrap(3);
+  } else {
   /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
   m.face.EnableVFAdjacency();*/
@@ -73,6 +76,7 @@ RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type, SEXP _M
   }
   
   return Rcpp::wrap(vbout);
+  }
 }
  
 

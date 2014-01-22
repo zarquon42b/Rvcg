@@ -93,7 +93,14 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   VertexIterator vi;
   FaceIterator fi;
     
-  Rvcg::IOMesh<CMeshDec>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<CMeshDec>::RvcgReadR(m,_vb,_it);
+  if (check == 1) {
+    Rprintf("%s\n","Warning: mesh has no faces, nothing done");
+    return Rcpp::List::create(Rcpp::Named("vb") = _vb,
+			    Rcpp::Named("normals") = 0,
+			    Rcpp::Named("it") = _it
+			    );
+  }  else {
   Rcpp::LogicalVector boolparams(_boolparams); 
   Rcpp::NumericVector doubleparams(_doubleparams);
   //boolparams: 0=topo 1=quality 2=boundary 3=optiplace 4=scaleindi, 5=  normcheck, 6=safeheap)
@@ -172,6 +179,7 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
 			    Rcpp::Named("normals") = normals,
 			    Rcpp::Named("it") = itout
 			    );
+    }
 }
    
 
