@@ -41,7 +41,9 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE)
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
         vb <- mesh$vb[1:3,]
-        if (is.null(mesh$it))
+        if (!is.matrix(vb))
+            stop("mesh has no vertices")
+        if (!is.matrix(mesh$it))
             stop("mesh needs at least some faces")
         it <- mesh$it - 1
         dimit <- dim(it)[2]
@@ -55,6 +57,8 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE)
             class(x) <- "mesh3d"
         } else if (inherits(x,"mesh3d")) {
             clost <- x$vb[1:3,]
+            if (!is.matrix(clost))
+            stop("x has no vertices")
         } else
             stop("x must be a matrix or an object of class mesh3d")
        

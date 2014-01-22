@@ -23,8 +23,11 @@ vcgClean <- function(mesh, sel = 0,tol=0)
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
         vb <- mesh$vb[1:3,]
         it <- mesh$it - 1
+        if (!is.matrix(vb))
+            stop("mesh has no vertices")
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
+        storage.mode(tol) <- "double"
         storage.mode(it) <- "integer"
         storage.mode(sel) <- "integer"
         tmp <- .Call("Rclean", vb, it, sel, tol)

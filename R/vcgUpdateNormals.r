@@ -21,6 +21,8 @@ vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0))
             mesh <- tmp
         }
         vb <- mesh$vb[1:3,]
+        if (!is.matrix(vb))
+            stop("mesh has no vertices")
         it <- mesh$it-1
         if (! prod(is.integer(pointcloud)))
             pointcloud <- c(10,0)

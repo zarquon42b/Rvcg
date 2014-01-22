@@ -52,6 +52,10 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=TRUE
         dimit <- ncol(it)
         outmesh <- list()
         class(outmesh) <- "mesh3d"
+         if (!is.matrix(vb))
+            stop("mesh has no vertices")
+        if (!is.matrix(it))
+            stop("mesh has no faces")
         
         if (is.null(tarface) && is.null(percent)&& is.null(edgeLength))
             stop("please enter decimation option")
@@ -72,7 +76,9 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=TRUE
             }
         ##concatenate parameters
         boolparams <- c(topo, quality, bound, optiplace, scaleindi, normcheck, safeheap)
+        storage.mode(boolparams) <- "logical"
         doubleparams <- c(qthresh, boundweight, normalthr)
+        storage.mode(doubleparams) <- "double"
 ###tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb,as.integer(topo),as.integer(quality),as.integer(bound))
         tmp <- .Call("RQEdecim", vb, it, tarface, boolparams, doubleparams)
         outmesh$vb <- rbind(tmp$vb,1)

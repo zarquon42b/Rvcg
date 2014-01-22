@@ -38,14 +38,20 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
   dimit <- dim(it)[2]
   dimvb <- dim(vb)[2]
   storage.mode(it) <- "integer"
-  if (is.null(x$normals))
-      stop("input is lacking rays (stored as normals)")
+  if (!is.matrix(x$vb))
+      stop("x has no coordinates)")
+  if (!is.matrix(x$normals))
+      stop("x is lacking rays (stored as normals)")
+  if (!is.matrix(vb))
+      stop("mesh has no vertices")
+  if (!is.matrix(it))
+      stop("mesh has no faces")
   clost <- x$vb[1:3,]
   normals <- x$normals[1:3,]
   clostDim <- ncol(clost)
-  dis <- rep(0,clostDim)
-  hit <- dis
-  storage.mode(hit) <- "integer"
+  maxtol <- as.numeric(maxtol)
+  mintol <- as.numeric(mintol)
+  mindist <- as.logical(mindist)
   tmp <- .Call("Rintersect",vb,it,clost,normals,mintol, maxtol, mindist)
   x$vb <- rbind(tmp$vb,1)
   x$normals <- rbind(tmp$normals,1)

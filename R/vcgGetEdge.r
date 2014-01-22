@@ -26,6 +26,11 @@ vcgGetEdge <- function(mesh,unique=TRUE)
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
         vb <- mesh$vb[1:3,]
         it <- mesh$it - 1
+        if (!is.matrix(vb))
+            stop("mesh has no vertices")
+        if (!is.matrix(it))
+            stop("mesh has no faces")
+        unique <- as.logical(unique)
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
         tmp <- .Call("RgetEdge",vb,it,unique)

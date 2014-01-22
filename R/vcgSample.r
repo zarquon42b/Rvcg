@@ -29,11 +29,18 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             type <- 2
         else if (type == "km")
             type <- 3
-
+        noit <- FALSE
+        if (!is.matrix(mesh$it)) {
+            warning("mesh has no faces, kmean clustering on vertices is used")
+            noit <- TRUE
+            type <- 3
+        }
         if (type %in% 1:2) {
             
             vb <- mesh$vb[1:3,]
             it <- mesh$it - 1
+            if (!is.matrix(vb))
+                 stop("mesh has no vertices")
             dimit <- dim(it)[2]
             dimvb <- dim(vb)[2]
             storage.mode(it) <- "integer"
@@ -43,16 +50,13 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             if (!is.logical(geodes) || (FALSE %in% is.integer(c(it,type, MCsamp, SampleNum))) || (FALSE %in% is.numeric(vb)))
                 stop("Please provide sensible arguments!")
             tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
-            if (!is.list(tmp)) {
-                stop("this is no triangular mesh")
-            } else {
-                tmp <- t(tmp)
+            tmp <- t(tmp)
             if (strict && nrow(tmp) > SampleNum)
                 tmp <- kmeans(tmp,centers=SampleNum, iter.max=100)$centers
-            }
         } else {
             tmp <- kmeans(t(mesh$vb[1:3,]),centers=SampleNum, iter.max=100)$centers
-            tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
+            if (!noit)
+                tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
         }
         return(tmp)
     }

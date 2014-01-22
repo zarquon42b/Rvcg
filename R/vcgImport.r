@@ -31,6 +31,11 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
     x <- file
     if (! file.exists(x))
         stop("no such file")
+    updateNormals <- as.logical(updateNormals)
+    readcolor <- as.logical(readcolor)
+    clean <- as.logical(clean)
+
+
     tmp <- .Call("RallRead", file, updateNormals, readcolor, clean)
     if (!is.list(tmp))
         stop("mesh is not readable")

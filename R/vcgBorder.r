@@ -25,8 +25,14 @@ vcgBorder <- function(mesh)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
+        
         vb <- mesh$vb[1:3,]
         it <- mesh$it - 1
+        if (!is.matrix(vb))
+            stop("mesh has no vertices")
+        if (!is.matrix(it))
+            stop("mesh has no faces")
+        
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
         storage.mode(it) <- "integer"

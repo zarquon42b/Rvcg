@@ -34,8 +34,15 @@ vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL)
 
         if (is.null(diameter))
             diameter <- 0
+        storage.mode(facenum) <- "integer"
+        storage.mode(diameter) <- "double"
+
         vb <- mesh$vb[1:3,]
         it <- mesh$it-1
+        if (!is.matrix(vb))
+            stop("mesh has no vertices")
+        if (!is.matrix(it))
+            stop("mesh has no faces")
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
         tmp <- .Call("Risolated", vb, it, diameter, facenum)

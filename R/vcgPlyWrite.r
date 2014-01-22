@@ -16,6 +16,8 @@ vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FAL
     hasCol <- FALSE
     colvec <- matrix(0)
     vb <- mesh$vb[1:3,]
+    if (!is.matrix(vb))
+        stop("mesh has no vertices to write")
     it <- (mesh$it-1)
     dataname <- deparse(substitute(mesh))
     filename <- path.expand(as.character(filename))
@@ -35,5 +37,8 @@ vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FAL
         colvec <- matrix(col2rgb(col), 3, vn, byrow = F)
         storage.mode(colvec) <- "integer"
     }
+    binary <- as.logical(binary)
+    addNormals <- as.logical(addNormals)
+    
     tmp <- .Call("RPlyWrite", vb, it , binary, addNormals, filename, colvec, hasCol)
 }
