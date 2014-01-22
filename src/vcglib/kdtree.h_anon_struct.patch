@@ -2,23 +2,30 @@ Index: vcg/space/index/kdtree/kdtree.h
 ===================================================================
 --- vcg/space/index/kdtree/kdtree.h	(revision 5055)
 +++ vcg/space/index/kdtree/kdtree.h	(working copy)
-@@ -54,16 +54,16 @@
+@@ -54,20 +54,20 @@
  
  	struct Node
  	{
 -		union {
-+		union namedunion{
++	  //union namedunion{
                          //standard node
 -			struct {
-+			struct namedstruct0{
++			//struct namedstruct0{
  				Scalar splitValue;
  				unsigned int firstChildId:24;
  				unsigned int dim:2;
  				unsigned int leaf:1;
- 			};
+-			};
++		  //};
                          //leaf
 -			struct {
-+			struct namedstruct1{
++		  //struct namedstruct1{
  				unsigned int start;
  				unsigned short size;
- 			};
+-			};
+-                };
++			  //	};
++	  // };
+ 	};
+ 	typedef std::vector<Node> NodeList;
+ 
