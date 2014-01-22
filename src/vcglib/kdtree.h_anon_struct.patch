@@ -7,10 +7,10 @@ Index: vcg/space/index/kdtree/kdtree.h
  	struct Node
  	{
 -		union {
-+	  //union namedunion{
++	  //union {
                          //standard node
 -			struct {
-+			//struct namedstruct0{
++			//struct {
  				Scalar splitValue;
  				unsigned int firstChildId:24;
  				unsigned int dim:2;
@@ -19,7 +19,7 @@ Index: vcg/space/index/kdtree/kdtree.h
 +		  //};
                          //leaf
 -			struct {
-+		  //struct namedstruct1{
++		  //struct {
  				unsigned int start;
  				unsigned short size;
 -			};
