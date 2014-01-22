@@ -1,6 +1,6 @@
 #' calculate curvature of a triangular mesh
 #'
-#' calculate curvature of a triangular mesh
+#' calculate curvature of faces/vertices of a triangular mesh using various methods.
 #'
 #' @param mesh triangular mesh (object of class 'mesh3d')
 #'

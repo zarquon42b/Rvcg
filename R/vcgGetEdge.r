@@ -2,11 +2,11 @@
 #'
 #' Extract all edges from a mesh and retrieve adjacent faces and vertices
 #' @param mesh triangular mesh of class 'mesh3d'
-#' @param unique logical: if TRUE each edge is only reported once, if F, all occurences are reported.
+#' @param unique logical: if TRUE each edge is only reported once, if FALSE, all occurences are reported.
 #' @return returns a dataframe containing:
 #' \item{vert1}{integer indicating the position of the first vertex belonging to this edge}
 #' \item{vert2}{integer indicating the position of the second vertex belonging to this edge}
-#' \item{facept}{integer pointing to the (or a, if unique = T) face adjacent to the edge}
+#' \item{facept}{integer pointing to the (or a, if unique = TRUE) face adjacent to the edge}
 #' \item{border}{integer indicating if the edge is at the border of the mesh. 0 = no border, 1 = border}
 #'
 #' @examples
@@ -58,6 +58,7 @@ vcgGetEdge <- function(mesh,unique=TRUE)
 #' \item{border}{integer indicating if the edge is at the border of the mesh. 0 = no border, 1 = border}
 #' \item{face1 }{integer pointing to the first face adjacent to the edge}
 #' \item{face2 }{integer pointing to the first face adjacent to the edge}
+#' @seealso \code{\link{vcgGetEdge}}
 #' @examples
 #' 
 #' data(humface)

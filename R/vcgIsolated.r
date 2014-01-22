@@ -1,7 +1,8 @@
 #' Remove isolated pieces from a surface mesh.
 #' 
-#' Remove isolated pieces from a surface mesh, selected by face number or
-#' diameter. Also the option only to keep the largest piec can be selected
+#' Remove isolated pieces from a surface mesh, selected by a
+#' minimum amount of faces or of a diameter below a given threshold.
+#' Also the option only to keep the largest piece can be selected
 #' 
 #' 
 #' @param mesh triangular mesh of class "mesh3d".
@@ -9,8 +10,7 @@
 #' removed. If not specified or 0 and diameter is NULL, then only the component
 #' with the most faces is kept. 
 #' @param diameter numeric: all connected pieces smaller diameter are removed
-#' removed. 0 removes all component but the largest ones. This option overrides
-#' 'facenum'.
+#' removed. \code{diameter = 0} removes all component but the largest ones. This option overrides the option \code{facenum}.
 #' @return returns the reduced mesh.
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgPlyRead}}

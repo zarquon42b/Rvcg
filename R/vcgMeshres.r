@@ -1,6 +1,6 @@
-#' calculate average edge length of a triangular mesh
+#' calculates the average edge length of a triangular mesh
 #' 
-#' calculate average edge length of a triangular mesh, by iterating over all
+#' calculates the average edge length of a triangular mesh, iterating over all
 #' faces.
 #' 
 #' 

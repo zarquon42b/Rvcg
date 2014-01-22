@@ -1,7 +1,8 @@
 #' Project coordinates onto a target triangular surface mesh.
 #' 
-#' For a set of 3D-coordinates the closest matches on a target surface are
-#' determined and normals at as well as distances to that point are calculated.
+#' For a set of 3D-coordinates/triangular mesh, the closest matches on a
+#' target surface are determined and normals at as well as distances to
+#' that point are calculated.
 #' 
 #' 
 #' @param x k x 3 matrix containing 3D-coordinates or object of class "mesh3d".
@@ -11,16 +12,16 @@
 #' points are returned.
 #' @param smoothNormals logical: if TRUE, laplacian smoothed normals are used.
 #' @return returns an object of class "mesh3d" with:
-#' \item{vb }{ 4 x n matrix containing n vertices as homolougous coordinates.}
+#' \item{vb }{4 x n matrix containing n vertices as homolougous coordinates.}
 #' \item{normals }{4 x n matrix containing vertex normals.}
-#' \item{quality }{vector: containing distances to target.}
-#' \item{it }{4xm matrix containing vertex indices forming triangular
+#' \item{quality }{numeric vector containing distances to target.}
+#' \item{it }{3 x m integer matrix containing vertex indices forming triangular
 #' faces.Only available, when x is a mesh.}
-#' \item{barycoords }{3xm Matrix containing barycentric coordinates of
+#' \item{barycoords }{3 x m Matrix containing barycentric coordinates of
 #' closest points; only available if barycentric=TRUE.}
 #' @note If large part of the reference mesh are far away from the target
-#' surface, calculation can become very slow. For this case, the function
-#' "closemeshKD" from the package "Morpho" is suggested.
+#' surface, calculation can become very slow. In that case, the function
+#' \code{closemeshKD} from the package \code{Morpho} will be faster.
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgPlyRead}}
 #' @references Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed

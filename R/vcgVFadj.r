@@ -1,9 +1,9 @@
-#' get all faces belonging to each vertex in a mesh
+#' find all faces belonging to each vertex in a mesh
 #'
-#' get all faces belonging to each vertex in a mesh
-#' @param mesh triangular mesh
+#' find all faces belonging to each vertex in a mesh and report their indices
+#' @param mesh triangular mesh of class "mesh3d"
 #'
-#' @return list containing one vector per vertex with the indices of the adjacent faces 
+#' @return list containing one vector per vertex containgin the indices of the adjacent faces 
 #' @export vcgVFadj
 #' 
 vcgVFadj <- function(mesh) {

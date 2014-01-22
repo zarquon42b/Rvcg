@@ -1,6 +1,6 @@
-#' Smooth a triangular mesh
+#' Smoothes a triangular mesh
 #' 
-#' Apply different smoothing algorithms to a triangular mesh.
+#' Applies different smoothing algorithms on a triangular mesh.
 #' 
 #' The algorithms available are Taubin smoothing, Laplacian smoothing and an
 #' improved version of Laplacian smoothing ("HClaplace"). Also available are
@@ -25,7 +25,7 @@
 #' @note The additional parameters for taubin smooth are hardcoded to the
 #' default values of meshlab, as they appear to be the least distorting
 #' @author Stefan Schlager
-#' @seealso \code{\link{vcgPlyRead}}
+#' @seealso \code{\link{vcgPlyRead},\link{vcgClean}}
 #' @references Taubin G. 1995. Curve and surface smoothing without shrinkage.
 #' In Computer Vision, 1995. Proceedings., Fifth International Conference on,
 #' pages 852 - 857.
