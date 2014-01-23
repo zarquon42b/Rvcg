@@ -139,7 +139,9 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   DeciSession.SetTimeBudget(0.5f);
   if(TargetError< std::numeric_limits<float>::max() ) DeciSession.SetTargetMetric(TargetError);
     
-  while(DeciSession.DoOptimization() && m.fn>FinalSize && DeciSession.currMetric < TargetError){}
+  while(m.fn > FinalSize && DeciSession.currMetric < TargetError){
+    DeciSession.DoOptimization();
+  }
     
   vcg::tri::Allocator< CMeshDec >::CompactVertexVector(m);
   vcg::tri::Allocator< CMeshDec >::CompactFaceVector(m);
