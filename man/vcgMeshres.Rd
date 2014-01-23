@@ -1,6 +1,6 @@
 \name{vcgMeshres}
 \alias{vcgMeshres}
-\title{calculate average edge length of a triangular mesh}
+\title{calculates the average edge length of a triangular mesh}
 \usage{
 vcgMeshres(mesh)
 }
@@ -13,7 +13,7 @@ vcgMeshres(mesh)
 \item{edgelength }{vector containing lengths for each edge}
 }
 \description{
-calculate average edge length of a triangular mesh, by
+calculates the average edge length of a triangular mesh,
 iterating over all faces.
 }
 \examples{

@@ -19,11 +19,12 @@ Object of class "mesh3d"
 
 with:
 
-\item{vb }{4xn matrix containing n vertices as homolougous
-coordinates} \item{normals }{4xn matrix containing vertex
-normals} \item{it }{4xm matrix containing vertex indices
-forming triangular faces} \item{material$color }{Per vertex
-colors if specified in the imported file}
+\item{vb }{3 x n matrix containing n vertices as
+homolougous coordinates} \item{normals }{3 x n matrix
+containing vertex normals} \item{it }{3 x m integer matrix
+containing vertex indices forming triangular faces}
+\item{material$color }{Per vertex colors if specified in
+the imported file}
 }
 \description{
 Reads Polygon File Format (PLY) files and stores the

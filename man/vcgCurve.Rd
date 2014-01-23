@@ -18,7 +18,8 @@ mesh's border (0=FALSE, 1=TRUE)} \item{meanitmax }{per face
 maximum mean curvature of adjacent vertices}
 }
 \description{
-calculate curvature of a triangular mesh
+calculate curvature of faces/vertices of a triangular mesh
+using various methods.
 }
 \examples{
 data(humface)

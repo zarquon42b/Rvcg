@@ -8,17 +8,17 @@ vcgGetEdge(mesh, unique = TRUE)
   \item{mesh}{triangular mesh of class 'mesh3d'}
 
   \item{unique}{logical: if TRUE each edge is only reported
-  once, if F, all occurences are reported.}
+  once, if FALSE, all occurences are reported.}
 }
 \value{
 returns a dataframe containing: \item{vert1}{integer
 indicating the position of the first vertex belonging to
 this edge} \item{vert2}{integer indicating the position of
 the second vertex belonging to this edge}
-\item{facept}{integer pointing to the (or a, if unique = T)
-face adjacent to the edge} \item{border}{integer indicating
-if the edge is at the border of the mesh. 0 = no border, 1
-= border}
+\item{facept}{integer pointing to the (or a, if unique =
+TRUE) face adjacent to the edge} \item{border}{integer
+indicating if the edge is at the border of the mesh. 0 = no
+border, 1 = border}
 }
 \description{
 Extract all edges from a mesh and retrieve adjacent faces

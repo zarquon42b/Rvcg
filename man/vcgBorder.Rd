@@ -22,6 +22,7 @@ data(humface)
 borders <- vcgBorder(humface)
 ## view border vertices
 \dontrun{
+require(rgl)
 points3d(t(humface$vb[1:3,])[which(borders$bordervb == 1),],col=2)
 wire3d(humface)
 require(rgl)

@@ -13,16 +13,18 @@ vcgIsolated(mesh, facenum = NULL, diameter = NULL)
   faces is kept.}
 
   \item{diameter}{numeric: all connected pieces smaller
-  diameter are removed removed. 0 removes all component but
-  the largest ones. This option overrides 'facenum'.}
+  diameter are removed removed. \code{diameter = 0} removes
+  all component but the largest ones. This option overrides
+  the option \code{facenum}.}
 }
 \value{
 returns the reduced mesh.
 }
 \description{
-Remove isolated pieces from a surface mesh, selected by
-face number or diameter. Also the option only to keep the
-largest piec can be selected
+Remove isolated pieces from a surface mesh, selected by a
+minimum amount of faces or of a diameter below a given
+threshold. Also the option only to keep the largest piece
+can be selected
 }
 \examples{
 require(rgl)

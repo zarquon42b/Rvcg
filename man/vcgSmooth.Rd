@@ -1,6 +1,6 @@
 \name{vcgSmooth}
 \alias{vcgSmooth}
-\title{Smooth a triangular mesh}
+\title{Smoothes a triangular mesh}
 \usage{
 vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace", "fujiLaplace",
   "angWeight"), iteration = 10, lambda = 0.5, mu = -0.53, delta = 0.1)
@@ -34,7 +34,8 @@ matrix containing n vertices as homolougous coordinates.}
 triangular faces.}
 }
 \description{
-Apply different smoothing algorithms to a triangular mesh.
+Applies different smoothing algorithms on a triangular
+mesh.
 }
 \details{
 The algorithms available are Taubin smoothing, Laplacian
@@ -74,7 +75,7 @@ irregular meshes using diffusion and curvature flow:
 317-324.
 }
 \seealso{
-\code{\link{vcgPlyRead}}
+\code{\link{vcgPlyRead},\link{vcgClean}}
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

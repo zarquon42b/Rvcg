@@ -1,6 +1,6 @@
 \name{vcgSample}
 \alias{vcgSample}
-\title{Subsample mesh surface}
+\title{Subsamples points on a mesh surface}
 \usage{
 vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
   geodes = TRUE, strict = FALSE)
@@ -8,20 +8,21 @@ vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d'}
 
-  \item{SampleNum}{integer Number of sampled points}
+  \item{SampleNum}{integer: number of sampled points (see
+  \code{details} below)}
 
-  \item{type}{seclect sampling type ("mc"=MonteCarlo
-  Sampling, "pd"=PoissonDisk Sampling,"km"=kmean
-  clustering)}
+  \item{type}{character: seclect sampling type
+  ("mc"=MonteCarlo Sampling, "pd"=PoissonDisk
+  Sampling,"km"=kmean clustering)}
 
-  \item{MCsamp}{MonteCarlo sample iterations used in
-  PoissonDisk sampling.}
+  \item{MCsamp}{integer: MonteCarlo sample iterations used
+  in PoissonDisk sampling.}
 
-  \item{geodes}{maximise geodesic distance between sample
-  points (only for Poisson Disk sampling)}
+  \item{geodes}{logical: maximise geodesic distance between
+  sample points (only for Poisson Disk sampling)}
 
-  \item{strict}{if \code{type="pd"} and the amount of
-  coordinates exceeds \code{SampleNum}, the resulting
+  \item{strict}{logical: if \code{type="pd"} and the amount
+  of coordinates exceeds \code{SampleNum}, the resulting
   coordinates will be subsampled again by kmean clustering
   to reach the requested number.}
 }
@@ -29,12 +30,14 @@ vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
 sampled points
 }
 \description{
-subsample surface of a triangular mesh
+Subsamples surface of a triangular mesh and returns a set
+of points located on that mesh
 }
 \details{
 Poisson disk subsampling will not generate the exact amount
 of coordinates specified in \code{SampleNum}, depending on
-\code{MCsamp} the result wil bee more or less coordinates.
+\code{MCsamp} the result will contain more or less
+coordinates.
 }
 \examples{
 data(humface)

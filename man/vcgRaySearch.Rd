@@ -7,7 +7,10 @@ vcgRaySearch(x, mesh, mintol = 0, maxtol = 1e+15, mindist = FALSE)
 \arguments{
   \item{x}{a triangular mesh of class 'mesh3d' or a list
   containing vertices and vertex normals (fitting the
-  naming of 'mesh3d'.}
+  naming conventions of 'mesh3d'). In the second case x
+  must contain x$vb = 3 x n matrix containing
+  3D-coordinates and x$normals = 3 x n matrix containing
+  normals associated with x$vb.}
 
   \item{mesh}{triangular mesh to be intersected.}
 
@@ -32,7 +35,8 @@ check if a mesh is intersected by a set of rays (stored as
 normals)
 }
 \details{
-project a mesh along a set of given rays (stored as
+\code{vcgRaySearch} projects a mesh (or set of
+3D-coordinates) along a set of given rays (stored as
 normals) onto a target and return the hit points as well as
 information if the target mesh was hit at all. If nothing
 is hit along the ray(within the given thresholds), the
