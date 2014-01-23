@@ -26,7 +26,7 @@ namespace Rvcg
       typedef typename MeshType::VertContainer  VertContainer;
   
       // Fill an empty mesh with vertices and faces from R
-      static int RvcgReadR(MeshType &m, SEXP vb_, SEXP it_)
+      static int RvcgReadR(MeshType &m, SEXP vb_, SEXP it_= Rcpp::wrap(0))
       {
 	Rcpp::NumericMatrix vb(vb_);
 	int d =  vb.ncol();
