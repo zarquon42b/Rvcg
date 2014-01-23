@@ -29,13 +29,13 @@
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #'
-#' \dontrun{
-#' require(rgl)
+#' 
 #' data(humface)
 #' ##reduce faces to 50% 
-#' decimface <- vcgQEdecim(humface, tarface=10000, normcheck = FALSE)
+#' decimface <- vcgQEdecim(humface, percent=0.5, normcheck = TRUE)
 #' ## view
-#' 
+#' \dontrun{
+#' require(rgl)
 #' shade3d(decimface, col=3)
 #' 
 #' ## some light smoothing
