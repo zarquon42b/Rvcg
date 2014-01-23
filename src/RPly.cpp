@@ -106,20 +106,20 @@ extern "C" {
 }
 
 using namespace Rcpp;
-RcppExport SEXP RPlyWrite(SEXP _vb, SEXP _it, SEXP _binary, SEXP _addNormals, SEXP _filename, SEXP _colvec, SEXP _hasCol)
+RcppExport SEXP RPlyWrite(SEXP vb_, SEXP it_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_)
 { 
   MyMesh m;
    //set up parameters 
-  bool binary = Rcpp::as<bool>(_binary);
-  bool addNormals = Rcpp::as<bool>(_addNormals);
-  bool hasCol =  Rcpp::as<bool>(_hasCol);
-  std::string str = Rcpp::as<std::string>(_filename);
+  bool binary = Rcpp::as<bool>(binary_);
+  bool addNormals = Rcpp::as<bool>(addNormals_);
+  bool hasCol =  Rcpp::as<bool>(hasCol_);
+  std::string str = Rcpp::as<std::string>(filename_);
   const char *filename = str.c_str();
   //char *filename[256] = strcpy(cstr
   //strcpy(filename1, filename);
   //allocate mesh and fill it
-  Rcpp::IntegerMatrix colvec(_colvec);
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  Rcpp::IntegerMatrix colvec(colvec_);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   int mask0 = 0;
   
   if (addNormals) {

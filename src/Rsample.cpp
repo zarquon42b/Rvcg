@@ -16,21 +16,21 @@ using namespace Rcpp;
 using namespace std;
 
 
-RcppExport SEXP Rsample(SEXP _vb, SEXP _it, SEXP _SampleNum, SEXP _type, SEXP _MCsamp, SEXP _geodes)
+RcppExport SEXP Rsample(SEXP vb_, SEXP it_, SEXP SampleNum_, SEXP type_, SEXP MCsamp_, SEXP geodes_)
 {
   // declare Mesh and helper variables
-  int SampleNum = Rcpp::as<int>(_SampleNum);  
-  //double tol = Rcpp::as<double>(_tol);  
-  const int type = Rcpp::as<int>(_type);  
-  const int MCsamp = Rcpp::as<int>(_MCsamp);
-  const bool geodes = Rcpp::as<bool>(_geodes);
+  int SampleNum = Rcpp::as<int>(SampleNum_);  
+  //double tol = Rcpp::as<double>(tol_);  
+  const int type = Rcpp::as<int>(type_);  
+  const int MCsamp = Rcpp::as<int>(MCsamp_);
+  const bool geodes = Rcpp::as<bool>(geodes_);
   int i;
   MyMesh m,msamp;
   float radius;
   VertexIterator vi;
   FaceIterator fi;
   // allocate mesh and fill it
-  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   if (check == 1) {
     return wrap(3);
   } else {

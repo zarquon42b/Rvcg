@@ -85,7 +85,7 @@ typedef CMeshDec::VertexPointer VertexPointer;
 
 
 
-RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, SEXP _doubleparams)
+RcppExport SEXP RQEdecim(SEXP vb_ , SEXP it_, SEXP Finsize_, SEXP boolparams_, SEXP doubleparams_)
 {
   // declare Mesh and helper variables
   int i;
@@ -93,19 +93,19 @@ RcppExport SEXP RQEdecim(SEXP _vb , SEXP _it, SEXP _Finsize, SEXP _boolparams, S
   VertexIterator vi;
   FaceIterator fi;
     
-  int check = Rvcg::IOMesh<CMeshDec>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<CMeshDec>::RvcgReadR(m,vb_,it_);
   if (check == 1) {
     Rprintf("%s\n","Warning: mesh has no faces, nothing done");
-    return Rcpp::List::create(Rcpp::Named("vb") = _vb,
+    return Rcpp::List::create(Rcpp::Named("vb") = vb_,
 			    Rcpp::Named("normals") = 0,
-			    Rcpp::Named("it") = _it
+			    Rcpp::Named("it") = it_
 			    );
   }  else {
-  Rcpp::LogicalVector boolparams(_boolparams); 
-  Rcpp::NumericVector doubleparams(_doubleparams);
+  Rcpp::LogicalVector boolparams(boolparams_); 
+  Rcpp::NumericVector doubleparams(doubleparams_);
   //boolparams: 0=topo 1=quality 2=boundary 3=optiplace 4=scaleindi, 5=  normcheck, 6=safeheap)
   //doubleparams: 0 = qthresh, 1 = boundweight 2=normalthr
-  int FinalSize = Rcpp::as<int>(_Finsize);
+  int FinalSize = Rcpp::as<int>(Finsize_);
   
   //initiate decimation process
   TriEdgeCollapseQuadricParameter qparams;

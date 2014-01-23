@@ -10,7 +10,7 @@ using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
 
-RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
+RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
 {
   // declare Mesh and helper variables
   int i;
@@ -18,19 +18,19 @@ RcppExport SEXP Risolated(SEXP _vb , SEXP _it, SEXP _diam, SEXP _facenum)
   VertexIterator vi;
   FaceIterator fi;
   
-  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   /*m.vert.EnableVFAdjacency();
     m.face.EnableFFAdjacency();
     m.face.EnableVFAdjacency();*/
   if (check == 1) {
     Rprintf("%s\n","Warning: mesh has no faces, nothing done");
-    return Rcpp::List::create(Rcpp::Named("vb") = _vb,
+    return Rcpp::List::create(Rcpp::Named("vb") = vb_,
 			      Rcpp::Named("normals") = 0,
-			      Rcpp::Named("it") = _it
+			      Rcpp::Named("it") = it_
 			      );
   }  else {
-    double diameter = Rcpp::as<double>(_diam);
-    int connect = Rcpp::as<int>(_facenum); 
+    double diameter = Rcpp::as<double>(diam_);
+    int connect = Rcpp::as<int>(facenum_); 
     //tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
     tri::UpdateTopology<MyMesh>::FaceFace(m);
     tri::UpdateTopology<MyMesh>::VertexFace(m);

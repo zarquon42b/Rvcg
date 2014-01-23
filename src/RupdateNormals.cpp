@@ -9,16 +9,16 @@ using namespace Rcpp;
 //using namespace std;
 
 
-RcppExport SEXP RupdateNormals(SEXP _vb, SEXP _it, SEXP _type, SEXP pointcloud_)
+RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_)
 {
   // declare Mesh and helper variables
-  int select = Rcpp::as<int>(_type);  
+  int select = Rcpp::as<int>(type_);  
   Rcpp::IntegerVector pointcloud(pointcloud_);
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
   // allocate mesh and fill it
-  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
    Rcpp::NumericMatrix normals(3,m.vn);
   /*m.vert.EnableVFAdjacency();
     m.face.EnableFFAdjacency();

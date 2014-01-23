@@ -6,11 +6,11 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-RcppExport SEXP RVFadj(SEXP _vb, SEXP _it)
+RcppExport SEXP RVFadj(SEXP vb_, SEXP it_)
 {
   int i;
   MyMesh m;
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   Rcpp::List outlist(m.vn);
   SimpleTempData<MyMesh::FaceContainer,int>indicesf(m.face);
   typedef vcg::face::VFIterator<MyFace> VFIterator;

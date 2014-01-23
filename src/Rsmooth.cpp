@@ -7,20 +7,20 @@
 
 using namespace Rcpp;
 
-RcppExport SEXP Rsmooth(SEXP _vb, SEXP _it, SEXP _iteration, SEXP _method, SEXP _lambda,  SEXP _mu, SEXP _delta)
+RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP lambda_,  SEXP mu_, SEXP delta_)
 {
   int i;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
   //set up parameters 
-  int iter = Rcpp::as<int>(_iteration);
-  int method = Rcpp::as<int>(_method);
-  float lambda =  Rcpp::as<float>(_lambda);
-  float mu =  Rcpp::as<float>(_mu);
-  ScalarType delta = Rcpp::as<double>(_delta);
+  int iter = Rcpp::as<int>(iteration_);
+  int method = Rcpp::as<int>(method_);
+  float lambda =  Rcpp::as<float>(lambda_);
+  float mu =  Rcpp::as<float>(mu_);
+  ScalarType delta = Rcpp::as<double>(delta_);
   //allocate mesh and fill it
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
        
   if (method == 0) {
     tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);

@@ -9,16 +9,16 @@ using namespace Rcpp;
 
 typedef UpdateTopology<MyMesh>::PEdge SimpleEdge;
 
-RcppExport  SEXP RgetEdge(SEXP _vb, SEXP _it, SEXP _unique)
+RcppExport  SEXP RgetEdge(SEXP vb_, SEXP it_, SEXP unique_)
 {
   int i;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
-  bool unique = Rcpp::as<bool>(_unique);  
+  bool unique = Rcpp::as<bool>(unique_);  
  
   // allocate and fill mesh
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   //enable ocf
   /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();

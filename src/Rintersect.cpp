@@ -5,7 +5,7 @@
 using namespace Rcpp;
 //#include <wrap/ply/plylib.cpp>
  
-RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SEXP _tol, SEXP maxtol_, SEXP mindist_)
+RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SEXP tol_, SEXP maxtol_, SEXP mindist_)
 {
   typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
   ScalarType x,y,z;
@@ -13,17 +13,17 @@ RcppExport SEXP Rintersect(SEXP _vb , SEXP _it, SEXP _ioclost, SEXP _normals, SE
   VertexIterator vi;
   MyMesh m;
   MyMesh refmesh;
-  float tol = Rcpp::as<float>(_tol);
+  float tol = Rcpp::as<float>(tol_);
   float maxtol = as<float>(maxtol_);
-  Rcpp::NumericMatrix ioclost(_ioclost);
-  Rcpp::NumericMatrix normals(_normals);
+  Rcpp::NumericMatrix ioclost(ioclost_);
+  Rcpp::NumericMatrix normals(normals_);
   int dref =  ioclost.ncol();
   std::vector<float> dis;
   std::vector<float> hitbool;
   // section read from input
   bool mindist = as<bool>(mindist_);
   float t, t1;
-  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
    if (check == 1) {
     Rprintf("%s\n","Warning: mesh has no faces, nothing done");
      return Rcpp::List::create(Rcpp::Named("vb") = 0,

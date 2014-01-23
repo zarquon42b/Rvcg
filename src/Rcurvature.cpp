@@ -7,7 +7,7 @@
 using namespace Rcpp;
 //using namespace std;
   
-RcppExport SEXP Rcurvature( SEXP _vb, SEXP _it)
+RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
 {
   // declare Mesh and helper variables
   int i, j;
@@ -15,7 +15,7 @@ RcppExport SEXP Rcurvature( SEXP _vb, SEXP _it)
   VertexIterator vi;
   FaceIterator fi;
  
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   /*m.vert.EnableVFAdjacency();
   m.vert.EnableCurvatureDir();
   m.vert.EnableCurvature();

@@ -8,17 +8,17 @@ using namespace Rcpp;
 //using namespace std;
 
 
-RcppExport SEXP Rclean(SEXP _vb, SEXP _it, SEXP _type, SEXP _tol)
+RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_)
 {
   // declare Mesh and helper variables
-  int select = Rcpp::as<int>(_type);  
-  double tol = Rcpp::as<double>(_tol);  
+  int select = Rcpp::as<int>(type_);  
+  double tol = Rcpp::as<double>(tol_);  
   int i, rem;
   MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
   // allocate mesh and fill it
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,_vb,_it);
+  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
   m.face.EnableVFAdjacency();*/
