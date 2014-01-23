@@ -2,7 +2,8 @@
 \alias{vcgClost}
 \title{Project coordinates onto a target triangular surface mesh.}
 \usage{
-vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE)
+vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE,
+  borderchk = TRUE)
 }
 \arguments{
   \item{x}{k x 3 matrix containing 3D-coordinates or object
@@ -19,6 +20,9 @@ vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE)
 
   \item{smoothNormals}{logical: if TRUE, laplacian smoothed
   normals are used.}
+
+  \item{borderck}{logical: request checking if the hit face
+  is at the border of the mesh.}
 }
 \value{
 returns an object of class "mesh3d" with: \item{vb }{4 x n
@@ -27,7 +31,10 @@ matrix containing n vertices as homolougous coordinates.}
 \item{quality }{numeric vector containing distances to
 target.} \item{it }{3 x m integer matrix containing vertex
 indices forming triangular faces.Only available, when x is
-a mesh.} \item{barycoords }{3 x m Matrix containing
+a mesh.} \item{border }{integer vector of length n: if
+borderchk = TRUE, for each clostest point the value will be
+1 if the hit face is at the border of the target mesh and 0
+otherwise.} \item{barycoords }{3 x m Matrix containing
 barycentric coordinates of closest points; only available
 if barycentric=TRUE.}
 }

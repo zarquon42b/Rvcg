@@ -11,12 +11,14 @@
 #' @param barycentric logical: if TRUE, barycentric coordinates of the hit
 #' points are returned.
 #' @param smoothNormals logical: if TRUE, laplacian smoothed normals are used.
+#' @param borderck logical: request checking if the hit face is at the border of the mesh.
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{4 x n matrix containing n vertices as homolougous coordinates.}
 #' \item{normals }{4 x n matrix containing vertex normals.}
 #' \item{quality }{numeric vector containing distances to target.}
 #' \item{it }{3 x m integer matrix containing vertex indices forming triangular
 #' faces.Only available, when x is a mesh.}
+#' \item{border }{integer vector of length n: if borderchk = TRUE, for each clostest point the value will be 1 if the hit face is at the border of the target mesh and 0 otherwise.} 
 #' \item{barycoords }{3 x m Matrix containing barycentric coordinates of
 #' closest points; only available if barycentric=TRUE.}
 #' @note If large part of the reference mesh are far away from the target
@@ -37,15 +39,15 @@
 #' 
 #' 
 #' @export vcgClost
-vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE)
+vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = TRUE)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
         vb <- mesh$vb[1:3,]
         if (!is.matrix(vb))
-            stop("mesh has no vertices")
+            stop("target mesh has no vertices")
         if (!is.matrix(mesh$it))
-            stop("mesh needs at least some faces")
+            stop("target mesh needs at least some faces")
         it <- mesh$it - 1
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
@@ -62,29 +64,23 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE)
             stop("x has no vertices")
         } else
             stop("x must be a matrix or an object of class mesh3d")
-       
+
+        if (FALSE %in% is.logical(c(sign, barycentric, smoothNormals,borderchk)))
+            stop("please provide sensible input")
         
-        border <- rep(0,ncol(x$vb))
-        storage.mode(border) <- "integer"
-        clostDim <- ncol(clost)
-        faceptr <- dis <- rep(0,clostDim)
         storage.mode(clost) <- "double"
-        storage.mode(faceptr) <- "integer"
-        barycoord <- normals <- clost*0
-        sign <- as.integer(sign)
-        barycentric <- as.integer(barycentric)
-        smooth <- as.integer(smoothNormals)
-        tmp <- .C("Rclost",vb,ncol(vb),it,ncol(it),clost,clostDim,clost,dis,sign,border,barycentric,barycoord,faceptr=faceptr,smooth)
-        x$vb <- rbind(tmp[[5]],1)
-        x$normals <- rbind(tmp[[7]],1)
+        tmp <- .Call("Rclost",vb, it, clost,sign,borderchk,barycentric,smoothNormals)
+        x$vb <- rbind(tmp$ioclost,1)
+        x$normals <- rbind(tmp$normals,1)
         chcknorm <- which(is.nan(x$normals))
         if (length(chcknorm) > 0)
             x$normals[chcknorm] <- 0
         
-        x$quality <- tmp[[8]]
-        x$border <- tmp[[10]]
-        if(barycentric==1)
-            x$barycoords <- tmp[[12]]
+        x$quality <- tmp$distance
+        if (borderchk)
+            x$border <- tmp$border
+        if(barycentric)
+            x$barycoords <- tmp$barycoord
         x$faceptr=tmp$faceptr+1
         invisible(x)
     }
