@@ -9,8 +9,8 @@ E.g. mesh smoothing, mesh decimation, closest point search.
 }
 \details{
 \tabular{ll}{ Package: \tab Rvcg\cr Type: \tab Package\cr
-Version: \tab 0.7\cr Date: \tab 2014-01-23\cr License: \tab
-GPL\cr LazyLoad: \tab yes\cr }
+Version: \tab 0.7.140124\cr Date: \tab 2014-01-24\cr
+License: \tab GPL\cr LazyLoad: \tab yes\cr }
 }
 \author{
 Stefan Schlager
