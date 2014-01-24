@@ -1,4 +1,5 @@
 #include "typedef.h"
+#include "pointcloud.h"
 #include "RvcgIO.h"
 #include <Rcpp.h>
 #include <cmath>
@@ -17,21 +18,20 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
   bool signo = as<bool>(sign_);
   bool borderchk = as<bool>(borderchk_);
   bool barycentric = as<bool>(barycentric_);
- bool smooth = as<bool>(smooth_);
+  bool smooth = as<bool>(smooth_);
    Rcpp::NumericMatrix ioclost(ioclost_);
   int i;
   MyMesh m;
-  MyMesh refmesh;
-  MyMesh outmesh;
+  PcMesh refmesh;
+  PcMesh outmesh;
   MyMesh::CoordType baryco;
     // section read from input
-   
   int checkit = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   if (checkit == 1) {
     Rprintf("%s\n", "Target mesh has no triangular faces");
     return wrap(1);
-  } else {
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(refmesh, ioclost_);  
+  } else if (checkit >= 0) {
+    Rvcg::IOMesh<PcMesh>::RvcgReadR(refmesh, ioclost_);  
   tri::UpdateBounding<MyMesh>::Box(m);
   tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
   //tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
@@ -62,8 +62,8 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
     indices[fi] = i;
     ++fi;
     }
-  vcg::tri::Append<MyMesh,MyMesh>::Mesh(outmesh,refmesh);
-    MyMesh::CoordType tt;
+  vcg::tri::Append<PcMesh,PcMesh>::Mesh(outmesh,refmesh);
+  PcMesh::CoordType tt;
   for(i=0; i < refmesh.vn; i++) {
     border(i) = 0;
     Point3f& currp = refmesh.vert[i].P();
@@ -129,8 +129,9 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 			    Rcpp::Named("faceptr") = faceptr
 
 			  );
+  } else {
+        
+   return wrap(1);
   }
-      
-  //return wrap(0);
 }
 

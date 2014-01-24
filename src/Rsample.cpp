@@ -31,8 +31,8 @@ RcppExport SEXP Rsample(SEXP vb_, SEXP it_, SEXP SampleNum_, SEXP type_, SEXP MC
   FaceIterator fi;
   // allocate mesh and fill it
   int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-  if (check == 1) {
-    return wrap(3);
+  if (check != 0) {
+    return wrap(1);
   } else {
   /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();

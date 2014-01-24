@@ -22,8 +22,8 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
   /*m.vert.EnableVFAdjacency();
     m.face.EnableFFAdjacency();
     m.face.EnableVFAdjacency();*/
-  if (check == 1) {
-    Rprintf("%s\n","Warning: mesh has no faces, nothing done");
+  if (check != 0) {
+    Rprintf("%s\n","Warning: mesh has no faces and/or no vertices, nothing done");
     return Rcpp::List::create(Rcpp::Named("vb") = vb_,
 			      Rcpp::Named("normals") = 0,
 			      Rcpp::Named("it") = it_

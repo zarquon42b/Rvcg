@@ -24,8 +24,8 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
   bool mindist = as<bool>(mindist_);
   float t, t1;
   int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-   if (check == 1) {
-    Rprintf("%s\n","Warning: mesh has no faces, nothing done");
+   if (check != 0) {
+    Rprintf("%s\n","Warning: mesh has no faces or no vertices, nothing done");
      return Rcpp::List::create(Rcpp::Named("vb") = 0,
 			    Rcpp::Named("normals") = 0,
 			    Rcpp::Named("hitbool") = 0,
