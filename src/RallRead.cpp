@@ -30,6 +30,8 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     if (clean) {
       int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
       int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+      vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
+      vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
       if (dup > 0 || unref > 0)
       Rprintf("Removed %i duplicate and %i unreferenced vertices\n",dup,unref);
     }      
