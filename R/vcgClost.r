@@ -11,7 +11,7 @@
 #' @param barycentric logical: if TRUE, barycentric coordinates of the hit
 #' points are returned.
 #' @param smoothNormals logical: if TRUE, laplacian smoothed normals are used.
-#' @param borderck logical: request checking if the hit face is at the border of the mesh.
+#' @param borderchk logical: request checking if the hit face is at the border of the mesh.
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{4 x n matrix containing n vertices as homolougous coordinates.}
 #' \item{normals }{4 x n matrix containing vertex normals.}

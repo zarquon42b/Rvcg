@@ -21,8 +21,8 @@ vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE,
   \item{smoothNormals}{logical: if TRUE, laplacian smoothed
   normals are used.}
 
-  \item{borderck}{logical: request checking if the hit face
-  is at the border of the mesh.}
+  \item{borderchk}{logical: request checking if the hit
+  face is at the border of the mesh.}
 }
 \value{
 returns an object of class "mesh3d" with: \item{vb }{4 x n
