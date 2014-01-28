@@ -20,7 +20,7 @@ vcgPlyWrite(mesh, filename = dataname, binary = TRUE, addNormals = FALSE,
   stored in mesh$material$color}
 }
 \description{
-Export meshes to PLY-files (binary or ascii)
+  Export meshes to PLY-files (binary or ascii)
 }
 \examples{
 data(humface)

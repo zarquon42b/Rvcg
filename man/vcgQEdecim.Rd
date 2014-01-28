@@ -52,16 +52,16 @@ vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL,
   radians.}
 }
 \value{
-Returns a reduced mesh of class mesh3d.
+  Returns a reduced mesh of class mesh3d.
 }
 \description{
-Decimates a mesh by adapting the faces of a mesh either to
-a target face number, a percentage or an approximate mesh
-resolution (a.k.a. mean edge length
+  Decimates a mesh by adapting the faces of a mesh either
+  to a target face number, a percentage or an approximate
+  mesh resolution (a.k.a. mean edge length
 }
 \details{
-This is basically an adaption of the cli tridecimator from
-vcglib
+  This is basically an adaption of the cli tridecimator
+  from vcglib
 }
 \examples{
 data(humface)
@@ -77,10 +77,10 @@ decimface <- vcgSmooth(decimface,iteration = 1)
 }
 }
 \author{
-Stefan Schlager
+  Stefan Schlager
 }
 \seealso{
-\code{\link{vcgSmooth}}
+  \code{\link{vcgSmooth}}
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

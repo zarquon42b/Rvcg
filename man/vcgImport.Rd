@@ -20,18 +20,18 @@ vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE)
   clouds).}
 }
 \value{
-Object of class "mesh3d"
+  Object of class "mesh3d"
 
-with: \item{vb }{4 x n matrix containing n vertices as
-homolougous coordinates} \item{it }{3 x m matrix containing
-vertex indices forming triangular faces} \item{normals }{4
-x n matrix containing vertex normals (homologous
-coordinates)}
+  with: \item{vb }{4 x n matrix containing n vertices as
+  homolougous coordinates} \item{it }{3 x m matrix
+  containing vertex indices forming triangular faces}
+  \item{normals }{4 x n matrix containing vertex normals
+  (homologous coordinates)}
 }
 \description{
-Import common mesh file formats and store the results in an
-object of class "mesh3d" - momentarily only triangular
-meshes are supported.
+  Import common mesh file formats and store the results in
+  an object of class "mesh3d" - momentarily only triangular
+  meshes are supported.
 }
 \examples{
 data(humface)
@@ -39,10 +39,10 @@ vcgPlyWrite(humface)
 readit <- vcgImport("humface.ply")
 }
 \author{
-Stefan Schlager
+  Stefan Schlager
 }
 \seealso{
-\code{\link{vcgSmooth}}
+  \code{\link{vcgSmooth}}
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

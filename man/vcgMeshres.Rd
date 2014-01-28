@@ -9,12 +9,13 @@ vcgMeshres(mesh)
   "mesh3d"}
 }
 \value{
-\item{res }{average edge length (a.k.a. mesh resolution)}
-\item{edgelength }{vector containing lengths for each edge}
+  \item{res }{average edge length (a.k.a. mesh resolution)}
+  \item{edgelength }{vector containing lengths for each
+  edge}
 }
 \description{
-calculates the average edge length of a triangular mesh,
-iterating over all faces.
+  calculates the average edge length of a triangular mesh,
+  iterating over all faces.
 }
 \examples{
 data(humface)
@@ -25,7 +26,7 @@ hist(mres$edgelength)
 points( mres$res, 1000, pch=20, col=2, cex=2)
 }
 \author{
-Stefan Schlager
+  Stefan Schlager
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

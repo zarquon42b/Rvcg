@@ -15,27 +15,27 @@ vcgPlyRead(file, updateNormals = TRUE, clean = TRUE)
   vertices will be removed.}
 }
 \value{
-Object of class "mesh3d"
+  Object of class "mesh3d"
 
-with:
+  with:
 
-\item{vb }{3 x n matrix containing n vertices as
-homolougous coordinates} \item{normals }{3 x n matrix
-containing vertex normals} \item{it }{3 x m integer matrix
-containing vertex indices forming triangular faces}
-\item{material$color }{Per vertex colors if specified in
-the imported file}
+  \item{vb }{3 x n matrix containing n vertices as
+  homolougous coordinates} \item{normals }{3 x n matrix
+  containing vertex normals} \item{it }{3 x m integer
+  matrix containing vertex indices forming triangular
+  faces} \item{material$color }{Per vertex colors if
+  specified in the imported file}
 }
 \description{
-Reads Polygon File Format (PLY) files and stores the
-results in an object of class "mesh3d" - momentarily only
-triangular meshes are supported.
+  Reads Polygon File Format (PLY) files and stores the
+  results in an object of class "mesh3d" - momentarily only
+  triangular meshes are supported.
 }
 \author{
-Stefan Schlager
+  Stefan Schlager
 }
 \seealso{
-\code{\link{vcgSmooth}},
+  \code{\link{vcgSmooth}},
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

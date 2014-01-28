@@ -27,17 +27,17 @@ vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
   to reach the requested number.}
 }
 \value{
-sampled points
+  sampled points
 }
 \description{
-Subsamples surface of a triangular mesh and returns a set
-of points located on that mesh
+  Subsamples surface of a triangular mesh and returns a set
+  of points located on that mesh
 }
 \details{
-Poisson disk subsampling will not generate the exact amount
-of coordinates specified in \code{SampleNum}, depending on
-\code{MCsamp} the result will contain more or less
-coordinates.
+  Poisson disk subsampling will not generate the exact
+  amount of coordinates specified in \code{SampleNum},
+  depending on \code{MCsamp} the result will contain more
+  or less coordinates.
 }
 \examples{
 data(humface)

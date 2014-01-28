@@ -18,13 +18,13 @@ vcgIsolated(mesh, facenum = NULL, diameter = NULL)
   the option \code{facenum}.}
 }
 \value{
-returns the reduced mesh.
+  returns the reduced mesh.
 }
 \description{
-Remove isolated pieces from a surface mesh, selected by a
-minimum amount of faces or of a diameter below a given
-threshold. Also the option only to keep the largest piece
-can be selected
+  Remove isolated pieces from a surface mesh, selected by a
+  minimum amount of faces or of a diameter below a given
+  threshold. Also the option only to keep the largest piece
+  can be selected
 }
 \examples{
 require(rgl)
@@ -32,10 +32,10 @@ data(humface)
 cleanface <- vcgIsolated(humface)
 }
 \author{
-Stefan Schlager
+  Stefan Schlager
 }
 \seealso{
-\code{\link{vcgPlyRead}}
+  \code{\link{vcgPlyRead}}
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

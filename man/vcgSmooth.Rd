@@ -26,28 +26,28 @@ vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace", "fujiLaplace",
   laplacian smoothing (see reference below).}
 }
 \value{
-returns an object of class "mesh3d" with: \item{vb }{4xn
-matrix containing n vertices as homolougous coordinates.}
-\item{normals}{4xn matrix containing vertex normals.}
-\item{quality }{vector: containing distances to target.}
-\item{it }{4xm matrix containing vertex indices forming
-triangular faces.}
+  returns an object of class "mesh3d" with: \item{vb }{4xn
+  matrix containing n vertices as homolougous coordinates.}
+  \item{normals}{4xn matrix containing vertex normals.}
+  \item{quality }{vector: containing distances to target.}
+  \item{it }{4xm matrix containing vertex indices forming
+  triangular faces.}
 }
 \description{
-Applies different smoothing algorithms on a triangular
-mesh.
+  Applies different smoothing algorithms on a triangular
+  mesh.
 }
 \details{
-The algorithms available are Taubin smoothing, Laplacian
-smoothing and an improved version of Laplacian smoothing
-("HClaplace"). Also available are Scale dependent laplacian
-smoothing ("fujiLaplace") and Laplacian angle weighted
-smoothing ("angWeight")
+  The algorithms available are Taubin smoothing, Laplacian
+  smoothing and an improved version of Laplacian smoothing
+  ("HClaplace"). Also available are Scale dependent
+  laplacian smoothing ("fujiLaplace") and Laplacian angle
+  weighted smoothing ("angWeight")
 }
 \note{
-The additional parameters for taubin smooth are hardcoded
-to the default values of meshlab, as they appear to be the
-least distorting
+  The additional parameters for taubin smooth are hardcoded
+  to the default values of meshlab, as they appear to be
+  the least distorting
 }
 \examples{
 data(humface)
@@ -59,23 +59,23 @@ shade3d(smoothface, col=3)
 }
 }
 \author{
-Stefan Schlager
+  Stefan Schlager
 }
 \references{
-Taubin G. 1995. Curve and surface smoothing without
-shrinkage. In Computer Vision, 1995. Proceedings., Fifth
-International Conference on, pages 852 - 857.
+  Taubin G. 1995. Curve and surface smoothing without
+  shrinkage. In Computer Vision, 1995. Proceedings., Fifth
+  International Conference on, pages 852 - 857.
 
-Vollmer J., Mencl R. and Mueller H. 1999. Improved
-Laplacian Smoothing of Noisy Surface Meshes. Computer
-Graphics Forum, 18(3):131 - 138.
+  Vollmer J., Mencl R. and Mueller H. 1999. Improved
+  Laplacian Smoothing of Noisy Surface Meshes. Computer
+  Graphics Forum, 18(3):131 - 138.
 
-Schroeder, P. and Barr, A. H. (1999). Implicit fairing of
-irregular meshes using diffusion and curvature flow:
-317-324.
+  Schroeder, P. and Barr, A. H. (1999). Implicit fairing of
+  irregular meshes using diffusion and curvature flow:
+  317-324.
 }
 \seealso{
-\code{\link{vcgPlyRead},\link{vcgClean}}
+  \code{\link{vcgPlyRead},\link{vcgClean}}
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

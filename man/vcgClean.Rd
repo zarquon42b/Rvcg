@@ -13,17 +13,18 @@ vcgClean(mesh, sel = 0, tol = 0)
   Ratio used for splitting non-manifold vertices.}
 }
 \value{
-cleaned mesh
+  cleaned mesh
 }
 \description{
-Apply several cleaning algorithms to surface meshes
+  Apply several cleaning algorithms to surface meshes
 }
 \details{
-available options are: 0 = only duplicated vertices and
-faces are removed (always applied before cleaning). 1 =
-remove unreferenced vertices, 2 = Remove non-manifold
-Faces, 3 = Remove degenerate faces, 4 = Remove non-manifold
-vertices, 5 = Split non-manifold vertices by threshold.
+  available options are: 0 = only duplicated vertices and
+  faces are removed (always applied before cleaning). 1 =
+  remove unreferenced vertices, 2 = Remove non-manifold
+  Faces, 3 = Remove degenerate faces, 4 = Remove
+  non-manifold vertices, 5 = Split non-manifold vertices by
+  threshold.
 }
 \examples{
 data(humface)

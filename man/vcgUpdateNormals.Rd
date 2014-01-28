@@ -20,15 +20,15 @@ vcgUpdateNormals(mesh, type = 0, pointcloud = c(10, 0))
   performed.}
 }
 \value{
-mesh with updated/created normals, or in case \code{mesh}
-is a matrix, a list of class "mesh3d" with \item{vb }{4 x n
-matrix containing coordinates (as homologous coordinates}
-\item{normals }{4 x n matrix containing normals (as
-homologous coordinates}
+  mesh with updated/created normals, or in case \code{mesh}
+  is a matrix, a list of class "mesh3d" with \item{vb }{4 x
+  n matrix containing coordinates (as homologous
+  coordinates} \item{normals }{4 x n matrix containing
+  normals (as homologous coordinates}
 }
 \description{
-update vertex normals of a triangular meshes or point
-clouds
+  update vertex normals of a triangular meshes or point
+  clouds
 }
 \examples{
 data(humface)

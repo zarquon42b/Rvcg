@@ -22,26 +22,28 @@ vcgRaySearch(x, mesh, mintol = 0, maxtol = 1e+15, mindist = FALSE)
   closest point.}
 }
 \value{
-list with following items: \item{vb }{4 x n matrix
-containing intersection points} \item{normals }{4 x n
-matrix containing homogenous coordinates of normals at
-intersection points} \item{quality }{integer vector
-containing a value for each vertex of \code{x}: 1 indicates
-that a ray has intersected 'mesh' , while 0 means not}
-\item{distance }{numeric vector: distances to intersection}
+  list with following items: \item{vb }{4 x n matrix
+  containing intersection points} \item{normals }{4 x n
+  matrix containing homogenous coordinates of normals at
+  intersection points} \item{quality }{integer vector
+  containing a value for each vertex of \code{x}: 1
+  indicates that a ray has intersected 'mesh' , while 0
+  means not} \item{distance }{numeric vector: distances to
+  intersection}
 }
 \description{
-check if a mesh is intersected by a set of rays (stored as
-normals)
+  check if a mesh is intersected by a set of rays (stored
+  as normals)
 }
 \details{
-\code{vcgRaySearch} projects a mesh (or set of
-3D-coordinates) along a set of given rays (stored as
-normals) onto a target and return the hit points as well as
-information if the target mesh was hit at all. If nothing
-is hit along the ray(within the given thresholds), the
-ordinary closest point's value will be returned and the
-corresponding entry in \code{quality} will be zero.
+  \code{vcgRaySearch} projects a mesh (or set of
+  3D-coordinates) along a set of given rays (stored as
+  normals) onto a target and return the hit points as well
+  as information if the target mesh was hit at all. If
+  nothing is hit along the ray(within the given
+  thresholds), the ordinary closest point's value will be
+  returned and the corresponding entry in \code{quality}
+  will be zero.
 }
 \examples{
 data(humface)
