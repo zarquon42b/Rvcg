@@ -2,3 +2,4 @@ OBJECTS=vcglib/wrap/ply/plylib.o Rsmooth.o Rclean.o RVFadj.o RgetEdge.o RPly.o R
 
 PKG_CPPFLAGS=-Ivcglib -I.
 PKG_CXXFLAGS=@CXXFLAGS@
+PKG_LIBS=$(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
