@@ -1,5 +1,5 @@
 #! /bin/bash
-srces=$(find . -maxdepth 1 -name "*.cpp")
+srces=$(find . -maxdepth 1 -name "*.cpp" | sort)
 srces=$(echo $srces | sed "s|./||g")
 srces=$(echo $srces | sed "s|.cpp|.o|g")
 srces="OBJECTS=vcglib/wrap/ply/plylib.o $srces"

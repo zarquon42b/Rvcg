@@ -1,4 +1,4 @@
-OBJECTS=vcglib/wrap/ply/plylib.o Rsmooth.o Rclean.o RVFadj.o RgetEdge.o RPly.o Rintersect.o Rborder.o RallRead.o Rsample.o RQEdecim.o Rmeshres.o Risolated.o RupdateNormals.o Rcurvature.o Rclost.o
+OBJECTS=vcglib/wrap/ply/plylib.o RallRead.o Rborder.o Rclean.o Rclost.o Rcurvature.o RgetEdge.o Rintersect.o Risolated.o Rmeshres.o RPly.o RQEdecim.o Rsample.o Rsmooth.o RupdateNormals.o RVFadj.o
 
 PKG_CPPFLAGS=-Ivcglib -I.
 PKG_LIBS=`$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"`
