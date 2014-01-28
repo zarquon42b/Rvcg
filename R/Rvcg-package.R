@@ -19,6 +19,7 @@
 #' Maintainer: Stefan Schlager <zarquon42@@gmail.com>
 #' @references To be announced
 #' @keywords package
+#' @importFrom Rcpp evalCpp 
 #' @useDynLib Rvcg
 NULL
 
@@ -43,9 +44,9 @@ NULL
 #' A triangular mesh representing a dummyhead - called by data(dummyhead)
 #' 
 #' @name dummyhead
-#' @aliases dummyhead dummyhead.lm
+#' @aliases dummyhead.mesh dummyhead.lm
 #' @docType data
-#' @format \code{dummyhead}: triangular mesh representing a dummyhead.
+#' @format \code{dummyhead.mesh}: triangular mesh representing a dummyhead.
 #'
 #' \code{dummyhead.lm}: landmarks on mesh 'dummyhead'
 #' @keywords datasets

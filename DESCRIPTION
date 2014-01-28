@@ -23,6 +23,8 @@ Description: Operations on triangular meshes based on VCGLIB. This package
     to work with the header files included by RcppEigen.
 Depends:
     R (>= 3.0.0)
+Imports:
+    Rcpp
 Suggests:
     Morpho,
     rgl
