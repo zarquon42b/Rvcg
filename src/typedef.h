@@ -2,7 +2,7 @@
 #include <vector>
 #include <stdio.h>
 #include <cstddef>
-#include <iostream>
+//#include <iostream>
 
 // VCG headers for triangular mesh processing
 
