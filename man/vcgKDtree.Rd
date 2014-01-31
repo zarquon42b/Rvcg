@@ -1,0 +1,24 @@
+\name{vcgKDtree}
+\alias{vcgKDtree}
+\title{perform kdtree search for 3D-coordinates.}
+\usage{
+vcgKDtree(target, query, k)
+}
+\arguments{
+  \item{target}{n x 3 matrix with 3D coordinates or mesh of
+  class "mesh3d". These coordinates are to be searched.}
+
+  \item{query}{m x 3 matrix with 3D coordinates or mesh of
+  class "mesh3d". We seach the closest coordinates in
+  \code{target} for each of these.}
+
+  \item{k}{number of neighbours to find}
+}
+\value{
+a list with \item{index}{integer matrices with indeces of
+closest points} \item{distances}{corresponding distances}
+}
+\description{
+perform kdtree search for 3D-coordinates.
+}
+
