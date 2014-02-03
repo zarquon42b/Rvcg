@@ -3,7 +3,7 @@
 \title{Project coordinates onto a target triangular surface mesh.}
 \usage{
 vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE,
-  borderchk = TRUE)
+  borderchk = FALSE)
 }
 \arguments{
   \item{x}{k x 3 matrix containing 3D-coordinates or object
