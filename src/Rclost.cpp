@@ -36,10 +36,10 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
   tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
   //tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
   tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
-  if (smooth)
+  if (smooth) {
     tri::Smooth<MyMesh>::VertexNormalLaplacian(m,2,false);
-  
-  tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+    tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+  }
   float maxDist = m.bbox.Diag()*2;
   float minDist = 1e-10;
   vcg::tri::FaceTmark<MyMesh> mf; 
@@ -48,8 +48,8 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
   TriMeshGrid static_grid;    
   static_grid.Set(m.face.begin(), m.face.end());
   if (borderchk) { //update Border flags
-  tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
-  tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
+    tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+    tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
   }
   //setup return structure
   Rcpp::NumericMatrix normals(3,refmesh.vn), barycoord(3,refmesh.vn);
