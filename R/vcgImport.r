@@ -30,7 +30,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
     file <- path.expand(file)
     x <- file
     if (! file.exists(x))
-        stop("no such file")
+        stop(paste0("file ", file," does not exist"))
     updateNormals <- as.logical(updateNormals)
     readcolor <- as.logical(readcolor)
     clean <- as.logical(clean)

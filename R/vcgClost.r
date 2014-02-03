@@ -23,7 +23,7 @@
 #' closest points; only available if barycentric=TRUE.}
 #' @note If large part of the reference mesh are far away from the target
 #' surface, calculation can become very slow. In that case, the function
-#' \code{closemeshKD} from the package \code{Morpho} will be faster.
+#' \code{vcgClostKD} will be significantly faster.
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgPlyRead}}
 #' @references Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed
@@ -81,7 +81,7 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, bo
             x$border <- tmp$border
         if(barycentric)
             x$barycoords <- tmp$barycoord
-        x$faceptr=tmp$faceptr+1
+        x$faceptr <- tmp$faceptr+1
         invisible(x)
     }
 
