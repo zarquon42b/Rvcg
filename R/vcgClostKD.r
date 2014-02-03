@@ -35,7 +35,7 @@ vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE,
     else if (is.matrix(x) && is.numeric(x)) {
         io <- t(x)
         x <- list()
-        x$vb <- clost
+        x$vb <- io
         class(x) <- "mesh3d"
     } else
         stop("x must be a mesh or a matrix")

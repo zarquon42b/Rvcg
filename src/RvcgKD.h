@@ -66,7 +66,6 @@ namespace Rvcg
       vcg::tri::Allocator<MeshQuery>::AddVertices(outmesh,inmesh.fn);
       VertexIteratorQuery vi = outmesh.vert.begin();
       for (int i = 0; i < inmesh.fn; i++) {
-	CoordQuery tt;
 	(*vi).P() =  Barycenter<FaceTarget>(inmesh.face[i]);
 	++vi;
       }
