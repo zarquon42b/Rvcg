@@ -1,9 +1,9 @@
-\name{vcgClost}
-\alias{vcgClost}
-\title{Project coordinates onto a target triangular surface mesh.}
+\name{vcgClostKD}
+\alias{vcgClostKD}
+\title{Project coordinates onto a target triangular surface mesh using KD-tree search}
 \usage{
-vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE,
-  borderchk = TRUE)
+vcgClostKD(x, mesh, sign = TRUE, barycentric = FALSE,
+  smoothNormals = FALSE, borderchk = FALSE, k = 50)
 }
 \arguments{
   \item{x}{k x 3 matrix containing 3D-coordinates or object
@@ -23,6 +23,9 @@ vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE,
 
   \item{borderchk}{logical: request checking if the hit
   face is at the border of the mesh.}
+
+  \item{k}{integer: check the kdtree for the\code{k}
+  closest faces (using faces' barycenters.}
 }
 \value{
 returns an object of class "mesh3d" with: \item{vb }{4 x n
@@ -40,18 +43,15 @@ if barycentric=TRUE.}
 }
 \description{
 For a set of 3D-coordinates/triangular mesh, the closest
-matches on a target surface are determined and normals at
-as well as distances to that point are calculated.
+matches on a target surface are determined (by using
+KD-tree search) and normals at as well as distances to that
+point are calculated.
 }
 \note{
-If large part of the reference mesh are far away from the
-target surface, calculation can become very slow. In that
-case, the function \code{vcgClostKD} will be significantly
-faster.
-}
-\examples{
-data(humface)
-clost <- vcgClost(humface.lm, humface)
+Other than \code{vcgClost} this does not search a grid, but
+first uses a KD-tree search to find the \code{k} closest
+barycenters for each point and then searches these faces
+for the closest match.
 }
 \author{
 Stefan Schlager
@@ -59,11 +59,9 @@ Stefan Schlager
 \references{
 Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating
 Signed Distance Fields From Triangle Meshes. Informatics
-and Mathematical Modelling.
+and Mathematical Modelling. #'
 }
 \seealso{
 \code{\link{vcgPlyRead}}
 }
-\keyword{~kwd1}
-\keyword{~kwd2}
 

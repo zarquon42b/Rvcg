@@ -1,0 +1,26 @@
+\name{vcgBary}
+\alias{vcgBary}
+\title{get barycenters of all faces of a triangular mesh}
+\usage{
+vcgBary(mesh)
+}
+\arguments{
+  \item{mesh}{triangular mesh of class "mesh3d"}
+}
+\value{
+n x 3 matrix containing 3D-coordinates of the barycenters
+(where n is the number of faces in \code{mesh}.
+}
+\description{
+get barycenters of all faces of a triangular mesh
+}
+\examples{
+data(humface)
+bary <- vcgBary(humface)
+\dontrun{
+require(rgl)
+points3d(bary,col=2)
+wire3d(humface)
+}
+}
+

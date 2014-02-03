@@ -8,8 +8,8 @@
 
 \code{dummyhead.lm}: landmarks on mesh 'dummyhead'}
 \description{
-  A triangular mesh representing a dummyhead - called by
-  data(dummyhead)
+A triangular mesh representing a dummyhead - called by
+data(dummyhead)
 }
 \keyword{datasets}
 
