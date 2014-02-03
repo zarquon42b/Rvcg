@@ -1,6 +1,8 @@
+export(vcgBary)
 export(vcgBorder)
 export(vcgClean)
 export(vcgClost)
+export(vcgClostKD)
 export(vcgCurve)
 export(vcgGetEdge)
 export(vcgImport)
