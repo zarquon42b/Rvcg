@@ -3,7 +3,8 @@
 \title{Project coordinates onto a target triangular surface mesh using KD-tree search}
 \usage{
 vcgClostKD(x, mesh, sign = TRUE, barycentric = FALSE,
-  smoothNormals = FALSE, borderchk = FALSE, k = 50)
+  smoothNormals = FALSE, borderchk = FALSE, k = 50, nofPoints = 16,
+  maxDepth = 64)
 }
 \arguments{
   \item{x}{k x 3 matrix containing 3D-coordinates or object
@@ -26,6 +27,13 @@ vcgClostKD(x, mesh, sign = TRUE, barycentric = FALSE,
 
   \item{k}{integer: check the kdtree for the\code{k}
   closest faces (using faces' barycenters.}
+
+  \item{nofPoints}{integer: number of points per cell in
+  the kd-tree (don't change unless you know what you are
+  doing!)}
+
+  \item{maxDepth}{integer: depth of the kd-tree (don't
+  change unless you know what you are doing!)}
 }
 \value{
 returns an object of class "mesh3d" with: \item{vb }{4 x n

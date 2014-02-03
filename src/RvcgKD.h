@@ -33,13 +33,13 @@ namespace Rvcg
     typedef typename MeshQuery::FaceIterator   FaceIteratorQuery;
     typedef typename MeshQuery::FaceContainer  FaceContainerQuery;
 
-    static  List KDtreeIO(MeshTarget &target, MeshQuery &query, int k) {
+    static  List KDtreeIO(MeshTarget &target, MeshQuery &query, int k, unsigned int nofPointsPerCell = 16, unsigned int maxDepth = 64) {
       typedef pair<float,int> mypair;
       IntegerMatrix result(query.vn,k);
       NumericMatrix distance(query.vn,k);
       std::fill(result.begin(), result.end(),-1);
       VertexConstDataWrapper<MeshTarget> ww(target);
-      KdTree<float> tree(ww);
+      KdTree<float> tree(ww, nofPointsPerCell, maxDepth);
       tree.setMaxNofNeighbors(k);
       for (int i = 0; i < query.vn; i++) {
 	tree.doQueryK(query.vert[i].cP());

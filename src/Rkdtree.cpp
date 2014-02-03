@@ -17,10 +17,12 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_) {
   return out;
   
   }
-RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_) {
+RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_, SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64)) {
   bool smooth = as<bool>(smooth_);
   bool barycentric = as<bool>(barycentric_);
   bool borderchk = as<bool>(borderchk_);
+  unsigned int nofP = as<unsigned int >(nofP_);
+  unsigned int mDepth = as<unsigned int >(mDepth_);
   int k = as<int>(k_);
   bool sign = as<bool>(sign_);
   MyMesh target;
@@ -38,7 +40,7 @@ if (borderchk) { //update Border flags
     tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(target);
   }
   Rvcg::KDtree< MyMesh, PcMesh >::getBary(target, bary);
-  List indices = Rvcg::KDtree< PcMesh, PcMesh >::KDtreeIO(bary, query, k);
+  List indices = Rvcg::KDtree< PcMesh, PcMesh >::KDtreeIO(bary, query, k,nofP, mDepth);
   IntegerMatrix ktree = indices["index"];
   NumericMatrix iomat(3,query.vn), normals(3,query.vn);
   NumericMatrix barycoord(3,query.vn);

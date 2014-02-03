@@ -12,7 +12,10 @@
 #' points are returned.
 #' @param smoothNormals logical: if TRUE, laplacian smoothed normals are used.
 #' @param borderchk logical: request checking if the hit face is at the border of the mesh.
-#' @param k integer: check the kdtree for the\code{k} closest faces (using faces' barycenters. 
+#' @param k integer: check the kdtree for the\code{k} closest faces (using faces' barycenters.
+#' @param nofPoints integer: number of points per cell in the kd-tree (don't change unless you know what you are doing!)
+#' @param maxDepth integer: depth of the kd-tree (don't change unless you know what you are doing!)
+#' 
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{4 x n matrix containing n vertices as homolougous coordinates.}
 #' \item{normals }{4 x n matrix containing vertex normals.}
@@ -29,7 +32,7 @@
 #' Distance Fields From Triangle Meshes. Informatics and Mathematical
 #' Modelling.
 #' #' @export
-vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk=FALSE, k=50) {
+vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64) {
     if (inherits(x,"mesh3d"))
         io <- x$vb
     else if (is.matrix(x) && is.numeric(x)) {
@@ -49,8 +52,9 @@ vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE,
     if (!is.matrix(it))
         stop("mesh has no faces")
 
-    
-    tmp <- .Call("RclosestKD", vb , it, io, as.integer(k),as.logical(sign), as.logical(smoothNormals),as.logical(barycentric),as.logical(borderchk))
+    nofPoints <- as.integer(nofPoints)
+    maxDepth <- as.integer(maxDepth)
+    tmp <- .Call("RclosestKD", vb , it, io, as.integer(k),as.logical(sign), as.logical(smoothNormals),as.logical(barycentric),as.logical(borderchk), nofPoints,maxDepth)
     x$vb <- rbind(tmp$iomat,1)
     x$normals <- rbind(tmp$normals, 1)
     x$faceptr <- tmp$faceptr+1
