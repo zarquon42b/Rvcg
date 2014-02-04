@@ -8,7 +8,7 @@
 #' @param updateNormals logical: if TRUE and the imported file contais faces,
 #' vertex normals will be (re)calculated. Otherwise, normals will be a matrix containing zeros.
 #' @param readcolor if TRUE, vertex colors will be read if available, otherwise all vertices will be colored white.
-#' @param clean if TRUE, duplicated and unreferenced vertices are removed (be careful when importing point clouds).
+#' @param clean if TRUE, duplicated and unreferenced vertices as well as duplicate faces are removed (be careful when importing point clouds).
 #' @return Object of class "mesh3d"
 #' 
 #' with:
@@ -43,7 +43,8 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
     class(out) <- "mesh3d"
     out$vb <- rbind(matrix(tmp$vb,3,length(tmp$vb)/3),1)
     out$it <- matrix(tmp$it,3,(length(tmp$it)/3))+1
-    out$normals <- rbind(matrix(tmp$normals,3,length(tmp$normals)/3),1)
+    if (updateNormals)
+        out$normals <- rbind(matrix(tmp$normals,3,length(tmp$normals)/3),1)
     if (readcolor)
         {
           colvec <- out$colors

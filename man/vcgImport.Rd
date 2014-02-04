@@ -16,8 +16,8 @@ vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE)
   available, otherwise all vertices will be colored white.}
 
   \item{clean}{if TRUE, duplicated and unreferenced
-  vertices are removed (be careful when importing point
-  clouds).}
+  vertices as well as duplicate faces are removed (be
+  careful when importing point clouds).}
 }
 \value{
 Object of class "mesh3d"

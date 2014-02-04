@@ -24,34 +24,42 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       updateNormals = false;
     SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
     if (updateNormals) {
-      tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
-      tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+      tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
+      //tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
     }
     if (clean) {
       int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
+      int dupface = tri::Clean<MyMesh>::RemoveDuplicateFace(m);
       int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
       vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
       vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
-      if (dup > 0 || unref > 0)
-      Rprintf("Removed %i duplicate and %i unreferenced vertices\n",dup,unref);
+      if (dup > 0 || unref > 0 || dupface > 0)
+	Rprintf("Removed %i duplicate %i unreferenced vertices and %i duplicate faces\n",dup,unref,dupface);
     }      
     NumericVector vb(3*m.vn);
-    NumericVector colvec(3*m.vn);
+    std::vector<int> colvec;
+    if (colorread)
+      colvec.resize(3*m.vn);
     IntegerVector it(3*m.fn);
-    NumericVector normals(3*m.vn);
+    std::vector<double> normals;
+    if (updateNormals)
+      normals.resize(3*m.vn);
+   
     VertexIterator vi=m.vert.begin();
     for (int i=0;  i < m.vn; i++) {
       vb(i*3) = (*vi).P()[0];
       vb(i*3+1) = (*vi).P()[1];
       vb(i*3+2) = (*vi).P()[2];
       indices[vi] = i;
-      normals(i*3) = (*vi).N()[0];
-      normals(i*3+1) = (*vi).N()[1];
-      normals(i*3+2) = (*vi).N()[2];
+      if (updateNormals) {
+	normals[i*3] = (*vi).N()[0];
+	normals[i*3+1] = (*vi).N()[1];
+	normals[i*3+2] = (*vi).N()[2];
+      }
       if (colorread) {
-	colvec(i*3) = (*vi).C()[0];
-	colvec(i*3+1) = (*vi).C()[1];
-	colvec(i*3+2) = (*vi).C()[2];
+	colvec[i*3] = (*vi).C()[0];
+	colvec[i*3+1] = (*vi).C()[1];
+	colvec[i*3+2] = (*vi).C()[2];
       }
     
       ++vi;
