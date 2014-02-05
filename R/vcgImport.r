@@ -29,6 +29,8 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
     ext <- substr(file,ncfile-2,ncfile)
     file <- path.expand(file)
     x <- file
+    if (length(x) != 1)
+        stop("only one file at a time please")
     if (! file.exists(x))
         stop(paste0("file ", file," does not exist"))
     updateNormals <- as.logical(updateNormals)
