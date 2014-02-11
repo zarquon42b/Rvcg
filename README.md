@@ -2,8 +2,7 @@ Rvcg
 ====
 __Rvcg__ is an R-package providing methods for manipulations on triangular meshes by using the API of the [VCGLIB](http://vcg.sf.net/) library.
 
-#### Installation of the R-package Rvcg
- from CRAN: ####
+#### Installation of the R-package Rvcg from CRAN: ####
 
 Within R:
        
