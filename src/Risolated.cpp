@@ -37,7 +37,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
     std::pair<int,int> delInfo;
     std::vector< std::pair<int,MyMesh::FacePointer> > CCV;
     int TotalCC=tri::Clean<MyMesh>::ConnectedComponents(m, CCV);
-    Rprintf("%i\n",TotalCC);
+    //Rprintf("%i\n",TotalCC);
     std::vector<float> chunks;
     std::vector<int> chunkface;
     //int CCm = tri::Clean<MyMesh>::ConnectedComponents(m);
