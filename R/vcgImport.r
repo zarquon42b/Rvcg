@@ -49,7 +49,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
         out$normals <- rbind(matrix(tmp$normals,3,length(tmp$normals)/3),1)
     if (readcolor)
         {
-          colvec <- out$colors
+          colvec <- matrix(tmp$colors,3,(length(tmp$colors)/3))
           out$material <- list()
           colvec <- rgb(colvec[1,],colvec[2,],colvec[3,],maxColorValue=255)
           colfun <- function(x)
