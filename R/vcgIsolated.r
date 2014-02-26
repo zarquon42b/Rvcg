@@ -23,48 +23,54 @@
 #' 
 #' 
 #' @export vcgIsolated
-vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL)
-    {
-        if (!inherits(mesh,"mesh3d"))
-            stop("argument 'mesh' needs to be object of class 'mesh3d'")
-        if (is.null(facenum))
-            facenum <- 0
-        if (!is.null(diameter))
-            facenum <- -1
+vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL) {
+    if (!inherits(mesh,"mesh3d"))
+        stop("argument 'mesh' needs to be object of class 'mesh3d'")
+    if (is.null(facenum))
+        facenum <- 0
+    if (!is.null(diameter))
+        facenum <- -1
 
-        if (is.null(diameter))
-            diameter <- 0
-        storage.mode(facenum) <- "integer"
-        storage.mode(diameter) <- "double"
+    if (is.null(diameter))
+        diameter <- 0
+    storage.mode(facenum) <- "integer"
+    storage.mode(diameter) <- "double"
 
-        vb <- mesh$vb[1:3,]
-        it <- mesh$it-1
-        if (!is.matrix(vb))
-            stop("mesh has no vertices")
-        if (!is.matrix(it))
-            stop("mesh has no faces")
-        dimit <- dim(it)[2]
-        dimvb <- dim(vb)[2]
-        tmp <- .Call("Risolated", vb, it, diameter, facenum)
-        origmesh <- mesh
-        mesh$vb <- rbind(tmp$vb,1)
-        mesh$it <- tmp$it
-        mesh$normals <- rbind(tmp$normals, 1)
-        ## handle vertex color
-        if (!is.null(mesh$material$color) && length(tmp$remvert)) {
+    vb <- mesh$vb[1:3,]
+    it <- mesh$it-1
+    if (!is.matrix(vb))
+        stop("mesh has no vertices")
+    if (!is.matrix(it))
+        stop("mesh has no faces")
+    dimit <- dim(it)[2]
+    dimvb <- dim(vb)[2]
+    tmp <- .Call("Risolated", vb, it, diameter, facenum)
+    class(tmp) <- "mesh3d"
+    tmp$vb <- rbind(tmp$vb,1)
+    tmp$it <- tmp$it
+    tmp$normals <- rbind(tmp$normals, 1)
+    ## handle vertex color
+    if (!is.null(mesh$material$color)) {
+        if (length(tmp$remvert)) {
+            colframe <- data.frame(it=1:ncol(mesh$vb))
+            colframe$rgb <- rep("#FFFFFF",ncol(mesh$vb))
+            colframe$it <- 1:ncol(mesh$vb)
             remvert <- tmp$remvert
-            tmp1 <- data.frame(it=as.vector(origmesh$it))
-            tmp1$rgb <- as.vector(origmesh$material$color)
+            tmp1 <- data.frame(it=as.vector(mesh$it))
+            tmp1$rgb <- as.vector(mesh$material$color)
             tmp1 <- unique(tmp1)
             tmp1 <- tmp1[order(tmp1$it),]
-            tmp1 <- tmp1[!as.logical(remvert), ]
-            colvec <- tmp1$rgb
+            colframe$rgb[tmp1$it] <- tmp1$rgb
+            colvec <- colframe$rgb[!as.logical(remvert)]
             colfun <- function(x) {
                 x <- colvec[x]
                 return(x)
             }
-            mesh$material$color <- matrix(colfun(mesh$it),dim(mesh$it))
+            tmp$material$color <- matrix(colfun(tmp$it),dim(tmp$it))
+        } else {
+            tmp$material$color <- mesh$material$color
         }
-        
-        invisible(mesh)
     }
+    
+    invisible(tmp)
+}

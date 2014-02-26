@@ -27,23 +27,45 @@
 #' cleanface$vb <- cbind(cleanface$vb,rbind(matrix(rnorm(18),3,6),1))
 #' cleanface <- vcgClean(cleanface, sel=1)
 #' @export vcgClean
-vcgClean <- function(mesh, sel = 0,tol=0)
-    {
-        if (!inherits(mesh,"mesh3d"))
-            stop("argument 'mesh' needs to be object of class 'mesh3d'")
-        vb <- mesh$vb[1:3,]
-        it <- mesh$it - 1
-        if (!is.matrix(vb))
-            stop("mesh has no vertices")
-        dimit <- dim(it)[2]
-        dimvb <- dim(vb)[2]
-        storage.mode(tol) <- "double"
-        storage.mode(it) <- "integer"
-        storage.mode(sel) <- "integer"
-        tmp <- .Call("Rclean", vb, it, sel, tol)
-        tmp$vb <- rbind(tmp$vb,1)
-        tmp$normals <- rbind(tmp$normals,1)
-        class(tmp) <- "mesh3d"
-        return(tmp)
-        
+vcgClean <- function(mesh, sel = 0,tol=0) {
+    if (!inherits(mesh,"mesh3d"))
+        stop("argument 'mesh' needs to be object of class 'mesh3d'")
+    vb <- mesh$vb[1:3,]
+    it <- mesh$it - 1
+    if (!is.matrix(vb))
+        stop("mesh has no vertices")
+    dimit <- dim(it)[2]
+    dimvb <- dim(vb)[2]
+    storage.mode(tol) <- "double"
+    storage.mode(it) <- "integer"
+    storage.mode(sel) <- "integer"
+    tmp <- .Call("Rclean", vb, it, sel, tol)
+    tmp$vb <- rbind(tmp$vb,1)
+    tmp$normals <- rbind(tmp$normals,1)
+    class(tmp) <- "mesh3d"
+    ## handle vertex color
+    if (!is.null(mesh$material$color)) {
+        if (length(tmp$remvert)) {
+            colframe <- data.frame(it=1:ncol(mesh$vb))
+            colframe$rgb <- rep("#FFFFFF",ncol(mesh$vb))
+            colframe$it <- 1:ncol(mesh$vb)
+            remvert <- tmp$remvert
+            tmp1 <- data.frame(it=as.vector(mesh$it))
+            tmp1$rgb <- as.vector(mesh$material$color)
+            tmp1 <- unique(tmp1)
+            tmp1 <- tmp1[order(tmp1$it),]
+            colframe$rgb[tmp1$it] <- tmp1$rgb
+            colvec <- colframe$rgb[!as.logical(remvert)]
+            colfun <- function(x) {
+                x <- colvec[x]
+                return(x)
+            }
+            tmp$material$color <- matrix(colfun(tmp$it),dim(tmp$it))
+        } else {
+            tmp$material$color <- mesh$material$color
+        }
     }
+    
+    return(tmp)
+    
+}
