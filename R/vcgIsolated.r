@@ -46,10 +46,25 @@ vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL)
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
         tmp <- .Call("Risolated", vb, it, diameter, facenum)
-        outmesh <- list()
-        class(outmesh) <- "mesh3d"
-        outmesh$vb <- rbind(tmp$vb,1)
-        outmesh$it <- tmp$it
-        outmesh$normals <- rbind(tmp$normals, 1)
-        invisible(outmesh)
+        origmesh <- mesh
+        mesh$vb <- rbind(tmp$vb,1)
+        mesh$it <- tmp$it
+        mesh$normals <- rbind(tmp$normals, 1)
+        ## handle vertex color
+        if (!is.null(mesh$material$color) && length(tmp$remvert)) {
+            remvert <- tmp$remvert
+            tmp1 <- data.frame(it=as.vector(origmesh$it))
+            tmp1$rgb <- as.vector(origmesh$material$color)
+            tmp1 <- unique(tmp1)
+            tmp1 <- tmp1[order(tmp1$it),]
+            tmp1 <- tmp1[!as.logical(remvert), ]
+            colvec <- tmp1$rgb
+            colfun <- function(x) {
+                x <- colvec[x]
+                return(x)
+            }
+            mesh$material$color <- matrix(colfun(mesh$it),dim(mesh$it))
+        }
+        
+        invisible(mesh)
     }

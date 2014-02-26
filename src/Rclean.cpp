@@ -63,7 +63,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_)
   std::vector<int> remvert(m.vert.size());
   std::fill(remvert.begin(), remvert.end(),0);
   vi=m.vert.begin();
-  SimpleTempData<MyMesh::VertContainer,int> indiceout(m.vert);
+  
   int j = 0;
   for (i=0;  i < m.vert.size(); i++) {
     if( vi->IsD() )	{
@@ -76,6 +76,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_)
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
   tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
   tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+  SimpleTempData<MyMesh::VertContainer,int> indiceout(m.vert);
   Rcpp::NumericMatrix vbout(3,m.vn), normals(3,m.vn);
   Rcpp::IntegerMatrix itout(3,m.fn);
   vi=m.vert.begin();

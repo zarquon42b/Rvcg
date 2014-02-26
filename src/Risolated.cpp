@@ -69,6 +69,17 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
       
     Rprintf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
     tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+    // get a vector of which vertices were removed
+    std::vector<int> remvert(m.vert.size());
+    std::fill(remvert.begin(), remvert.end(),0);
+    vi=m.vert.begin();
+    for (i=0;  i < m.vert.size(); i++) {
+      if( vi->IsD() )	{
+	remvert[i] = 1;
+      }
+      ++vi;
+  }
+
     vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
     vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
   
@@ -102,7 +113,8 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
     }
     return Rcpp::List::create(Rcpp::Named("vb") = vb,
 			      Rcpp::Named("normals") = normals,
-			      Rcpp::Named("it") = itout
+			      Rcpp::Named("it") = itout,
+			      Rcpp::Named("remvert") = remvert
 			      );
   }
 }
