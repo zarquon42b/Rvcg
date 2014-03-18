@@ -37,8 +37,8 @@ During installation of *Rtools* make sure to install the *toolchain*, and to sel
     * **OSX:** Install *[XCODE](https://developer.apple.com/xcode/)*
 
 ##### install Rvcg #####
-* Run the following command in R:
+Run the following command in R:
         
         require(devtools)
-        install_url("https://github.com/zarquon42b/Rvcg/archive/master.zip")
+            install_github("zarquon42b/Rvcg", local=FALSE)
     
