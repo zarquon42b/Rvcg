@@ -27,51 +27,61 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
   // General cleaning and update of topology
   //tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
   //tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
-  
+  /*
   tri::UpdateTopology<MyMesh>::FaceFace(m);
   tri::UpdateTopology<MyMesh>::VertexFace(m);
   vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
   vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
-  
+  */
   //tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m); 
    
   // do all the cleaning
-  if (std::find(select.begin(), select.end(), 0) != select.end()) { 
-    int dupvb = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
-    int dupit = tri::Clean<MyMesh>::RemoveDuplicateFace(m);int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
-    if (!silent)
-      Rprintf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
-    } 
-  if (std::find(select.begin(), select.end(), 1) != select.end()) { 
-    int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
-    if (!silent)
-      Rprintf("removed %d unreferenced vertices\n",unref);
-    } 
-  if (std::find(select.begin(), select.end(), 2) != select.end()) { 
-    rem = tri::Clean<MyMesh>::RemoveNonManifoldFace(m);
-    if (!silent)
-      Rprintf("removed %d Non-manifold faces\n",rem);
-  } 
-  if (std::find(select.begin(), select.end(), 3) != select.end()) { 
-    rem = tri::Clean<MyMesh>::RemoveDegenerateFace(m);
-    if (!silent)
-      Rprintf("removed %d degenerate faces\n",rem);
-  } 
-  if (std::find(select.begin(), select.end(), 4) != select.end()) {
-    rem = tri::Clean<MyMesh>::RemoveNonManifoldVertex(m);
-    if (!silent)
-      Rprintf("removed %d Non-manifold vertices\n",rem);
-  }  
-  if  (std::find(select.begin(), select.end(), 5) != select.end()) { 
-    int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
+  for (int i=0; i < select.size();i++) {
+    int cnt = select(i);
+    if (cnt == 0) { 
+      int dupvb = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
+      int dupit = tri::Clean<MyMesh>::RemoveDuplicateFace(m);int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+      if (!silent)
+	Rprintf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
+    } else if (cnt == 1) { 
+      int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+      if (!silent)
+	Rprintf("removed %d unreferenced vertices\n",unref);
+    } else if (cnt == 2) { 
+      tri::UpdateTopology<MyMesh>::FaceFace(m);
+      tri::UpdateTopology<MyMesh>::VertexFace(m);
+      vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
+      vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
+      rem = tri::Clean<MyMesh>::RemoveNonManifoldFace(m);
+      if (!silent)
+	Rprintf("removed %d Non-manifold faces\n",rem);
+    } else if (cnt == 3) { 
+      rem = tri::Clean<MyMesh>::RemoveDegenerateFace(m);
+      if (!silent)
+	Rprintf("removed %d degenerate faces\n",rem);
+    } else if (cnt == 4) {
+      tri::UpdateTopology<MyMesh>::FaceFace(m);
+      tri::UpdateTopology<MyMesh>::VertexFace(m);
+      vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
+      vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
+      rem = tri::Clean<MyMesh>::RemoveNonManifoldVertex(m);
+      if (!silent)
+	Rprintf("removed %d Non-manifold vertices\n",rem);
+    } else if (cnt == 5) { 
+      tri::UpdateTopology<MyMesh>::FaceFace(m);
+      tri::UpdateTopology<MyMesh>::VertexFace(m);
+      vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
+      vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
+      int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
     if (!silent)
       Rprintf("split %d non-manifold vertices\n",split);
-  } 
-  if  (std::find(select.begin(), select.end(), 6) != select.end()) { 
-    int merge =tri::Clean<MyMesh>::MergeCloseVertex(m,tol);
-    if (!silent)
-      Rprintf("merged %d close vertices\n",merge);
+    } else if (cnt == 6) { 
+      int merge =tri::Clean<MyMesh>::MergeCloseVertex(m,tol);
+      if (!silent)
+	Rprintf("merged %d close vertices\n",merge);
+    }
   }
+    
   // get a vector of which vertices were removed
   std::vector<int> remvert(m.vert.size());
   std::fill(remvert.begin(), remvert.end(),0);
