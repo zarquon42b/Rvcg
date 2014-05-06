@@ -2,10 +2,11 @@
 #'
 #' Apply several cleaning algorithms to surface meshes
 #' @param mesh triangular mesh of class 'mesh3d'
-#' @param sel integer vector selecting cleaning type (see "details")
+#' @param sel integer vector selecting cleaning type (see "details"), 
 #' @param tol numeric value determining Vertex Displacement Ratio used for splitting non-manifold vertices.
 #' @param silent logical, if TRUE no console output is issued.
-#' @details available options are:
+#' @details the vector sel determines which operations are performed in which order. E.g. removing degenerate faces may generate unreferenced vertices, thus the ordering of cleaning operations is important, multiple calls are possible (sel=c(1,3,1) will remove unreferenced vertices twice).
+#' available options are:
 #'
 #' \itemize{
 #' \item{0 = only duplicated vertices and faces are removed}
