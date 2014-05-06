@@ -12,6 +12,9 @@ vcgClean(mesh, sel = 0, tol = 0, silent = FALSE)
 
   \item{tol}{numeric value determining Vertex Displacement
   Ratio used for splitting non-manifold vertices.}
+
+  \item{silent}{logical, if TRUE no console output is
+  issued.}
 }
 \value{
 cleaned mesh with an additional entry \item{remvert}{vector

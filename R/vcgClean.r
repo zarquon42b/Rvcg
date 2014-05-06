@@ -4,6 +4,7 @@
 #' @param mesh triangular mesh of class 'mesh3d'
 #' @param sel integer vector selecting cleaning type (see "details")
 #' @param tol numeric value determining Vertex Displacement Ratio used for splitting non-manifold vertices.
+#' @param silent logical, if TRUE no console output is issued.
 #' @details available options are:
 #'
 #' \itemize{
