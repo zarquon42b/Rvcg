@@ -8,10 +8,11 @@ using namespace Rcpp;
 //using namespace std;
 
 
-RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_)
+RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
 {
   // declare Mesh and helper variables
-  int select = Rcpp::as<int>(type_);  
+  //int select = Rcpp::as<int>(type_);  
+  IntegerVector select(type_);
   double tol = Rcpp::as<double>(tol_);  
   int i, rem;
   MyMesh m;
@@ -22,43 +23,55 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_)
   /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
   m.face.EnableVFAdjacency();*/
-  
+  bool silent = as<bool>(silent_);
   // General cleaning and update of topology
   //tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
   //tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
-  int dupvb = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
-  int dupit = tri::Clean<MyMesh>::RemoveDuplicateFace(m);
+  
   tri::UpdateTopology<MyMesh>::FaceFace(m);
   tri::UpdateTopology<MyMesh>::VertexFace(m);
   vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
   vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
-  Rprintf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
+  
   //tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m); 
    
   // do all the cleaning
-    
-  if (select == 1) { 
+  if (std::find(select.begin(), select.end(), 0) != select.end()) { 
+    int dupvb = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
+    int dupit = tri::Clean<MyMesh>::RemoveDuplicateFace(m);int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+    if (!silent)
+      Rprintf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
+    } 
+  if (std::find(select.begin(), select.end(), 1) != select.end()) { 
     int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
-    Rprintf("removed %d unreferenced vertices\n",unref);
-  } else if (select == 2) { 
+    if (!silent)
+      Rprintf("removed %d unreferenced vertices\n",unref);
+    } 
+  if (std::find(select.begin(), select.end(), 2) != select.end()) { 
     rem = tri::Clean<MyMesh>::RemoveNonManifoldFace(m);
-    Rprintf("removed %d Non-manifold faces\n",rem);
-  } else if (select == 3) { 
+    if (!silent)
+      Rprintf("removed %d Non-manifold faces\n",rem);
+  } 
+  if (std::find(select.begin(), select.end(), 3) != select.end()) { 
     rem = tri::Clean<MyMesh>::RemoveDegenerateFace(m);
-    Rprintf("removed %d degenerate faces\n",rem);
-  } else if (select == 4) {
+    if (!silent)
+      Rprintf("removed %d degenerate faces\n",rem);
+  } 
+  if (std::find(select.begin(), select.end(), 4) != select.end()) {
     rem = tri::Clean<MyMesh>::RemoveNonManifoldVertex(m);
-    Rprintf("removed %d Non-manifold vertices\n",rem);
-  } else if (select == 5) { 
+    if (!silent)
+      Rprintf("removed %d Non-manifold vertices\n",rem);
+  }  
+  if  (std::find(select.begin(), select.end(), 5) != select.end()) { 
     int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
-    Rprintf("split %d non-manifold vertices\n",split);
-  } else if (select == 6) { 
+    if (!silent)
+      Rprintf("split %d non-manifold vertices\n",split);
+  } 
+  if  (std::find(select.begin(), select.end(), 6) != select.end()) { 
     int merge =tri::Clean<MyMesh>::MergeCloseVertex(m,tol);
-    Rprintf("merged %d close vertices\n",merge);
-  } else if (select != 0) {
-    Rprintf("unknown parameter\n");
+    if (!silent)
+      Rprintf("merged %d close vertices\n",merge);
   }
-  
   // get a vector of which vertices were removed
   std::vector<int> remvert(m.vert.size());
   std::fill(remvert.begin(), remvert.end(),0);

@@ -2,12 +2,13 @@
 \alias{vcgClean}
 \title{Clean triangular surface meshes}
 \usage{
-vcgClean(mesh, sel = 0, tol = 0)
+vcgClean(mesh, sel = 0, tol = 0, silent = FALSE)
 }
 \arguments{
   \item{mesh}{triangular mesh of class 'mesh3d'}
 
-  \item{sel}{integer select cleaning type (see "details")}
+  \item{sel}{integer vector selecting cleaning type (see
+  "details")}
 
   \item{tol}{numeric value determining Vertex Displacement
   Ratio used for splitting non-manifold vertices.}
@@ -21,9 +22,10 @@ indicate that this vertex was removed; 0 otherwise.}
 Apply several cleaning algorithms to surface meshes
 }
 \details{
-available options are: 0 = only duplicated vertices and
-faces are removed (always applied before cleaning).
-\itemize{ \item{1 = remove unreferenced vertices} \item{2 =
+available options are:
+
+\itemize{ \item{0 = only duplicated vertices and faces are
+removed} \item{1 = remove unreferenced vertices} \item{2 =
 Remove non-manifold Faces} \item{3 = Remove degenerate
 faces} \item{4 = Remove non-manifold vertices} \item{5 =
 Split non-manifold vertices by threshold} \item{6 = merge

@@ -2,11 +2,12 @@
 #'
 #' Apply several cleaning algorithms to surface meshes
 #' @param mesh triangular mesh of class 'mesh3d'
-#' @param sel integer select cleaning type (see "details")
+#' @param sel integer vector selecting cleaning type (see "details")
 #' @param tol numeric value determining Vertex Displacement Ratio used for splitting non-manifold vertices.
 #' @details available options are:
-#' 0 = only duplicated vertices and faces are removed (always applied before cleaning).
+#'
 #' \itemize{
+#' \item{0 = only duplicated vertices and faces are removed}
 #' \item{1 = remove unreferenced vertices}
 #' \item{2 = Remove non-manifold Faces}
 #' \item{3 = Remove degenerate faces}
@@ -27,19 +28,22 @@
 #' cleanface$vb <- cbind(cleanface$vb,rbind(matrix(rnorm(18),3,6),1))
 #' cleanface <- vcgClean(cleanface, sel=1)
 #' @export vcgClean
-vcgClean <- function(mesh, sel = 0,tol=0) {
+vcgClean <- function(mesh, sel = 0,tol=0,silent=FALSE) {
     if (!inherits(mesh,"mesh3d"))
         stop("argument 'mesh' needs to be object of class 'mesh3d'")
     vb <- mesh$vb[1:3,]
     it <- mesh$it - 1
     if (!is.matrix(vb))
         stop("mesh has no vertices")
+    if (length(tol) != 1)
+        stop("tol has to be a single numeric value")
     dimit <- dim(it)[2]
     dimvb <- dim(vb)[2]
+    sel <- as.vector(sel)
     storage.mode(tol) <- "double"
     storage.mode(it) <- "integer"
     storage.mode(sel) <- "integer"
-    tmp <- .Call("Rclean", vb, it, sel, tol)
+    tmp <- .Call("Rclean", vb, it, sel, tol,silent)
     tmp$vb <- rbind(tmp$vb,1)
     tmp$normals <- rbind(tmp$normals,1)
     class(tmp) <- "mesh3d"
