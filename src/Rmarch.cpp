@@ -20,10 +20,11 @@ using namespace arma;
 //using namespace std;
 
 
-RcppExport SEXP RMarchC(SEXP array_) {
-NumericVector vecArray(array_);
-IntegerVector arrayDims = vecArray.attr("dim");
-cube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
+RcppExport SEXP RMarchC(SEXP array_, SEXP tol_) {
+  IntegerVector vecArray(array_);
+  int tol = as<double>(tol_);
+  IntegerVector arrayDims = vecArray.attr("dim");
+icube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
 MyMesh m;
 VertexIterator vi;
 FaceIterator fi;
@@ -50,7 +51,7 @@ for(i=0;i < arrayDims[0];i++)
       for(int k=0;k<64;k++)
       volume.Val(i,j,k)=(j-32)*(j-32)+(k-32)*(k-32)  + i*10*(float)math::Perlin::Noise(i*.2,j*.2,k*.2);*/
 MyMarchingCubes	mc(m, walker);
-walker.BuildMesh<MyMarchingCubes>(m, volume, mc, 20*20);
+walker.BuildMesh<MyMarchingCubes>(m, volume, mc, tol);
   vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
   tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
