@@ -33,7 +33,7 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
 {
   if (!inherits(mesh,"mesh3d") || !inherits(x,"mesh3d"))
             stop("arguments 'x' and 'mesh' needs to be object of class 'mesh3d'")
-  vb <- mesh$vb[1:3,]
+  vb <- mesh$vb[1:3,,drop=FALSE]
   it <- mesh$it - 1
   dimit <- dim(it)[2]
   dimvb <- dim(vb)[2]
@@ -46,8 +46,8 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
       stop("mesh has no vertices")
   if (!is.matrix(it))
       stop("mesh has no faces")
-  clost <- x$vb[1:3,]
-  normals <- x$normals[1:3,]
+  clost <- x$vb[1:3,,drop=FALSE]
+  normals <- x$normals[1:3,,drop=FALSE]
   clostDim <- ncol(clost)
   maxtol <- as.numeric(maxtol)
   mintol <- as.numeric(mintol)
@@ -58,4 +58,33 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
   x$quality <- tmp$hitbool
   x$distance <- tmp$dis
   return(x)
+}
+
+
+#' helper function to create an object to be processed by vcgRaySearch
+#'
+#' create a search structure from a matrix of coordinates and one of directional vectors to be processed by vcgRaySearch
+#' @param coords k x 3 matrix (or a vector of length 3) containing the starting points of the rays
+#' @param dirs k x 3 matrix (or a vector of length 3) containing the directons of the rays. The i-th row of \code{dirs} corresponds to the coordinate stored in the i-th row of \code{coords}
+#'
+#' @return
+#' an object of class "mesh3d" (without faces) and the vertices representing the starting points of the rays and the normals storing the directions.
+#' 
+#' @export
+setRays <- function(coords, dirs) {
+    raylist <- list()
+    if (is.matrix(coords))
+        raylist$vb <- t(coords)
+    else
+        raylist$vb <- matrix(coords,3,1)
+
+    if (is.matrix(dirs))
+        raylist$normals <- t(dirs)
+    else
+        raylist$normals <- matrix(dirs,3,1)
+
+    if (ncol(raylist$normals) != ncol(raylist$vb))
+        stop("number of direction vectors and number of coordinates differ")
+    class(raylist) <- "mesh3d"
+    return(raylist)
 }
