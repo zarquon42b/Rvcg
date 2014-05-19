@@ -36,7 +36,7 @@ vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL) {
     storage.mode(facenum) <- "integer"
     storage.mode(diameter) <- "double"
 
-    vb <- mesh$vb[1:3,]
+    vb <- mesh$vb[1:3,,drop=FALSE]
     it <- mesh$it-1
     if (!is.matrix(vb))
         stop("mesh has no vertices")

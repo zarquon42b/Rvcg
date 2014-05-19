@@ -44,7 +44,7 @@ vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE,
         stop("x must be a mesh or a matrix")
     if (!inherits(mesh,"mesh3d"))
         stop("argument 'mesh' needs to be object of class 'mesh3d'")
-    vb <- mesh$vb[1:3,]
+    vb <- mesh$vb[1:3,,drop=FALSE]
     it <- (mesh$it-1)
     storage.mode(it) <- "integer"
     if (!is.matrix(vb))

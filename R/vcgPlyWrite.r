@@ -15,7 +15,7 @@ vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FAL
 {
     hasCol <- FALSE
     colvec <- matrix(0)
-    vb <- mesh$vb[1:3,]
+    vb <- mesh$vb[1:3,,drop=FALSE]
     if (!is.matrix(vb))
         stop("mesh has no vertices to write")
     it <- (mesh$it-1)

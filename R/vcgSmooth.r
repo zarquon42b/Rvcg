@@ -52,7 +52,7 @@ vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
         type <- substring(type[1],1L,1L)
-        vb <- mesh$vb[1:3,]
+        vb <- mesh$vb[1:3,,drop=FALSE]
         it <- (mesh$it-1)
         storage.mode(it) <- "integer"
         method <- 0

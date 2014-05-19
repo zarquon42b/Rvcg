@@ -37,7 +37,7 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
         }
         if (type %in% 1:2) {
             
-            vb <- mesh$vb[1:3,]
+            vb <- mesh$vb[1:3,,drop=FALSE]
             it <- mesh$it - 1
             if (!is.matrix(vb))
                  stop("mesh has no vertices")

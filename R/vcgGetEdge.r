@@ -24,7 +24,7 @@ vcgGetEdge <- function(mesh,unique=TRUE)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
-        vb <- mesh$vb[1:3,]
+        vb <- mesh$vb[1:3,,drop=FALSE]
         it <- mesh$it - 1
         if (!is.matrix(vb))
             stop("mesh has no vertices")
