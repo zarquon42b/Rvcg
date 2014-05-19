@@ -51,9 +51,10 @@ RcppExport SEXP Rsample(SEXP vb_, SEXP it_, SEXP SampleNum_, SEXP type_, SEXP MC
   } else { //this is poison disk sampling with more options than the wrapper commented below
     radius = tri::SurfaceSampling<MyMesh,BaseSampler>::ComputePoissonDiskRadius(m,SampleNum);
     tri::SurfaceSampling<MyMesh, BaseSampler>::PoissonDiskParam pp;
-    tri::SurfaceSampling<MyMesh, BaseSampler>::PoissonDiskParam::Stat stat;
-    pp.pds = &stat;
-    pp.pds->sampleNum = SampleNum;
+    tri::SurfaceSampling<MyMesh, BaseSampler>::PoissonDiskParam::Stat pds; 
+    pp.preGenMesh=&m;
+    //pp.pds = &pds;
+    //pp.pds->sampleNum = SampleNum;
     pp.geodesicDistanceFlag=geodes;
     MyMesh MontecarloMesh;
     SurfaceSampling<MyMesh,BaseSampler>::Montecarlo(m, mcSampler, SampleNum*MCsamp);

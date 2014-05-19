@@ -1,13 +1,17 @@
 Index: vcg/space/index/grid_util.h
 ===================================================================
---- vcg/space/index/grid_util.h	(revision 5055)
+--- vcg/space/index/grid_util.h	(revision 5204)
 +++ vcg/space/index/grid_util.h	(working copy)
-@@ -68,13 +68,19 @@
- #include<vcg/space/index/base.h>
- #include<vcg/space/box3.h>
+@@ -29,10 +29,18 @@
  #include <vcg/space/index/space_iterators.h>
-+#include <config.h>
  
+ 
+-#ifndef WIN32
+-#define __int64 long long
+-#define __cdecl
+-#endif
++#include <config.h>
++ 
 +//#ifndef WIN32
 +#ifdef HAVE_INTTYPES
 +  #include <inttypes.h>
@@ -19,11 +23,5 @@ Index: vcg/space/index/grid_util.h
 + #endif
 +//#endif
  
--#ifndef WIN32
--#define __int64 long long
--#define __cdecl 
--#endif
--
  namespace vcg {
  
- 	/** BasicGrid
