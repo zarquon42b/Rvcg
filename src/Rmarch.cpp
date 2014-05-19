@@ -18,7 +18,7 @@ using namespace arma;
 #include <wrap/io_trimesh/export_ply.h>
 //#include "simple_volume.h"
 //using namespace std;
-#include "Voxel.h"
+//#include "Voxel.h"
 
 RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_) {
   IntegerVector vecArray(array_);
