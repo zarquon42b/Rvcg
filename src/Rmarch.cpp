@@ -18,11 +18,13 @@ using namespace arma;
 #include <wrap/io_trimesh/export_ply.h>
 //#include "simple_volume.h"
 //using namespace std;
+#include "Voxel.h"
 
-
-RcppExport SEXP RMarchC(SEXP array_, SEXP tol_) {
+RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_) {
   IntegerVector vecArray(array_);
-  int tol = as<double>(tol_);
+  int lower = as<double>(lower_);
+  int upper = as<double>(upper_);
+  
   IntegerVector arrayDims = vecArray.attr("dim");
 icube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
 MyMesh m;
@@ -40,10 +42,16 @@ typedef vcg::tri::TrivialWalker<MyMesh,MyVolume>	MyWalker;
 typedef vcg::tri::MarchingCubes<MyMesh, MyWalker>	MyMarchingCubes;
 MyWalker walker;
 volume.Init(Point3i(arrayDims[0],arrayDims[1],arrayDims[2]));
-for(i=0;i < arrayDims[0];i++)
-    for(j=0;j<arrayDims[1];j++)
-      for(k=0;k< arrayDims[2];k++)
-      volume.Val(i,j,k)=myCube(i,j,k);
+ for(i=0;i < arrayDims[0];i++) {
+   for(j=0;j<arrayDims[1];j++) {
+     for(k=0;k< arrayDims[2];k++) {
+       if (myCube(i,j,k) >= lower && myCube(i,j,k) <= upper)
+	 volume.Val(i,j,k)=1;
+       else 
+	 volume.Val(i,j,k)=0;
+     }
+   }
+ }
   //write back
 /*volume.Init(Point3i(64,64,64));
   for(int i=0;i<64;i++)
@@ -51,7 +59,7 @@ for(i=0;i < arrayDims[0];i++)
       for(int k=0;k<64;k++)
       volume.Val(i,j,k)=(j-32)*(j-32)+(k-32)*(k-32)  + i*10*(float)math::Perlin::Noise(i*.2,j*.2,k*.2);*/
 MyMarchingCubes	mc(m, walker);
-walker.BuildMesh<MyMarchingCubes>(m, volume, mc, tol);
+walker.BuildMesh<MyMarchingCubes>(m, volume, mc, 0.0);
   vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
   tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
@@ -59,6 +67,7 @@ walker.BuildMesh<MyMarchingCubes>(m, volume, mc, tol);
   SimpleTempData<MyMesh::VertContainer,int> indiceout(m.vert);
   Rcpp::NumericMatrix vbout(3,m.vn), normals(3,m.vn);
   Rcpp::IntegerMatrix itout(3,m.fn);
+  
 Rprintf("%d\n",m.vn);
   vi=m.vert.begin();
   for (i=0;  i < m.vn; i++) {
@@ -82,7 +91,8 @@ Rprintf("%d\n",m.vn);
     itout(2,i) = indiceout[fp->cV(2)]+1;
     ++fi;
   }
-  
+  //delete &walker;
+  //delete &volume;
   return Rcpp::List::create(Rcpp::Named("vb") = vbout,
 			    Rcpp::Named("it") = itout,
 			    Rcpp::Named("normals") = normals
