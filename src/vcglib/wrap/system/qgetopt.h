@@ -89,11 +89,6 @@ class GetOpt {
 
   //add an argument
   void addArgument(const QString &name, const QString &description, QVariant *v);
-  void addArgument(const QString &name, const QString &description, QString *v);
-  void addArgument(const QString &name, const QString &description, double *v);
-  void addArgument(const QString &name, const QString &description, int *v);
-  void addArgument(const QString &name, const QString &description, bool *v);
-  void addArgument(const QString &name, const QString &description, Option option);
 
   //add an optional agrument
   void addOptionalArgument(const QString &name, const QString &description, QVariant *v);
@@ -113,7 +108,7 @@ class GetOpt {
   //return argv[0]
   QString &applicationName();
 
-protected:
+ protected:
   //parses and return true on success
   bool parse(QString &error);
   //return options or switch
@@ -122,10 +117,6 @@ protected:
   bool findArg(const QString &name, Option &option);
   //split desc into n pieces of the right length TODO: check for newlines also
   QString formatDesc(QString desc, int len);
-  //manage conversion from string to option value
-  bool assignOption(Option &option, QString arg, QString &error);
-
 };
 
 #endif
-

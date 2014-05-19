@@ -369,10 +369,6 @@ void Clear()
   C()=Color4b::Gray;
 }
 
-bool IsEmpty()
-{
-  return vert.empty() && edge.empty() && face.empty();
-}
 
 int & SimplexNumber(){ return fn;}
 int & VertexNumber(){ return vn;}
@@ -578,39 +574,37 @@ bool HasHOppAdjacency (const TriMesh < CType0, CType1, CType2, CType3> & /*m*/) 
 //						 vcg::tri::HasPerFaceVFAdjacency<   CType0,   CType1 ,   CType2,   CType3>(m) ;
 //}
 
-template <class MeshType>
-bool HasPerVertexAttribute(const MeshType &m,   std::string   name){
-        typename std::set< typename MeshType::PointerToAttribute>::const_iterator ai;
-        typename MeshType::PointerToAttribute h;
+template <class MESH_TYPE>
+bool HasPerVertexAttribute(const MESH_TYPE &m,   std::string   name){
+        typename std::set< typename MESH_TYPE::PointerToAttribute>::const_iterator ai;
+        typename MESH_TYPE::PointerToAttribute h;
         h._name = name;
         ai = m.vert_attr.find(h);
         return (ai!= m.vert_attr.end() ) ;
 }
-template <class MeshType>
-bool HasPerFaceAttribute(const MeshType &m,   std::string   name){
-        typename std::set< typename MeshType::PointerToAttribute>::const_iterator ai;
-        typename MeshType::PointerToAttribute h;
+template <class MESH_TYPE>
+bool HasPerFaceAttribute(const MESH_TYPE &m,   std::string   name){
+        typename std::set< typename MESH_TYPE::PointerToAttribute>::const_iterator ai;
+        typename MESH_TYPE::PointerToAttribute h;
         h._name = name;
         ai = m.face_attr.find(h);
         return (ai!= m.face_attr.end() ) ;
 }
 
-template <class MeshType>
-bool HasPerMeshAttribute(const MeshType &m,   std::string   name){
-        typename std::set< typename MeshType::PointerToAttribute>::const_iterator ai;
-        typename MeshType::PointerToAttribute h;
+template <class MESH_TYPE>
+bool HasPerMeshAttribute(const MESH_TYPE &m,   std::string   name){
+        typename std::set< typename MESH_TYPE::PointerToAttribute>::const_iterator ai;
+        typename MESH_TYPE::PointerToAttribute h;
         h._name = name;
         ai = m.mesh_attr.find(h);
         return (ai!= m.mesh_attr.end() ) ;
 }
 
 template <class MeshType> void RequireCompactness    (MeshType &m) {
-  if(m.vert.size()!=size_t(m.vn)) throw vcg::MissingCompactnessException("Vertex Vector Contains deleted elements");
-  if(m.edge.size()!=size_t(m.en)) throw vcg::MissingCompactnessException("Edge Vector Contains deleted elements");
-  if(m.face.size()!=size_t(m.fn)) throw vcg::MissingCompactnessException("Face Vector Contains deleted elements");
+  if(m.vert.size()!=m.vn) throw vcg::MissingCompactnessException("Vertex Vector Contains deleted elements");
+  if(m.edge.size()!=m.en) throw vcg::MissingCompactnessException("Edge Vector Contains deleted elements");
+  if(m.face.size()!=m.fn) throw vcg::MissingCompactnessException("Face Vector Contains deleted elements");
 }
-
-template <class MeshType> void RequireTriangularMesh (MeshType &m ) { if( tri::HasPolyInfo( m ) ) throw vcg::MissingTriangularRequirementException("");}
 
 template <class MeshType> void RequireVFAdjacency    (MeshType &m) { if(!tri::HasVFAdjacency   (m)) throw vcg::MissingComponentException("VFAdjacency"); }
 template <class MeshType> void RequireVEAdjacency    (MeshType &m) { if(!tri::HasVEAdjacency   (m)) throw vcg::MissingComponentException("VEAdjacency"); }
@@ -646,10 +640,6 @@ template <class MeshType> void RequirePerFaceWedgeColor   (MeshType &m) { if(!tr
 template <class MeshType> void RequirePerFaceWedgeNormal  (MeshType &m) { if(!tri::HasPerWedgeNormal  (m)) throw vcg::MissingComponentException("PerFaceWedgeNormal  "); }
 template <class MeshType> void RequirePerFaceWedgeTexCoord(MeshType &m) { if(!tri::HasPerWedgeTexCoord(m)) throw vcg::MissingComponentException("PerFaceWedgeTexCoord"); }
 
-template <class MeshType> void RequirePerVertexAttribute(MeshType &m, const char *name) { if(!HasPerVertexAttribute(m,name)) throw vcg::MissingComponentException("PerVertex attribute"); }
-template <class MeshType> void RequirePerEdgeAttribute(MeshType &m, const char *name)   { if(!HasPerEdgeAttribute(m,name))   throw vcg::MissingComponentException("PerEdge attribute"); }
-template <class MeshType> void RequirePerFaceAttribute(MeshType &m, const char *name)   { if(!HasPerFaceAttribute(m,name))   throw vcg::MissingComponentException("PerFace attribute"); }
-template <class MeshType> void RequirePerMeshAttribute(MeshType &m, const char *name)   { if(!HasPerMeshAttribute(m,name))   throw vcg::MissingComponentException("PerMesh attribute"); }
 
 /*@}*/
 /*@}*/

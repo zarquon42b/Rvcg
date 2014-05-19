@@ -230,8 +230,7 @@ static ScalarType EdgeLenghtVariationIfVertexRotated(const FaceType &f, int w0)
     pi = pf->cFFi( pi );
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
-    guard++;
-    assert(guard<100);
+    assert(guard++<100);
   } while (pf != &f);
   assert (na == n);
   return (after-before);
@@ -252,6 +251,8 @@ static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
   // rotate arond vertex
   const FaceType* pf = &f;
   int pi = w0;
+  int nb = 0; // vertex valency
+  int na = 0;
   std::vector<const VertexType *> s; // 1 star around v
   do {
     // ScalarType triEdge = (pf->P0(pi) - pf->P1(pi) ).Norm();
@@ -271,8 +272,7 @@ static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
     pi = pf->cFFi( pi );
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
-    guard++;
-    assert(guard<100);
+    assert(guard++<100);
   } while (pf != &f);
 
   assert(s.size()%2==0);
@@ -285,6 +285,7 @@ static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
     after+=quadQuality( s[h]->P(),s[i]->P(),s[j]->P(),f.P(w0) );
   }
 
+  assert (na == nb);
   return (after-before);
 }
 
@@ -594,8 +595,7 @@ static bool IsDoubletFF(const FaceType& f, int wedge){
     pi = pf->cFFi( pi );
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
-    guard++;
-    assert(guard<100);
+    assert(guard++<100);
   } while (pf != &f);
   return (res == 2);
 }
@@ -631,8 +631,7 @@ static bool IsSingletFF(const FaceType& f, int wedge){
     pi = pf->cFFi( pi );
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
-    guard++;
-    assert(guard<100);
+    assert(guard++<100);
   } while (pf != &f);
   return (res == 1);
 }

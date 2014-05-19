@@ -78,11 +78,7 @@ class SparseDiagonalProduct
     EIGEN_SPARSE_PUBLIC_INTERFACE(SparseDiagonalProduct)
 
     typedef internal::sparse_diagonal_product_inner_iterator_selector
-                      <_LhsNested,_RhsNested,SparseDiagonalProduct,LhsMode,RhsMode> InnerIterator;
-    
-    // We do not want ReverseInnerIterator for diagonal-sparse products,
-    // but this dummy declaration is needed to make diag * sparse * diag compile.
-    class ReverseInnerIterator;
+                <_LhsNested,_RhsNested,SparseDiagonalProduct,LhsMode,RhsMode> InnerIterator;
 
     EIGEN_STRONG_INLINE SparseDiagonalProduct(const Lhs& lhs, const Rhs& rhs)
       : m_lhs(lhs), m_rhs(rhs)
@@ -122,13 +118,13 @@ class sparse_diagonal_product_inner_iterator_selector
 <Lhs,Rhs,SparseDiagonalProductType,SDP_IsDiagonal,SDP_IsSparseColMajor>
   : public CwiseBinaryOp<
       scalar_product_op<typename Lhs::Scalar>,
-      const typename Rhs::ConstInnerVectorReturnType,
-      const typename Lhs::DiagonalVectorType>::InnerIterator
+      SparseInnerVectorSet<Rhs,1>,
+      typename Lhs::DiagonalVectorType>::InnerIterator
 {
     typedef typename CwiseBinaryOp<
       scalar_product_op<typename Lhs::Scalar>,
-      const typename Rhs::ConstInnerVectorReturnType,
-      const typename Lhs::DiagonalVectorType>::InnerIterator Base;
+      SparseInnerVectorSet<Rhs,1>,
+      typename Lhs::DiagonalVectorType>::InnerIterator Base;
     typedef typename Lhs::Index Index;
     Index m_outer;
   public:
@@ -160,13 +156,13 @@ class sparse_diagonal_product_inner_iterator_selector
 <Lhs,Rhs,SparseDiagonalProductType,SDP_IsSparseRowMajor,SDP_IsDiagonal>
   : public CwiseBinaryOp<
       scalar_product_op<typename Rhs::Scalar>,
-      const typename Lhs::ConstInnerVectorReturnType,
-      const Transpose<const typename Rhs::DiagonalVectorType> >::InnerIterator
+      SparseInnerVectorSet<Lhs,1>,
+      Transpose<const typename Rhs::DiagonalVectorType> >::InnerIterator
 {
     typedef typename CwiseBinaryOp<
       scalar_product_op<typename Rhs::Scalar>,
-      const typename Lhs::ConstInnerVectorReturnType,
-      const Transpose<const typename Rhs::DiagonalVectorType> >::InnerIterator Base;
+      SparseInnerVectorSet<Lhs,1>,
+      Transpose<const typename Rhs::DiagonalVectorType> >::InnerIterator Base;
     typedef typename Lhs::Index Index;
     Index m_outer;
   public:

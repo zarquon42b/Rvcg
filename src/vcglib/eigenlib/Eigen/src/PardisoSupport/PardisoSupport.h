@@ -206,6 +206,29 @@ class PardisoImpl
     template<typename BDerived, typename XDerived>
     bool _solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived>& x) const;
 
+    /** \internal */
+    template<typename Rhs, typename DestScalar, int DestOptions, typename DestIndex>
+    void _solve_sparse(const Rhs& b, SparseMatrix<DestScalar,DestOptions,DestIndex> &dest) const
+    {
+      eigen_assert(m_size==b.rows());
+
+      // we process the sparse rhs per block of NbColsAtOnce columns temporarily stored into a dense matrix.
+      static const int NbColsAtOnce = 4;
+      int rhsCols = b.cols();
+      int size = b.rows();
+      // Pardiso cannot solve in-place,
+      // so we need two temporaries
+      Eigen::Matrix<DestScalar,Dynamic,Dynamic,ColMajor> tmp_rhs(size,rhsCols);
+      Eigen::Matrix<DestScalar,Dynamic,Dynamic,ColMajor> tmp_res(size,rhsCols);
+      for(int k=0; k<rhsCols; k+=NbColsAtOnce)
+      {
+        int actualCols = std::min<int>(rhsCols-k, NbColsAtOnce);
+        tmp_rhs.leftCols(actualCols) = b.middleCols(k,actualCols);
+        tmp_res.leftCols(actualCols) = derived().solve(tmp_rhs.leftCols(actualCols));
+        dest.middleCols(k,actualCols) = tmp_res.leftCols(actualCols).sparseView();
+      }
+    }
+
   protected:
     void pardisoRelease()
     {
@@ -581,7 +604,7 @@ struct sparse_solve_retval<PardisoImpl<Derived>, Rhs>
 
   template<typename Dest> void evalTo(Dest& dst) const
   {
-    this->defaultEvalTo(dst);
+    dec().derived()._solve_sparse(rhs(),dst);
   }
 };
 

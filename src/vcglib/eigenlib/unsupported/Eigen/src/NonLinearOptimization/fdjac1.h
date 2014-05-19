@@ -11,9 +11,6 @@ DenseIndex fdjac1(
         DenseIndex ml, DenseIndex mu,
         Scalar epsfcn)
 {
-    using std::sqrt;
-    using std::abs;
-    
     typedef DenseIndex Index;
 
     /* Local variables */
@@ -27,7 +24,7 @@ DenseIndex fdjac1(
     /* Function Body */
     const Scalar epsmch = NumTraits<Scalar>::epsilon();
     const Index n = x.size();
-    eigen_assert(fvec.size()==n);
+    assert(fvec.size()==n);
     Matrix< Scalar, Dynamic, 1 >  wa1(n);
     Matrix< Scalar, Dynamic, 1 >  wa2(n);
 

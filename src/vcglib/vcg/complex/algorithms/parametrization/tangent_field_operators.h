@@ -33,100 +33,6 @@
 namespace vcg {
 	namespace tri{
 
-
-        template < typename ScalarType >
-        vcg::Point2<ScalarType> InterpolateNRosy2D(const std::vector<vcg::Point2<ScalarType> > &V,
-                                               const std::vector<ScalarType>  &W,
-                                               const int N)
-        {
-            // check parameter
-            assert(V.size() == W.size() && N > 0);
-            
-            // create a vector of angles
-            std::vector<ScalarType> angles(V.size(), 0);
-            
-            // make angle mod 2pi/N by multiplying times N
-            for (size_t i = 0; i < V.size(); i++)
-                angles[i] = std::atan2(V[i].Y(), V[i].X() ) * N;
-            
-            // create vector of directions
-            std::vector<vcg::Point2<ScalarType> > VV(V.size(), vcg::Point2<ScalarType>(0,0));
-            
-            // compute directions
-            for (size_t i = 0; i < V.size(); i++) {
-                VV[i].X() = std::cos(angles[i]);
-                VV[i].Y() = std::sin(angles[i]);
-            }
-            
-            // average vector
-            vcg::Point2<ScalarType> Res(0,0);
-            
-            // compute average of the unit vectors
-            ScalarType Sum=0;
-            for (size_t i = 0; i < VV.size(); i++)
-            {
-                Res += VV[i] * W[i];
-                Sum+=W[i];
-            }
-            Res /=Sum;
-            
-            //R /= VV.rows();
-            
-            // scale them back
-            ScalarType a = std::atan2(Res.Y(), Res.X()) / N;
-            Res.X() = std::cos(a);
-            Res.Y() = std::sin(a);
-            
-            return Res;
-        }
-        
-        template < typename ScalarType >
-        vcg::Point3<ScalarType> InterpolateNRosy3D(const std::vector<vcg::Point3<ScalarType> > &V,
-                                               const std::vector<vcg::Point3<ScalarType> > &Norm,
-                                               const std::vector<ScalarType>  &W,
-                                               const int N,
-                                               const vcg::Point3<ScalarType> &TargetN)
-        {
-            typedef typename vcg::Point3<ScalarType> CoordType;
-            ///create a reference frame along TargetN
-            CoordType TargetZ=TargetN;
-            TargetZ.Normalize();
-            CoordType U=CoordType(1,0,0);
-            if (fabs((TargetZ*U)-1.f)<0.001)
-                U=CoordType(0,1,0);
-            CoordType TargetX=TargetZ^U;
-            CoordType TargetY=TargetX^TargetZ;
-            TargetX.Normalize();
-            TargetY.Normalize();
-            vcg::Matrix33<ScalarType> RotFrame=vcg::TransformationMatrix(TargetX,TargetY,TargetZ);
-            vcg::Matrix33<ScalarType> RotFrameInv=vcg::Inverse(RotFrame);
-            std::vector<vcg::Point2<ScalarType> > Cross2D;
-            ///rotate each vector to transform to 2D
-            for (size_t i=0;i<V.size();i++)
-            {
-                CoordType NF=Norm[i];
-                NF.Normalize();
-                CoordType Vect=V[i];
-                Vect.Normalize();
-                //ScalarType Dot=fabs(Vect*NF);
-                
-                ///rotate the vector to become tangent to the reference plane
-                vcg::Matrix33<ScalarType> RotNorm=vcg::RotationMatrix(Norm[i],TargetN);
-                CoordType rotV=RotNorm*V[i];
-                //assert(fabs(rotV*TargetN)<0.000001);
-                rotV.Normalize();
-                ///trassform to the reference frame
-                rotV=RotFrame*rotV;
-                //it's 2D from now on
-                Cross2D.push_back(vcg::Point2<ScalarType>(rotV.X(),rotV.Y()));
-            }
-            vcg::Point2<ScalarType> AvDir2D=InterpolateNRosy2D(Cross2D,W,N);
-            CoordType AvDir3D=CoordType(AvDir2D.X(),AvDir2D.Y(),0);
-            //transform back to 3D
-            AvDir3D=RotFrameInv*AvDir3D;
-            return AvDir3D;
-        }
-        
 		template <class MeshType>
 		class CrossField
 		{
@@ -508,62 +414,47 @@ namespace vcg {
 				const CoordType &target_n,
 				const CoordType &bary)
 			{
-                std::vector<CoordType > V,Norm;
-                std::vector<ScalarType > W;
-                V.push_back(t0);
-                V.push_back(t1);
-                V.push_back(t2);
-                Norm.push_back(n0);
-                Norm.push_back(n1);
-                Norm.push_back(n2);
-                W.push_back(bary.X());
-                W.push_back(bary.Y());
-                W.push_back(bary.Z());
-                CoordType sum=InterpolateNRosy3D(V,Norm,&W,4,target_n);
-                return sum;
-//				vcg::Matrix33<ScalarType> R0=vcg::RotationMatrix(n0,target_n);
-//				vcg::Matrix33<ScalarType> R1=vcg::RotationMatrix(n1,target_n);
-//				vcg::Matrix33<ScalarType> R2=vcg::RotationMatrix(n2,target_n);
-//				///rotate
-//				CoordType trans0=R0*t0;
-//				CoordType trans1=R1*t1;
-//				CoordType trans2=R2*t2;
-//				///normalize it
-//				trans0.Normalize();
-//				trans1.Normalize();
-//				trans2.Normalize();
-//				///k_PI/2 rotation
-//				trans1=K_PI(trans1,trans0,target_n);
-//				trans2=K_PI(trans2,trans0,target_n);
-//				trans1.Normalize();
-//				trans2.Normalize();
+				vcg::Matrix33<ScalarType> R0=vcg::RotationMatrix(n0,target_n);
+				vcg::Matrix33<ScalarType> R1=vcg::RotationMatrix(n1,target_n);
+				vcg::Matrix33<ScalarType> R2=vcg::RotationMatrix(n2,target_n);
+				///rotate
+				CoordType trans0=R0*t0;
+				CoordType trans1=R1*t1;
+				CoordType trans2=R2*t2;
+				///normalize it
+				trans0.Normalize();
+				trans1.Normalize();
+				trans2.Normalize();
+				///k_PI/2 rotation
+				trans1=K_PI(trans1,trans0,target_n);
+				trans2=K_PI(trans2,trans0,target_n);
+				trans1.Normalize();
+				trans2.Normalize();
 
-//				CoordType sum = trans0*bary.X() + trans1 * bary.Y() + trans2 * bary.Z();
-//				return sum;
+				CoordType sum = trans0*bary.X() + trans1 * bary.Y() + trans2 * bary.Z();
+				return sum;
 			}
 
             ///interpolate cross field with barycentric coordinates using normalized weights
             static  CoordType InterpolateCrossField(const std::vector<CoordType> &TangVect,
                 const std::vector<ScalarType> &Weight,
                 const std::vector<CoordType> &Norms,
-                const CoordType &BaseNorm)
+                const CoordType &BaseNorm,
+                const CoordType &BaseDir)
             {
-
-                CoordType sum=InterpolateNRosy3D(TangVect,Norms,Weight,4,BaseNorm);
+                CoordType sum = CoordType(0,0,0);
+                for (unsigned int i=0;i<TangVect.size();i++)
+                {
+                    CoordType N1=Norms[i];
+                    ///find the rotation matrix that maps between normals
+                    vcg::Matrix33<ScalarType> rotation=vcg::RotationMatrix(N1,BaseNorm);
+                    CoordType rotated=rotation*TangVect[i];
+                    CoordType Tdir=K_PI(rotated,BaseDir,BaseNorm);
+                    Tdir.Normalize();
+                    sum+=(Tdir*Weight[i]);
+                }
+                sum.Normalize();
                 return sum;
-//                CoordType sum = CoordType(0,0,0);
-//                for (unsigned int i=0;i<TangVect.size();i++)
-//                {
-//                    CoordType N1=Norms[i];
-//                    ///find the rotation matrix that maps between normals
-//                    vcg::Matrix33<ScalarType> rotation=vcg::RotationMatrix(N1,BaseNorm);
-//                    CoordType rotated=rotation*TangVect[i];
-//                    CoordType Tdir=K_PI(rotated,BaseDir,BaseNorm);
-//                    Tdir.Normalize();
-//                    sum+=(Tdir*Weight[i]);
-//                }
-//                sum.Normalize();
-//                return sum;
             }
 
 			///interpolate cross field with scalar weight
@@ -574,27 +465,18 @@ namespace vcg {
 				const typename FaceType::CoordType &target_n,
 				const typename FaceType::ScalarType &weight)
 			{
-                std::vector<CoordType > V,Norm;
-                std::vector<ScalarType > W;
-                V.push_back(t0);
-                V.push_back(t1);
-                Norm.push_back(n0);
-                Norm.push_back(n1);
-                W.push_back(weight);
-                W.push_back(1-weight);
-                InterpolateNRosy3D(V,Norm,&W,4,target_n);
-//				vcg::Matrix33<ScalarType> R0=vcg::RotationMatrix(n0,target_n);
-//				vcg::Matrix33<ScalarType> R1=vcg::RotationMatrix(n1,target_n);
-//				CoordType trans0=R0*t0;
-//				CoordType trans1=R1*t1;
-//				//CoordType trans0=t0;//R0*t0;
-//				//CoordType trans1=t1;//R1*t1;
-//				trans0.Normalize();
-//				trans1.Normalize();
-//				trans1=K_PI(trans1,trans0,target_n);
-//				trans1.Normalize();
-//				CoordType sum = trans0*weight + trans1 * (1.0-weight);
-//				return sum;
+				vcg::Matrix33<ScalarType> R0=vcg::RotationMatrix(n0,target_n);
+				vcg::Matrix33<ScalarType> R1=vcg::RotationMatrix(n1,target_n);
+				CoordType trans0=R0*t0;
+				CoordType trans1=R1*t1;
+				//CoordType trans0=t0;//R0*t0;
+				//CoordType trans1=t1;//R1*t1;
+				trans0.Normalize();
+				trans1.Normalize();
+				trans1=K_PI(trans1,trans0,target_n);
+				trans1.Normalize();
+				CoordType sum = trans0*weight + trans1 * (1.0-weight);
+				return sum;
 			}
 
 
@@ -678,16 +560,16 @@ namespace vcg {
 				///check that is on border..
 				if (v.IsB())return false;
 
-                std::vector<face::Pos<FaceType> > posVec;
+                std::vector<face::Pos<FaceType>> posVec;
                 //SortedFaces(v,faces);
                 face::Pos<FaceType> pos(v.cVFp(), v.cVFi());
                 vcg::face::VFOrderedStarFF(pos, posVec);
 
                 missmatch=0;
-                for (unsigned int i=0;i<posVec.size();i++)
+                for (unsigned int i=0;i<faces.size();i++)
                 {
                   FaceType *curr_f=posVec[i].F();
-                  FaceType *next_f=posVec[(i+1)%posVec.size()].F();
+                  FaceType *next_f=posVec[(i+1)%faces.size()].F();
 
                     ///find the current missmatch
                     missmatch+=MissMatchByCross(*curr_f,*next_f);

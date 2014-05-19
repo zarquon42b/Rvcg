@@ -118,8 +118,6 @@ struct CommaInitializer
   *
   * Example: \include MatrixBase_set.cpp
   * Output: \verbinclude MatrixBase_set.out
-  * 
-  * \note According the c++ standard, the argument expressions of this comma initializer are evaluated in arbitrary order.
   *
   * \sa CommaInitializer::finished(), class CommaInitializer
   */

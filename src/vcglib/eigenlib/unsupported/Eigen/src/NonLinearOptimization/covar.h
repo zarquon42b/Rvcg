@@ -6,9 +6,8 @@ template <typename Scalar>
 void covar(
         Matrix< Scalar, Dynamic, Dynamic > &r,
         const VectorXi &ipvt,
-        Scalar tol = std::sqrt(NumTraits<Scalar>::epsilon()) )
+        Scalar tol = sqrt(NumTraits<Scalar>::epsilon()) )
 {
-    using std::abs;
     typedef DenseIndex Index;
 
     /* Local variables */
@@ -20,7 +19,7 @@ void covar(
     const Index n = r.cols();
     const Scalar tolr = tol * abs(r(0,0));
     Matrix< Scalar, Dynamic, 1 > wa(n);
-    eigen_assert(ipvt.size()==n);
+    assert(ipvt.size()==n);
 
     /* form the inverse of r in the full upper triangle of r. */
     l = -1;

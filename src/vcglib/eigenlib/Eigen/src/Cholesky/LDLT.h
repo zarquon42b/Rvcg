@@ -16,10 +16,7 @@
 namespace Eigen { 
 
 namespace internal {
-  template<typename MatrixType, int UpLo> struct LDLT_Traits;
-
-  // PositiveSemiDef means positive semi-definite and non-zero; same for NegativeSemiDef
-  enum SignMatrix { PositiveSemiDef, NegativeSemiDef, ZeroSign, Indefinite };
+template<typename MatrixType, int UpLo> struct LDLT_Traits;
 }
 
 /** \ingroup Cholesky_Module
@@ -72,12 +69,7 @@ template<typename _MatrixType, int _UpLo> class LDLT
       * The default constructor is useful in cases in which the user intends to
       * perform decompositions via LDLT::compute(const MatrixType&).
       */
-    LDLT() 
-      : m_matrix(), 
-        m_transpositions(), 
-        m_sign(internal::ZeroSign),
-        m_isInitialized(false) 
-    {}
+    LDLT() : m_matrix(), m_transpositions(), m_isInitialized(false) {}
 
     /** \brief Default Constructor with memory preallocation
       *
@@ -89,7 +81,6 @@ template<typename _MatrixType, int _UpLo> class LDLT
       : m_matrix(size, size),
         m_transpositions(size),
         m_temporary(size),
-        m_sign(internal::ZeroSign),
         m_isInitialized(false)
     {}
 
@@ -102,7 +93,6 @@ template<typename _MatrixType, int _UpLo> class LDLT
       : m_matrix(matrix.rows(), matrix.cols()),
         m_transpositions(matrix.rows()),
         m_temporary(matrix.rows()),
-        m_sign(internal::ZeroSign),
         m_isInitialized(false)
     {
       compute(matrix);
@@ -149,7 +139,7 @@ template<typename _MatrixType, int _UpLo> class LDLT
     inline bool isPositive() const
     {
       eigen_assert(m_isInitialized && "LDLT is not initialized.");
-      return m_sign == internal::PositiveSemiDef || m_sign == internal::ZeroSign;
+      return m_sign == 1;
     }
     
     #ifdef EIGEN2_SUPPORT
@@ -163,7 +153,7 @@ template<typename _MatrixType, int _UpLo> class LDLT
     inline bool isNegative(void) const
     {
       eigen_assert(m_isInitialized && "LDLT is not initialized.");
-      return m_sign == internal::NegativeSemiDef || m_sign == internal::ZeroSign;
+      return m_sign == -1;
     }
 
     /** \returns a solution x of \f$ A x = b \f$ using the current decomposition of A.
@@ -206,7 +196,7 @@ template<typename _MatrixType, int _UpLo> class LDLT
     LDLT& compute(const MatrixType& matrix);
 
     template <typename Derived>
-    LDLT& rankUpdate(const MatrixBase<Derived>& w, const RealScalar& alpha=1);
+    LDLT& rankUpdate(const MatrixBase<Derived>& w,RealScalar alpha=1);
 
     /** \returns the internal LDLT decomposition matrix
       *
@@ -245,7 +235,7 @@ template<typename _MatrixType, int _UpLo> class LDLT
     MatrixType m_matrix;
     TranspositionType m_transpositions;
     TmpMatrixType m_temporary;
-    internal::SignMatrix m_sign;
+    int m_sign;
     bool m_isInitialized;
 };
 
@@ -256,9 +246,8 @@ template<int UpLo> struct ldlt_inplace;
 template<> struct ldlt_inplace<Lower>
 {
   template<typename MatrixType, typename TranspositionType, typename Workspace>
-  static bool unblocked(MatrixType& mat, TranspositionType& transpositions, Workspace& temp, SignMatrix& sign)
+  static bool unblocked(MatrixType& mat, TranspositionType& transpositions, Workspace& temp, int* sign=0)
   {
-    using std::abs;
     typedef typename MatrixType::Scalar Scalar;
     typedef typename MatrixType::RealScalar RealScalar;
     typedef typename MatrixType::Index Index;
@@ -268,9 +257,8 @@ template<> struct ldlt_inplace<Lower>
     if (size <= 1)
     {
       transpositions.setIdentity();
-      if (numext::real(mat.coeff(0,0)) > 0) sign = PositiveSemiDef;
-      else if (numext::real(mat.coeff(0,0)) < 0) sign = NegativeSemiDef;
-      else sign = ZeroSign;
+      if(sign)
+        *sign = real(mat.coeff(0,0))>0 ? 1:-1;
       return true;
     }
 
@@ -289,6 +277,9 @@ template<> struct ldlt_inplace<Lower>
         // are compared; if any diagonal is negligible compared
         // to the largest overall, the algorithm bails.
         cutoff = abs(NumTraits<Scalar>::epsilon() * biggest_in_corner);
+
+        if(sign)
+          *sign = real(mat.diagonal().coeff(index_of_biggest_in_corner)) > 0 ? 1 : -1;
       }
 
       // Finish early if the matrix is not full rank.
@@ -310,11 +301,11 @@ template<> struct ldlt_inplace<Lower>
         for(int i=k+1;i<index_of_biggest_in_corner;++i)
         {
           Scalar tmp = mat.coeffRef(i,k);
-          mat.coeffRef(i,k) = numext::conj(mat.coeffRef(index_of_biggest_in_corner,i));
-          mat.coeffRef(index_of_biggest_in_corner,i) = numext::conj(tmp);
+          mat.coeffRef(i,k) = conj(mat.coeffRef(index_of_biggest_in_corner,i));
+          mat.coeffRef(index_of_biggest_in_corner,i) = conj(tmp);
         }
         if(NumTraits<Scalar>::IsComplex)
-          mat.coeffRef(index_of_biggest_in_corner,k) = numext::conj(mat.coeff(index_of_biggest_in_corner,k));
+          mat.coeffRef(index_of_biggest_in_corner,k) = conj(mat.coeff(index_of_biggest_in_corner,k));
       }
 
       // partition the matrix:
@@ -335,16 +326,6 @@ template<> struct ldlt_inplace<Lower>
       }
       if((rs>0) && (abs(mat.coeffRef(k,k)) > cutoff))
         A21 /= mat.coeffRef(k,k);
-
-      RealScalar realAkk = numext::real(mat.coeffRef(k,k));
-      if (sign == PositiveSemiDef) {
-        if (realAkk < 0) sign = Indefinite;
-      } else if (sign == NegativeSemiDef) {
-        if (realAkk > 0) sign = Indefinite;
-      } else if (sign == ZeroSign) {
-        if (realAkk > 0) sign = PositiveSemiDef;
-        else if (realAkk < 0) sign = NegativeSemiDef;
-      }
     }
 
     return true;
@@ -358,9 +339,9 @@ template<> struct ldlt_inplace<Lower>
   // Here only rank-1 updates are implemented, to reduce the
   // requirement for intermediate storage and improve accuracy
   template<typename MatrixType, typename WDerived>
-  static bool updateInPlace(MatrixType& mat, MatrixBase<WDerived>& w, const typename MatrixType::RealScalar& sigma=1)
+  static bool updateInPlace(MatrixType& mat, MatrixBase<WDerived>& w, typename MatrixType::RealScalar sigma=1)
   {
-    using numext::isfinite;
+    using internal::isfinite;
     typedef typename MatrixType::Scalar Scalar;
     typedef typename MatrixType::RealScalar RealScalar;
     typedef typename MatrixType::Index Index;
@@ -378,9 +359,9 @@ template<> struct ldlt_inplace<Lower>
         break;
 
       // Update the diagonal terms
-      RealScalar dj = numext::real(mat.coeff(j,j));
+      RealScalar dj = real(mat.coeff(j,j));
       Scalar wj = w.coeff(j);
-      RealScalar swj2 = sigma*numext::abs2(wj);
+      RealScalar swj2 = sigma*abs2(wj);
       RealScalar gamma = dj*alpha + swj2;
 
       mat.coeffRef(j,j) += swj2/alpha;
@@ -391,13 +372,13 @@ template<> struct ldlt_inplace<Lower>
       Index rs = size-j-1;
       w.tail(rs) -= wj * mat.col(j).tail(rs);
       if(gamma != 0)
-        mat.col(j).tail(rs) += (sigma*numext::conj(wj)/gamma)*w.tail(rs);
+        mat.col(j).tail(rs) += (sigma*conj(wj)/gamma)*w.tail(rs);
     }
     return true;
   }
 
   template<typename MatrixType, typename TranspositionType, typename Workspace, typename WType>
-  static bool update(MatrixType& mat, const TranspositionType& transpositions, Workspace& tmp, const WType& w, const typename MatrixType::RealScalar& sigma=1)
+  static bool update(MatrixType& mat, const TranspositionType& transpositions, Workspace& tmp, const WType& w, typename MatrixType::RealScalar sigma=1)
   {
     // Apply the permutation to the input w
     tmp = transpositions * w;
@@ -409,14 +390,14 @@ template<> struct ldlt_inplace<Lower>
 template<> struct ldlt_inplace<Upper>
 {
   template<typename MatrixType, typename TranspositionType, typename Workspace>
-  static EIGEN_STRONG_INLINE bool unblocked(MatrixType& mat, TranspositionType& transpositions, Workspace& temp, SignMatrix& sign)
+  static EIGEN_STRONG_INLINE bool unblocked(MatrixType& mat, TranspositionType& transpositions, Workspace& temp, int* sign=0)
   {
     Transpose<MatrixType> matt(mat);
     return ldlt_inplace<Lower>::unblocked(matt, transpositions, temp, sign);
   }
 
   template<typename MatrixType, typename TranspositionType, typename Workspace, typename WType>
-  static EIGEN_STRONG_INLINE bool update(MatrixType& mat, TranspositionType& transpositions, Workspace& tmp, WType& w, const typename MatrixType::RealScalar& sigma=1)
+  static EIGEN_STRONG_INLINE bool update(MatrixType& mat, TranspositionType& transpositions, Workspace& tmp, WType& w, typename MatrixType::RealScalar sigma=1)
   {
     Transpose<MatrixType> matt(mat);
     return ldlt_inplace<Lower>::update(matt, transpositions, tmp, w.conjugate(), sigma);
@@ -455,7 +436,7 @@ LDLT<MatrixType,_UpLo>& LDLT<MatrixType,_UpLo>::compute(const MatrixType& a)
   m_isInitialized = false;
   m_temporary.resize(size);
 
-  internal::ldlt_inplace<UpLo>::unblocked(m_matrix, m_transpositions, m_temporary, m_sign);
+  internal::ldlt_inplace<UpLo>::unblocked(m_matrix, m_transpositions, m_temporary, &m_sign);
 
   m_isInitialized = true;
   return *this;
@@ -468,7 +449,7 @@ LDLT<MatrixType,_UpLo>& LDLT<MatrixType,_UpLo>::compute(const MatrixType& a)
   */
 template<typename MatrixType, int _UpLo>
 template<typename Derived>
-LDLT<MatrixType,_UpLo>& LDLT<MatrixType,_UpLo>::rankUpdate(const MatrixBase<Derived>& w, const typename NumTraits<typename MatrixType::Scalar>::Real& sigma)
+LDLT<MatrixType,_UpLo>& LDLT<MatrixType,_UpLo>::rankUpdate(const MatrixBase<Derived>& w,typename NumTraits<typename MatrixType::Scalar>::Real sigma)
 {
   const Index size = w.rows();
   if (m_isInitialized)
@@ -483,7 +464,7 @@ LDLT<MatrixType,_UpLo>& LDLT<MatrixType,_UpLo>::rankUpdate(const MatrixBase<Deri
     for (Index i = 0; i < size; i++)
       m_transpositions.coeffRef(i) = i;
     m_temporary.resize(size);
-    m_sign = sigma>=0 ? internal::PositiveSemiDef : internal::NegativeSemiDef;
+    m_sign = sigma>=0 ? 1 : -1;
     m_isInitialized = true;
   }
 
@@ -553,7 +534,8 @@ template<typename Derived>
 bool LDLT<MatrixType,_UpLo>::solveInPlace(MatrixBase<Derived> &bAndX) const
 {
   eigen_assert(m_isInitialized && "LDLT is not initialized.");
-  eigen_assert(m_matrix.rows() == bAndX.rows());
+  const Index size = m_matrix.rows();
+  eigen_assert(size == bAndX.rows());
 
   bAndX = this->solve(bAndX);
 

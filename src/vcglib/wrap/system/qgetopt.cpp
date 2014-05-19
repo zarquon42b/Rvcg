@@ -69,40 +69,12 @@ void GetOpt::addOption(char s, const QString &name, const QString &description, 
   //add an argument
 void GetOpt::addArgument(const QString &name, const QString &description, QVariant *v) {
   Option option;
+  assert(!findArg(name, option));
+  option.type = Option::ARGUMENT;
+  option.name = name;
+  option.description = description;
   option.value = v;
-  addArgument(name, description, option);
-}
-
-void GetOpt::addArgument(const QString &name, const QString &description, QString *v) {
-  Option option;
-  option.string_value = v;
-  addArgument(name, description, option);
-}
-
-void GetOpt::addArgument(const QString &name, const QString &description, double *v) {
-  Option option;
-  option.double_value = v;
-  addArgument(name, description, option);
-}
-
-void GetOpt::addArgument(const QString &name, const QString &description, int *v) {
-  Option option;
-  option.int_value = v;
-  addArgument(name, description, option);
-}
-
-void GetOpt::addArgument(const QString &name, const QString &description, bool *v) {
-  Option option;
-  option.boolean_value = v;
-  addArgument(name, description, option);
-}
-
-void GetOpt::addArgument(const QString &name, const QString &description, Option option) {
-    assert(!findArg(name, option));
-    option.type = Option::ARGUMENT;
-    option.name = name;
-    option.description = description;
-    options.push_back(option);
+  options.push_back(option);
 }
 
 void GetOpt::addOption(char s, const QString &longname, const QString &description, QString *v) {
@@ -213,28 +185,6 @@ void GetOpt::parse() {
   }
 }
 
-bool GetOpt::assignOption(Option &o, QString arg, QString &error) {
-    QVariant::Type type;
-    if(o.value) type = o.value->type();
-    if(o.string_value) type = QVariant::String;
-    if(o.double_value) type = QVariant::Double;
-    if(o.int_value) type = QVariant::Int;
-    if(o.boolean_value) type = QVariant::Bool;
-    QVariant v(arg);
-
-    if(!v.canConvert(type) || !v.convert(type)) {
-      error = "Error while parsing option " + o.name + ": cannot convert " +
-              arg + " to: " + v.typeName();
-      return false;
-    }
-    if(o.value)         *(o.value)         = v;
-    if(o.string_value)  *(o.string_value)  = v.toString();
-    if(o.double_value)  *(o.double_value)  = v.toDouble();
-    if(o.int_value)     *(o.int_value)     = v.toInt();
-    if(o.boolean_value) *(o.boolean_value) = v.toBool();
-    return true;
-}
-
 bool GetOpt::parse(QString &error) {
   for(int i = 0; i < args.size(); i++) {
     QString arg = args[i];
@@ -267,8 +217,25 @@ bool GetOpt::parse(QString &error) {
           error = "Missing argument after option '" + arg + "'";
           return false;
         }
-        if(!assignOption(o, arg, error))
-            return false;
+        QVariant::Type type;
+        if(o.value) type = o.value->type();
+        if(o.string_value) type = QVariant::String;
+        if(o.double_value) type = QVariant::Double;
+        if(o.int_value) type = QVariant::Int;
+        if(o.boolean_value) type = QVariant::Bool;
+        QVariant v(arg);
+
+        if(!v.canConvert(type) || !v.convert(type)) {
+          error = "Error while parsing option " + o.name + ": cannot convert " +
+                  arg + " to: " + v.typeName();
+          return false;
+        }
+        if(o.value)
+          *(o.value) = v;
+        if(o.string_value) *(o.string_value) = v.toString();
+        if(o.double_value) *(o.double_value) = v.toDouble();
+        if(o.int_value) *(o.int_value) = v.toInt();
+        if(o.boolean_value) *(o.boolean_value) = v.toBool();
       }
 
     //option
@@ -295,24 +262,20 @@ bool GetOpt::parse(QString &error) {
           error = "Missing argument after option '" + arg + "'";
           return false;
         }
-        if(!assignOption(o, arg, error))
-            return false;
-/*
         QVariant v(arg);
         if(!v.canConvert(o.value->type()) || !v.convert(o.value->type())) {
           error = "Error while parsing option " + o.name + ": cannot convert " +
                   arg + " to: " + o.value->typeName();
           return false;
         }
-        *(o.value) = v; */
+        *(o.value) = v;
       }
     //argument
     } else {
       arguments.push_back(arg);
     }
   }
-
-  //regular arguments
+  //test arguments
   for(int i = 0; i < options.size(); i++) {
     Option &o = options[i];
     if(o.type != Option::ARGUMENT) continue;
@@ -320,17 +283,23 @@ bool GetOpt::parse(QString &error) {
       error = "Too few arguments, could not parse argument '" + o.name + "'";
       return false;
     }
-    if(!assignOption(o, arguments.front(), error))
-        return false;
+    *(o.value) = arguments.front();
     arguments.pop_front();
   }
-   //optional arguments
+   //test arguments
   for(int i = 0; i < options.size(); i++) {
     Option &o = options[i];
     if(o.type != Option::OPTIONAL) continue;
     if(arguments.isEmpty()) break;
-    if(!assignOption(o, arguments.front(), error))
-        return false;
+    *(o.value) = arguments.front();
+    arguments.pop_front();
+  }
+  //test arguments
+  for(int i = 0; i < options.size(); i++) {
+    Option &o = options[i];
+    if(o.type != Option::ARGUMENT) continue;
+    if(arguments.isEmpty()) break;
+    *(o.value) = arguments.front();
     arguments.pop_front();
   }
   if(!arguments.isEmpty() && !unlimitedArgs) {

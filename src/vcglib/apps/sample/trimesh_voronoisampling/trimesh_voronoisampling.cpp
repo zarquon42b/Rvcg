@@ -28,7 +28,7 @@
 #include<wrap/io_trimesh/export_ply.h>
 #include<wrap/io_trimesh/export_dxf.h>
 #include<vcg/complex/algorithms/point_sampling.h>
-#include<vcg/complex/algorithms/voronoi_processing.h>
+#include<vcg/complex/algorithms/voronoi_clustering.h>
 
 
 using namespace vcg;
@@ -42,7 +42,8 @@ struct MyUsedTypes : public UsedTypes<	Use<MyVertex>   ::AsVertexType,
                                         Use<MyFace>     ::AsFaceType>{};
 
 class MyVertex  : public Vertex<MyUsedTypes,  vertex::Coord3f, vertex::Normal3f, vertex::VFAdj, vertex::Qualityf, vertex::Color4b, vertex::BitFlags  >{};
-class MyFace    : public Face< MyUsedTypes,   face::VertexRef, face::Normal3f, face::BitFlags, face::Mark, face::VFAdj, face::FFAdj > {};
+class MyFace    : public Face< MyUsedTypes,   face::VertexRef, face::Normal3f, face::BitFlags, face::VFAdj, face::FFAdj > {};
+//class MyEdge    : public Edge< MyUsedTypes> {};
 class MyEdge    : public Edge< MyUsedTypes, edge::VertexRef, edge::BitFlags>{};
 class MyMesh    : public tri::TriMesh< vector<MyVertex>, vector<MyEdge>, vector<MyFace>   > {};
 
@@ -56,6 +57,7 @@ struct EmUsedTypes : public UsedTypes<	Use<EmVertex>   ::AsVertexType,
 class EmVertex  : public Vertex<EmUsedTypes,  vertex::Coord3f, vertex::Normal3f, vertex::VFAdj , vertex::Qualityf, vertex::Color4b, vertex::BitFlags  >{};
 class EmFace    : public Face< EmUsedTypes,   face::VertexRef, face::BitFlags, face::VFAdj > {};
 class EmEdge    : public Edge< EmUsedTypes, edge::VertexRef> {};
+//class EmEdge    : public Edge< EmUsedTypes, edge::VertexRef, edge::BitFlags>{};
 class EmMesh    : public tri::TriMesh< vector<EmVertex>, vector<EmEdge>, vector<EmFace>   > {};
 
 
@@ -70,9 +72,9 @@ int main( int argc, char **argv )
   int sampleNum = atoi(argv[2]);
   int iterNum   = atoi(argv[3]);
 
-  bool fixCornerFlag=false;
+  bool fixCornerFlag=true;
 
-  printf("Reading %s and sampling %i points with %i iteration\n",argv[1],sampleNum,iterNum);
+  printf("Reading %s and sampling %i points with %i iteration",argv[1],sampleNum,iterNum);
   int ret= tri::io::ImporterPLY<MyMesh>::Open(baseMesh,argv[1]);
   if(ret!=0)
   {
@@ -85,13 +87,11 @@ int main( int argc, char **argv )
   tri::Clean<MyMesh>::RemoveUnreferencedVertex(baseMesh);
   tri::Allocator<MyMesh>::CompactEveryVector(baseMesh);
   tri::UpdateTopology<MyMesh>::VertexFace(baseMesh);
+  tri::UpdateFlags<MyMesh>::FaceBorderFromVF(baseMesh);
+  tri::UpdateFlags<MyMesh>::VertexBorderFromFace(baseMesh);
 
   tri::SurfaceSampling<MyMesh,tri::TrivialSampler<MyMesh> >::PoissonDiskParam pp;
   float radius = tri::SurfaceSampling<MyMesh,tri::TrivialSampler<MyMesh> >::ComputePoissonDiskRadius(baseMesh,sampleNum);
-  tri::VoronoiProcessing<MyMesh>::PreprocessForVoronoi(baseMesh,radius,vpp);
-
-  tri::UpdateFlags<MyMesh>::FaceBorderFromVF(baseMesh);
-  tri::UpdateFlags<MyMesh>::VertexBorderFromFace(baseMesh);
 
 
   // -- Build a sampling with just corners (Poisson filtered)
@@ -155,8 +155,8 @@ int main( int argc, char **argv )
         baseMesh.vert[i].SetS();
   }
 
-//  vpp.deleteUnreachedRegionFlag=true;
-  vpp.deleteUnreachedRegionFlag=false;
+  vpp.deleteUnreachedRegionFlag=true;
+  vpp.triangulateRegion = true;
   vpp.triangulateRegion = false;
   vpp.geodesicRelaxFlag=false;
   vpp.constrainSelectedSeed=true;
@@ -164,24 +164,18 @@ int main( int argc, char **argv )
   tri::EuclideanDistance<MyMesh> dd;
   int t0=clock();
   // And now, at last, the relaxing procedure!
-  int actualIter = tri::VoronoiProcessing<MyMesh, tri::EuclideanDistance<MyMesh> >::VoronoiRelaxing(baseMesh, seedVec, iterNum, dd, vpp);
+  tri::VoronoiProcessing<MyMesh, tri::EuclideanDistance<MyMesh> >::VoronoiRelaxing(baseMesh, seedVec, iterNum, dd, vpp);
   int t1=clock();
 
   MyMesh voroMesh, voroPoly, delaMesh;
   // Get the result in some pleasant form converting it to a real voronoi diagram.
-  if(tri::VoronoiProcessing<MyMesh>::CheckVoronoiTopology(baseMesh,seedVec))
-     tri::VoronoiProcessing<MyMesh>::ConvertVoronoiDiagramToMesh(baseMesh,voroMesh,voroPoly,seedVec, vpp);
-  else
-    printf("WARNING some voronoi region are not disk like; the resulting delaunay triangulation is not manifold.\n");
-
+  tri::VoronoiProcessing<MyMesh, tri::EuclideanDistance<MyMesh> >::ConvertVoronoiDiagramToMesh(baseMesh,voroMesh,voroPoly, seedVec, dd, vpp);
   tri::io::ExporterPLY<MyMesh>::Save(baseMesh,"base.ply",tri::io::Mask::IOM_VERTCOLOR + tri::io::Mask::IOM_VERTQUALITY );
   tri::io::ExporterPLY<MyMesh>::Save(voroMesh,"voroMesh.ply",tri::io::Mask::IOM_VERTCOLOR + tri::io::Mask::IOM_FLAGS );
   tri::io::ExporterPLY<MyMesh>::Save(voroPoly,"voroPoly.ply",tri::io::Mask::IOM_VERTCOLOR| tri::io::Mask::IOM_EDGEINDEX ,false);
 
-  tri::VoronoiProcessing<MyMesh>::ConvertDelaunayTriangulationToMesh(baseMesh,delaMesh, seedVec);
+  tri::VoronoiProcessing<MyMesh, tri::EuclideanDistance<MyMesh> >::ConvertDelaunayTriangulationToMesh(baseMesh,delaMesh, seedVec, dd, vpp);
   tri::io::ExporterPLY<MyMesh>::Save(delaMesh,"delaMesh.ply",tri::io::Mask::IOM_VERTCOLOR + tri::io::Mask::IOM_VERTQUALITY );
-  tri::VoronoiProcessing<MyMesh>::RelaxRefineTriangulationSpring(baseMesh,delaMesh,2,10);
-  tri::io::ExporterPLY<MyMesh>::Save(delaMesh,"delaMeshRef.ply",tri::io::Mask::IOM_VERTCOLOR + tri::io::Mask::IOM_VERTQUALITY );
 
 
 //  tri::io::ImporterPLY<MyMesh>::Open(baseMesh,argv[1]);
@@ -195,6 +189,6 @@ int main( int argc, char **argv )
 //  tri::io::ExporterPLY<MyMesh>::Save(outMesh,"outW.ply",tri::io::Mask::IOM_VERTCOLOR );
 //  tri::io::ExporterPLY<MyMesh>::Save(polyMesh,"polyW.ply",tri::io::Mask::IOM_VERTCOLOR | tri::io::Mask::IOM_EDGEINDEX,false);
 //  tri::io::ExporterDXF<MyMesh>::Save(polyMesh,"outW.dxf");
-  printf("Completed! %i (%i) iterations in %f sec for %lu seeds \n",actualIter, iterNum,float(t1-t0)/CLOCKS_PER_SEC,seedVec.size());
+  printf("Completed! %i iterations in %f sec for %lu seeds \n",iterNum,float(t1-t0)/CLOCKS_PER_SEC,seedVec.size());
   return 0;
 }

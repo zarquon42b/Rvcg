@@ -25,7 +25,6 @@
 #define _VCG_FACE_TOPOLOGY
 
 #include <vcg/simplex/face/pos.h>
-#include <set>
 
 namespace vcg {
 namespace face {
@@ -239,9 +238,8 @@ void FFDetach(FaceType & f, const int e)
 {
     assert(FFCorrectness<FaceType>(f,e));
     assert(!IsBorder<FaceType>(f,e));  // Never try to detach a border edge!
-    int complexity=ComplexSize(f,e);
-    (void) complexity;
-    assert(complexity>0);
+    int complexity;
+    assert(complexity=ComplexSize(f,e));
 
     Pos< FaceType > FirstFace(&f,e);  // Build the half edge
     Pos< FaceType > LastFace(&f,e);  // Build the half edge
@@ -344,14 +342,13 @@ void FFSetBorder(FaceType * &f1, int z1)
 template <class FaceType>
 void AssertAdj(FaceType & f)
 {
-  (void)f;
-  assert(f.FFp(0)->FFp(f.FFi(0))==&f);
-  assert(f.FFp(1)->FFp(f.FFi(1))==&f);
-  assert(f.FFp(2)->FFp(f.FFi(2))==&f);
+    assert(f.FFp(0)->FFp(f.FFi(0))==&f);
+    assert(f.FFp(1)->FFp(f.FFi(1))==&f);
+    assert(f.FFp(2)->FFp(f.FFi(2))==&f);
 
-  assert(f.FFp(0)->FFi(f.FFi(0))==0);
-  assert(f.FFp(1)->FFi(f.FFi(1))==1);
-  assert(f.FFp(2)->FFi(f.FFi(2))==2);
+    assert(f.FFp(0)->FFi(f.FFi(0))==0);
+    assert(f.FFp(1)->FFi(f.FFi(1))==1);
+    assert(f.FFp(2)->FFi(f.FFi(2))==2);
 }
 
 /**
@@ -437,10 +434,11 @@ void SwapEdge(FaceType &f, const int z)
  * Basic link conditions
  *
 */
-template <class FaceType>
-bool FFLinkCondition(FaceType &f, const int z)
+template <class MeshType>
+bool FFLinkCondition(MeshType &m, typename MeshType::FaceType &f, const int z)
 {
-  typedef typename FaceType::VertexType VertexType;
+  typedef typename MeshType::FaceType FaceType;
+  typedef typename MeshType::VertexType VertexType;
   typedef typename vcg::face::Pos< FaceType > PosType;
 
   VertexType *v0=f.V0(z);
@@ -462,7 +460,7 @@ bool FFLinkCondition(FaceType &f, const int z)
 
   if(face::IsBorder(f,z) && (cnt==1)) return true;
   if(!face::IsBorder(f,z) && (cnt==2)) return true;
-  //assert(0);
+  assert(0);
   return false;
 }
 

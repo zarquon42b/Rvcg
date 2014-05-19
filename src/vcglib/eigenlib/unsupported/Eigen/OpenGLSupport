@@ -11,16 +11,11 @@
 #define EIGEN_OPENGL_MODULE
 
 #include <Eigen/Geometry>
-
-#if defined(__APPLE_CC__)
-  #include <OpenGL/gl.h>
-#else
-  #include <GL/gl.h>
-#endif
+#include <GL/gl.h>
 
 namespace Eigen {
 
-/**
+/** \ingroup Unsupported_modules
   * \defgroup OpenGLSUpport_Module OpenGL Support module
   *
   * This module provides wrapper functions for a couple of OpenGL functions

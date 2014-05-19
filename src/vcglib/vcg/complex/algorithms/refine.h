@@ -33,6 +33,7 @@
 #include <vcg/complex/algorithms/update/topology.h>
 #include <vcg/complex/algorithms/update/flag.h>
 #include <vcg/space/triangle3.h>
+#include <wrap/callback.h>
 
 namespace vcg{
 namespace tri{
@@ -107,38 +108,18 @@ const Split SplitTab[8]={
 /*  1   1   1 */	{4, {{3,4,5},{0,3,5},{3,1,4},{5,4,2}}, {{0,0},{0,0}},  {{3,3,3},{0,3,2},{0,1,3},{3,1,2}} },
 };
 
-
-template <class MeshType>
-struct BaseInterpolator
-{
-  typedef typename face::Pos<typename MeshType::FaceType> PosType;
-  typedef typename MeshType::VertexType VertexType;
-  void operator()(VertexType &, PosType  ){}
-};
-
 // Basic subdivision class
 // This class must provide methods for finding the position of the newly created vertices
 // In this implemenation we simply put the new vertex in the MidPoint position.
 // Color and TexCoords are interpolated accordingly.
-// This subdivision class allow also the correct interpolation of userdefined data by
-// providing, in the constructor, an interpolator functor that will be called for each new vertex to be created.
-
-template<class MESH_TYPE, class InterpolatorFunctorType = BaseInterpolator< MESH_TYPE> >
+template<class MESH_TYPE>
 struct MidPoint : public   std::unary_function<face::Pos<typename MESH_TYPE::FaceType> ,  typename MESH_TYPE::CoordType >
 {
-     typedef typename face::Pos<typename MESH_TYPE::FaceType> PosType;
-     typedef typename MESH_TYPE::VertexType VertexType;
-
-     MidPoint(MESH_TYPE *_mp,
-                InterpolatorFunctorType *_intFunc=0) {
-       mp=_mp;
-       intFunc =_intFunc;
-     }
+     MidPoint(MESH_TYPE *_mp) { mp=_mp; }
 
      MESH_TYPE *mp;
-     InterpolatorFunctorType *intFunc; /// This callback is called to fill up
 
-    void operator()(VertexType &nv, PosType  ep){
+    void operator()(typename MESH_TYPE::VertexType &nv, face::Pos<typename MESH_TYPE::FaceType>  ep){
         assert(mp);
         nv.P()=   (ep.f->V(ep.z)->P()+ep.f->V1(ep.z)->P())/2.0;
 
@@ -153,8 +134,6 @@ struct MidPoint : public   std::unary_function<face::Pos<typename MESH_TYPE::Fac
 
         if( tri::HasPerVertexTexCoord(*mp))
             nv.T().P() = ((ep.f->V(ep.z)->T().P()+ep.f->V1(ep.z)->T().P())) / 2.0;
-        if(intFunc)
-          (*intFunc)(nv,ep);
     }
 
     Color4<typename MESH_TYPE::ScalarType> WedgeInterp(Color4<typename MESH_TYPE::ScalarType> &c0, Color4<typename MESH_TYPE::ScalarType> &c1)
@@ -807,17 +786,16 @@ class QualityEdgePredicate
   typedef Point3<typename MESH_TYPE::ScalarType> Point3x;
   typedef typename MESH_TYPE::ScalarType ScalarType;
   ScalarType thr;
-  ScalarType tolerance;
-  QualityEdgePredicate(const ScalarType &thr,ScalarType _tolerance=0.02):thr(thr) {tolerance=_tolerance;}
+  QualityEdgePredicate(const ScalarType &thr):thr(thr) {}
   bool operator()(face::Pos<typename MESH_TYPE::FaceType> ep)
     {
     ScalarType q0=ep.f->V0(ep.z)->Q()-thr;
     ScalarType q1=ep.f->V1(ep.z)->Q()-thr;
     if(q0>q1) std::swap(q0,q1);
-    if ( q0*q1 >= 0) return false;
+    if ( q0*q1 > 0) return false;
     // now a small check to be sure that we do not make too thin crossing.
     double pp= q0/(q0-q1);
-    if ((fabs(pp)< tolerance)||(fabs(pp)> (1-tolerance))) return false;
+    if(fabs(pp)< 0.001) return false;
     return true;
   }
 };
@@ -869,34 +847,27 @@ class EdgeSplSphere
     }
 };
 
+/*!
+* Triangle split
+*/
+
 template<class TRIMESH_TYPE>
-struct CenterPointBarycenter : public std::unary_function<typename TRIMESH_TYPE::FacePointer, typename TRIMESH_TYPE::CoordType>
+struct CenterPoint : public std::unary_function<typename TRIMESH_TYPE::FacePointer, typename TRIMESH_TYPE::CoordType>
 {
     typename TRIMESH_TYPE::CoordType operator()(typename TRIMESH_TYPE::FacePointer f){
         return vcg::Barycenter<typename TRIMESH_TYPE::FaceType>(*f);
     }
 };
 
-/// \brief Triangle split
-/// Simple templated function for splitting a triangle with a internal point.
-///  It can be templated on a CenterPoint class that is used to generate the position of the internal point.
-
-
-template<class TRIMESH_TYPE, class CenterPoint=CenterPointBarycenter <TRIMESH_TYPE> >
-class TriSplit
+template<class TRIMESH_TYPE, class CenterPoint>
+void TriSplit(typename TRIMESH_TYPE::FacePointer f,
+                            typename TRIMESH_TYPE::FacePointer f1,typename TRIMESH_TYPE::FacePointer f2,
+                            typename TRIMESH_TYPE::VertexPointer vB, CenterPoint	Center)
 {
-public:
-  typedef typename TRIMESH_TYPE::FaceType FaceType;
-  typedef typename TRIMESH_TYPE::VertexType VertexType;
-
-  static void Apply(FaceType *f,
-                    FaceType * f1,FaceType * f2,
-                    VertexType * vB, CenterPoint	Center)
-  {
     vB->P() = Center(f);
 
     //i tre vertici della faccia da dividere
-    VertexType *V0,*V1,*V2;
+    typename TRIMESH_TYPE::VertexType* V0,*V1,*V2;
     V0 = f->V(0);
     V1 = f->V(1);
     V2 = f->V(2);
@@ -914,50 +885,50 @@ public:
 
     if(f->HasFFAdjacency())
     {
-      //adiacenza delle facce adiacenti a quelle aggiunte
-      f->FFp(1)->FFp(f->FFi(1)) = f1;
-      f->FFp(2)->FFp(f->FFi(2)) = f2;
+        //adiacenza delle facce adiacenti a quelle aggiunte
+        f->FFp(1)->FFp(f->FFi(1)) = f1;
+        f->FFp(2)->FFp(f->FFi(2)) = f2;
 
-      //adiacenza ff
-      FaceType *  FF0,*FF1,*FF2;
-      FF0 = f->FFp(0);
-      FF1 = f->FFp(1);
-      FF2 = f->FFp(2);
+        //adiacenza ff
+        typename TRIMESH_TYPE::FacePointer FF0,FF1,FF2;
+        FF0 = f->FFp(0);
+        FF1 = f->FFp(1);
+        FF2 = f->FFp(2);
 
-      //Indici di adiacenza ff
-      char FFi0,FFi1,FFi2;
-      FFi0 = f->FFi(0);
-      FFi1 = f->FFi(1);
-      FFi2 = f->FFi(2);
+        //Indici di adiacenza ff
+        char FFi0,FFi1,FFi2;
+        FFi0 = f->FFi(0);
+        FFi1 = f->FFi(1);
+        FFi2 = f->FFi(2);
 
-      //adiacenza della faccia di partenza
-      (*f).FFp(1) = &(*f1);
-      (*f).FFi(1) = 0;
-      (*f).FFp(2) = &(*f2);
-      (*f).FFi(2) = 0;
+        //adiacenza della faccia di partenza
+        (*f).FFp(1) = &(*f1);
+        (*f).FFi(1) = 0;
+        (*f).FFp(2) = &(*f2);
+        (*f).FFi(2) = 0;
 
-      //adiacenza della faccia #1
-      (*f1).FFp(0) = f;
-      (*f1).FFi(0) = 1;
+        //adiacenza della faccia #1
+        (*f1).FFp(0) = f;
+        (*f1).FFi(0) = 1;
 
-      (*f1).FFp(1) = FF1;
-      (*f1).FFi(1) = FFi1;
+        (*f1).FFp(1) = FF1;
+        (*f1).FFi(1) = FFi1;
 
-      (*f1).FFp(2) = &(*f2);
-      (*f1).FFi(2) = 1;
+        (*f1).FFp(2) = &(*f2);
+        (*f1).FFi(2) = 1;
 
-      //adiacenza della faccia #2
-      (*f2).FFp(0) = f;
-      (*f2).FFi(0) = 2;
+        //adiacenza della faccia #2
+        (*f2).FFp(0) = f;
+        (*f2).FFi(0) = 2;
 
-      (*f2).FFp(1) = &(*f1);
-      (*f2).FFi(1) = 2;
+        (*f2).FFp(1) = &(*f1);
+        (*f2).FFi(1) = 2;
 
-      (*f2).FFp(2) = FF2;
-      (*f2).FFi(2) = FFi2;
+        (*f2).FFp(2) = FF2;
+        (*f2).FFi(2) = FFi2;
     }
-  }
-}; // end class TriSplit
+}
+
 
 } // namespace tri
 } // namespace vcg

@@ -92,7 +92,6 @@ void evalSolver( const POLYNOMIAL& pols )
 template< int Deg, typename POLYNOMIAL, typename ROOTS, typename REAL_ROOTS >
 void evalSolverSugarFunction( const POLYNOMIAL& pols, const ROOTS& roots, const REAL_ROOTS& real_roots )
 {
-  using std::sqrt;
   typedef typename POLYNOMIAL::Scalar Scalar;
 
   typedef PolynomialSolver<Scalar, Deg >              PolynomialSolverType;
@@ -106,14 +105,17 @@ void evalSolverSugarFunction( const POLYNOMIAL& pols, const ROOTS& roots, const 
 
     typedef typename POLYNOMIAL::Scalar                 Scalar;
     typedef typename REAL_ROOTS::Scalar                 Real;
+
     typedef PolynomialSolver<Scalar, Deg >              PolynomialSolverType;
+    typedef typename PolynomialSolverType::RootsType    RootsType;
+    typedef Matrix<Scalar,Deg,1>                        EvalRootsType;
 
     //Test realRoots
     std::vector< Real > calc_realRoots;
     psolve.realRoots( calc_realRoots );
     VERIFY( calc_realRoots.size() == (size_t)real_roots.size() );
 
-    const Scalar psPrec = sqrt( test_precision<Scalar>() );
+    const Scalar psPrec = internal::sqrt( test_precision<Scalar>() );
 
     for( size_t i=0; i<calc_realRoots.size(); ++i )
     {
@@ -128,24 +130,24 @@ void evalSolverSugarFunction( const POLYNOMIAL& pols, const ROOTS& roots, const 
 
     //Test greatestRoot
     VERIFY( internal::isApprox( roots.array().abs().maxCoeff(),
-          abs( psolve.greatestRoot() ), psPrec ) );
+          internal::abs( psolve.greatestRoot() ), psPrec ) );
 
     //Test smallestRoot
     VERIFY( internal::isApprox( roots.array().abs().minCoeff(),
-          abs( psolve.smallestRoot() ), psPrec ) );
+          internal::abs( psolve.smallestRoot() ), psPrec ) );
 
     bool hasRealRoot;
     //Test absGreatestRealRoot
     Real r = psolve.absGreatestRealRoot( hasRealRoot );
     VERIFY( hasRealRoot == (real_roots.size() > 0 ) );
     if( hasRealRoot ){
-      VERIFY( internal::isApprox( real_roots.array().abs().maxCoeff(), abs(r), psPrec ) );  }
+      VERIFY( internal::isApprox( real_roots.array().abs().maxCoeff(), internal::abs(r), psPrec ) );  }
 
     //Test absSmallestRealRoot
     r = psolve.absSmallestRealRoot( hasRealRoot );
     VERIFY( hasRealRoot == (real_roots.size() > 0 ) );
     if( hasRealRoot ){
-      VERIFY( internal::isApprox( real_roots.array().abs().minCoeff(), abs( r ), psPrec ) ); }
+      VERIFY( internal::isApprox( real_roots.array().abs().minCoeff(), internal::abs( r ), psPrec ) ); }
 
     //Test greatestRealRoot
     r = psolve.greatestRealRoot( hasRealRoot );

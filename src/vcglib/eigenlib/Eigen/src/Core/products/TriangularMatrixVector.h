@@ -27,13 +27,7 @@ struct triangular_matrix_vector_product<Index,Mode,LhsScalar,ConjLhs,RhsScalar,C
     HasZeroDiag = (Mode & ZeroDiag)==ZeroDiag
   };
   static EIGEN_DONT_INLINE  void run(Index _rows, Index _cols, const LhsScalar* _lhs, Index lhsStride,
-                                     const RhsScalar* _rhs, Index rhsIncr, ResScalar* _res, Index resIncr, const ResScalar& alpha);
-};
-
-template<typename Index, int Mode, typename LhsScalar, bool ConjLhs, typename RhsScalar, bool ConjRhs, int Version>
-EIGEN_DONT_INLINE void triangular_matrix_vector_product<Index,Mode,LhsScalar,ConjLhs,RhsScalar,ConjRhs,ColMajor,Version>
-  ::run(Index _rows, Index _cols, const LhsScalar* _lhs, Index lhsStride,
-        const RhsScalar* _rhs, Index rhsIncr, ResScalar* _res, Index resIncr, const ResScalar& alpha)
+                                     const RhsScalar* _rhs, Index rhsIncr, ResScalar* _res, Index resIncr, ResScalar alpha)
   {
     static const Index PanelWidth = EIGEN_TUNE_TRIANGULAR_PANEL_WIDTH;
     Index size = (std::min)(_rows,_cols);
@@ -84,6 +78,7 @@ EIGEN_DONT_INLINE void triangular_matrix_vector_product<Index,Mode,LhsScalar,Con
           _res, resIncr, alpha);
     }
   }
+};
 
 template<typename Index, int Mode, typename LhsScalar, bool ConjLhs, typename RhsScalar, bool ConjRhs,int Version>
 struct triangular_matrix_vector_product<Index,Mode,LhsScalar,ConjLhs,RhsScalar,ConjRhs,RowMajor,Version>
@@ -94,14 +89,8 @@ struct triangular_matrix_vector_product<Index,Mode,LhsScalar,ConjLhs,RhsScalar,C
     HasUnitDiag = (Mode & UnitDiag)==UnitDiag,
     HasZeroDiag = (Mode & ZeroDiag)==ZeroDiag
   };
-  static EIGEN_DONT_INLINE void run(Index _rows, Index _cols, const LhsScalar* _lhs, Index lhsStride,
-                                    const RhsScalar* _rhs, Index rhsIncr, ResScalar* _res, Index resIncr, const ResScalar& alpha);
-};
-
-template<typename Index, int Mode, typename LhsScalar, bool ConjLhs, typename RhsScalar, bool ConjRhs,int Version>
-EIGEN_DONT_INLINE void triangular_matrix_vector_product<Index,Mode,LhsScalar,ConjLhs,RhsScalar,ConjRhs,RowMajor,Version>
-  ::run(Index _rows, Index _cols, const LhsScalar* _lhs, Index lhsStride,
-        const RhsScalar* _rhs, Index rhsIncr, ResScalar* _res, Index resIncr, const ResScalar& alpha)
+  static void run(Index _rows, Index _cols, const LhsScalar* _lhs, Index lhsStride,
+                  const RhsScalar* _rhs, Index rhsIncr, ResScalar* _res, Index resIncr, ResScalar alpha)
   {
     static const Index PanelWidth = EIGEN_TUNE_TRIANGULAR_PANEL_WIDTH;
     Index diagSize = (std::min)(_rows,_cols);
@@ -152,6 +141,7 @@ EIGEN_DONT_INLINE void triangular_matrix_vector_product<Index,Mode,LhsScalar,Con
             &res.coeffRef(diagSize), resIncr, alpha);
     }
   }
+};
 
 /***************************************************************************
 * Wrapper to product_triangular_vector
@@ -181,7 +171,7 @@ struct TriangularProduct<Mode,true,Lhs,false,Rhs,true>
 
   TriangularProduct(const Lhs& lhs, const Rhs& rhs) : Base(lhs,rhs) {}
 
-  template<typename Dest> void scaleAndAddTo(Dest& dst, const Scalar& alpha) const
+  template<typename Dest> void scaleAndAddTo(Dest& dst, Scalar alpha) const
   {
     eigen_assert(dst.rows()==m_lhs.rows() && dst.cols()==m_rhs.cols());
   
@@ -197,7 +187,7 @@ struct TriangularProduct<Mode,false,Lhs,true,Rhs,false>
 
   TriangularProduct(const Lhs& lhs, const Rhs& rhs) : Base(lhs,rhs) {}
 
-  template<typename Dest> void scaleAndAddTo(Dest& dst, const Scalar& alpha) const
+  template<typename Dest> void scaleAndAddTo(Dest& dst, Scalar alpha) const
   {
     eigen_assert(dst.rows()==m_lhs.rows() && dst.cols()==m_rhs.cols());
 
@@ -215,7 +205,7 @@ namespace internal {
 template<> struct trmv_selector<ColMajor>
 {
   template<int Mode, typename Lhs, typename Rhs, typename Dest>
-  static void run(const TriangularProduct<Mode,true,Lhs,false,Rhs,true>& prod, Dest& dest, const typename TriangularProduct<Mode,true,Lhs,false,Rhs,true>::Scalar& alpha)
+  static void run(const TriangularProduct<Mode,true,Lhs,false,Rhs,true>& prod, Dest& dest, typename TriangularProduct<Mode,true,Lhs,false,Rhs,true>::Scalar alpha)
   {
     typedef TriangularProduct<Mode,true,Lhs,false,Rhs,true> ProductType;
     typedef typename ProductType::Index Index;
@@ -245,7 +235,7 @@ template<> struct trmv_selector<ColMajor>
 
     gemv_static_vector_if<ResScalar,Dest::SizeAtCompileTime,Dest::MaxSizeAtCompileTime,MightCannotUseDest> static_dest;
 
-    bool alphaIsCompatible = (!ComplexByReal) || (numext::imag(actualAlpha)==RealScalar(0));
+    bool alphaIsCompatible = (!ComplexByReal) || (imag(actualAlpha)==RealScalar(0));
     bool evalToDest = EvalToDestAtCompileTime && alphaIsCompatible;
     
     RhsScalar compatibleAlpha = get_factor<ResScalar,RhsScalar>::run(actualAlpha);
@@ -256,7 +246,7 @@ template<> struct trmv_selector<ColMajor>
     if(!evalToDest)
     {
       #ifdef EIGEN_DENSE_STORAGE_CTOR_PLUGIN
-      Index size = dest.size();
+      int size = dest.size();
       EIGEN_DENSE_STORAGE_CTOR_PLUGIN
       #endif
       if(!alphaIsCompatible)
@@ -291,7 +281,7 @@ template<> struct trmv_selector<ColMajor>
 template<> struct trmv_selector<RowMajor>
 {
   template<int Mode, typename Lhs, typename Rhs, typename Dest>
-  static void run(const TriangularProduct<Mode,true,Lhs,false,Rhs,true>& prod, Dest& dest, const typename TriangularProduct<Mode,true,Lhs,false,Rhs,true>::Scalar& alpha)
+  static void run(const TriangularProduct<Mode,true,Lhs,false,Rhs,true>& prod, Dest& dest, typename TriangularProduct<Mode,true,Lhs,false,Rhs,true>::Scalar alpha)
   {
     typedef TriangularProduct<Mode,true,Lhs,false,Rhs,true> ProductType;
     typedef typename ProductType::LhsScalar LhsScalar;

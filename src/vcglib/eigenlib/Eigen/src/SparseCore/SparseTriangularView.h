@@ -2,7 +2,6 @@
 // for linear algebra.
 //
 // Copyright (C) 2009 Gael Guennebaud <gael.guennebaud@inria.fr>
-// Copyright (C) 2012 Désiré Nuentsa-Wakam <desire.nuentsa_wakam@inria.fr>
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
@@ -28,7 +27,6 @@ template<typename MatrixType, int Mode> class SparseTriangularView
     enum { SkipFirst = ((Mode&Lower) && !(MatrixType::Flags&RowMajorBit))
                     || ((Mode&Upper) &&  (MatrixType::Flags&RowMajorBit)),
            SkipLast = !SkipFirst,
-           SkipDiag = (Mode&ZeroDiag) ? 1 : 0,
            HasUnitDiag = (Mode&UnitDiag) ? 1 : 0
     };
 
@@ -66,7 +64,6 @@ template<typename MatrixType, int Mode>
 class SparseTriangularView<MatrixType,Mode>::InnerIterator : public MatrixTypeNestedCleaned::InnerIterator
 {
     typedef typename MatrixTypeNestedCleaned::InnerIterator Base;
-    typedef typename SparseTriangularView::Index Index;
   public:
 
     EIGEN_STRONG_INLINE InnerIterator(const SparseTriangularView& view, Index outer)
@@ -74,7 +71,7 @@ class SparseTriangularView<MatrixType,Mode>::InnerIterator : public MatrixTypeNe
     {
       if(SkipFirst)
       {
-        while((*this) && ((HasUnitDiag||SkipDiag)  ? this->index()<=outer : this->index()<outer))
+        while((*this) && (HasUnitDiag ? this->index()<=outer : this->index()<outer))
           Base::operator++();
         if(HasUnitDiag)
           m_returnOne = true;
@@ -104,8 +101,8 @@ class SparseTriangularView<MatrixType,Mode>::InnerIterator : public MatrixTypeNe
       return *this;
     }
 
-    inline Index row() const { return (MatrixType::Flags&RowMajorBit ? Base::outer() : this->index()); }
-    inline Index col() const { return (MatrixType::Flags&RowMajorBit ? this->index() : Base::outer()); }
+    inline Index row() const { return Base::row(); }
+    inline Index col() const { return Base::col(); }
     inline Index index() const
     {
       if(HasUnitDiag && m_returnOne)  return Base::outer();
@@ -121,12 +118,7 @@ class SparseTriangularView<MatrixType,Mode>::InnerIterator : public MatrixTypeNe
     {
       if(HasUnitDiag && m_returnOne)
         return true;
-      if(SkipFirst) return  Base::operator bool();
-      else
-      {
-        if (SkipDiag) return (Base::operator bool() && this->index() < this->outer());
-        else return (Base::operator bool() && this->index() <= this->outer());
-      }
+      return (SkipFirst ? Base::operator bool() : (Base::operator bool() && this->index() <= this->outer()));
     }
   protected:
     bool m_returnOne;
@@ -136,20 +128,18 @@ template<typename MatrixType, int Mode>
 class SparseTriangularView<MatrixType,Mode>::ReverseInnerIterator : public MatrixTypeNestedCleaned::ReverseInnerIterator
 {
     typedef typename MatrixTypeNestedCleaned::ReverseInnerIterator Base;
-    typedef typename SparseTriangularView::Index Index;
   public:
 
     EIGEN_STRONG_INLINE ReverseInnerIterator(const SparseTriangularView& view, Index outer)
       : Base(view.nestedExpression(), outer)
     {
       eigen_assert((!HasUnitDiag) && "ReverseInnerIterator does not support yet triangular views with a unit diagonal");
-      if(SkipLast) {
-        while((*this) && (SkipDiag ? this->index()>=outer : this->index()>outer))
+      if(SkipLast)
+        while((*this) && this->index()>outer)
           --(*this);
-      }
     }
 
-    EIGEN_STRONG_INLINE ReverseInnerIterator& operator--()
+    EIGEN_STRONG_INLINE InnerIterator& operator--()
     { Base::operator--(); return *this; }
 
     inline Index row() const { return Base::row(); }
@@ -157,12 +147,7 @@ class SparseTriangularView<MatrixType,Mode>::ReverseInnerIterator : public Matri
 
     EIGEN_STRONG_INLINE operator bool() const
     {
-      if (SkipLast) return Base::operator bool() ;
-      else
-      {
-        if(SkipDiag) return (Base::operator bool() && this->index() > this->outer());
-        else return (Base::operator bool() && this->index() >= this->outer());
-      }
+      return SkipLast ? Base::operator bool() : (Base::operator bool() && this->index() >= this->outer());
     }
 };
 

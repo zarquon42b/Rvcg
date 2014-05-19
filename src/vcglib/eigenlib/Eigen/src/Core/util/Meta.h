@@ -186,35 +186,23 @@ template<int Y, int InfX, int SupX>
 class meta_sqrt<Y, InfX, SupX, true> { public:  enum { ret = (SupX*SupX <= Y) ? SupX : InfX }; };
 
 /** \internal determines whether the product of two numeric types is allowed and what the return type is */
-template<typename T, typename U> struct scalar_product_traits
-{
-  enum { Defined = 0 };
-};
+template<typename T, typename U> struct scalar_product_traits;
 
 template<typename T> struct scalar_product_traits<T,T>
 {
-  enum {
-    // Cost = NumTraits<T>::MulCost,
-    Defined = 1
-  };
+  //enum { Cost = NumTraits<T>::MulCost };
   typedef T ReturnType;
 };
 
 template<typename T> struct scalar_product_traits<T,std::complex<T> >
 {
-  enum {
-    // Cost = 2*NumTraits<T>::MulCost,
-    Defined = 1
-  };
+  //enum { Cost = 2*NumTraits<T>::MulCost };
   typedef std::complex<T> ReturnType;
 };
 
 template<typename T> struct scalar_product_traits<std::complex<T>, T>
 {
-  enum {
-    // Cost = 2*NumTraits<T>::MulCost,
-    Defined = 1
-  };
+  //enum { Cost = 2*NumTraits<T>::MulCost  };
   typedef std::complex<T> ReturnType;
 };
 

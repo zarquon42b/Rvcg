@@ -1,7 +1,4 @@
 
-set_property(GLOBAL PROPERTY EIGEN_CURRENT_SUBPROJECT "Unsupported")
-add_custom_target(BuildUnsupported)
-
 include_directories(../../test ../../unsupported ../../Eigen 
                     ${CMAKE_CURRENT_BINARY_DIR}/../../test)
 
@@ -25,7 +22,7 @@ endif(ADOLC_FOUND)
 
 # this test seems to never have been successful on x87, so is considered to contain a FP-related bug.
 # see thread: "non-linear optimization test summary"
-ei_add_test(NonLinearOptimization)
+#ei_add_test(NonLinearOptimization)
 
 ei_add_test(NumericalDiff)
 ei_add_test(autodiff)
@@ -36,7 +33,6 @@ endif()
 
 ei_add_test(matrix_exponential)
 ei_add_test(matrix_function)
-ei_add_test(matrix_power)
 ei_add_test(matrix_square_root)
 ei_add_test(alignedvector3)
 ei_add_test(FFT)
@@ -88,6 +84,4 @@ ei_add_test(polynomialutils)
 ei_add_test(kronecker_product)
 ei_add_test(splines)
 ei_add_test(gmres)
-ei_add_test(minres)
-ei_add_test(levenberg_marquardt)
-ei_add_test(bdcsvd)
+

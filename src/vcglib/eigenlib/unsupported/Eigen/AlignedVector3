@@ -14,7 +14,7 @@
 
 namespace Eigen {
 
-/**
+/** \ingroup Unsupported_modules
   * \defgroup AlignedVector3_Module Aligned vector3 module
   *
   * \code
@@ -167,8 +167,7 @@ template<typename _Scalar> class AlignedVector3
 
     inline Scalar norm() const
     {
-      using std::sqrt;
-      return sqrt(squaredNorm());
+      return internal::sqrt(squaredNorm());
     }
 
     inline AlignedVector3 cross(const AlignedVector3& other) const

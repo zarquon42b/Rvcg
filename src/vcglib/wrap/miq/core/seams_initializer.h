@@ -3,6 +3,7 @@
 #include <vcg/complex/complex.h>
 #include <vcg/simplex/face/pos.h>
 #include <vcg/simplex/face/jumping_pos.h>
+#include <vcg/simplex/face/topology.h>
 #include <wrap/io_trimesh/import_field.h>
 
 template <class MeshType>
@@ -39,17 +40,19 @@ private:
     bool IsSingularByMMatch(const VertexType &v,int &missmatch)
     {
         ///check that is on border..
-        if (v.IsB()) return false;
+        if (v.IsB())return false;
+
+        std::vector<FaceType*> faces;
+        std::vector<int> edges;
 
         vcg::face::Pos<FaceType> pos(v.cVFp(), v.cVFi());
-        std::vector<vcg::face::Pos<FaceType> > posVec;
-        vcg::face::VFOrderedStarFF(pos, posVec);
+        vcg::face::VFOrderedStarFF(pos,faces,edges);
 
         missmatch=0;
         for (unsigned int i=0;i<faces.size();i++)
         {
-          FaceType *curr_f=posVec[i].F();
-          int currMM=Handle_MMatch[curr_f][posVec[i].E()];
+            FaceType *curr_f=faces[i];
+            int currMM=Handle_MMatch[curr_f][edges[i]];
             missmatch+=currMM;
         }
         missmatch=missmatch%4;

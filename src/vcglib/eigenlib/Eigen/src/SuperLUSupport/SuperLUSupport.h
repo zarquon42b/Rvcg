@@ -160,7 +160,7 @@ struct SluMatrix : SuperMatrix
     res.ncol      = mat.cols();
 
     res.storage.lda       = MatrixType::IsVectorAtCompileTime ? mat.size() : mat.outerStride();
-    res.storage.values    = (void*)(mat.data());
+    res.storage.values    = mat.data();
     return res;
   }
 
@@ -353,14 +353,14 @@ class SuperLUBase : internal::noncopyable
       *
       * \sa compute()
       */
-    template<typename Rhs>
-    inline const internal::sparse_solve_retval<SuperLUBase, Rhs> solve(const SparseMatrixBase<Rhs>& b) const
-    {
-      eigen_assert(m_isInitialized && "SuperLU is not initialized.");
-      eigen_assert(rows()==b.rows()
-                && "SuperLU::solve(): invalid number of rows of the right hand side matrix b");
-      return internal::sparse_solve_retval<SuperLUBase, Rhs>(*this, b.derived());
-    }
+//     template<typename Rhs>
+//     inline const internal::sparse_solve_retval<SuperLU, Rhs> solve(const SparseMatrixBase<Rhs>& b) const
+//     {
+//       eigen_assert(m_isInitialized && "SuperLU is not initialized.");
+//       eigen_assert(rows()==b.rows()
+//                 && "SuperLU::solve(): invalid number of rows of the right hand side matrix b");
+//       return internal::sparse_solve_retval<SuperLU, Rhs>(*this, b.derived());
+//     }
     
     /** Performs a symbolic decomposition on the sparcity of \a matrix.
       *
@@ -377,7 +377,7 @@ class SuperLUBase : internal::noncopyable
     }
     
     template<typename Stream>
-    void dumpMemory(Stream& /*s*/)
+    void dumpMemory(Stream& s)
     {}
     
   protected:
@@ -612,7 +612,6 @@ void SuperLU<MatrixType>::factorize(const MatrixType& a)
   
   this->initFactorization(a);
   
-  m_sluOptions.ColPerm = COLAMD;
   int info = 0;
   RealScalar recip_pivot_growth, rcond;
   RealScalar ferr, berr;
@@ -1015,7 +1014,7 @@ struct sparse_solve_retval<SuperLUBase<_MatrixType,Derived>, Rhs>
 
   template<typename Dest> void evalTo(Dest& dst) const
   {
-    this->defaultEvalTo(dst);
+    dec().derived()._solve(rhs(),dst);
   }
 };
 

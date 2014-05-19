@@ -245,16 +245,6 @@ void ResizeAttribute(ATTR_CONT &c,const int &   sz  , MeshType &/*m*/){
               return v_ret;
             }
 
-            /** \brief Wrapper to AddVertices() to add a single vertex with given coords and normal
-            */
-            static VertexIterator AddVertex(MeshType &m, const CoordType &p,  const CoordType &n)
-            {
-              VertexIterator v_ret =  AddVertices(m, 1);
-              v_ret->P()=p;
-              v_ret->N()=n;
-              return v_ret;
-            }
-
             /** \brief Wrapper to AddVertices() to add a single vertex with given coords and color
             */
             static VertexIterator AddVertex(MeshType &m, const CoordType &p, const Color4b &c)
@@ -463,80 +453,22 @@ void ResizeAttribute(ATTR_CONT &c,const int &   sz  , MeshType &/*m*/){
             /* +++++++++++++++ Add Faces ++++++++++++++++ */
 
             /** Function to add a face to the mesh and initializing it with the three given VertexPointers
+            First wrapper, with no parameters
             */
             static FaceIterator AddFace(MeshType &m, VertexPointer v0, VertexPointer v1, VertexPointer v2)
             {
               assert(m.vert.size()>0);
-              assert((v0!=v1) && (v1!=v2) && (v0!=v2));
               assert(v0>=&m.vert.front() && v0<=&m.vert.back());
               assert(v1>=&m.vert.front() && v1<=&m.vert.back());
               assert(v2>=&m.vert.front() && v2<=&m.vert.back());
               PointerUpdater<FacePointer> pu;
               FaceIterator fi = AddFaces(m,1,pu);
-              fi->Alloc(3);
               fi->V(0)=v0;
               fi->V(1)=v1;
               fi->V(2)=v2;
               return fi;
             }
 
-            /** Function to add a face to the mesh and initializing it with three indexes
-            */
-            static FaceIterator AddFace(MeshType &m, size_t v0, size_t v1, size_t v2)
-            {
-              assert((v0!=v1) && (v1!=v2) && (v0!=v2));
-              assert(v0>=0 && v0<=m.vert.size());
-              assert(v1>=0 && v1<=m.vert.size());
-              assert(v2>=0 && v2<=m.vert.size());
-              return AddFace(m,&(m.vert[v0]),&(m.vert[v1]),&(m.vert[v2]));
-            }
-            /** Function to add a face to the mesh and initializing it with the three given coords
-            */
-            static FaceIterator AddFace(MeshType &m, CoordType p0, CoordType p1, CoordType p2)
-            {
-              VertexIterator vi = AddVertices(m,3);
-              FaceIterator fi = AddFaces(m,1);
-              fi->Alloc(3);
-              vi->P()=p0;
-              fi->V(0)=&*vi++;
-              vi->P()=p1;
-              fi->V(1)=&*vi++;
-              vi->P()=p2;
-              fi->V(2)=&*vi;
-              return fi;
-            }
-
-            /** Function to add a quad face to the mesh and initializing it with the four given VertexPointers
-             *
-             * Note that this function add a single polygonal face if the mesh has polygonal info or two tris with the corresponding faux bit set in the standard common case of a triangular mesh.
-            */
-            static FaceIterator AddQuadFace(MeshType &m, VertexPointer v0, VertexPointer v1, VertexPointer v2, VertexPointer v3)
-            {
-              assert(m.vert.size()>0);
-              assert(v0>=&m.vert.front() && v0<=&m.vert.back());
-              assert(v1>=&m.vert.front() && v1<=&m.vert.back());
-              assert(v2>=&m.vert.front() && v2<=&m.vert.back());
-              assert(v3>=&m.vert.front() && v3<=&m.vert.back());
-              PointerUpdater<FacePointer> pu;
-              if(FaceType::HasPolyInfo())
-              {
-                FaceIterator fi = AddFaces(m,1,pu);
-                fi->Alloc(4);
-                fi->V(0)=v0; fi->V(1)=v1;
-                fi->V(2)=v2; fi->V(3)=v3;
-                return fi;
-              }
-              else
-              {
-                FaceIterator fi = AddFaces(m,2,pu);
-                fi->Alloc(3); fi->V(0)=v0; fi->V(1)=v1; fi->V(2)=v2;
-                fi->SetF(2);
-                ++fi;
-                fi->Alloc(3); fi->V(0)=v0; fi->V(2)=v1; fi->V(3)=v2;
-                fi->SetF(0);
-                return fi;
-              }
-            }
             /** \brief Function to add n faces to the mesh.
             First wrapper, with no parameters
             */
@@ -915,16 +847,11 @@ void ResizeAttribute(ATTR_CONT &c,const int &   sz  , MeshType &/*m*/){
           if(pos!=i)
           {
             m.face[pos].ImportData(m.face[i]);
-            if(FaceType::HasPolyInfo())
-            {
-              m.face[pos].Dealloc();
-              m.face[pos].Alloc(m.face[i].VN());
-            }
-            for(int j=0;j<m.face[i].VN();++j)
-              m.face[pos].V(j) = m.face[i].V(j);
-
+            m.face[pos].V(0) = m.face[i].V(0);
+            m.face[pos].V(1) = m.face[i].V(1);
+            m.face[pos].V(2) = m.face[i].V(2);
             if(HasVFAdjacency(m))
-              for(int j=0;j<m.face[i].VN();++j)
+              for(int j=0;j<3;++j)
               {
                 if (m.face[i].IsVFInitialized(j)) {
                   m.face[pos].VFp(j) = m.face[i].cVFp(j);
@@ -933,7 +860,7 @@ void ResizeAttribute(ATTR_CONT &c,const int &   sz  , MeshType &/*m*/){
                 else m.face[pos].VFClear(j);
               }
             if(HasFFAdjacency(m))
-              for(int j=0;j<m.face[i].VN();++j)
+              for(int j=0;j<3;++j)
                 if (m.face[i].cFFp(j)!=0) {
                   m.face[pos].FFp(j) = m.face[i].cFFp(j);
                   m.face[pos].FFi(j) = m.face[i].cFFi(j);
@@ -981,7 +908,7 @@ void ResizeAttribute(ATTR_CONT &c,const int &   sz  , MeshType &/*m*/){
         if(!(*fi).IsD())
         {
           if(HasVFAdjacency(m))
-            for(int i=0;i<(*fi).VN();++i)
+            for(int i=0;i<3;++i)
               if ((*fi).IsVFInitialized(i) && (*fi).VFp(i)!=0 )
               {
                 size_t oldIndex = (*fi).VFp(i) - fbase;
@@ -989,7 +916,7 @@ void ResizeAttribute(ATTR_CONT &c,const int &   sz  , MeshType &/*m*/){
                 (*fi).VFp(i) = fbase+pu.remap[oldIndex];
               }
           if(HasFFAdjacency(m))
-            for(int i=0;i<(*fi).VN();++i)
+            for(int i=0;i<3;++i)
               if ((*fi).cFFp(i)!=0)
               {
                 size_t oldIndex = (*fi).FFp(i) - fbase;
