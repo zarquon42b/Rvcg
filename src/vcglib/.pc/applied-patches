@@ -1,0 +1,6 @@
+00_eigen.patch
+01_hash_map.patch
+02_kdtree_anonstruct.patch
+03_longlong.patch
+04_semicolon.patch
+05_stdisnan.patch

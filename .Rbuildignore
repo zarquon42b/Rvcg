@@ -7,3 +7,4 @@ src/vcglib/docs
 aclocal.m4$
 src/Makevars$
 src/upOBJ.sh
+src/patches
