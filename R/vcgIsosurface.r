@@ -13,10 +13,12 @@
 #' g <- expand.grid(x = x, y = x, z = x)
 #' v <- array(g$x^4 + g$y^4 + g$z^4, rep(length(x),3))
 #' storage.mode(v) <- "integer"
-#' mesh <- Rvcg:::vcgMarchingCube(v,lower=1)
+#' mesh <- vcgIsosurface(v,lower=1)
 #' \dontrun{
 #' require(rgl)
 #' wire3d(mesh)
+#' ##now smooth it a little bit
+#' wire3d(vcgSmooth(mesh,"HC",iteration=3),col=3)
 #' }
 #' @export
 vcgIsosurface <- function(vol,att=NULL,lower=min(vol),upper=max(vol)) {
