@@ -721,7 +721,7 @@ namespace vcg
         /*! @} */
         //end of Doxygen documentation
 
-    }; // end of namespace tri
-}; // end of namespace vcg
+    } // end of namespace tri
+} // end of namespace vcg
 
 #endif //__VCG_MARCHING_CUBES

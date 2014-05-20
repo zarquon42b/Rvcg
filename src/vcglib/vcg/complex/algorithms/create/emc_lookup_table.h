@@ -923,6 +923,6 @@ namespace vcg
 			//=============================================================================
 
 		}; //end of class EMCLookUpTable
-	}; // end of namespace tri
-}; // end of namespace vcg
+	} // end of namespace tri
+} // end of namespace vcg
 #endif // __VCG_EMC_LOOK_UP_TABLE

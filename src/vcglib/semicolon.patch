@@ -1,6 +1,6 @@
 Index: vcg/complex/used_types.h
 ===================================================================
---- vcg/complex/used_types.h	(revision 5055)
+--- vcg/complex/used_types.h	(revision 5056)
 +++ vcg/complex/used_types.h	(working copy)
 @@ -90,6 +90,6 @@
  struct _Face  : public  Face<_UsedTypes>{};
@@ -12,7 +12,7 @@ Index: vcg/complex/used_types.h
  #endif // USED_TYPES_H
 Index: vcg/space/intersection3.h
 ===================================================================
---- vcg/space/intersection3.h	(revision 5055)
+--- vcg/space/intersection3.h	(revision 5056)
 +++ vcg/space/intersection3.h	(working copy)
 @@ -121,7 +121,7 @@
  			solution_count++;
@@ -34,7 +34,7 @@ Index: vcg/space/intersection3.h
    template<class T>
 Index: wrap/ply/plylib.cpp
 ===================================================================
---- wrap/ply/plylib.cpp	(revision 5055)
+--- wrap/ply/plylib.cpp	(revision 5056)
 +++ wrap/ply/plylib.cpp	(working copy)
 @@ -3673,6 +3673,6 @@
  		output[io++]=a[ia++]; 
@@ -44,3 +44,79 @@ Index: wrap/ply/plylib.cpp
 +}
  } 
  }
+Index: vcg/complex/algorithms/create/mc_lookup_table.h
+===================================================================
+--- vcg/complex/algorithms/create/mc_lookup_table.h	(revision 5056)
++++ vcg/complex/algorithms/create/mc_lookup_table.h	(working copy)
+@@ -2552,8 +2552,8 @@
+ 			//_____________________________________________________________________________
+ 
+ 		}; // end of class EMCLookUpTable
+-	}; // end of namespace tri
+-}; //end of namespace vcg
++	} // end of namespace tri
++} //end of namespace vcg
+ 
+ 
+ 
+Index: vcg/complex/algorithms/create/emc_lookup_table.h
+===================================================================
+--- vcg/complex/algorithms/create/emc_lookup_table.h	(revision 5056)
++++ vcg/complex/algorithms/create/emc_lookup_table.h	(working copy)
+@@ -923,6 +923,6 @@
+ 			//=============================================================================
+ 
+ 		}; //end of class EMCLookUpTable
+-	}; // end of namespace tri
+-}; // end of namespace vcg
++	} // end of namespace tri
++} // end of namespace vcg
+ #endif // __VCG_EMC_LOOK_UP_TABLE
+Index: vcg/complex/algorithms/create/extended_marching_cubes.h
+===================================================================
+--- vcg/complex/algorithms/create/extended_marching_cubes.h	(revision 5056)
++++ vcg/complex/algorithms/create/extended_marching_cubes.h	(working copy)
+@@ -248,7 +248,7 @@
+             TRIMESH_TYPE	*_mesh;
+             /*!
+             */
+-            bool	_initialized;;
++            bool	_initialized;
+             /*!
+             */
+             bool	_finalized;
+@@ -464,6 +464,6 @@
+         // end of Doxygen documentation
+ 
+     } // end of namespace tri
+-}; // end of namespace vcg
++} // end of namespace vcg
+ 
+ #endif // __VCG_EXTENDED_MARCHING_CUBES
+Index: vcg/complex/algorithms/create/mc_trivial_walker.h
+===================================================================
+--- vcg/complex/algorithms/create/mc_trivial_walker.h	(revision 5056)
++++ vcg/complex/algorithms/create/mc_trivial_walker.h	(working copy)
+@@ -199,7 +199,7 @@
+ 		extractor.Finalize();
+ 		_volume = NULL;
+ 		_mesh		= NULL;
+-	};
++	}
+ 
+ 	float V(int pi, int pj, int pk)
+ 	{
+Index: vcg/complex/algorithms/create/marching_cubes.h
+===================================================================
+--- vcg/complex/algorithms/create/marching_cubes.h	(revision 5056)
++++ vcg/complex/algorithms/create/marching_cubes.h	(working copy)
+@@ -721,7 +721,7 @@
+         /*! @} */
+         //end of Doxygen documentation
+ 
+-    }; // end of namespace tri
+-}; // end of namespace vcg
++    } // end of namespace tri
++} // end of namespace vcg
+ 
+ #endif //__VCG_MARCHING_CUBES

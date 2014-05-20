@@ -199,7 +199,7 @@ private:
 		extractor.Finalize();
 		_volume = NULL;
 		_mesh		= NULL;
-	};
+	}
 
 	float V(int pi, int pj, int pk)
 	{

@@ -2552,8 +2552,8 @@ namespace vcg
 			//_____________________________________________________________________________
 
 		}; // end of class EMCLookUpTable
-	}; // end of namespace tri
-}; //end of namespace vcg
+	} // end of namespace tri
+} //end of namespace vcg
 
 
 
