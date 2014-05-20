@@ -4,9 +4,9 @@
 \title{Performs Quadric Edge Decimation on triangular meshes.}
 \usage{
 vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL,
-  topo = TRUE, quality = TRUE, bound = TRUE, optiplace = TRUE,
-  scaleindi = TRUE, normcheck = FALSE, safeheap = FALSE, qthresh = 0.1,
-  boundweight = 0.5, normalthr = pi/2)
+  topo = FALSE, quality = TRUE, bound = FALSE, optiplace = TRUE,
+  scaleindi = TRUE, normcheck = FALSE, safeheap = FALSE, qthresh = 0.3,
+  boundweight = 1, normalthr = pi/2)
 }
 \arguments{
 \item{mesh}{Triangular mesh of class "mesh3d"}
