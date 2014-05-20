@@ -8,3 +8,4 @@ aclocal.m4$
 src/Makevars$
 src/upOBJ.sh
 src/patches
+src/.pc
