@@ -4,3 +4,4 @@
 03_longlong.patch
 04_semicolon.patch
 05_stdisnan.patch
+06_stl_unused_var.patch
