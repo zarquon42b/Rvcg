@@ -41,13 +41,18 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     std::vector<int> colvec;
     if (colorread)
       colvec.resize(3*m.vn);
-    if (colorread)
-      texvec.resize(2*m.vn);
+    
     IntegerVector it(3*m.fn);
     std::vector<double> normals;
     if (updateNormals)
       normals.resize(3*m.vn);
-   
+    bool tex = false;
+    std::vector<string> texfile;
+    if (m.textures.size() > 0) {
+      tex = true;
+      texfile = m.textures;
+      texvec.resize(2*m.vn);
+    }
     VertexIterator vi=m.vert.begin();
     for (int i=0;  i < m.vn; i++) {
       vb(i*3) = (*vi).P()[0];
@@ -65,10 +70,11 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	colvec[i*3+2] = (*vi).C()[2];
 	texvec[i*2] = (*vi).T().U();
 	texvec[i*2+1] = (*vi).T().V();
-	
-
       }
-    
+      if (tex) {
+    	texvec[i*2] = (*vi).T().U();
+	texvec[i*2+1] = (*vi).T().V();
+      }
       ++vi;
     }
     FacePointer fp;
@@ -93,7 +99,8 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 			Named("it") = it,
 			Named("normals") = normals,
 			Named("colors") = colvec,
-			Named("texcoord") = texvec
+			Named("texcoord") = texvec,
+			Named("texfile") = texfile
 			);
   }
  }

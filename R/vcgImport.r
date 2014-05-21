@@ -57,8 +57,10 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
               x <- colvec[x]
               return(x)
             }
-          out$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
           out$material$color <- matrix(colfun(out$it),dim(out$it))
+          if (length(out$texfile)) {
+              out$material$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
+             
         }
     return(out)
 }
