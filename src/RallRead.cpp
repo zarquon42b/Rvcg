@@ -1,4 +1,4 @@
-#include "typedef.h"
+#include "typedefImport.h"
 #include <wrap/io_trimesh/import.h>
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
@@ -15,24 +15,24 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
   bool updateNormals = as<bool>(updateNormals_);
   bool colorread = as<bool>(colorread_);
   bool clean = as<bool>(clean_);
-  MyMesh m;
-  int err2 = tri::io::Importer<MyMesh>::Open(m,filename);
+  MyMeshImport m;
+  int err2 = tri::io::Importer<MyMeshImport>::Open(m,filename);
   if (err2) {
     return wrap(1);
   } else { 
     if (m.fn == 0)
       updateNormals = false;
-    SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
+    SimpleTempData<MyMeshImport::VertContainer,int> indices(m.vert);
     if (updateNormals) {
-      tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
-      //tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+      tri::UpdateNormal<MyMeshImport>::PerVertexNormalized(m);
+      //tri::UpdateNormal<MyMeshImport>::NormalizePerVertex(m);
     }
     if (clean) {
-      int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
-      int dupface = tri::Clean<MyMesh>::RemoveDuplicateFace(m);
-      int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
-      vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
-      vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
+      int dup = tri::Clean<MyMeshImport>::RemoveDuplicateVertex(m);
+      int dupface = tri::Clean<MyMeshImport>::RemoveDuplicateFace(m);
+      int unref =  tri::Clean<MyMeshImport>::RemoveUnreferencedVertex(m);
+      vcg::tri::Allocator< MyMeshImport >::CompactVertexVector(m);
+      vcg::tri::Allocator< MyMeshImport >::CompactFaceVector(m);
       if (dup > 0 || unref > 0 || dupface > 0)
 	Rprintf("Removed %i duplicate %i unreferenced vertices and %i duplicate faces\n",dup,unref,dupface);
     }      

@@ -1,4 +1,4 @@
-#include "typedef.h"
+#include "typedefImport.h"
 #include <wrap/ply/plylib.h>
 #include <vcg/container/simple_temporary_data.h>
 #include <wrap/io_trimesh/import.h>
@@ -11,7 +11,7 @@ extern "C" {
   void RPlyRead(char **filename, double *vb ,int *dim, int *it, int *dimit, double *normals, int *getNorm, int *updNorm, double *quality,int *col, int *colvec, int *clean,int *fail)
   {
     int i;
-    MyMesh m;
+    MyMeshImport m;
     // section read from input
     int faced = *dimit;
     //char file = **filename;
@@ -20,25 +20,25 @@ extern "C" {
     int importNorm = *getNorm;
     int updateNorm = *updNorm;
     //load file
-    int err2 = tri::io::ImporterPLY<MyMesh>::Open(m,file);
+    int err2 = tri::io::ImporterPLY<MyMeshImport>::Open(m,file);
     if(err2) {
-      Rprintf("Error in reading %s: '%s'\n",file,tri::io::Importer<MyMesh>::ErrorMsg(err2));
+      Rprintf("Error in reading %s: '%s'\n",file,tri::io::Importer<MyMeshImport>::ErrorMsg(err2));
       //exit(-1);  
     }
     //Rprintf("%i",err2);
     if (err2 == 0)
       {
 	if (updateNorm == 1) {
-	  tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
-	  tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+	  tri::UpdateNormal<MyMeshImport>::PerVertexAngleWeighted(m);
+	  tri::UpdateNormal<MyMeshImport>::NormalizePerVertex(m);
 	}
 	if (*clean == 1) {
-	  int dup = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
-	  int unref =  tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+	  int dup = tri::Clean<MyMeshImport>::RemoveDuplicateVertex(m);
+	  int unref =  tri::Clean<MyMeshImport>::RemoveUnreferencedVertex(m);
 	  Rprintf("Removed %i duplicate and %i unreferenced vertices\n",dup,unref);
 	}
-	vcg::tri::Allocator<MyMesh>::CompactVertexVector(m);
-	vcg::tri::Allocator<MyMesh>::CompactFaceVector(m);
+	vcg::tri::Allocator<MyMeshImport>::CompactVertexVector(m);
+	vcg::tri::Allocator<MyMeshImport>::CompactFaceVector(m);
 	
 	if (m.vn > *dim || m.fn > *dimit) {
 	  *fail = 1;
@@ -54,7 +54,7 @@ extern "C" {
 	  // Update the bounding box and initialize max search distance
 	  // Remove duplicates and update mesh properties
 	  //--------------------------------------------------------------------------------------//
-	  SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
+	  SimpleTempData<MyMeshImport::VertContainer,int> indices(m.vert);
 	  
 	  //VertexPointer ivp[d];
 	  if (m.vn > 0) {
@@ -108,7 +108,7 @@ extern "C" {
 using namespace Rcpp;
 RcppExport SEXP RPlyWrite(SEXP vb_, SEXP it_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_)
 { 
-  MyMesh m;
+  MyMeshImport m;
    //set up parameters 
   bool binary = Rcpp::as<bool>(binary_);
   bool addNormals = Rcpp::as<bool>(addNormals_);
@@ -119,11 +119,11 @@ RcppExport SEXP RPlyWrite(SEXP vb_, SEXP it_, SEXP binary_, SEXP addNormals_, SE
   //strcpy(filename1, filename);
   //allocate mesh and fill it
   Rcpp::IntegerMatrix colvec(colvec_);
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
+  Rvcg::IOMesh<MyMeshImport>::RvcgReadR(m,vb_,it_);
   int mask0 = 0;
   
   if (addNormals) {
-    tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+    tri::UpdateNormal<MyMeshImport>::PerVertexAngleWeighted(m);
     mask0 = mask0 + tri::io::Mask::IOM_VERTNORMAL;
   }
   if (hasCol) {
@@ -143,7 +143,7 @@ RcppExport SEXP RPlyWrite(SEXP vb_, SEXP it_, SEXP binary_, SEXP addNormals_, SE
     
   }
   
-    tri::io::ExporterPLY<MyMesh>::Save(m, filename, mask0, binary);
+    tri::io::ExporterPLY<MyMeshImport>::Save(m, filename, mask0, binary);
   return Rcpp::wrap(0);
 }
 
