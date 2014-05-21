@@ -3,9 +3,10 @@
 #' Create Isosurface from 3D-array using Marching Cubes algorithm
 #'
 #' @param vol an integer valued 3D-array
-#' @param att a list containing the additional information: a$spacing needs to be a vector of length 3 indicating the voxel dimensons.
 #' @param lower numeric:lower threshold
 #' @param upper numeric: upper threshold
+#' @param spacing numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.
+#' @param origin numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.
 #' @return returns a triangular mesh of class "mesh3d"
 #' @examples
 #' #this is the example from the package "misc3d"
@@ -21,26 +22,23 @@
 #' wire3d(vcgSmooth(mesh,"HC",iteration=3),col=3)
 #' }
 #' @export
-vcgIsosurface <- function(vol,att=NULL,lower=min(vol),upper=max(vol)) {
-### vol = 3D array with numeric grey values
-### att=attributes about original voxel data where att$x=spacing of x voxels, att$y, etc, and att$origin the origin of the original data.
+vcgIsosurface <- function(vol,lower=min(vol),upper=max(vol),spacing=NULL, origin=NULL) {
     if (length(dim(vol)) != 3)
         stop("3D array needed")
-    #storage.mode(tol) <- "numeric"
-    o <- .Call("RMarchC",vol,lower,upper)
-    o$vb <- rbind(o$vb,1)
-    o$it <- o$it
+    lower <- as.numeric(lower)
+    upper <- as.numeric(upper)
     storage.mode(vol) <- "integer"
-    class(o) <- "mesh3d"
-    if (!is.null(att)) {
-        if (length(att$spacing == 3)) {
-            o$vb[1,] <- o$vb[1,]*att$spacing[1]
-            o$vb[2,] <- o$vb[2,]*att$spacing[2]
-            o$vb[3,] <- o$vb[3,]*att$spacing[3]
-        }
-        if (!is.null(att$origin))
-            o$vb[1:3,] <- o$vb[1:3,]+att$origin
-    }
-    return(o)
+    volmesh <- .Call("RMarchC",vol,lower,upper)
+    volmesh$vb <- rbind(volmesh$vb,1)
+    volmesh$it <- volmesh$it
+    
+    class(volmesh) <- "mesh3d"
+    if (!is.null(spacing))
+        volmesh$vb[1:3,] <- volmesh$vb[1:3,]*spacing
+    
+    if (!is.null(origin))
+            volmesh$vb[1:3,] <- volmesh$vb[1:3,]+origin
+    
+    return(volmesh)
 }
 
