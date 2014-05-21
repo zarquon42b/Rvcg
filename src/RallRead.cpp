@@ -35,11 +35,14 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       vcg::tri::Allocator< MyMeshImport >::CompactFaceVector(m);
       if (dup > 0 || unref > 0 || dupface > 0)
 	Rprintf("Removed %i duplicate %i unreferenced vertices and %i duplicate faces\n",dup,unref,dupface);
-    }      
+    }  
     NumericVector vb(3*m.vn);
+    std::vector<float> texvec;
     std::vector<int> colvec;
     if (colorread)
       colvec.resize(3*m.vn);
+    if (colorread)
+      texvec.resize(2*m.vn);
     IntegerVector it(3*m.fn);
     std::vector<double> normals;
     if (updateNormals)
@@ -60,6 +63,10 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	colvec[i*3] = (*vi).C()[0];
 	colvec[i*3+1] = (*vi).C()[1];
 	colvec[i*3+2] = (*vi).C()[2];
+	texvec[i*2] = (*vi).T().U();
+	texvec[i*2+1] = (*vi).T().V();
+	
+
       }
     
       ++vi;
@@ -85,7 +92,8 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     return List::create(Named("vb") = vb, 
 			Named("it") = it,
 			Named("normals") = normals,
-			Named("colors") = colvec
+			Named("colors") = colvec,
+			Named("texcoord") = texvec
 			);
   }
  }

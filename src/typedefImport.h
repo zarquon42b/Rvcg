@@ -69,6 +69,7 @@ class MyFaceImport: public Face  <MyUsedTypes,
                                 face::BitFlags,
                                 face::Mark,
 	      //face::FFAdjOcf, 
+                                face::WedgeTexCoord2f,
                                 face::FFAdj, 
                                 face::Normal3f> {};
 
