@@ -11,7 +11,7 @@ vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE)
 \item{updateNormals}{logical: if TRUE and the imported file contais faces,
 vertex normals will be (re)calculated. Otherwise, normals will be a matrix containing zeros.}
 
-\item{readcolor}{if TRUE, vertex colors will be read if available, otherwise all vertices will be colored white.}
+\item{readcolor}{if TRUE, vertex colors and texture (face and vertex) coordinates will be processed - if available, otherwise all vertices will be colored white.}
 
 \item{clean}{if TRUE, duplicated and unreferenced vertices as well as duplicate faces are removed (be careful when importing point clouds).}
 }
@@ -26,6 +26,9 @@ with:
 \description{
 Import common mesh file formats and store the results in an object of
 class "mesh3d" - momentarily only triangular meshes are supported.
+}
+\note{
+currently only meshes with either color or texture can be processed. If both are present, the function will mark the mesh as non-readable.
 }
 \examples{
 data(humface)

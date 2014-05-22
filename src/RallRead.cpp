@@ -3,10 +3,31 @@
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/container/simple_temporary_data.h>
+#include <vcg/complex/algorithms/update/texture.h>
+#include <vcg/complex/algorithms/attribute_seam.h>
 #include <string.h>
 #include <Rcpp.h>  
 
 using namespace Rcpp;
+
+/// The following to helper functions are copied from filter_texture plugin of meshlab
+/////// FUNCTIONS NEEDED BY "UV WEDGE TO VERTEX" FILTER
+inline void ExtractVertex(const MyMeshImport & srcMesh, const MyMeshImport::FaceType & f, int whichWedge, const MyMeshImport & dstMesh, MyMeshImport::VertexType & v)
+{
+    (void)srcMesh;
+    (void)dstMesh;
+    // This is done to preserve every single perVertex property
+    // perVextex Texture Coordinate is instead obtained from perWedge one.
+    v.ImportData(*f.cV(whichWedge));
+    v.T() = f.cWT(whichWedge);
+}
+
+inline bool CompareVertex(const MyMeshImport & m, const MyMeshImport::VertexType & vA, const MyMeshImport::VertexType & vB)
+{
+    (void)m;
+    return (vA.cT() == vB.cT());
+}
+///////
 
 RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, SEXP clean_) 
 {
@@ -23,10 +44,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     if (m.fn == 0)
       updateNormals = false;
     SimpleTempData<MyMeshImport::VertContainer,int> indices(m.vert);
-    if (updateNormals) {
-      tri::UpdateNormal<MyMeshImport>::PerVertexNormalized(m);
-      //tri::UpdateNormal<MyMeshImport>::NormalizePerVertex(m);
-    }
+   
     if (clean) {
       int dup = tri::Clean<MyMeshImport>::RemoveDuplicateVertex(m);
       int dupface = tri::Clean<MyMeshImport>::RemoveDuplicateFace(m);
@@ -36,8 +54,21 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       if (dup > 0 || unref > 0 || dupface > 0)
 	Rprintf("Removed %i duplicate %i unreferenced vertices and %i duplicate faces\n",dup,unref,dupface);
     }  
-    NumericVector vb(3*m.vn);
+    // do texture processing
+    bool tex = false;
     std::vector<float> texvec;
+    std::vector<string> texfile;
+    if (m.textures.size() > 0) {
+      tex = true;
+      tri::AttributeSeam::SplitVertex(m, ExtractVertex, CompareVertex);
+      texfile = m.textures;
+      texvec.resize(2*m.vn);
+      vcg::tri::Allocator< MyMeshImport >::CompactVertexVector(m);
+      vcg::tri::Allocator< MyMeshImport >::CompactFaceVector(m);
+    }
+   
+    // setup output structures
+    NumericVector vb(3*m.vn);    
     std::vector<int> colvec;
     if (colorread)
       colvec.resize(3*m.vn);
@@ -46,13 +77,11 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     std::vector<double> normals;
     if (updateNormals)
       normals.resize(3*m.vn);
-    bool tex = false;
-    std::vector<string> texfile;
-    if (m.textures.size() > 0) {
-      tex = true;
-      texfile = m.textures;
-      texvec.resize(2*m.vn);
+    
+    if (updateNormals) { // update Normals
+      tri::UpdateNormal<MyMeshImport>::PerVertexNormalized(m);
     }
+    // write back
     VertexIterator vi=m.vert.begin();
     for (int i=0;  i < m.vn; i++) {
       vb(i*3) = (*vi).P()[0];
@@ -68,11 +97,9 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	colvec[i*3] = (*vi).C()[0];
 	colvec[i*3+1] = (*vi).C()[1];
 	colvec[i*3+2] = (*vi).C()[2];
-	texvec[i*2] = (*vi).T().U();
-	texvec[i*2+1] = (*vi).T().V();
       }
       if (tex) {
-    	texvec[i*2] = (*vi).T().U();
+	texvec[i*2] = (*vi).T().U();
 	texvec[i*2+1] = (*vi).T().V();
       }
       ++vi;

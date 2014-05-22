@@ -64,14 +64,15 @@ class MyVertexImport  : public Vertex< MyUsedTypes,
 				 >{};
 class MyFaceImport: public Face  <MyUsedTypes, 
 	      //face::InfoOcf,
-                                face::VFAdj,
-                                face::VertexRef,
-                                face::BitFlags,
-                                face::Mark,
+				  face::VFAdj,
+				  face::VertexRef,
+				  face::BitFlags,
+				  face::Mark,
 	      //face::FFAdjOcf, 
-                                face::WedgeTexCoord2f,
-                                face::FFAdj, 
-                                face::Normal3f> {};
+				  face::WedgeTexCoord2f,
+				  face::Color4b, 
+				  face::FFAdj, 
+				  face::Normal3f> {};
 
 
 // ocf class

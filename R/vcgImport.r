@@ -7,8 +7,9 @@
 #' @param file character: file to be read.
 #' @param updateNormals logical: if TRUE and the imported file contais faces,
 #' vertex normals will be (re)calculated. Otherwise, normals will be a matrix containing zeros.
-#' @param readcolor if TRUE, vertex colors will be read if available, otherwise all vertices will be colored white.
+#' @param readcolor if TRUE, vertex colors and texture (face and vertex) coordinates will be processed - if available, otherwise all vertices will be colored white.
 #' @param clean if TRUE, duplicated and unreferenced vertices as well as duplicate faces are removed (be careful when importing point clouds).
+#' @note currently only meshes with either color or texture can be processed. If both are present, the function will mark the mesh as non-readable.
 #' @return Object of class "mesh3d"
 #' 
 #' with:
@@ -58,9 +59,20 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
               return(x)
             }
           out$material$color <- matrix(colfun(out$it),dim(out$it))
-          if (length(out$texfile)) {
-              out$material$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
-             
-        }
+          if (length(tmp$texfile)) {
+              if (length(grep(".jpg",ignore.case = T,tmp$texfile))) {
+                  message("please convert texture images to png format")
+                  tmp$texfile <- gsub("jpg","png",tmp$texfile)
+              }
+              if (length(tmp$texfile) > 1)
+                  message("only single texture files supported, only first one stored")
+              out$material$texture <- tmp$texfile[1]
+              out$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
+          }
+          colrange <- range(out$material$color)
+       #   if (colrange[1] == colrange[2])
+        #      out$material$color <- NULL
+          
+      }
     return(out)
 }
