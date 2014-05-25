@@ -28,6 +28,8 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP k_, SEXP sign
   MyMesh target;
   PcMesh query, bary;
   int checkit = Rvcg::IOMesh<MyMesh>::RvcgReadR(target,vb_,it_);
+
+  target.face.EnableNormal();
   checkit = Rvcg::IOMesh<PcMesh>::RvcgReadR(query, ioclost_);
   tri::UpdateNormal<MyMesh>::PerFaceNormalized(target);
   tri::UpdateNormal<MyMesh>::PerVertexNormalized(target);

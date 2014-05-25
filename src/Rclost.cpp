@@ -31,9 +31,11 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
     Rprintf("%s\n", "Target mesh has no triangular faces");
     return wrap(1);
   } else if (checkit >= 0) {
-    Rvcg::IOMesh<PcMesh>::RvcgReadR(refmesh, ioclost_);  
-  tri::UpdateBounding<MyMesh>::Box(m);
-  tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
+    Rvcg::IOMesh<PcMesh>::RvcgReadR(refmesh, ioclost_); 
+    m.face.EnableNormal();
+ 
+    tri::UpdateBounding<MyMesh>::Box(m);
+    tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
   //tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
   tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
   if (smooth) {

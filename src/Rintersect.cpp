@@ -56,6 +56,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
   // Update the FaceProjection flags needed for projection/distance queries
   // Create a static grid (for fast indexing) and fill it 
   //--------------------------------------------------------------------------------------//
+  m.face.EnableNormal();
   tri::UpdateBounding<MyMesh>::Box(m);
   tri::UpdateNormal<MyMesh>::PerFaceNormalized(m);//very important !!!
   tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);

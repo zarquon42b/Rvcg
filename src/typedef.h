@@ -73,7 +73,7 @@ class MyFace: public Face  <MyUsedTypes,
   face::Mark,
   face::FFAdjOcf, 
   face::VFAdjOcf, 
-  face::Normal3f
+  face::Normal3fOcf
   /*face::FFAdj, 
     face::VFAdj,*/
   > {};
