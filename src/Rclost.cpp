@@ -48,6 +48,9 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
   TriMeshGrid static_grid;    
   static_grid.Set(m.face.begin(), m.face.end());
   if (borderchk) { //update Border flags
+    m.vert.EnableVFAdjacency();
+    m.face.EnableFFAdjacency();
+    m.face.EnableVFAdjacency();
     tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
     tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
   }

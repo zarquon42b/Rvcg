@@ -10,6 +10,10 @@ RcppExport SEXP RVFadj(SEXP vb_, SEXP it_)
 {
   int i;
   MyMesh m;
+  m.vert.EnableVFAdjacency();
+  m.face.EnableFFAdjacency();
+  m.face.EnableVFAdjacency();
+  
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
   Rcpp::List outlist(m.vn);
   SimpleTempData<MyMesh::FaceContainer,int>indicesf(m.face);

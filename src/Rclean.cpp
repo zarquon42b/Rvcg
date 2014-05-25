@@ -20,9 +20,9 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
   FaceIterator fi;
   // allocate mesh and fill it
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-  /*m.vert.EnableVFAdjacency();
+  m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();*/
+  m.face.EnableVFAdjacency();
   bool silent = as<bool>(silent_);
   // General cleaning and update of topology
   //tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);

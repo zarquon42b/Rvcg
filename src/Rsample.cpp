@@ -34,9 +34,9 @@ RcppExport SEXP Rsample(SEXP vb_, SEXP it_, SEXP SampleNum_, SEXP type_, SEXP MC
   if (check != 0) {
     return wrap(1);
   } else {
-  /*m.vert.EnableVFAdjacency();
+  m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();*/
+  m.face.EnableVFAdjacency();
   vector<Point3f> myVec;
   typedef TrivialSampler<MyMesh>  BaseSampler ;
  

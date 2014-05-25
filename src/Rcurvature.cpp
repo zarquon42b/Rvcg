@@ -16,11 +16,12 @@ RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
   FaceIterator fi;
  
   Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-  /*m.vert.EnableVFAdjacency();
+  m.vert.EnableQuality();
   m.vert.EnableCurvatureDir();
   m.vert.EnableCurvature();
+  m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();*/
+  m.face.EnableVFAdjacency();
   
   tri::UpdateTopology<MyMesh>::FaceFace(m);
   tri::UpdateTopology<MyMesh>::VertexFace(m);

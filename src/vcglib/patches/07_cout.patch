@@ -1,0 +1,22 @@
+Index: vcglib/vcg/complex/exception.h
+===================================================================
+--- vcglib.orig/vcg/complex/exception.h	2014-05-25 13:30:11.914911009 +0200
++++ vcglib/vcg/complex/exception.h	2014-05-25 13:30:39.067045649 +0200
+@@ -30,7 +30,7 @@
+ public:
+   MissingComponentException(const std::string &err):std::runtime_error(err)
+   {
+-    std::cout << "Missing Component Exception -" << err << "- \n";
++    //std::cout << "Missing Component Exception -" << err << "- \n";
+   }
+     virtual const char *what() const throw ()
+     {
+@@ -43,7 +43,7 @@
+ public:
+   MissingCompactnessException(const std::string &err):std::runtime_error(err)
+   {
+-    std::cout << "Lack of Compactness Exception -" << err << "- \n";
++    //std::cout << "Lack of Compactness Exception -" << err << "- \n";
+   }
+     virtual const char *what() const throw ()
+     {

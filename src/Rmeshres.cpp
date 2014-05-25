@@ -18,9 +18,9 @@ RcppExport SEXP Rmeshres(SEXP vb_ , SEXP it_)
     FaceIterator fi;
     
     Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-    /*m.vert.EnableVFAdjacency();
+    m.vert.EnableVFAdjacency();
     m.face.EnableFFAdjacency();
-    m.face.EnableVFAdjacency();*/
+    m.face.EnableVFAdjacency();
     std::vector<SimpleEdge> Edges;
     std::vector< SimpleEdge >::iterator ei;
     std::vector< SimpleEdge >::size_type size;

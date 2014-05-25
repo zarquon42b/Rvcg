@@ -19,9 +19,9 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
   FaceIterator fi;
   
   int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-  /*m.vert.EnableVFAdjacency();
+  m.vert.EnableVFAdjacency();
     m.face.EnableFFAdjacency();
-    m.face.EnableVFAdjacency();*/
+    m.face.EnableVFAdjacency();
   if (check != 0) {
     Rprintf("%s\n","Warning: mesh has no faces and/or no vertices, nothing done");
     return Rcpp::List::create(Rcpp::Named("vb") = vb_,
