@@ -35,6 +35,9 @@
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>
 //#include <vcg/complex/algorithms/update/curvature.h>
+#ifndef RcppExport
+#define RcppExport extern "C"
+#endif
 
 using namespace vcg;
 //using namespace std;

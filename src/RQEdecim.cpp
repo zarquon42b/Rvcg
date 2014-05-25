@@ -25,6 +25,11 @@
 
 #include "RvcgIO.h"
 #include <Rcpp.h>
+#ifndef RcppExport
+#define RcppExport extern "C"
+#endif
+
+
 using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
