@@ -45,7 +45,7 @@ volume.Init(Point3i(arrayDims[0],arrayDims[1],arrayDims[2]));
  for(i=0;i < arrayDims[0];i++) {
    for(j=0;j<arrayDims[1];j++) {
      for(k=0;k< arrayDims[2];k++) {
-       int tmpval = vecArray(i+j*arrayDims[0]+k*(arrayDims[0]*arrayDims[1]));
+       int tmpval = vecArray[i+j*arrayDims[0]+k*(arrayDims[0]*arrayDims[1])];
        if (tmpval >= lower && tmpval <= upper)
 	 volume.Val(i,j,k)=1;
        else 

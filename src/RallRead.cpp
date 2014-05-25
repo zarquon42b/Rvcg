@@ -84,9 +84,9 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     // write back
     VertexIterator vi=m.vert.begin();
     for (int i=0;  i < m.vn; i++) {
-      vb(i*3) = (*vi).P()[0];
-      vb(i*3+1) = (*vi).P()[1];
-      vb(i*3+2) = (*vi).P()[2];
+      vb[i*3] = (*vi).P()[0];
+      vb[i*3+1] = (*vi).P()[1];
+      vb[i*3+2] = (*vi).P()[2];
       indices[vi] = i;
       if (updateNormals) {
 	normals[i*3] = (*vi).N()[0];
@@ -114,9 +114,9 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	  vv[0]=indices[fp->cV(0)];
 	  vv[1]=indices[fp->cV(1)];
 	  vv[2]=indices[fp->cV(2)];
-	  it(i*3)=vv[0];
-	  it(i*3+1)=vv[1];
-	  it(i*3+2)=vv[2];
+	  it[i*3]=vv[0];
+	  it[i*3+1]=vv[1];
+	  it[i*3+2]=vv[2];
 	  ++fi;
 	}
       }

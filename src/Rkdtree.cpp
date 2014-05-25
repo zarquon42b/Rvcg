@@ -63,24 +63,24 @@ if (borderchk) { //update Border flags
 	if (dist < distance_old) {
 	  distance_old = dist;
 	  clost = tmp;
-	  faceptr(i) = fptr;
+	  faceptr[i] = fptr;
 	}
       }
     }
-    distout(i) = distance_old;
+    distout[i] = distance_old;
     // get normals at hit point
     tt = clost*0;
     for (int j=0; j <3;j++) {
       
-	  if (&(target.face[faceptr(i)].V(j)->N())) {
-	    Point3f vdist = target.face[faceptr(i)].V(j)->P() - clost;
+	  if (&(target.face[faceptr[i]].V(j)->N())) {
+	    Point3f vdist = target.face[faceptr[i]].V(j)->P() - clost;
 	    float weight = sqrt(vdist.dot(vdist));
 	    if (weight > 0)
 	      weight = 1/weight;
 	    else 
 	      weight = 1e12;
 	    
-	    tt +=(target.face[faceptr(i)].V(j)->N()*weight);
+	    tt +=(target.face[faceptr[i]].V(j)->N()*weight);
 	  }
 	}
     float vl = sqrt(tt.dot(tt));
@@ -92,7 +92,7 @@ if (borderchk) { //update Border flags
       Point3f dif = clost - currp;
       //float sign = dif.dot(tt);	
       if (dif.dot(tt) < 0)
-	distout(i) = -distout(i) ;
+	distout[i] = -distout[i] ;
       }
      // write back
     iomat(0,i) = clost[0];
@@ -105,14 +105,14 @@ if (borderchk) { //update Border flags
     if (barycentric) {
       
       MyMesh::CoordType baryco = currp*0;
-      InterpolationParameters<MyFace,ScalarType>(target.face[faceptr(i)],target.face[faceptr(i)].N(),clost,baryco);
+      InterpolationParameters<MyFace,ScalarType>(target.face[faceptr[i]],target.face[faceptr[i]].N(),clost,baryco);
       barycoord(0,i) = baryco[0];
       barycoord(1,i) = baryco[1];
       barycoord(2,i) = baryco[2];
     }
     if (borderchk) {
-      if (target.face[faceptr(i)].IsS())
-	border(i) = 1;
+      if (target.face[faceptr[i]].IsS())
+	border[i] = 1;
     }
     ++vi;//update iterator
   }

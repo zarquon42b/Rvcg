@@ -65,16 +65,16 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
   vcg::tri::Append<PcMesh,PcMesh>::Mesh(outmesh,refmesh);
   PcMesh::CoordType tt;
   for(i=0; i < refmesh.vn; i++) {
-    border(i) = 0;
+    border[i] = 0;
     Point3f& currp = refmesh.vert[i].P();
     Point3f& clost = outmesh.vert[i].P();
     MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
     if (f_ptr) {
       if (borderchk) {
 	if ((*f_ptr).IsS())
-	  border(i) = 1;
+	  border[i] = 1;
       }
-      faceptr(i) = indices[f_ptr];
+      faceptr[i] = indices[f_ptr];
 	int f_i = vcg::tri::Index(m, f_ptr);
 	tt = currp*0;
 	
@@ -105,7 +105,7 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	Point3f dif = clost - currp;
 	float sign = dif.dot(tt);	
 	if (sign < 0)
-	  dis(i) = -dis[i] ;
+	  dis[i] = -dis[i] ;
       }
       //write back output
       ioclost(0,i) =clost[0];

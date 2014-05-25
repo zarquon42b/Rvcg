@@ -37,7 +37,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
    
   // do all the cleaning
   for (int i=0; i < select.size();i++) {
-    int cnt = select(i);
+    int cnt = select[i];
     if (cnt == 0) { 
       int dupvb = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
       int dupit = tri::Clean<MyMesh>::RemoveDuplicateFace(m);int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
