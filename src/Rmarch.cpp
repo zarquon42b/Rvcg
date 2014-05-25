@@ -1,7 +1,7 @@
 #include "typedef.h"
 //#include "RvcgIO.h"
-//#include <Rcpp.h>
-#include <RcppArmadillo.h>
+#include <Rcpp.h>
+//#include <RcppArmadillo.h>
 
 
 //using namespace Rcpp;
@@ -9,7 +9,7 @@
 //using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
-using namespace arma;
+//using namespace arma;
 #include <vcg/complex/complex.h>
 #include <vcg/math/perlin_noise.h>
 #include <vcg/complex/algorithms/create/marching_cubes.h>
@@ -26,7 +26,7 @@ RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_) {
   int upper = as<double>(upper_);
   
   IntegerVector arrayDims = vecArray.attr("dim");
-icube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
+  //icube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
 MyMesh m;
 VertexIterator vi;
 FaceIterator fi;
@@ -45,7 +45,8 @@ volume.Init(Point3i(arrayDims[0],arrayDims[1],arrayDims[2]));
  for(i=0;i < arrayDims[0];i++) {
    for(j=0;j<arrayDims[1];j++) {
      for(k=0;k< arrayDims[2];k++) {
-       if (myCube(i,j,k) >= lower && myCube(i,j,k) <= upper)
+       int tmpval = vecArray(i+j*arrayDims[0]+k*(arrayDims[0]*arrayDims[1]));
+       if (tmpval >= lower && tmpval <= upper)
 	 volume.Val(i,j,k)=1;
        else 
 	 volume.Val(i,j,k)=0;
