@@ -3,11 +3,10 @@
 \alias{vcgPlyWrite}
 \title{Export meshes to PLY-files}
 \usage{
-vcgPlyWrite(mesh, filename = dataname, binary = TRUE, addNormals = FALSE,
-  writeCol = TRUE)
+vcgPlyWrite(mesh, filename = dataname, binary = TRUE, ...)
 }
 \arguments{
-\item{mesh}{triangular mesh of class 'mesh3d'}
+\item{mesh}{triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns}
 
 \item{filename}{character: filename (file extension '.ply' will be added automatically.}
 

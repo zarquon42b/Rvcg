@@ -2,7 +2,7 @@
 #'
 #' Export meshes to PLY-files (binary or ascii)
 #'
-#' @param mesh triangular mesh of class 'mesh3d'
+#' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
 #' @param filename character: filename (file extension '.ply' will be added automatically.
 #' @param binary logical: write binary file
 #' @param addNormals logical: compute per-vertex normals and add to file
@@ -10,8 +10,10 @@
 #' @examples
 #' data(humface)
 #' vcgPlyWrite(humface,filename = "humface")
-#' @export vcgPlyWrite
-vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE, writeCol=TRUE)
+#' @export 
+vcgPlyWrite <- function(mesh,filename=dataname, binary = TRUE, ...) UseMethod("vcgPlyWrite")
+
+vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE, writeCol=TRUE)
 {
     hasCol <- FALSE
     colvec <- matrix(0)
@@ -22,7 +24,7 @@ vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FAL
     dataname <- deparse(substitute(mesh))
     filename <- path.expand(as.character(filename))
     storage.mode(it) <- "integer"
-     if ( FALSE %in% is.integer(c(it)) || FALSE %in% is.numeric(c(vb)) || !is.character(filename) )
+     if ( FALSE %in% is.integer(c(it)) || FALSE %in% is.numeric(c(vb)) || !is.character(filename))
          stop("Please provide sensible arguments!")
     filename <- paste(filename,".ply",sep="")
     if (!is.null(mesh$material$color) && writeCol==TRUE) {
@@ -42,3 +44,12 @@ vcgPlyWrite <- function(mesh, filename=dataname, binary = TRUE, addNormals = FAL
     
     tmp <- .Call("RPlyWrite", vb, it , binary, addNormals, filename, colvec, hasCol)
 }
+vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, ...) {
+    dataname <- deparse(substitute(mesh))
+    filename <- path.expand(as.character(filename))
+    mm <- list()
+    mm$vb <- t(mesh)
+    class(mm) <- "mesh3d"
+    vcgPlyWrite(mm,filename=filename,binary =binary)
+}
+    

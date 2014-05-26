@@ -144,8 +144,6 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	texvec[i*2+1] = (*vi).T().V();
       }
     }
-
-    //return wrap(vb);
     
     return List::create(Named("vb") = vb, 
 			Named("it") = it,
