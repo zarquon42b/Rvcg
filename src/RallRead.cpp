@@ -12,7 +12,7 @@ using namespace Rcpp;
 
 /// The following to helper functions are copied from filter_texture plugin of meshlab
 /////// FUNCTIONS NEEDED BY "UV WEDGE TO VERTEX" FILTER
-inline void ExtractVertex(const MyMeshImport & srcMesh, const MyMeshImport::FaceType & f, int whichWedge, const MyMeshImport & dstMesh, MyMeshImport::VertexType & v)
+void ExtractVertex(const MyMeshImport & srcMesh, const MyMeshImport::FaceType & f, int whichWedge, const MyMeshImport & dstMesh, MyMeshImport::VertexType & v)
 {
     (void)srcMesh;
     (void)dstMesh;
@@ -22,7 +22,7 @@ inline void ExtractVertex(const MyMeshImport & srcMesh, const MyMeshImport::Face
     v.T() = f.cWT(whichWedge);
 }
 
-inline bool CompareVertex(const MyMeshImport & m, const MyMeshImport::VertexType & vA, const MyMeshImport::VertexType & vB)
+bool CompareVertex(const MyMeshImport & m, const MyMeshImport::VertexType & vA, const MyMeshImport::VertexType & vB)
 {
     (void)m;
     return (vA.cT() == vB.cT());
@@ -58,15 +58,6 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     bool tex = false;
     std::vector<float> texvec;
     std::vector<string> texfile;
-    if (m.textures.size() > 0) {
-      tex = true;
-      tri::AttributeSeam::SplitVertex(m, ExtractVertex, CompareVertex);
-      texfile = m.textures;
-      texvec.resize(2*m.vn);
-      vcg::tri::Allocator< MyMeshImport >::CompactVertexVector(m);
-      vcg::tri::Allocator< MyMeshImport >::CompactFaceVector(m);
-    }
-   
     // setup output structures
     NumericVector vb(3*m.vn);    
     std::vector<int> colvec;
@@ -98,10 +89,10 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	colvec[i*3+1] = (*vi).C()[1];
 	colvec[i*3+2] = (*vi).C()[2];
       }
-      if (tex) {
+      /*if (tex) {
 	texvec[i*2] = (*vi).T().U();
 	texvec[i*2+1] = (*vi).T().V();
-      }
+	}*/
       ++vi;
     }
     FacePointer fp;
@@ -121,8 +112,22 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	}
       }
     }
-    //return wrap(vb);
-    return List::create(Named("vb") = vb, 
+     if (m.textures.size() > 0) {
+      tex = true;
+      tri::AttributeSeam::SplitVertex(m, ExtractVertex, CompareVertex);
+      texfile = m.textures;
+      texvec.resize(2*m.vn);
+      vcg::tri::Allocator< MyMeshImport >::CompactVertexVector(m);
+      vcg::tri::Allocator< MyMeshImport >::CompactFaceVector(m);
+      for (int i=0;  i < m.vn; i++) {
+	texvec[i*2] = (*vi).T().U();
+	texvec[i*2+1] = (*vi).T().V();
+      }
+    }
+
+     //return wrap(vb);
+    
+     return List::create(Named("vb") = vb, 
 			Named("it") = it,
 			Named("normals") = normals,
 			Named("colors") = colvec,
