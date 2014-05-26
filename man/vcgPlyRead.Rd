@@ -28,6 +28,9 @@ with:
 Reads Polygon File Format (PLY) files and stores the results in an object of
 class "mesh3d" - momentarily only triangular meshes are supported.
 }
+\note{
+from version 0.8 on this is only a wrapper for vcgImport (to avoid API breaking).
+}
 \author{
 Stefan Schlager
 }

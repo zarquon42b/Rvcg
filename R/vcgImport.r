@@ -46,33 +46,36 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
     class(out) <- "mesh3d"
     out$vb <- rbind(matrix(tmp$vb,3,length(tmp$vb)/3),1)
     out$it <- matrix(tmp$it,3,(length(tmp$it)/3))+1
-    if (updateNormals)
+    if (length(tmp$normals))
         out$normals <- rbind(matrix(tmp$normals,3,length(tmp$normals)/3),1)
-    if (readcolor)
-        {
-          colvec <- matrix(tmp$colors,3,(length(tmp$colors)/3))
-          out$material <- list()
-          colvec <- rgb(colvec[1,],colvec[2,],colvec[3,],maxColorValue=255)
-          colfun <- function(x)
-            {
-              x <- colvec[x]
-              return(x)
+    if (readcolor) {
+        out$material <- list()
+            if (length(tmp$colors)) {
+                colvec <- matrix(tmp$colors,3,(length(tmp$colors)/3))
+                colvec <- rgb(colvec[1,],colvec[2,],colvec[3,],maxColorValue=255)
+                colfun <- function(x)
+                    {
+                        x <- colvec[x]
+                        return(x)
+                    }
+                out$material$color <- matrix(colfun(out$it),dim(out$it))
             }
-          out$material$color <- matrix(colfun(out$it),dim(out$it))
-          if (length(tmp$texfile)) {
-              if (length(grep(".jpg",ignore.case = T,tmp$texfile))) {
-                  message("please convert texture images to png format")
-                  tmp$texfile <- gsub("jpg","png",tmp$texfile)
-              }
-              if (length(tmp$texfile) > 1)
-                  message("only single texture files supported, only first one stored")
-              out$material$texture <- tmp$texfile[1]
-              out$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
-          }
-          colrange <- range(out$material$color)
+            if (length(tmp$texfile)) {
+                if (length(grep(".jpg",ignore.case = T,tmp$texfile))) {
+                    message("please convert texture images to png format")
+                    tmp$texfile <- gsub("jpg","png",tmp$texfile)
+                }
+                if (length(tmp$texfile) > 1)
+                    message("only single texture files supported, only first one stored")
+                out$material$texture <- tmp$texfile[1]
+                out$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
+                if (ncol(out$texcoords) > ncol(out$vb))
+                    out$texcoords <- out$texcoords[,1:ncol(out$vb)]
+            }
+          #colrange <- range(out$material$color)
        #   if (colrange[1] == colrange[2])
         #      out$material$color <- NULL
           
-      }
+        }
     return(out)
 }

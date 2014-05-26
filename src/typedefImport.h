@@ -53,36 +53,37 @@ struct MyUsedTypes: public UsedTypes<Use<MyVertexImport>::AsVertexType,
 
 class MyEdgeImport : public Edge<MyUsedTypes>{};
 class MyVertexImport  : public Vertex< MyUsedTypes, 
-		  //vertex::InfoOcf,
-                                 vertex::Coord3f, 
-                                 vertex::BitFlags, 
-                                 vertex::Normal3f, 
-                                 vertex::Mark,
-                                 vertex::Color4b, 
-                                 vertex::Qualityf,
-		  /* vertex::VFAdjOcf,
-		     vertex::CurvaturefOcf,
-		     vertex::CurvatureDirfOcf,*/
-                                 vertex::VFAdj,
-                                 vertex::TexCoord2f
-				 >{};
+				       vertex::InfoOcf,
+				       vertex::Coord3f, 
+				       vertex::BitFlags, 
+				       vertex::Normal3fOcf, 
+				       vertex::Mark,
+				       vertex::Color4bOcf, 
+				       vertex::QualityfOcf,
+				       /* vertex::VFAdjOcf,
+					  vertex::CurvaturefOcf,
+					  vertex::CurvatureDirfOcf,*/
+				       vertex::VFAdjOcf,
+				       vertex::TexCoordfOcf
+				       >{};
 class MyFaceImport: public Face  <MyUsedTypes, 
-	      //face::InfoOcf,
+				  face::InfoOcf,
 				  //	  face::VFAdj,
 				  face::VertexRef,
 				  face::BitFlags,
 				  face::Mark,
-	      //face::FFAdjOcf, 
-				  face::WedgeTexCoord2f,
-				  face::Color4b, 
+				  //face::FFAdjOcf, 
+				  face::WedgeTexCoordfOcf,
+				  face::Color4bOcf, 
 				  // face::FFAdj, 
-				  face::Normal3f> {};
+				  face::Normal3fOcf
+				  >{};
 
 
 // ocf class
-//class MyMeshImport : public vcg::tri::TriMesh< vcg::vertex::vector_ocf<MyVertex>, vcg::face::vector_ocf<MyFace > >{};
+class MyMeshImport : public vcg::tri::TriMesh< vcg::vertex::vector_ocf<MyVertexImport>, vcg::face::vector_ocf<MyFaceImport > >{};
 // default class
-class MyMeshImport : public vcg::tri::TriMesh< std::vector<MyVertexImport>, std::vector<MyFaceImport > >{};
+//class MyMeshImport : public vcg::tri::TriMesh< std::vector<MyVertexImport>, std::vector<MyFaceImport > >{};
 typedef  MyMeshImport::ScalarType ScalarType;
 typedef  MyMeshImport::VertexIterator VertexIterator;
 typedef  MyMeshImport::VertexPointer VertexPointer;

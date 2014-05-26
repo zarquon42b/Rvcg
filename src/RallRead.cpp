@@ -7,25 +7,24 @@
 #include <vcg/complex/algorithms/attribute_seam.h>
 #include <string.h>
 #include <Rcpp.h>  
-
 using namespace Rcpp;
 
 /// The following to helper functions are copied from filter_texture plugin of meshlab
 /////// FUNCTIONS NEEDED BY "UV WEDGE TO VERTEX" FILTER
 void ExtractVertex(const MyMeshImport & srcMesh, const MyMeshImport::FaceType & f, int whichWedge, const MyMeshImport & dstMesh, MyMeshImport::VertexType & v)
 {
-    (void)srcMesh;
-    (void)dstMesh;
-    // This is done to preserve every single perVertex property
-    // perVextex Texture Coordinate is instead obtained from perWedge one.
-    v.ImportData(*f.cV(whichWedge));
-    v.T() = f.cWT(whichWedge);
+  (void)srcMesh;
+  (void)dstMesh;
+  // This is done to preserve every single perVertex property
+  // perVextex Texture Coordinate is instead obtained from perWedge one.
+  v.ImportData(*f.cV(whichWedge));
+  v.T() = f.cWT(whichWedge);
 }
 
 bool CompareVertex(const MyMeshImport & m, const MyMeshImport::VertexType & vA, const MyMeshImport::VertexType & vB)
 {
-    (void)m;
-    return (vA.cT() == vB.cT());
+  (void)m;
+  return (vA.cT() == vB.cT());
 }
 ///////
 
@@ -36,15 +35,35 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
   bool updateNormals = as<bool>(updateNormals_);
   bool colorread = as<bool>(colorread_);
   bool clean = as<bool>(clean_);
-  MyMeshImport m;
-  int err2 = tri::io::Importer<MyMeshImport>::Open(m,filename);
+  MyMeshImport m; 
+  bool hasNormal = false, WedgeTex=false, VertTex = false;
+  int mask0 = 0; //initializie import mask
+  tri::io::Importer<MyMeshImport>::LoadMask(filename, mask0);
+  // start allocating space for availables stuff
+  if( (mask0 & tri::io::Mask::IOM_VERTCOLOR) && colorread)
+    m.vert.EnableColor();
+  if( (mask0 & tri::io::Mask::IOM_WEDGTEXCOORD && colorread)) {
+    m.face.EnableWedgeTexCoord();
+    WedgeTex = true;
+  }
+  if( (mask0 & tri::io::Mask::IOM_VERTTEXCOORD) && colorread) {
+    m.vert.EnableTexCoord();
+    VertTex = true;
+  }
+  if( (mask0 & tri::io::Mask::IOM_VERTNORMAL)) {
+    //Rprintf("norm");
+    m.vert.EnableNormal();
+    hasNormal = true;
+  }
+  tri::io::Mask::ClampMask(m, mask0);
+  int err2 = tri::io::Importer<MyMeshImport>::Open(m,filename,mask0);
   if (err2) {
     return wrap(1);
   } else { 
     if (m.fn == 0)
       updateNormals = false;
     SimpleTempData<MyMeshImport::VertContainer,int> indices(m.vert);
-   
+    
     if (clean) {
       int dup = tri::Clean<MyMeshImport>::RemoveDuplicateVertex(m);
       int dupface = tri::Clean<MyMeshImport>::RemoveDuplicateFace(m);
@@ -61,17 +80,22 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     // setup output structures
     NumericVector vb(3*m.vn);    
     std::vector<int> colvec;
-    if (colorread)
+    if (colorread && HasPerVertexColor(m)) {
       colvec.resize(3*m.vn);
-    
+    }
     IntegerVector it(3*m.fn);
     std::vector<double> normals;
-    if (updateNormals)
+    if (updateNormals || hasNormal) {
       normals.resize(3*m.vn);
+    }
     
     if (updateNormals) { // update Normals
+      if (!hasNormal)
+      m.vert.EnableNormal();
       tri::UpdateNormal<MyMeshImport>::PerVertexNormalized(m);
     }
+    if (hasNormal && !updateNormals)
+      tri::UpdateNormal<MyMeshImport>::NormalizePerVertex(m);
     // write back
     VertexIterator vi=m.vert.begin();
     for (int i=0;  i < m.vn; i++) {
@@ -79,20 +103,16 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       vb[i*3+1] = (*vi).P()[1];
       vb[i*3+2] = (*vi).P()[2];
       indices[vi] = i;
-      if (updateNormals) {
+      if (updateNormals || hasNormal) {
 	normals[i*3] = (*vi).N()[0];
 	normals[i*3+1] = (*vi).N()[1];
 	normals[i*3+2] = (*vi).N()[2];
       }
-      if (colorread) {
+      if (colorread && HasPerVertexColor(m)) {
 	colvec[i*3] = (*vi).C()[0];
 	colvec[i*3+1] = (*vi).C()[1];
 	colvec[i*3+2] = (*vi).C()[2];
       }
-      /*if (tex) {
-	texvec[i*2] = (*vi).T().U();
-	texvec[i*2+1] = (*vi).T().V();
-	}*/
       ++vi;
     }
     FacePointer fp;
@@ -112,22 +132,22 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	}
       }
     }
-     if (m.textures.size() > 0) {
-      tex = true;
-      tri::AttributeSeam::SplitVertex(m, ExtractVertex, CompareVertex);
-      texfile = m.textures;
-      texvec.resize(2*m.vn);
-      vcg::tri::Allocator< MyMeshImport >::CompactVertexVector(m);
-      vcg::tri::Allocator< MyMeshImport >::CompactFaceVector(m);
+    if (m.textures.size() > 0 && colorread) {
+      if (!VertTex && WedgeTex) {
+	m.vert.EnableTexCoord();	
+	tri::AttributeSeam::SplitVertex(m, ExtractVertex, CompareVertex);
+	texfile = m.textures;
+	texvec.resize(2*m.vn);
+      }
       for (int i=0;  i < m.vn; i++) {
 	texvec[i*2] = (*vi).T().U();
 	texvec[i*2+1] = (*vi).T().V();
       }
     }
 
-     //return wrap(vb);
+    //return wrap(vb);
     
-     return List::create(Named("vb") = vb, 
+    return List::create(Named("vb") = vb, 
 			Named("it") = it,
 			Named("normals") = normals,
 			Named("colors") = colvec,
@@ -135,4 +155,4 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 			Named("texfile") = texfile
 			);
   }
- }
+}

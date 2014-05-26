@@ -6,9 +6,9 @@
 #include "RvcgIO.h" 
 #include <Rcpp.h>  
   
-extern "C" {
+ /* extern "C" {
 
-  void RPlyRead(char **filename, double *vb ,int *dim, int *it, int *dimit, double *normals, int *getNorm, int *updNorm, double *quality,int *col, int *colvec, int *clean,int *fail)
+ void RPlyRead(char **filename, double *vb ,int *dim, int *it, int *dimit, double *normals, int *getNorm, int *updNorm, double *quality,int *col, int *colvec, int *clean,int *fail)
   {
     int i;
     MyMeshImport m;
@@ -104,7 +104,7 @@ extern "C" {
       }
   }
 }
-
+  */
 using namespace Rcpp;
 RcppExport SEXP RPlyWrite(SEXP vb_, SEXP it_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_)
 { 
@@ -123,10 +123,12 @@ RcppExport SEXP RPlyWrite(SEXP vb_, SEXP it_, SEXP binary_, SEXP addNormals_, SE
   int mask0 = 0;
   
   if (addNormals) {
+    m.vert.EnableNormal();
     tri::UpdateNormal<MyMeshImport>::PerVertexAngleWeighted(m);
     mask0 = mask0 + tri::io::Mask::IOM_VERTNORMAL;
   }
   if (hasCol) {
+    m.vert.EnableColor();
     mask0 =mask0+ tri::io::Mask::IOM_VERTCOLOR;
     if (m.vn > 0) {
       int i;
