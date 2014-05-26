@@ -13,6 +13,7 @@
 #' @export 
 vcgPlyWrite <- function(mesh,filename=dataname, binary = TRUE, ...) UseMethod("vcgPlyWrite")
 
+#' @export
 vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE, writeCol=TRUE)
 {
     hasCol <- FALSE
@@ -44,6 +45,8 @@ vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormal
     
     tmp <- .Call("RPlyWrite", vb, it , binary, addNormals, filename, colvec, hasCol)
 }
+
+#' @export
 vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, ...) {
     dataname <- deparse(substitute(mesh))
     filename <- path.expand(as.character(filename))
