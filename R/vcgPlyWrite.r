@@ -7,14 +7,17 @@
 #' @param binary logical: write binary file
 #' @param addNormals logical: compute per-vertex normals and add to file
 #' @param writeCol logical: export existing per-vertex color stored in mesh$material$color
+#' @param \dots additional arguments, currently not used.
 #' @examples
 #' data(humface)
 #' vcgPlyWrite(humface,filename = "humface")
+#' @rdname vcgPlyWrite
 #' @export 
 vcgPlyWrite <- function(mesh,filename=dataname, binary = TRUE, ...) UseMethod("vcgPlyWrite")
 
+#' @rdname vcgPlyWrite
 #' @export
-vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE, writeCol=TRUE)
+vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE, writeCol=TRUE,...)
 {
     hasCol <- FALSE
     colvec <- matrix(0)
@@ -46,6 +49,7 @@ vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormal
     tmp <- .Call("RPlyWrite", vb, it , binary, addNormals, filename, colvec, hasCol)
 }
 
+#' @rdname vcgPlyWrite
 #' @export
 vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, ...) {
     dataname <- deparse(substitute(mesh))
