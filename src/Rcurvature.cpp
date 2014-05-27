@@ -1,4 +1,4 @@
-#include "typedef.h"
+#include "typedefCurvature.h"
 #include "RvcgIO.h"
 //#include <wrap/ply/plylib.cpp>
 #include <Rcpp.h>
@@ -6,35 +6,36 @@
 //using namespace vcg;
 using namespace Rcpp;
 //using namespace std;
-  
+
+
 RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
 {
   // declare Mesh and helper variables
   int i, j;
-  MyMesh m;
+  CurveMyMesh m;
   VertexIterator vi;
   FaceIterator fi;
  
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-  m.vert.EnableQuality();
+  Rvcg::IOMesh<CurveMyMesh>::RvcgReadR(m,vb_,it_);
+  /*m.vert.EnableQuality();
   m.vert.EnableCurvatureDir();
   m.vert.EnableCurvature();
   m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();
+  m.face.EnableVFAdjacency();*/
   
-  tri::UpdateTopology<MyMesh>::FaceFace(m);
-  tri::UpdateTopology<MyMesh>::VertexFace(m);
-  tri::UpdateBounding<MyMesh>::Box(m);
-  tri::Allocator<MyMesh>::CompactVertexVector(m);
-  tri::UpdateCurvature<MyMesh>::MeanAndGaussian(m);
-  tri::UpdateQuality<MyMesh>::VertexFromRMSCurvature(m);
+  tri::UpdateTopology<CurveMyMesh>::FaceFace(m);
+  tri::UpdateTopology<CurveMyMesh>::VertexFace(m);
+  tri::UpdateBounding<CurveMyMesh>::Box(m);
+  tri::Allocator<CurveMyMesh>::CompactVertexVector(m);
+  tri::UpdateCurvature<CurveMyMesh>::MeanAndGaussian(m);
+  tri::UpdateQuality<CurveMyMesh>::VertexFromRMSCurvature(m);
    
   //Bordersearch
-  tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
-  tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
-  tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
-  tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
+  tri::UpdateFlags<CurveMyMesh>::FaceBorderFromNone(m);
+  tri::UpdateSelection<CurveMyMesh>::FaceFromBorderFlag(m);
+  tri::UpdateFlags<CurveMyMesh>::VertexBorderFromNone(m);
+  tri::UpdateSelection<CurveMyMesh>::VertexFromBorderFlag(m);
   
   std::vector<float> gaussvb, meanvb, gaussitmax, meanitmax;
   std::vector<float> RMSvb;

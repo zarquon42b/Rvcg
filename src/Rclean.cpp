@@ -1,4 +1,4 @@
-#include "typedef.h"
+#include "typedefTopo.h"
 #include "RvcgIO.h"
 #include <Rcpp.h>
 
@@ -15,68 +15,68 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
   IntegerVector select(type_);
   double tol = Rcpp::as<double>(tol_);  
   int i, rem;
-  MyMesh m;
+  TopoMyMesh m;
   VertexIterator vi;
   FaceIterator fi;
   // allocate mesh and fill it
-  Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
-  m.vert.EnableVFAdjacency();
+  Rvcg::IOMesh<TopoMyMesh>::RvcgReadR(m,vb_,it_);
+  /*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();
+  m.face.EnableVFAdjacency();*/
   bool silent = as<bool>(silent_);
   // General cleaning and update of topology
-  //tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
-  //tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
+  //tri::UpdateFlags<TopoMyMesh>::VertexBorderFromNone(m);
+  //tri::UpdateSelection<TopoMyMesh>::VertexFromBorderFlag(m);
   /*
-  tri::UpdateTopology<MyMesh>::FaceFace(m);
-  tri::UpdateTopology<MyMesh>::VertexFace(m);
-  vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
-  vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
+  tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
+  tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
+  vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
+  vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
   */
-  //tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m); 
+  //tri::UpdateFlags<TopoMyMesh>::FaceBorderFromNone(m); 
    
   // do all the cleaning
   for (int i=0; i < select.size();i++) {
     int cnt = select[i];
     if (cnt == 0) { 
-      int dupvb = tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
-      int dupit = tri::Clean<MyMesh>::RemoveDuplicateFace(m);int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+      int dupvb = tri::Clean<TopoMyMesh>::RemoveDuplicateVertex(m);
+      int dupit = tri::Clean<TopoMyMesh>::RemoveDuplicateFace(m);int unref = tri::Clean<TopoMyMesh>::RemoveUnreferencedVertex(m);
       if (!silent)
 	Rprintf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
     } else if (cnt == 1) { 
-      int unref = tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
+      int unref = tri::Clean<TopoMyMesh>::RemoveUnreferencedVertex(m);
       if (!silent)
 	Rprintf("removed %d unreferenced vertices\n",unref);
     } else if (cnt == 2) { 
-      tri::UpdateTopology<MyMesh>::FaceFace(m);
-      tri::UpdateTopology<MyMesh>::VertexFace(m);
-      vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
-      vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
-      rem = tri::Clean<MyMesh>::RemoveNonManifoldFace(m);
+      tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
+      tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
+      rem = tri::Clean<TopoMyMesh>::RemoveNonManifoldFace(m);
       if (!silent)
 	Rprintf("removed %d Non-manifold faces\n",rem);
     } else if (cnt == 3) { 
-      rem = tri::Clean<MyMesh>::RemoveDegenerateFace(m);
+      rem = tri::Clean<TopoMyMesh>::RemoveDegenerateFace(m);
       if (!silent)
 	Rprintf("removed %d degenerate faces\n",rem);
     } else if (cnt == 4) {
-      tri::UpdateTopology<MyMesh>::FaceFace(m);
-      tri::UpdateTopology<MyMesh>::VertexFace(m);
-      vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
-      vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
-      rem = tri::Clean<MyMesh>::RemoveNonManifoldVertex(m);
+      tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
+      tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
+      rem = tri::Clean<TopoMyMesh>::RemoveNonManifoldVertex(m);
       if (!silent)
 	Rprintf("removed %d Non-manifold vertices\n",rem);
     } else if (cnt == 5) { 
-      tri::UpdateTopology<MyMesh>::FaceFace(m);
-      tri::UpdateTopology<MyMesh>::VertexFace(m);
-      vcg::tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
-      vcg::tri::UpdateFlags<MyMesh>::VertexBorderFromFace(m);
-      int split =tri::Clean<MyMesh>::SplitNonManifoldVertex(m,tol);
+      tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
+      tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
+      int split =tri::Clean<TopoMyMesh>::SplitNonManifoldVertex(m,tol);
     if (!silent)
       Rprintf("split %d non-manifold vertices\n",split);
     } else if (cnt == 6) { 
-      int merge =tri::Clean<MyMesh>::MergeCloseVertex(m,tol);
+      int merge =tri::Clean<TopoMyMesh>::MergeCloseVertex(m,tol);
       if (!silent)
 	Rprintf("merged %d close vertices\n",merge);
     }
@@ -95,11 +95,11 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
     ++vi;
   }
   //write back
-  vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
-  vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
-  tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
-  tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
-  SimpleTempData<MyMesh::VertContainer,int> indiceout(m.vert);
+  vcg::tri::Allocator< TopoMyMesh >::CompactVertexVector(m);
+  vcg::tri::Allocator< TopoMyMesh >::CompactFaceVector(m);
+  tri::UpdateNormal<TopoMyMesh>::PerVertexAngleWeighted(m);
+  tri::UpdateNormal<TopoMyMesh>::NormalizePerVertex(m);
+  SimpleTempData<TopoMyMesh::VertContainer,int> indiceout(m.vert);
   Rcpp::NumericMatrix vbout(3,m.vn), normals(3,m.vn);
   Rcpp::IntegerMatrix itout(3,m.fn);
   vi=m.vert.begin();

@@ -32,7 +32,7 @@
 #' 
 #' data(humface)
 #' ##reduce faces to 50% 
-#' decimface <- vcgQEdecim(humface, percent=0.5, normcheck = TRUE)
+#' decimface <- vcgQEdecim(humface, percent=0.5)
 #' ## view
 #' \dontrun{
 #' require(rgl)

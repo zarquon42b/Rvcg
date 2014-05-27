@@ -31,9 +31,9 @@ MyMesh m;
 VertexIterator vi;
 FaceIterator fi;
 // allocate mesh and fill it
-m.vert.EnableVFAdjacency();
+/*m.vert.EnableVFAdjacency();
   m.face.EnableFFAdjacency();
-  m.face.EnableVFAdjacency();
+  m.face.EnableVFAdjacency();*/
 int i,j,k;
 
 typedef SimpleVolume<SimpleVoxel> MyVolume;

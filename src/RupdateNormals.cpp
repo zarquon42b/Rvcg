@@ -20,9 +20,6 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_)
   // allocate mesh and fill it
   int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
    Rcpp::NumericMatrix normals(3,m.vn);
-  m.vert.EnableVFAdjacency();
-    m.face.EnableFFAdjacency();
-    m.face.EnableVFAdjacency();
    if (check < 0) {
           Rprintf("%s\n","Info: mesh has no faces and/or no vertices");
 	  return wrap(1);
