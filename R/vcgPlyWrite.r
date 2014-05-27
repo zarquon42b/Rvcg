@@ -13,7 +13,7 @@
 #' vcgPlyWrite(humface,filename = "humface")
 #' @rdname vcgPlyWrite
 #' @export 
-vcgPlyWrite <- function(mesh,filename=dataname, binary = TRUE, ...) UseMethod("vcgPlyWrite")
+vcgPlyWrite <- function(mesh, filename, binary = TRUE, ...) UseMethod("vcgPlyWrite")
 
 #' @rdname vcgPlyWrite
 #' @export
