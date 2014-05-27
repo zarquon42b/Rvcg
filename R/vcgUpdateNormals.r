@@ -12,9 +12,10 @@
 #' data(humface)
 #' humface$normals <- NULL # remove normals
 #' humface <- vcgUpdateNormals(humface)
+#' \dontrun{
 #' pointcloud <- t(humface$vb[1:3,]) #get vertex coordinates
 #' pointcloud <- vcgUpdateNormals(pointcloud)
-#' \dontrun{
+#' 
 #' require(Morpho)
 #' plotNormals(pointcloud)#plot normals
 #' }
