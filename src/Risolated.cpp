@@ -3,7 +3,7 @@
 // of trimeshinfo
 // included in the vcglib sources
 // to work with R
-#include "typedefTopo.h"
+#include "typedef.h"
 #include "RvcgIO.h"
 #include <Rcpp.h>
 using namespace vcg;
@@ -14,14 +14,14 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
 {
   // declare Mesh and helper variables
   int i;
-  TopoMyMesh m;
+  MyMesh m;
   VertexIterator vi;
   FaceIterator fi;
   
-  int check = Rvcg::IOMesh<TopoMyMesh>::RvcgReadR(m,vb_,it_);
-  /*m.vert.EnableVFAdjacency();
-    m.face.EnableFFAdjacency();
-    m.face.EnableVFAdjacency();*/
+  int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
+  m.vert.EnableVFAdjacency();
+  m.face.EnableFFAdjacency();
+  m.face.EnableVFAdjacency();
   if (check != 0) {
     Rprintf("%s\n","Warning: mesh has no faces and/or no vertices, nothing done");
     return Rcpp::List::create(Rcpp::Named("vb") = vb_,
@@ -31,20 +31,20 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
   }  else {
     double diameter = Rcpp::as<double>(diam_);
     int connect = Rcpp::as<int>(facenum_); 
-    //tri::Clean<TopoMyMesh>::RemoveDuplicateVertex(m);
-    tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
-    tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
+    //tri::Clean<MyMesh>::RemoveDuplicateVertex(m);
+    tri::UpdateTopology<MyMesh>::FaceFace(m);
+    tri::UpdateTopology<MyMesh>::VertexFace(m);
     std::pair<int,int> delInfo;
-    std::vector< std::pair<int,TopoMyMesh::FacePointer> > CCV;
-    int TotalCC=tri::Clean<TopoMyMesh>::ConnectedComponents(m, CCV);
+    std::vector< std::pair<int,MyMesh::FacePointer> > CCV;
+    int TotalCC=tri::Clean<MyMesh>::ConnectedComponents(m, CCV);
     //Rprintf("%i\n",TotalCC);
     std::vector<float> chunks;
     std::vector<int> chunkface;
-    //int CCm = tri::Clean<TopoMyMesh>::ConnectedComponents(m);
-    tri::ConnectedComponentIterator<TopoMyMesh> ci;
+    //int CCm = tri::Clean<MyMesh>::ConnectedComponents(m);
+    tri::ConnectedComponentIterator<MyMesh> ci;
     for(unsigned int i1=0;i1<CCV.size();++i1) {
       Box3f bb;
-      std::vector<TopoMyMesh::FacePointer> FPV;
+      std::vector<MyMesh::FacePointer> FPV;
       for(ci.start(m,CCV[i1].second);!ci.completed();++ci) {
 	FPV.push_back(*ci);
 	bb.Add((*ci)->P(0));
@@ -60,15 +60,15 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
       diameter = *std::max_element(chunks.begin(),chunks.end());
   
     if (connect < 0) {
-      delInfo= tri::Clean<TopoMyMesh>::RemoveSmallConnectedComponentsDiameter(m,diameter);
+      delInfo= tri::Clean<MyMesh>::RemoveSmallConnectedComponentsDiameter(m,diameter);
     } else {
       if (connect == 0)
 	connect = *std::max_element(chunkface.begin(),chunkface.end());
-      delInfo = tri::Clean<TopoMyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
+      delInfo = tri::Clean<MyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
     }
       
     Rprintf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
-    tri::Clean<TopoMyMesh>::RemoveUnreferencedVertex(m);
+    tri::Clean<MyMesh>::RemoveUnreferencedVertex(m);
     // get a vector of which vertices were removed
     std::vector<int> remvert(m.vert.size());
     std::fill(remvert.begin(), remvert.end(),0);
@@ -79,13 +79,17 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_)
       }
       ++vi;
   }
-
-    vcg::tri::Allocator< TopoMyMesh >::CompactVertexVector(m);
-    vcg::tri::Allocator< TopoMyMesh >::CompactFaceVector(m);
+    m.vert.DisableVFAdjacency();
+    m.face.DisableFFAdjacency();
+    m.face.DisableVFAdjacency();
   
-    tri::UpdateNormal<TopoMyMesh>::PerVertexAngleWeighted(m);
-    tri::UpdateNormal<TopoMyMesh>::NormalizePerVertex(m);
-    SimpleTempData<TopoMyMesh::VertContainer,int> indices(m.vert);
+
+    vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
+    vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
+  
+    tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
+    tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
+    SimpleTempData<MyMesh::VertContainer,int> indices(m.vert);
     Rcpp::NumericMatrix vb(3, m.vn), normals(3, m.vn);
     Rcpp::IntegerMatrix itout(3, m.fn);
     vi=m.vert.begin();
