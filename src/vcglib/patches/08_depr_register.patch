@@ -1,0 +1,13 @@
+Index: vcglib/vcg/space/index/kdtree/priorityqueue.h
+===================================================================
+--- vcglib.orig/vcg/space/index/kdtree/priorityqueue.h	2014-01-15 09:45:07.000000000 +0100
++++ vcglib/vcg/space/index/kdtree/priorityqueue.h	2014-06-05 09:07:54.873484077 +0200
+@@ -74,7 +74,7 @@
+ 		{
+ 			if (weight<mElements[0].weight)
+ 			{
+-				register int j, k;
++				int j, k;
+ 				j = 1;
+ 				k = 2;
+ 				while (k <= mMaxSize)

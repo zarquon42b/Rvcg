@@ -6,3 +6,4 @@
 05_stdisnan.patch
 06_stl_unused_var.patch
 07_cout.patch
+08_depr_register.patch
