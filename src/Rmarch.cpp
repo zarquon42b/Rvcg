@@ -24,8 +24,8 @@ using namespace Rcpp;
 
 RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_) {
   IntegerVector vecArray(array_);
-  int lower = as<double>(lower_);
-  int upper = as<double>(upper_);
+  double lower = as<double>(lower_);
+  double upper = as<double>(upper_);
   
   IntegerVector arrayDims = vecArray.attr("dim");
   //icube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
