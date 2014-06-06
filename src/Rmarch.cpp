@@ -1,4 +1,6 @@
 #include "typedef.h"
+#include "Volume.h"
+
 //#include "RvcgIO.h"
 #include <Rcpp.h>
 //#include <RcppArmadillo.h>
@@ -36,7 +38,7 @@ FaceIterator fi;
   m.face.EnableVFAdjacency();*/
 int i,j,k;
 
-typedef SimpleVolume<SimpleVoxel> MyVolume;
+typedef MySimpleVolume<MySimpleVoxel> MyVolume;
 MyVolume	volume;
 typedef vcg::tri::TrivialWalker<MyMesh,MyVolume>	MyWalker;
 typedef vcg::tri::MarchingCubes<MyMesh, MyWalker>	MyMarchingCubes;
