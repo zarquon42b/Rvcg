@@ -248,7 +248,7 @@ namespace vcg
             TRIMESH_TYPE	*_mesh;
             /*!
             */
-            bool	_initialized;
+            bool	_initialized;;
             /*!
             */
             bool	_finalized;
@@ -464,6 +464,6 @@ namespace vcg
         // end of Doxygen documentation
 
     } // end of namespace tri
-} // end of namespace vcg
+}; // end of namespace vcg
 
 #endif // __VCG_EXTENDED_MARCHING_CUBES

@@ -1,0 +1,24 @@
+--- vcg/space/index/grid_util.h	2014-05-20 20:34:49.320480000 +0200
++++ vcg/space/index/grid_util.h	2014-05-20 20:37:33.789295556 +0200
+@@ -68,12 +68,18 @@
+ #include<vcg/space/index/base.h>
+ #include<vcg/space/box3.h>
+ #include <vcg/space/index/space_iterators.h>
++#include <config.h>
+ 
+-
+-#ifndef WIN32
++//#ifndef WIN32
++#ifdef HAVE_INTTYPES
++#include <inttypes.h>
++#define __int64 int64_t
++//#define __cdecl 
++#else
+ #define __int64 long long
+-#define __cdecl 
++//#define __cdecl 
+ #endif
++//#endif
+ 
+ namespace vcg {
+ 

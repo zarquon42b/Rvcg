@@ -90,6 +90,6 @@ struct _Edge  : public  Edge<_UsedTypes>{};
 struct _Face  : public  Face<_UsedTypes>{};
 struct _HEdge : public  HEdge<_UsedTypes>{};
 
-}
+};
 
 #endif // USED_TYPES_H
