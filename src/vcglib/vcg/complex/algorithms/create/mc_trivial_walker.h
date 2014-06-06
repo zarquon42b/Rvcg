@@ -90,7 +90,7 @@ public:
     else v->P().Y() = (float) p1.Y();
     if(AxisVal==ZAxis) v->P().Z() = (float) p1.Z()*(1-u) + u*p2.Z();
     else v->P().Z() = (float) p1.Z();
-    //this->IPfToPf(v->P(),v->P());
+    this->IPfToPf(v->P(),v->P());
     if(VoxelType::HasNormal()) v->N() = V(p1).N()*(1-u) + V(p2).N()*u;
   }
 
