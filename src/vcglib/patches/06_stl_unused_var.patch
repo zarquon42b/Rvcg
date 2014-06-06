@@ -1,7 +1,7 @@
 Index: vcglib/wrap/io_trimesh/import_stl.h
 ===================================================================
---- vcglib.orig/wrap/io_trimesh/import_stl.h	2014-05-21 08:52:25.091013752 +0200
-+++ vcglib/wrap/io_trimesh/import_stl.h	2014-05-21 08:53:14.355258040 +0200
+--- vcglib.orig/wrap/io_trimesh/import_stl.h	2014-06-06 09:08:35.353779952 +0200
++++ vcglib/wrap/io_trimesh/import_stl.h	2014-06-06 09:08:35.349779932 +0200
 @@ -102,7 +102,8 @@
      return false;
     FILE *fp = fopen(filename, "rb");

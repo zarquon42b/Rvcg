@@ -1,8 +1,8 @@
 Index: vcglib/vcg/space/index/grid_util.h
 ===================================================================
---- vcglib.orig/vcg/space/index/grid_util.h	2014-05-20 20:34:49.320480000 +0200
-+++ vcglib/vcg/space/index/grid_util.h	2014-05-20 20:37:33.789295556 +0200
-@@ -68,12 +68,18 @@
+--- vcglib.orig/vcg/space/index/grid_util.h	2014-06-06 08:57:52.134590400 +0200
++++ vcglib/vcg/space/index/grid_util.h	2014-06-06 08:59:32.471087942 +0200
+@@ -27,11 +27,16 @@
  #include<vcg/space/index/base.h>
  #include<vcg/space/box3.h>
  #include <vcg/space/index/space_iterators.h>
@@ -17,10 +17,8 @@ Index: vcglib/vcg/space/index/grid_util.h
 +//#define __cdecl 
 +#else
  #define __int64 long long
--#define __cdecl 
-+//#define __cdecl 
+-#define __cdecl
++//#define __cdecl
  #endif
-+//#endif
  
  namespace vcg {
- 

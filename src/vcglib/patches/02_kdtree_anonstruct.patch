@@ -1,34 +1,25 @@
 Index: vcglib/vcg/space/index/kdtree/kdtree.h
 ===================================================================
---- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2014-05-20 20:23:34.541133951 +0200
-+++ vcglib/vcg/space/index/kdtree/kdtree.h	2014-05-20 20:31:32.215502595 +0200
-@@ -54,20 +54,20 @@
- 
- 	struct Node
- 	{
--		union {
-+	  union {
-                         //standard node
- 			struct {
- 				Scalar splitValue;
- 				unsigned int firstChildId:24;
- 				unsigned int dim:2;
- 				unsigned int leaf:1;
--			};
-+		  } mynode;
+--- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2014-06-06 10:41:55.929551707 +0200
++++ vcglib/vcg/space/index/kdtree/kdtree.h	2014-06-06 10:47:04.715082892 +0200
+@@ -70,13 +70,13 @@
+                 unsigned int firstChildId:24;
+                 unsigned int dim:2;
+                 unsigned int leaf:1;
+-            };
++            }mynode;
                          //leaf
--			struct {
-+		  struct {
- 				unsigned int start;
- 				unsigned short size;
--			};
+             struct {
+                 unsigned int start;
+                 unsigned short size;
+-            };
 -                };
-+			  	} myleaf;
-+	  } NodeU;
- 	};
- 	typedef std::vector<Node> NodeList;
++            }myleaf;
++                }NodeU;
+     };
+     typedef std::vector<Node> NodeList;
  
-@@ -136,7 +136,7 @@
+@@ -145,7 +145,7 @@
  
          //first node inserted (no leaf). The others are made by the createTree function (recursively)
          mNodes.resize(1);
@@ -37,7 +28,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
          createTree(0, 0, mPoints.size(), 1, nofPointsPerCell, maxDepth);
  }
  
-@@ -191,34 +191,34 @@
+@@ -200,34 +200,34 @@
                  if (qnode.sq < mNeighborQueue.getTopWeight())
                  {
                          //when we arrive to a lef
@@ -48,15 +39,15 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
  
                                  //end is the index of the last element of the leaf in mPoints
 -                                unsigned int end = node.start+node.size;
-+                                unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
++                                 unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
                                  //adding the element of the leaf to the heap
 -                                for (unsigned int i=node.start ; i<end ; ++i)
-+                                for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
++                                 for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
                                                  mNeighborQueue.insert(i, vcg::SquaredNorm(queryPoint - mPoints[i]));
                          }
                          //otherwise, if we're not on a leaf
                          else
-                         {   
+                         {
                                  // the new offset is the distance between the searched point and the actual split coordinate
 -                                float new_off = queryPoint[node.dim] - node.splitValue;
 +                                float new_off = queryPoint[node.NodeU.mynode.dim] - node.NodeU.mynode.splitValue;
@@ -80,7 +71,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
                                  }
                                  //distance is inherited from the father (while descending the tree it's equal to 0)
                                  mNodeStack[count].sq = qnode.sq;
-@@ -293,47 +293,47 @@
+@@ -302,47 +302,47 @@
  
          //the split "dim" is the dimension of the box with the biggest value
          unsigned int dim = vcg::MaxCoeffId(diag);

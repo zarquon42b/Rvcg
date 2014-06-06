@@ -2,8 +2,8 @@
 01_hash_map.patch
 02_kdtree_anonstruct.patch
 03_longlong.patch
-04_semicolon.patch
 05_stdisnan.patch
 06_stl_unused_var.patch
 07_cout.patch
 08_depr_register.patch
+09_marching_cubes_fix.patch

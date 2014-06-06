@@ -1,7 +1,7 @@
 Index: vcglib/vcg/space/index/kdtree/priorityqueue.h
 ===================================================================
---- vcglib.orig/vcg/space/index/kdtree/priorityqueue.h	2014-01-15 09:45:07.000000000 +0100
-+++ vcglib/vcg/space/index/kdtree/priorityqueue.h	2014-06-05 09:07:54.873484077 +0200
+--- vcglib.orig/vcg/space/index/kdtree/priorityqueue.h	2014-06-06 09:09:02.313913640 +0200
++++ vcglib/vcg/space/index/kdtree/priorityqueue.h	2014-06-06 09:09:02.309913620 +0200
 @@ -74,7 +74,7 @@
  		{
  			if (weight<mElements[0].weight)

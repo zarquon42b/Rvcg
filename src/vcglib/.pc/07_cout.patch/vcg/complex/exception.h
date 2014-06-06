@@ -38,6 +38,7 @@ public:
       return buf;
     }
 };
+
 class MissingCompactnessException : public std::runtime_error
 {
 public:
@@ -48,6 +49,36 @@ public:
     virtual const char *what() const throw ()
     {
       static char buf[128]="Lack of Compactness";
+      return buf;
+    }
+};
+
+class MissingTriangularRequirementException : public std::runtime_error
+{
+public:
+  MissingTriangularRequirementException(const std::string &err):std::runtime_error(err)
+  {
+    std::cout << "Mesh has to be composed by triangle and not polygons -" << err << "- \n";
+  }
+
+    virtual const char *what() const throw ()
+    {
+      static char buf[128]="Mesh has to be composed by triangle and not polygons";
+      return buf;
+    }
+};
+
+class MissingPolygonalRequirementException : public std::runtime_error
+{
+public:
+  MissingPolygonalRequirementException(const std::string &err):std::runtime_error(err)
+  {
+    std::cout << "Mesh has to be composed by polygonal faces (not plain triangles) -" << err << "- \n";
+  }
+
+    virtual const char *what() const throw ()
+    {
+      static char buf[128]="Mesh has to be composed by polygonal faces (not plain triangles) ";
       return buf;
     }
 };

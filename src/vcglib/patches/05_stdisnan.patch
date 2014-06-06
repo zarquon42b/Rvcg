@@ -1,7 +1,7 @@
 Index: vcglib/vcg/math/base.h
 ===================================================================
---- vcglib.orig/vcg/math/base.h	2014-05-21 08:51:32.474752842 +0200
-+++ vcglib/vcg/math/base.h	2014-05-21 08:51:32.470752822 +0200
+--- vcglib.orig/vcg/math/base.h	2014-06-06 09:08:03.705623017 +0200
++++ vcglib/vcg/math/base.h	2014-06-06 09:08:03.701622997 +0200
 @@ -92,6 +92,7 @@
  #include <limits>
  #include <algorithm>
