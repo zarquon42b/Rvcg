@@ -26,6 +26,7 @@
 #' @export 
 
 vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE) {
+     
     ncfile <- nchar(file)
     ext <- substr(file,ncfile-2,ncfile)
     file <- path.expand(file)
@@ -34,6 +35,12 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
         stop("only one file at a time please")
     if (! file.exists(x))
         stop(paste0("file ", file," does not exist"))
+    ## get file and folder names and cd to target directory
+    wdold <- getwd()
+    folder <- dirname(file)
+    file <- basename(file)
+    setwd(folder)
+    
     updateNormals <- as.logical(updateNormals)
     readcolor <- as.logical(readcolor)
     clean <- as.logical(clean)
@@ -42,6 +49,8 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
     tmp <- .Call("RallRead", file, updateNormals, readcolor, clean)
     if (!is.list(tmp))
         stop("mesh is not readable")
+    ## go back to current wd
+    setwd(wdold)
     out <- list()
     class(out) <- "mesh3d"
     
