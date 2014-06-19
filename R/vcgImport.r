@@ -74,7 +74,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
             if (length(tmp$texfile)) {
                 if (length(grep(".jpg",ignore.case = T,tmp$texfile))) {
                     message("please convert texture images to png format")
-                    tmp$texfile <- gsub("jpg","png",tmp$texfile)
+                    tmp$texfile <- paste0(folder,"/",gsub("jpg","png",tmp$texfile))
                 }
                 if (length(tmp$texfile) > 1)
                     message("only single texture files supported, only first one stored")
@@ -83,10 +83,6 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
                 if (ncol(out$texcoords) > ncol(out$vb))
                     out$texcoords <- out$texcoords[,1:ncol(out$vb)]
             }
-          #colrange <- range(out$material$color)
-       #   if (colrange[1] == colrange[2])
-        #      out$material$color <- NULL
-          
-        }
+    }
     return(out)
 }
