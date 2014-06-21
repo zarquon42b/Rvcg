@@ -9,8 +9,8 @@ using namespace Rcpp;
 
 typedef UpdateTopology<MyMesh>::PEdge SimpleEdge;
   
-RcppExport SEXP Rmeshres(SEXP vb_ , SEXP it_)
-  {
+RcppExport SEXP Rmeshres(SEXP vb_ , SEXP it_) {
+  try {
     // declare Mesh and helper variables
     int i;
     MyMesh m;
@@ -44,6 +44,9 @@ RcppExport SEXP Rmeshres(SEXP vb_ , SEXP it_)
     return Rcpp::List::create(Rcpp::Named("res") = res,
 			      Rcpp::Named("edgelength") = edgelength
 			      );
-    //return(wrap(res));
+  } catch (std::exception& e) {
+    ::Rf_error( e.what());
+    return wrap(1);
   }
+}
 

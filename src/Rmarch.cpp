@@ -23,6 +23,7 @@ using namespace Rcpp;
 //#include "Voxel.h"
 
 RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_) {
+  try {
   IntegerVector vecArray(array_);
   double lower = as<double>(lower_);
   double upper = as<double>(upper_);
@@ -100,6 +101,11 @@ Rprintf("%d\n",m.vn);
 			    Rcpp::Named("it") = itout,
 			    Rcpp::Named("normals") = normals
 			      );
+  } catch (std::exception& e) {
+    ::Rf_error( e.what());
+    return wrap(1);
+  }
+
 }
  
 

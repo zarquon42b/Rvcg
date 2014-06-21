@@ -10,6 +10,7 @@ using namespace Rcpp;
 
 RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
 {
+  try {
   // declare Mesh and helper variables
   //int select = Rcpp::as<int>(type_);  
   IntegerVector select(type_);
@@ -130,6 +131,11 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
 			    Rcpp::Named("normals") = normals,
 			    Rcpp::Named("remvert") = remvert
 			    );
+  } catch (std::exception& e) {
+    ::Rf_error( e.what());
+
+  return wrap(1);
+  }
 }
  
 

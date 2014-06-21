@@ -7,7 +7,8 @@ using namespace tri;
 using namespace Rcpp;
 
 RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_) {
-  int k = as<int>(k_);
+  try {
+int k = as<int>(k_);
   typedef pair<float,int> mypair;
   PcMesh target, query;
   Rvcg::IOMesh<PcMesh>::RvcgReadR(target, vb0_);  
@@ -15,6 +16,11 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_) {
  
   List out = Rvcg::KDtree< PcMesh, PcMesh >::KDtreeIO(target, query, k);
   return out;
+  } catch (std::exception& e) {
+    ::Rf_error( e.what());
+
+  return wrap(1);
+  }
   
   }
 RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_, SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64)) {
