@@ -20,14 +20,9 @@ vcgBary <- function(mesh) {
     
     if (!inherits(mesh,"mesh3d"))
         stop("argument 'mesh' needs to be object of class 'mesh3d'")
+    mesh <- meshintegrity(mesh,facecheck = TRUE)
     vb <- mesh$vb[1:3,,drop=FALSE]
     it <- (mesh$it-1)
-    storage.mode(it) <- "integer"
-    if (!is.matrix(vb) || !is.numeric(vb))
-        stop("mesh has no vertices")
-    if (!is.matrix(it)|| !is.numeric(it))
-        stop("mesh has no faces")
-
     out <- .Call("Rbarycenter",vb,it)
     return(t(out))
 }

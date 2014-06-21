@@ -2,6 +2,7 @@
 
 S3method(vcgPlyWrite,matrix)
 S3method(vcgPlyWrite,mesh3d)
+export(meshintegrity)
 export(setRays)
 export(vcgBary)
 export(vcgBorder)

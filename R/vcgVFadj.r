@@ -8,12 +8,9 @@
 #' 
 vcgVFadj <- function(mesh) {
     it <- mesh$it-1
+    mesh <- meshintegrity(mesh,facecheck=TRUE)
     storage.mode(it) <- "integer"
     vb <- mesh$vb
-    if (!is.matrix(vb))
-        stop("mesh has no vertices")
-    if (!is.matrix(it))
-        stop("mesh has no faces")
     out <- .Call("RVFadj",vb,it)
     
     return(out)

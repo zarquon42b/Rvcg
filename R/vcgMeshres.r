@@ -23,12 +23,9 @@ vcgMeshres <- function(mesh)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
+        mesh <- meshintegrity(mesh,facecheck=TRUE)
         vb <- mesh$vb[1:3,,drop=FALSE]
         it <- mesh$it-1
-        if (!is.matrix(vb))
-            stop("mesh has no vertices")
-        if (!is.matrix(it))
-            stop("mesh has no faces")
         tmp <- .Call("Rmeshres",vb,it)
         return(tmp)
     }

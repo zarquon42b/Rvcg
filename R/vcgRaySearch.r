@@ -33,19 +33,15 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
 {
   if (!inherits(mesh,"mesh3d") || !inherits(x,"mesh3d"))
             stop("arguments 'x' and 'mesh' needs to be object of class 'mesh3d'")
+  mesh <- meshintegrity(mesh,facecheck=TRUE)
+  x <- meshintegrity(x,normcheck=TRUE)
+
   vb <- mesh$vb[1:3,,drop=FALSE]
   it <- mesh$it - 1
   dimit <- dim(it)[2]
   dimvb <- dim(vb)[2]
   storage.mode(it) <- "integer"
-  if (!is.matrix(x$vb))
-      stop("x has no coordinates)")
-  if (!is.matrix(x$normals))
-      stop("x is lacking rays (stored as normals)")
-  if (!is.matrix(vb))
-      stop("mesh has no vertices")
-  if (!is.matrix(it))
-      stop("mesh has no faces")
+  
   clost <- x$vb[1:3,,drop=FALSE]
   normals <- x$normals[1:3,,drop=FALSE]
   clostDim <- ncol(clost)
@@ -57,7 +53,7 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
   x$normals <- rbind(tmp$normals,1)
   x$quality <- tmp$hitbool
   x$distance <- tmp$dis
-  return(x)
+  return(meshintegrity(x))
 }
 
 

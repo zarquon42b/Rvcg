@@ -33,12 +33,10 @@
 vcgClean <- function(mesh, sel = 0,tol=0,silent=FALSE) {
     if (!inherits(mesh,"mesh3d"))
         stop("argument 'mesh' needs to be object of class 'mesh3d'")
+    mesh <- meshintegrity(mesh)
     vb <- mesh$vb[1:3,,drop=FALSE]
     it <- mesh$it - 1
-    if (!is.matrix(vb))
-        stop("mesh has no vertices")
-    if (length(tol) != 1)
-        stop("tol has to be a single numeric value")
+    tol <- tol[1]
     dimit <- dim(it)[2]
     dimvb <- dim(vb)[2]
     sel <- as.vector(sel)
@@ -72,6 +70,6 @@ vcgClean <- function(mesh, sel = 0,tol=0,silent=FALSE) {
         }
     }
     
-    return(tmp)
+    return(meshintegrity(tmp))
     
 }

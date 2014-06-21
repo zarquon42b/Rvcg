@@ -36,14 +36,12 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             type <- 3
         }
         if (type %in% 1:2) {
-            
+            mesh <- meshintegrity(mesh)
             vb <- mesh$vb[1:3,,drop=FALSE]
             it <- mesh$it - 1
-            if (!is.matrix(vb))
-                 stop("mesh has no vertices")
+            storage.mode(it) <- "integer"
             dimit <- dim(it)[2]
             dimvb <- dim(vb)[2]
-            storage.mode(it) <- "integer"
             type <- as.integer(type)
             SampleNum <- as.integer(SampleNum)
             MCsamp <- as.integer(MCsamp)

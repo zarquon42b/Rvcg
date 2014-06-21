@@ -26,24 +26,17 @@ vcgBorder <- function(mesh)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
-        
+
+        mesh <- meshintegrity(mesh,facecheck=TRUE)
         vb <- mesh$vb[1:3,,drop=FALSE]
         it <- mesh$it - 1
-        if (!is.matrix(vb))
-            stop("mesh has no vertices")
-        if (!is.matrix(it))
-            stop("mesh has no faces")
-        
         dimit <- dim(it)[2]
         dimvb <- dim(vb)[2]
-        storage.mode(it) <- "integer"
-
-        
         bordervb <- rep(0,dimvb)
         borderit <- rep(0,dimit)
         storage.mode(bordervb) <- "integer"
         storage.mode(borderit) <- "integer"
-        
+        storage.mode(it) <- "integer"
         tmp <- .C("Rborder",vb,ncol(vb),it,ncol(it),bordervb,borderit)
         
         invisible(list(bordervb=as.logical(tmp[[5]]),borderit=as.logical(tmp[[6]])))

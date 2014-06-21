@@ -44,17 +44,14 @@ vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE,
         stop("x must be a mesh or a matrix")
     if (!inherits(mesh,"mesh3d"))
         stop("argument 'mesh' needs to be object of class 'mesh3d'")
+    mesh <- meshintegrity(mesh,facecheck=TRUE)
     vb <- mesh$vb[1:3,,drop=FALSE]
     it <- (mesh$it-1)
     storage.mode(it) <- "integer"
-    if (!is.matrix(vb))
-        stop("mesh has no vertices")
-    if (!is.matrix(it))
-        stop("mesh has no faces")
-
+    
     nofPoints <- as.integer(nofPoints)
     maxDepth <- as.integer(maxDepth)
-    tmp <- .Call("RclosestKD", vb , it, io, as.integer(k),as.logical(sign), as.logical(smoothNormals),as.logical(barycentric),as.logical(borderchk), nofPoints,maxDepth)
+    tmp <- .Call("RclosestKD", vb , it, io, as.integer(k[1]),as.logical(sign[1]), as.logical(smoothNormals[1]),as.logical(barycentric[1]),as.logical(borderchk[1]), nofPoints[1],maxDepth[1])
     x$vb <- rbind(tmp$iomat,1)
     x$normals <- rbind(tmp$normals, 1)
     x$faceptr <- tmp$faceptr+1
