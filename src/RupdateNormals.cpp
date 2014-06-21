@@ -60,6 +60,8 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_)
   } catch (std::exception& e) {
     ::Rf_error( e.what());
     return wrap(1);
+  } catch (...) {
+    ::Rf_error("unknown exception");
   }
   
 }

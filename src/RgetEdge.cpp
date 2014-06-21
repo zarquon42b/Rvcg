@@ -80,8 +80,9 @@ RcppExport  SEXP RgetEdge(SEXP vb_, SEXP it_, SEXP unique_)
 			      );
   } catch (std::exception& e) {
     ::Rf_error( e.what());
-
     return wrap(1);
+  } catch (...) {
+    ::Rf_error("unknown exception");
   }
 }
     

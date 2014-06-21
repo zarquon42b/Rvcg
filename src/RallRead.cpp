@@ -157,5 +157,8 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
   } catch (std::exception& e) {
     ::Rf_error( e.what());
     return wrap(1);
+  } catch (...) {
+    ::Rf_error("unknown exception");
   }
+
 }

@@ -133,8 +133,9 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
 			    );
   } catch (std::exception& e) {
     ::Rf_error( e.what());
-
-  return wrap(1);
+    return wrap(1);
+  } catch (...) {
+    ::Rf_error("unknown exception");
   }
 }
  

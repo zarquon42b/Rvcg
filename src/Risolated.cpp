@@ -120,6 +120,8 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_) {
   } catch (std::exception& e) {
     ::Rf_error( e.what());
     return wrap(1);
+  } catch (...) {
+    ::Rf_error("unknown exception");
   }
 }
 

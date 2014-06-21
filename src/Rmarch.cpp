@@ -101,9 +101,11 @@ Rprintf("%d\n",m.vn);
 			    Rcpp::Named("it") = itout,
 			    Rcpp::Named("normals") = normals
 			      );
-  } catch (std::exception& e) {
+ } catch (std::exception& e) {
     ::Rf_error( e.what());
     return wrap(1);
+  } catch (...) {
+    ::Rf_error("unknown exception");
   }
 
 }
