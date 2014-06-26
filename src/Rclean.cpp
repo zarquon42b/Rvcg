@@ -80,6 +80,15 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
       int merge =tri::Clean<TopoMyMesh>::MergeCloseVertex(m,tol);
       if (!silent)
 	Rprintf("merged %d close vertices\n",merge);
+    
+    } else if (cnt == 7) { 
+      tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
+      tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
+      bool a = false;
+      bool b = false;
+      tri::Clean<TopoMyMesh>::OrientCoherentlyMesh(m, a ,b);
+      //if (!silent)
+	//Rprintf("merged %d close vertices\n",merge);
     }
   }
     
