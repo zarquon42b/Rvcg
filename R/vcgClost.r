@@ -50,7 +50,7 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, bo
         dimvb <- dim(vb)[2]
         
         if (is.matrix(x)) {
-            clost <- t(x[1:3,])
+            clost <- t(x[,1:3])
             x <- list()
             x$vb <- clost
             class(x) <- "mesh3d"
