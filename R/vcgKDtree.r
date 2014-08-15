@@ -11,6 +11,11 @@
 #' 
 #' @export
 vcgKDtree <- function(target, query,k) {
+    m <- ncol(target)
+    if (m == 2) {
+        target <- cbind(target,0)
+        query <- cbind(query,0)
+    }
 
     if (inherits(target,"mesh3d"))
         target <- t(target$vb[1:3,])
