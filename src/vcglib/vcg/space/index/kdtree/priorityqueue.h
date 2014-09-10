@@ -111,6 +111,10 @@ public:
 		}
 	}
 
+  ~HeapMaxPriorityQueue() {
+    delete[] mElements;
+  }
+
 protected:
 
 	int mCount;
