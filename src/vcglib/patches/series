@@ -6,3 +6,4 @@
 06_stl_unused_var.patch
 07_cout.patch
 08_depr_register.patch
+09_memleak_priorqueue_kd.patch
