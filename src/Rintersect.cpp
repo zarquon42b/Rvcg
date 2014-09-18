@@ -26,12 +26,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
     float t, t1;
     int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     if (check != 0) {
-      Rprintf("%s\n","Warning: mesh has no faces or no vertices, nothing done");
-      return Rcpp::List::create(Rcpp::Named("vb") = 0,
-				Rcpp::Named("normals") = 0,
-				Rcpp::Named("hitbool") = 0,
-				Rcpp::Named("dis") = 0
-				);
+      ::Rf_error("mesh has no faces or no vertices, nothing done");
     }  else {
       //Allocate target
       typedef MyMesh::VertexPointer VertexPointer;

@@ -3,7 +3,7 @@
 \alias{vcgIsolated}
 \title{Remove isolated pieces from a surface mesh.}
 \usage{
-vcgIsolated(mesh, facenum = NULL, diameter = NULL)
+vcgIsolated(mesh, facenum = NULL, diameter = NULL, silent = FALSE)
 }
 \arguments{
 \item{mesh}{triangular mesh of class "mesh3d".}
@@ -14,6 +14,8 @@ with the most faces is kept.}
 
 \item{diameter}{numeric: all connected pieces smaller diameter are removed
 removed. \code{diameter = 0} removes all component but the largest ones. This option overrides the option \code{facenum}.}
+
+\item{silent}{logical, if TRUE no console output is issued.}
 }
 \value{
 returns the reduced mesh.

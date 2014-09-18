@@ -9,6 +9,7 @@
 #' vertex normals will be (re)calculated. Otherwise, normals will be a matrix containing zeros.
 #' @param readcolor if TRUE, vertex colors and texture (face and vertex) coordinates will be processed - if available, otherwise all vertices will be colored white.
 #' @param clean if TRUE, duplicated and unreferenced vertices as well as duplicate faces are removed (be careful when importing point clouds).
+#' @param silent logical, if TRUE no console output is issued.
 #' @note currently only meshes with either color or texture can be processed. If both are present, the function will mark the mesh as non-readable.
 #' @return Object of class "mesh3d"
 #' 
@@ -25,7 +26,7 @@
 #' @keywords ~kwd1 ~kwd2
 #' @export 
 
-vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE) {
+vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,silent=FALSE) {
      
     ncfile <- nchar(file)
     ext <- substr(file,ncfile-2,ncfile)
@@ -46,7 +47,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE)
     clean <- as.logical(clean)
 
 
-    tmp <- .Call("RallRead", file, updateNormals, readcolor, clean)
+    tmp <- .Call("RallRead", file, updateNormals, readcolor, clean, silent)
     if (!is.list(tmp))
         stop("mesh is not readable")
     ## go back to current wd

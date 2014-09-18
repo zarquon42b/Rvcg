@@ -23,6 +23,7 @@
 #' @param qthresh numeric: Quality threshold for decimation process.
 #' @param boundweight numeric: Weight assigned to mesh boundaries.
 #' @param normalthr numeric: threshold for normal check in radians.
+#' @param silent logical, if TRUE no console output is issued.
 #' @return Returns a reduced mesh of class mesh3d.
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgSmooth}}
@@ -42,7 +43,7 @@
 #' decimface <- vcgSmooth(decimface,iteration = 1)
 #' } 
 #' @export vcgQEdecim
-vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, safeheap =FALSE, qthresh=0.3, boundweight = 1, normalthr = pi/2)
+vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, safeheap =FALSE, qthresh=0.3, boundweight = 1, normalthr = pi/2,silent=FALSE)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
@@ -77,7 +78,7 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALS
         doubleparams <- c(qthresh, boundweight, normalthr)
         storage.mode(doubleparams) <- "double"
 ###tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb,as.integer(topo),as.integer(quality),as.integer(bound))
-        tmp <- .Call("RQEdecim", vb, it, tarface, boolparams, doubleparams)
+        tmp <- .Call("RQEdecim", vb, it, tarface, boolparams, doubleparams,silent)
         outmesh$vb <- rbind(tmp$vb,1)
         
         outmesh$it <- tmp$it

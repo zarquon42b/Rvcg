@@ -6,7 +6,7 @@
 vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL,
   topo = FALSE, quality = TRUE, bound = FALSE, optiplace = TRUE,
   scaleindi = TRUE, normcheck = FALSE, safeheap = FALSE, qthresh = 0.3,
-  boundweight = 1, normalthr = pi/2)
+  boundweight = 1, normalthr = pi/2, silent = FALSE)
 }
 \arguments{
 \item{mesh}{Triangular mesh of class "mesh3d"}
@@ -39,6 +39,8 @@ long by dividing the triangle into 4 regular smaller triangles.}
 \item{boundweight}{numeric: Weight assigned to mesh boundaries.}
 
 \item{normalthr}{numeric: threshold for normal check in radians.}
+
+\item{silent}{logical, if TRUE no console output is issued.}
 }
 \value{
 Returns a reduced mesh of class mesh3d.

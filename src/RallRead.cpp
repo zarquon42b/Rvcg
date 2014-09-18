@@ -28,7 +28,7 @@ bool CompareVertex(const MyMeshImport & m, const MyMeshImport::VertexType & vA, 
 }
 ///////
 
-RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, SEXP clean_) 
+RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, SEXP clean_,SEXP silent_) 
 {
   try {
     std::string str = Rcpp::as<std::string>(filename_);
@@ -36,6 +36,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     bool updateNormals = as<bool>(updateNormals_);
     bool colorread = as<bool>(colorread_);
     bool clean = as<bool>(clean_);
+    bool silent = as<bool>(silent_);
     MyMeshImport m; 
     bool hasNormal = false, WedgeTex=false, VertTex = false;
     int mask0 = 0; //initializie import mask
@@ -71,7 +72,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	int unref =  tri::Clean<MyMeshImport>::RemoveUnreferencedVertex(m);
 	vcg::tri::Allocator< MyMeshImport >::CompactVertexVector(m);
 	vcg::tri::Allocator< MyMeshImport >::CompactFaceVector(m);
-	if (dup > 0 || unref > 0 || dupface > 0)
+	if ((dup > 0 || unref > 0 || dupface > 0) && !silent)
 	  Rprintf("Removed %i duplicate %i unreferenced vertices and %i duplicate faces\n",dup,unref,dupface);
       }  
       // do texture processing

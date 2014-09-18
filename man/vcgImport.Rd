@@ -3,7 +3,8 @@
 \alias{vcgImport}
 \title{Import common mesh file formats.}
 \usage{
-vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE)
+vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE,
+  silent = FALSE)
 }
 \arguments{
 \item{file}{character: file to be read.}
@@ -14,6 +15,8 @@ vertex normals will be (re)calculated. Otherwise, normals will be a matrix conta
 \item{readcolor}{if TRUE, vertex colors and texture (face and vertex) coordinates will be processed - if available, otherwise all vertices will be colored white.}
 
 \item{clean}{if TRUE, duplicated and unreferenced vertices as well as duplicate faces are removed (be careful when importing point clouds).}
+
+\item{silent}{logical, if TRUE no console output is issued.}
 }
 \value{
 Object of class "mesh3d"

@@ -3,7 +3,7 @@
 \alias{vcgUpdateNormals}
 \title{updates vertex normals of a triangular meshes or point clouds}
 \usage{
-vcgUpdateNormals(mesh, type = 0, pointcloud = c(10, 0))
+vcgUpdateNormals(mesh, type = 0, pointcloud = c(10, 0), silent = FALSE)
 }
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a n x 3 matrix containing 3D-coordinates.}
@@ -11,6 +11,8 @@ vcgUpdateNormals(mesh, type = 0, pointcloud = c(10, 0))
 \item{type}{select the method to compute per-vertex normals: 0=area weighted average of surrounding face normals; 1 = angle weighted vertex normals.}
 
 \item{pointcloud}{integer vector of length 2: containing optional parameters for normal calculation of point clouds. The first enty specifies the number of neighbouring points to consider. The second entry specifies the amount of smoothing iterations to be performed.}
+
+\item{silent}{logical, if TRUE no console output is issued.}
 }
 \value{
 mesh with updated/created normals, or in case \code{mesh} is a matrix, a list of class "mesh3d" with

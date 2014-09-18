@@ -72,7 +72,6 @@ walker.BuildMesh<MyMarchingCubes>(m, volume, mc, 0.0);
   Rcpp::NumericMatrix vbout(3,m.vn), normals(3,m.vn);
   Rcpp::IntegerMatrix itout(3,m.fn);
   
-Rprintf("%d\n",m.vn);
   vi=m.vert.begin();
   for (i=0;  i < m.vn; i++) {
     indiceout[vi] = i;

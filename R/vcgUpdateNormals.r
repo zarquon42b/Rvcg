@@ -4,6 +4,7 @@
 #' @param mesh triangular mesh of class 'mesh3d' or a n x 3 matrix containing 3D-coordinates.
 #' @param type select the method to compute per-vertex normals: 0=area weighted average of surrounding face normals; 1 = angle weighted vertex normals.
 #' @param pointcloud integer vector of length 2: containing optional parameters for normal calculation of point clouds. The first enty specifies the number of neighbouring points to consider. The second entry specifies the amount of smoothing iterations to be performed.
+#' @param silent logical, if TRUE no console output is issued.
 #'
 #' @return mesh with updated/created normals, or in case \code{mesh} is a matrix, a list of class "mesh3d" with
 #' \item{vb }{4 x n matrix containing coordinates (as homologous coordinates}
@@ -21,7 +22,7 @@
 #' }
 #' @export
 
-vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0))
+vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0), silent=FALSE)
     {
         if (is.matrix(mesh)) {
             tmp <- list()
@@ -38,7 +39,7 @@ vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0))
             pointcloud <- c(10,0)
         if (! type %in% c(0,1))
             stop("please set valid type")
-        normals <- .Call("RupdateNormals", vb, it, type, pointcloud)
+        normals <- .Call("RupdateNormals", vb, it, type, pointcloud, silent)
         mesh$normals <- rbind(normals,1)
         
         return(mesh)

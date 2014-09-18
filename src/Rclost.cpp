@@ -26,8 +26,8 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
     // section read from input
     int checkit = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     if (checkit == 1) {
-      Rprintf("%s\n", "Target mesh has no triangular faces");
-      return wrap(1);
+      ::Rf_error("target mesh has no faces, nothing done");
+      
     } else if (checkit >= 0) {
       Rvcg::IOMesh<PcMesh>::RvcgReadR(refmesh, ioclost_); 
       m.face.EnableNormal();

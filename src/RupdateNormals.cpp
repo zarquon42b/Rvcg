@@ -9,12 +9,13 @@ using namespace Rcpp;
 //using namespace std;
 
 
-RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_)
+RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_, SEXP silent_)
 {
   try {
     // declare Mesh and helper variables
     int select = Rcpp::as<int>(type_);  
     Rcpp::IntegerVector pointcloud(pointcloud_);
+    bool silent = as<bool>(silent_);
     MyMesh m;
     VertexIterator vi;
     FaceIterator fi;
@@ -22,10 +23,11 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_)
     int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     Rcpp::NumericMatrix normals(3,m.vn);
     if (check < 0) {
-      Rprintf("%s\n","Info: mesh has no faces and/or no vertices");
+      ::Rf_error("mesh has no faces and/or no vertices");
       return wrap(1);
     } else if (check == 1) {
-      Rprintf("%s\n","Info: mesh has no faces normals for point clouds are computed");
+      if (!silent)
+	Rprintf("%s\n","Info: mesh has no faces normals for point clouds are computed");
       PointCloudNormal<MyMesh>::Param p;
       p.fittingAdjNum = pointcloud[0];
       p.smoothingIterNum = pointcloud[1];
