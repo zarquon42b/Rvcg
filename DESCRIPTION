@@ -3,8 +3,8 @@ Type: Package
 Title: Manipulations of triangular meshes (smoothing, quadric edge collapse
     decimation, im- and export of various mesh file-formats, cleaning, etc.)
     based on the VCGLIB API.
-Version: 0.8.140621
-Date: 2014-06-21
+Version: 0.9
+Date: 2014-09-23
 Author: Stefan Schlager; the authors of VCGLIB for the included version of the
     code
 Maintainer: Stefan Schlager <zarquon42@gmail.com>

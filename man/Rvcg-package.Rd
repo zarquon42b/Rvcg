@@ -12,8 +12,8 @@ smoothing, mesh decimation, closest point search.
 \tabular{ll}{
 Package: \tab Rvcg\cr
 Type: \tab Package\cr
-Version: \tab 0.8.140621\cr
-Date: \tab 2014-06-21\cr
+Version: \tab 0.9\cr
+Date: \tab 2014-09-23\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr }
 }
