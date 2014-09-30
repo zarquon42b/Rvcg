@@ -50,12 +50,12 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, bo
         dimvb <- dim(vb)[2]
         
         if (is.matrix(x)) {
-            clost <- t(x[,1:3])
+            clost <- t(x[,1:3,drop=FALSE])
             x <- list()
             x$vb <- clost
             class(x) <- "mesh3d"
         } else if (inherits(x,"mesh3d")) {
-            clost <- x$vb[1:3,]
+            clost <- x$vb[1:3,,drop=FALSE]
             if (!is.matrix(clost))
             stop("x has no vertices")
         } else
