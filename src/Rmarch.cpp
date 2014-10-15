@@ -22,12 +22,12 @@ using namespace Rcpp;
 //using namespace std;
 //#include "Voxel.h"
 
-RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_) {
+RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_, SEXP thresh_) {
   try {
   IntegerVector vecArray(array_);
   double lower = as<double>(lower_);
   double upper = as<double>(upper_);
-  
+  double thresh= as<double>(thresh_);
   IntegerVector arrayDims = vecArray.attr("dim");
   //icube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
 MyMesh m;
@@ -63,7 +63,7 @@ volume.Init(Point3i(arrayDims[0],arrayDims[1],arrayDims[2]));
       for(int k=0;k<64;k++)
       volume.Val(i,j,k)=(j-32)*(j-32)+(k-32)*(k-32)  + i*10*(float)math::Perlin::Noise(i*.2,j*.2,k*.2);*/
 MyMarchingCubes	mc(m, walker);
-walker.BuildMesh<MyMarchingCubes>(m, volume, mc, 0.0);
+walker.BuildMesh<MyMarchingCubes>(m, volume, mc, thresh);
   vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
   tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
@@ -102,7 +102,6 @@ walker.BuildMesh<MyMarchingCubes>(m, volume, mc, 0.0);
 			      );
  } catch (std::exception& e) {
     ::Rf_error( e.what());
-    return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");
   }
