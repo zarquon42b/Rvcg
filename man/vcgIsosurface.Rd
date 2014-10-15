@@ -3,21 +3,16 @@
 \alias{vcgIsosurface}
 \title{Create Isosurface from 3D-array}
 \usage{
-vcgIsosurface(vol, lower = min(vol), upper = max(vol), spacing = NULL,
-  origin = NULL, threshold = 0.5)
+vcgIsosurface(vol, threshold = max(vol), spacing = NULL, origin = NULL)
 }
 \arguments{
 \item{vol}{an integer valued 3D-array}
-
-\item{lower}{numeric:lower threshold}
-
-\item{upper}{numeric: upper threshold}
 
 \item{spacing}{numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.}
 
 \item{origin}{numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.}
 
-\item{threshold}{threshold of intersecting the cube (default is 0.5).}
+\item{threshold}{threshold for creating the surface}
 }
 \value{
 returns a triangular mesh of class "mesh3d"

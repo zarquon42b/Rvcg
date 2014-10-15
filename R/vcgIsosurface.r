@@ -3,11 +3,9 @@
 #' Create Isosurface from 3D-array using Marching Cubes algorithm
 #'
 #' @param vol an integer valued 3D-array
-#' @param lower numeric:lower threshold
-#' @param upper numeric: upper threshold
 #' @param spacing numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.
 #' @param origin numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.
-#' @param threshold threshold of intersecting the cube (default is 0.5).
+#' @param threshold threshold for creating the surface 
 #' @return returns a triangular mesh of class "mesh3d"
 #' @examples
 #' #this is the example from the package "misc3d"
@@ -23,15 +21,15 @@
 #' wire3d(vcgSmooth(mesh,"HC",iteration=3),col=3)
 #' }
 #' @export
-vcgIsosurface <- function(vol,lower=min(vol),upper=max(vol),spacing=NULL, origin=NULL,threshold=0.5) {
+vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL) {
     if (length(dim(vol)) != 3)
         stop("3D array needed")
-    if (threshold < 0 || threshold >= 1)
-        stop("threshold must be >=0 and < 1")
-    lower <- as.numeric(lower)
-    upper <- as.numeric(upper)
+    #if (threshold < 0 || threshold >= 1)
+    #    stop("threshold must be >=0 and < 1")
+    #lower <- as.numeric(lower)
+    #upper <- as.numeric(upper)
     storage.mode(vol) <- "integer"
-    volmesh <- .Call("RMarchC",vol,lower,upper,threshold)
+    volmesh <- .Call("RMarchC",vol,threshold)
     volmesh$vb <- rbind(volmesh$vb,1)
     volmesh$it <- volmesh$it
     
