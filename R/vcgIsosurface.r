@@ -14,7 +14,7 @@
 #' v <- array(g$x^4 + g$y^4 + g$z^4, rep(length(x),3))
 #' storage.mode(v) <- "integer"
 #' \dontrun{
-#' mesh <- vcgIsosurface(v,lower=1)
+#' mesh <- vcgIsosurface(v,threshold=10)
 #' require(rgl)
 #' wire3d(mesh)
 #' ##now smooth it a little bit
@@ -24,10 +24,13 @@
 vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL) {
     if (length(dim(vol)) != 3)
         stop("3D array needed")
-    #if (threshold < 0 || threshold >= 1)
-    #    stop("threshold must be >=0 and < 1")
-    #lower <- as.numeric(lower)
-    #upper <- as.numeric(upper)
+    
+    mvol <- max(vol)
+    minvol <- min(vol)
+    if (threshold == mvol)
+        threshold <- threshold-1e-5
+    else if (threshold > mvol || threshold < minvol)
+        stop("threshold is outside volume values")
     storage.mode(vol) <- "integer"
     volmesh <- .Call("RMarchC",vol,threshold)
     volmesh$vb <- rbind(volmesh$vb,1)

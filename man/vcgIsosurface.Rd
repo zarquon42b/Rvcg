@@ -3,7 +3,7 @@
 \alias{vcgIsosurface}
 \title{Create Isosurface from 3D-array}
 \usage{
-vcgIsosurface(vol, threshold = max(vol), spacing = NULL, origin = NULL)
+vcgIsosurface(vol, threshold, spacing = NULL, origin = NULL)
 }
 \arguments{
 \item{vol}{an integer valued 3D-array}
@@ -27,7 +27,7 @@ g <- expand.grid(x = x, y = x, z = x)
 v <- array(g$x^4 + g$y^4 + g$z^4, rep(length(x),3))
 storage.mode(v) <- "integer"
 \dontrun{
-mesh <- vcgIsosurface(v,lower=1)
+mesh <- vcgIsosurface(v,threshold=10)
 require(rgl)
 wire3d(mesh)
 ##now smooth it a little bit
