@@ -60,3 +60,28 @@ vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, ...) {
     vcgPlyWrite(mm,filename=filename,binary =binary)
 }
     
+#' Export meshes to STL-files
+#'
+#' Export meshes to STL-files (binary or ascii)
+#'
+#' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
+#' @param filename character: filename (file extension '.ply' will be added automatically.
+#' @param binary logical: write binary file
+#' @examples
+#' data(humface)
+#' vcgStlWrite(humface,filename = "humface")
+#' @rdname vcgStlWrite
+#' @export 
+vcgStlWrite <- function(mesh, filename=dataname, binary = FALSE) {
+    if (!inherits(mesh,"mesh3d"))
+        stop("mesh must be of class mesh3d")
+    dataname <- deparse(substitute(mesh))
+    filename <- path.expand(as.character(filename))
+    filename <- paste(filename,".stl",sep="")
+    vb <- mesh$vb[1:3,,drop=FALSE]
+    if (!is.matrix(vb))
+        stop("mesh has no vertices to write")
+    it <- (mesh$it-1)
+    tmp <- .Call("RSTLWrite",vb,it,binary,filename)
+    
+}
