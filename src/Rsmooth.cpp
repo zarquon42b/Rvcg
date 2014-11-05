@@ -41,6 +41,11 @@ RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP 
       tri::UpdateFlags<MyMesh>::FaceClearB(m);
       tri::Smooth<MyMesh>::VertexCoordLaplacianAngleWeighted(m,iter,delta);
     }
+    else if (method == 5) { 
+      tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+      tri::UpdateFlags<MyMesh>::FaceClearB(m);
+      tri::Smooth<MyMesh>::VertexCoordPlanarLaplacian(m, iter, delta);
+    }
     vcg::tri::Allocator<MyMesh>::CompactVertexVector(m);
     vcg::tri::Allocator<MyMesh>::CompactFaceVector(m);
     tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);

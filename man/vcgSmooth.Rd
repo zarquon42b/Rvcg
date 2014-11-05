@@ -4,7 +4,8 @@
 \title{Smoothes a triangular mesh}
 \usage{
 vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace", "fujiLaplace",
-  "angWeight"), iteration = 10, lambda = 0.5, mu = -0.53, delta = 0.1)
+  "angWeight", "surfPreserveLaplace"), iteration = 10, lambda = 0.5,
+  mu = -0.53, delta = 0.1)
 }
 \arguments{
 \item{mesh}{triangular mesh stored as object of class "mesh3d".}
@@ -20,7 +21,7 @@ abbreviations).}
 \item{mu}{numeric:parameter for Taubin smooth (see reference below).}
 
 \item{delta}{numeric: parameter for Scale dependent laplacian smoothing (see
-reference below).}
+reference below).and maximum allowed angle (in radians) for deviation between normals Laplacian (surface preserving).}
 }
 \value{
 returns an object of class "mesh3d" with:

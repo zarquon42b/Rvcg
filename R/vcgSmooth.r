@@ -15,7 +15,7 @@
 #' @param lambda numeric: parameter for Taubin smooth (see reference below).
 #' @param mu numeric:parameter for Taubin smooth (see reference below).
 #' @param delta numeric: parameter for Scale dependent laplacian smoothing (see
-#' reference below).
+#' reference below).and maximum allowed angle (in radians) for deviation between normals Laplacian (surface preserving).
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{4xn matrix containing n vertices as homolougous coordinates.}
 #' \item{normals}{4xn matrix containing vertex normals.}
@@ -47,7 +47,7 @@
 #' }
 #' 
 #' @export vcgSmooth
-vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","angWeight"),iteration=10,lambda=0.5,mu=-0.53,delta=0.1)
+vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","angWeight","surfPreserveLaplace"),iteration=10,lambda=0.5,mu=-0.53,delta=0.1)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
@@ -65,6 +65,8 @@ vcgSmooth <- function(mesh,type=c("taubin","laplace","HClaplace","fujiLaplace","
             method <- 3
         } else if (type == "a" || type == "A") {
             method <- 4
+        } else if (type == "s" || type == "S") {
+            method <- 5
         }
         iter <- as.integer(iteration)
         if ( FALSE %in% is.integer(c(it,iter)) || FALSE %in% is.numeric(c(vb,lambda,mu,delta)))
