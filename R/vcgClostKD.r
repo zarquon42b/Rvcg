@@ -32,13 +32,16 @@
 #' Distance Fields From Triangle Meshes. Informatics and Mathematical
 #' Modelling.
 #' #' @export
-vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64) {
-    if (inherits(x,"mesh3d"))
+vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64,angdev=0) {
+    if (inherits(x,"mesh3d")) {
+        x$it <- x$it-1
         io <- x$vb
+    }
     else if (is.matrix(x) && is.numeric(x)) {
         io <- t(x)
         x <- list()
         x$vb <- io
+        x$it <- NULL
         class(x) <- "mesh3d"
     } else
         stop("x must be a mesh or a matrix")
@@ -51,7 +54,7 @@ vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE,
     
     nofPoints <- as.integer(nofPoints)
     maxDepth <- as.integer(maxDepth)
-    tmp <- .Call("RclosestKD", vb , it, io, as.integer(k[1]),as.logical(sign[1]), as.logical(smoothNormals[1]),as.logical(barycentric[1]),as.logical(borderchk[1]), nofPoints[1],maxDepth[1])
+    tmp <- .Call("RclosestKD", vb , it, io,x$it, as.integer(k[1]),as.logical(sign[1]), as.logical(smoothNormals[1]),as.logical(barycentric[1]),as.logical(borderchk[1]), nofPoints[1],maxDepth[1],angdev)
     x$vb <- rbind(tmp$iomat,1)
     x$normals <- rbind(tmp$normals, 1)
     x$faceptr <- tmp$faceptr+1
