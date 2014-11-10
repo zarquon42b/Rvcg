@@ -34,7 +34,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
     int k = as<int>(k_);
     bool sign = as<bool>(sign_);
     MyMesh target;
-    MyMesh  bary;
+    PcMesh  bary;
     MyMesh query;
     int checkit = Rvcg::IOMesh<MyMesh>::RvcgReadR(target,vb_,it_);
     double angdev = as<double>(angdev_);
@@ -53,8 +53,8 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
       tri::UpdateFlags<MyMesh>::FaceBorderFromNone(target);
       tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(target);
     }
-    Rvcg::KDtree< MyMesh, MyMesh >::getBary(target, bary);
-    List indices = Rvcg::KDtree< MyMesh, MyMesh >::KDtreeIO(bary, query, k,nofP, mDepth);
+    Rvcg::KDtree< MyMesh, PcMesh >::getBary(target, bary);
+    List indices = Rvcg::KDtree< PcMesh, MyMesh >::KDtreeIO(bary, query, k,nofP, mDepth);
     IntegerMatrix ktree = indices["index"];
     NumericMatrix iomat(3,query.vn), normals(3,query.vn);
     NumericMatrix barycoord(3,query.vn);
@@ -78,10 +78,13 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 	  int fptr = ktree(i,j);
 	  PointDistanceBase(target.face[fptr],currp, dist, tmp);
 	  
-	  if (  0 < angdev) { // check normal deviation
+	  // check normal deviation and if it deviates from threshold, hit point is discarded
+	  // if no point matches criterion, the closest point on the face with the closest barycenter is selected
+	  // and distance set to 1e5
+	  if (  0 < angdev) { 
 	    MyMesh::CoordType tmpnorm;
+	    MyMesh::CoordType refnorm = (*vi).N();
 	    for (int j=0; j <3;j++) {
-	      MyMesh::CoordType refnorm = (*vi).N();
 	      Point3f vdist = target.face[fptr].V(j)->P() - tmp;
 	      float weight = sqrt(vdist.dot(vdist));
 	      if (weight > 0)
@@ -89,11 +92,11 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 	      else 
 		weight = 1e12;
 	      tmpnorm += target.face[fptr].V(j)->N()*weight;
+	    }
 	      float ang = Angle(tmpnorm,refnorm);
 	      //Rprintf("%f\n",ang);
 	      if (ang > angdev)
 		dist = 1e5;
-	    }
 	  }
 	    Point3f vdist = target.face[fptr].V(j)->P() - clost;
 	    if (dist < distance_old) {
