@@ -24,11 +24,12 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_) {
   }
   
 }
-RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_, SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64),SEXP angdev_=wrap(0)) {
+RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_, SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64),SEXP angdev_=wrap(0), SEXP wnorm_=wrap(true)) {
   try {
     bool smooth = as<bool>(smooth_);
     bool barycentric = as<bool>(barycentric_);
     bool borderchk = as<bool>(borderchk_);
+    bool wnorm = as<bool>(wnorm_);
     unsigned int nofP = as<unsigned int >(nofP_);
     unsigned int mDepth = as<unsigned int >(mDepth_);
     int k = as<int>(k_);
@@ -62,15 +63,15 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
     std::fill(border.begin(), border.end(),0);
     MyMesh::VertexIterator vi = query.vert.begin();
     NumericVector distout(query.vn);
+    NumericVector angle(query.vn);
     for (int i = 0; i < query.vn; i++) {
       Point3f clost;
-      MyMesh::CoordType tt;
+      MyMesh::CoordType tt, tmpnorm;
       MyFace::ScalarType dist = 1e12;
       MyFace::ScalarType distance_old = 1e12;
       Point3f currp = (*vi).P();
       clost = currp;
-      faceptr[i] = 1e5;
-      
+      float ang;
       Point3f tmp = (*vi).P();
       for (int j=0; j < k; j++) {
 	if (ktree(i,j) != -1) {
@@ -82,27 +83,36 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 	  // if no point matches criterion, the closest point on the face with the closest barycenter is selected
 	  // and distance set to 1e5
 	  if (  0 < angdev) { 
-	    MyMesh::CoordType tmpnorm;
+	    
 	    MyMesh::CoordType refnorm = (*vi).N();
-	    for (int j=0; j <3;j++) {
-	      Point3f vdist = target.face[fptr].V(j)->P() - tmp;
-	      float weight = sqrt(vdist.dot(vdist));
-	      if (weight > 0)
-		weight = 1/weight;
-	      else 
-		weight = 1e12;
-	      tmpnorm += target.face[fptr].V(j)->N()*weight;
-	    }
-	      float ang = Angle(tmpnorm,refnorm);
+	     tmpnorm = clost*0;
+	     if (!wnorm) {
+	       tmpnorm = target.face[fptr].N();
+	     } else {
+	       for (int j=0; j <3;j++) {
+		 Point3f vdist = target.face[fptr].V(j)->P() - tmp;
+		 float weight = sqrt(vdist.dot(vdist));
+		 if (weight > 0)
+		   weight = 1/weight;
+		 else 
+		   weight = 1e12;
+		 tmpnorm += target.face[fptr].V(j)->N()*weight;
+	       }
+	     }
+	     ang = Angle(tmpnorm,refnorm);
+	      
 	      //Rprintf("%f\n",ang);
-	      if (ang > angdev)
-		dist = 1e5;
+	    if (ang > angdev)
+	      dist = 1e5;
 	  }
-	    Point3f vdist = target.face[fptr].V(j)->P() - clost;
-	    if (dist < distance_old) {
-	      distance_old = dist;
-	      clost = tmp;
-	      faceptr[i] = fptr;
+	  Point3f vdist = target.face[fptr].V(j)->P() - clost;
+	  if (dist < distance_old) {
+	    distance_old = dist;
+	    clost = tmp;
+	    faceptr[i] = fptr;
+	    if (angdev > 0)
+	      angle[i] = ang;
+	      
 	    }
 	}
       }
@@ -160,7 +170,8 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 			Named("faceptr")= faceptr,
 			Named("barycoord") = barycoord,
 			Named("border") = border, 
-			Named("normals") = normals
+			Named("normals") = normals,
+			Named("angle") = angle
 			);
       
   } catch (std::exception& e) {

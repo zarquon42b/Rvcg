@@ -5,7 +5,7 @@
 \usage{
 vcgClostKD(x, mesh, sign = TRUE, barycentric = FALSE,
   smoothNormals = FALSE, borderchk = FALSE, k = 50, nofPoints = 16,
-  maxDepth = 64)
+  maxDepth = 64, angdev = 0, weightnorm = FALSE)
 }
 \arguments{
 \item{x}{k x 3 matrix containing 3D-coordinates or object of class "mesh3d".}
@@ -26,6 +26,10 @@ points are returned.}
 \item{nofPoints}{integer: number of points per cell in the kd-tree (don't change unless you know what you are doing!)}
 
 \item{maxDepth}{integer: depth of the kd-tree (don't change unless you know what you are doing!)}
+
+\item{angdev}{maximum deviation between reference and target normals. If the none of the k closest triangles match this criterion, the closest point on the closest triangle is returned but the corresponding distance in $quality is set to 1e5. 0=disabled.}
+
+\item{weightnorm}{logical if angdev is set, this requests the normal of the closest points to be estimated by weighting the surrounding vertex normals. Otherwise, simply the hit face's normal is used (faster but slightly less accurate).}
 }
 \value{
 returns an object of class "mesh3d" with:
