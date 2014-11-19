@@ -12,13 +12,13 @@ vcgUniformRemesh(x, voxelSize = NULL, offset = 0, discretize = FALSE,
 
 \item{voxelSize}{voxel size for space discretization}
 
-\item{offset}{see meshlab}
+\item{offset}{Offset of the created surface (i.e. distance of the created surface from the original one).}
 
-\item{discretize}{see meshlab}
+\item{discretize}{If TRUE, the position of the intersected edge of the marching cube grid is not computed by linear interpolation, but it is placed in fixed middle position. As a consequence the resampled object will look severely aliased by a stairstep appearance.}
 
-\item{multiSample}{see meshlab}
+\item{multiSample}{If TRUE, the distance field is more accurately compute by multisampling the volume (7 sample for each voxel). Much slower but less artifacts.}
 
-\item{absDist}{see meshlab}
+\item{absDist}{If TRUE, an unsigned distance field is computed. In this case you have to choose a not zero Offset and a double surface is built around the original surface, inside and outside.}
 
 \item{mergeClost}{logical: merge close vertices}
 
@@ -26,6 +26,11 @@ vcgUniformRemesh(x, voxelSize = NULL, offset = 0, discretize = FALSE,
 }
 \value{
 resampled mesh
+\dontrun{
+data(humface)
+humresample <- vcgUniformRemesh(humface,voxelSize=1,multiSample = TRUE)
+shade3d(humresample,col=3)
+}
 }
 \description{
 Resample a mesh uniformly
