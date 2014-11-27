@@ -4,7 +4,7 @@
 \title{Project coordinates onto a target triangular surface mesh.}
 \usage{
 vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE,
-  borderchk = FALSE)
+  borderchk = FALSE, tol = 0, ...)
 }
 \arguments{
 \item{x}{k x 3 matrix containing 3D-coordinates or object of class "mesh3d".}
@@ -19,6 +19,10 @@ points are returned.}
 \item{smoothNormals}{logical: if TRUE, laplacian smoothed normals are used.}
 
 \item{borderchk}{logical: request checking if the hit face is at the border of the mesh.}
+
+\item{tol}{maximum distance to search. If distance is beyond that, the original point will be kept and the distance set to 1e12.}
+
+\item{...}{additional parameters, currently unused.}
 }
 \value{
 returns an object of class "mesh3d" with:

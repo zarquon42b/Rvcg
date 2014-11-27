@@ -8,7 +8,7 @@ using namespace tri;
 
 using namespace Rcpp;
 
-RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, SEXP barycentric_, SEXP smooth_)
+RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, SEXP barycentric_, SEXP smooth_,SEXP tol_)
 {
   try {
     typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
@@ -17,6 +17,7 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
     bool borderchk = as<bool>(borderchk_);
     bool barycentric = as<bool>(barycentric_);
     bool smooth = as<bool>(smooth_);
+    float tol = as<float>(tol_);
     Rcpp::NumericMatrix ioclost(ioclost_);
     int i;
     MyMesh m;
@@ -41,6 +42,8 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
       }
       float maxDist = m.bbox.Diag()*2;
+      if (tol > 0) 
+	maxDist = tol;
       float minDist = 1e-10;
       vcg::tri::FaceTmark<MyMesh> mf; 
       mf.SetMesh( &m );
@@ -97,18 +100,22 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	    baryco = currp*0;
 	    InterpolationParameters<MyFace,ScalarType>(*f_ptr,f_ptr->N(),clost,baryco);
 	  }
-	}
-	float vl = sqrt(tt.dot(tt));
-	if (vl > 0) {//check for zero length normals
-	  tt=tt/vl;
-	}   
+	
+	  float vl = sqrt(tt.dot(tt));
+	  if (vl > 0) {//check for zero length normals
+	    tt=tt/vl;
+	  
     
-	dis[i] = minDist;
-	if (signo) {
-	  Point3f dif = clost - currp;
-	  float sign = dif.dot(tt);	
-	  if (sign < 0)
-	    dis[i] = -dis[i] ;
+	    dis[i] = minDist;
+	    if (signo) {
+	      Point3f dif = clost - currp;
+	      float sign = dif.dot(tt);	
+	      if (sign < 0)
+		dis[i] = -dis[i] ;
+	    }
+	  }
+	} else {
+	  dis[i] = 1e12;
 	}
 	//write back output
 	ioclost(0,i) =clost[0];
