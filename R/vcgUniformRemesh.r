@@ -11,6 +11,7 @@
 #' @param mergeClost logical: merge close vertices
 #' @param silent logical: suppress messages
 #' @return resampled mesh
+#' @examples
 #' \dontrun{
 #' data(humface)
 #' humresample <- vcgUniformRemesh(humface,voxelSize=1,multiSample = TRUE)
