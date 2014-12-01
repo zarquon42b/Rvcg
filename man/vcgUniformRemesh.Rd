@@ -26,13 +26,15 @@ vcgUniformRemesh(x, voxelSize = NULL, offset = 0, discretize = FALSE,
 }
 \value{
 resampled mesh
+}
+\description{
+Resample a mesh uniformly
+}
+\examples{
 \dontrun{
 data(humface)
 humresample <- vcgUniformRemesh(humface,voxelSize=1,multiSample = TRUE)
 shade3d(humresample,col=3)
 }
-}
-\description{
-Resample a mesh uniformly
 }
 
