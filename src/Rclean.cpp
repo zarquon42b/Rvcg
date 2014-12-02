@@ -109,37 +109,10 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
   vcg::tri::Allocator< TopoMyMesh >::CompactFaceVector(m);
   tri::UpdateNormal<TopoMyMesh>::PerVertexAngleWeighted(m);
   tri::UpdateNormal<TopoMyMesh>::NormalizePerVertex(m);
-  SimpleTempData<TopoMyMesh::VertContainer,int> indiceout(m.vert);
-  Rcpp::NumericMatrix vbout(3,m.vn), normals(3,m.vn);
-  Rcpp::IntegerMatrix itout(3,m.fn);
-  vi=m.vert.begin();
-  for (i=0;  i < m.vn; i++) {
-    indiceout[vi] = i;
-    vbout(0,i) = (*vi).P()[0];
-    vbout(1,i) = (*vi).P()[1];
-    vbout(2,i) = (*vi).P()[2];
-    normals(0,i) = (*vi).N()[0];
-    normals(1,i) = (*vi).N()[1];
-    normals(2,i) = (*vi).N()[2];
-    ++vi;
-  }
-  FacePointer fp;
-  
-  fi=m.face.begin();
-  j = 0;
-  for (i=0; i < m.fn; i++) {
-    fp=&(*fi);
-    itout(0,i) = indiceout[fp->cV(0)]+1;
-    itout(1,i) = indiceout[fp->cV(1)]+1;
-    itout(2,i) = indiceout[fp->cV(2)]+1;
-    ++fi;
-  }
-  
-  return Rcpp::List::create(Rcpp::Named("vb") = vbout,
-			    Rcpp::Named("it") = itout,
-			    Rcpp::Named("normals") = normals,
-			    Rcpp::Named("remvert") = remvert
-			    );
+  List out = Rvcg::IOMesh<TopoMyMesh>::RvcgToR(m,true);
+  out["remvert"] = remvert;
+  out.attr("class") = "mesh3d";
+  return out;
   } catch (std::exception& e) {
     ::Rf_error( e.what());
     return wrap(1);

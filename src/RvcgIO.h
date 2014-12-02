@@ -6,7 +6,7 @@
 #include <vcg/complex/append.h>
 #include <vcg/container/simple_temporary_data.h>
 #include <vcg/space/point3.h>
-
+using Rcpp::List;
 namespace Rvcg
 {
   template <class IOMeshType>
@@ -92,6 +92,45 @@ namespace Rvcg
 	} else {
 	  return -1;
 	}
+      };
+   
+      static Rcpp::List RvcgToR(MeshType &m, bool exnormals=false) {
+	List out;
+	SimpleTempData<typename MeshType::VertContainer,int> indices(m.vert);
+	Rcpp::NumericMatrix vb(4, m.vn), normals(4, m.vn);
+	std::fill(vb.begin(),vb.end(),1);
+	std::fill(normals.begin(),normals.end(),1);
+	Rcpp::IntegerMatrix itout(3, m.fn);
+	VertexIterator vi=m.vert.begin();
+	for (unsigned int i=0;  i < m.vn; i++) {
+	  indices[vi] = i;//important: updates vertex indices
+	  vb(0,i) = (*vi).P()[0];
+	  vb(1,i) = (*vi).P()[1];
+	  vb(2,i) = (*vi).P()[2];
+	  if (exnormals) {
+	    normals(0,i) = (*vi).N()[0];
+	    normals(1,i) = (*vi).N()[1];
+	    normals(2,i) = (*vi).N()[2];
+	  }
+	  ++vi;
+	}
+	FacePointer fp;
+	FaceIterator fi=m.face.begin();
+	for (unsigned int i=0; i < m.fn;i++) {
+	  fp=&(*fi);
+	  if( ! fp->IsD() ) {
+	    itout(0,i) = indices[fp->cV(0)]+1;
+	    itout(1,i) = indices[fp->cV(1)]+1;
+	    itout(2,i) = indices[fp->cV(2)]+1;
+	    ++fi;
+	  }
+	}
+	out["vb"] = vb;
+	out["it"] = itout;
+	if (exnormals)
+	  out["normals"] = normals;
+	out.attr("class") = "mesh3d";
+	return out;
       }
-    };
+  };
 }

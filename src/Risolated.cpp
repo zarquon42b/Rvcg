@@ -10,7 +10,7 @@ using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
 
-RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP silent_) {
+RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP silent_, SEXP split_) {
   try { 
     // declare Mesh and helper variables
     int i;
@@ -18,6 +18,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
     VertexIterator vi;
     FaceIterator fi;
     bool silent = as<bool>(silent_);
+    bool split = as<bool>(split_);
     int check = Rvcg::IOMesh<TopoMyMesh>::RvcgReadR(m,vb_,it_);
     /*m.vert.EnableVFAdjacency();
       m.face.EnableFFAdjacency();
@@ -25,6 +26,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
     if (check != 0) {
       ::Rf_error("mesh has no faces and/or no vertices, nothing done");
     }  else {
+      
       double diameter = Rcpp::as<double>(diam_);
       int connect = Rcpp::as<int>(facenum_); 
       //tri::Clean<TopoMyMesh>::RemoveDuplicateVertex(m);
@@ -51,7 +53,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
 	chunks.push_back(diag);
 	chunkface.push_back(CCV[i1].first);
       }
-  
+      if (!split) {
       if (diameter == 0)
 	diameter = *std::max_element(chunks.begin(),chunks.end());
   
@@ -81,37 +83,31 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
   
       tri::UpdateNormal<TopoMyMesh>::PerVertexAngleWeighted(m);
       tri::UpdateNormal<TopoMyMesh>::NormalizePerVertex(m);
-      SimpleTempData<TopoMyMesh::VertContainer,int> indices(m.vert);
-      Rcpp::NumericMatrix vb(3, m.vn), normals(3, m.vn);
-      Rcpp::IntegerMatrix itout(3, m.fn);
-      vi=m.vert.begin();
-      for (i=0;  i < m.vn; i++) {
-	indices[vi] = i;//important: updates vertex indices
-	vb(0,i) = (*vi).P()[0];
-	vb(1,i) = (*vi).P()[1];
-	vb(2,i) = (*vi).P()[2];
-	normals(0,i) = (*vi).N()[0];
-	normals(1,i) = (*vi).N()[1];
-	normals(2,i) = (*vi).N()[2];
-	++vi;
-      }
-  
-      FacePointer fp;
-      fi=m.face.begin();
-      for (i=0; i < m.fn;i++) {
-	fp=&(*fi);
-	if( ! fp->IsD() ) {
-	  itout(0,i) = indices[fp->cV(0)]+1;
-	  itout(1,i) = indices[fp->cV(1)]+1;
-	  itout(2,i) = indices[fp->cV(2)]+1;
-	  ++fi;
+      List out = Rvcg::IOMesh<TopoMyMesh>::RvcgToR(m,true);
+      out["remvert"] = remvert;
+      out.attr("class") = "mesh3d";
+      return out;
+	
+      } else {
+	int length = CCV.size();
+	List out(length);
+	for(unsigned int i=0; i < CCV.size(); ++i ) {
+	  TopoMyMesh destMesh;
+	  tri::UpdateSelection<TopoMyMesh>::FaceClear(m);
+	  CCV[i].second->SetS();
+	  tri::UpdateSelection<TopoMyMesh>::FaceConnectedFF(m);
+	  tri::UpdateSelection<TopoMyMesh>::VertexClear(m);
+	  tri::UpdateSelection<TopoMyMesh>::VertexFromFaceLoose(m);
+
+	  tri::Append<TopoMyMesh,TopoMyMesh>::Mesh(destMesh, m, true);
+	  //tri::UpdateBounding<TopoMyMesh>::Box(destMesh);						// updates bounding box
+	  tri::UpdateNormal<TopoMyMesh>::PerVertexNormalized(destMesh);				// vertex normals
+	  
+	  out[i] = Rvcg::IOMesh<TopoMyMesh>::RvcgToR(destMesh,true);
 	}
+	return out;
       }
-      return Rcpp::List::create(Rcpp::Named("vb") = vb,
-				Rcpp::Named("normals") = normals,
-				Rcpp::Named("it") = itout,
-				Rcpp::Named("remvert") = remvert
-				);
+	
     } 
   } catch (std::exception& e) {
     ::Rf_error( e.what());
