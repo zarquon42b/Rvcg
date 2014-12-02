@@ -16,6 +16,7 @@
 #' \item{4 = Remove non-manifold vertices}
 #' \item{5 = Split non-manifold vertices by threshold}
 #' \item{6 = merge close vertices (radius=\code{tol})}
+#' \item{7 = coherently orient faces}
 #' }
 #' @return cleaned mesh with an additional entry
 #' \item{remvert}{vector of length = number of vertices before cleaning. Entries = 1 indicate that this vertex was removed; 0 otherwise.}
