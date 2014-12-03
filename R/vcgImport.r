@@ -17,6 +17,11 @@
 #' \item{vb }{4 x n matrix containing n vertices as homolougous coordinates}
 #' \item{it }{3 x m matrix containing vertex indices forming triangular faces}
 #' \item{normals }{4 x n matrix containing vertex normals (homologous coordinates)}
+#'
+#' in case the imported files contains face or vertex quality, these will be stored as vectors named $quality (for vertex quality) and $facequality
+#'
+#'
+#' if the imported file contains vertex colors and readcolor = TRUE, these will be saved in $material$color according to "mesh3d" specifications.
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgSmooth}}
 #' @examples
