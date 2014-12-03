@@ -38,7 +38,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     bool clean = as<bool>(clean_);
     bool silent = as<bool>(silent_);
     MyMeshImport m; 
-    bool hasNormal = false, WedgeTex=false, VertTex = false;
+    bool hasNormal = false, WedgeTex=false, VertTex = false, hasQuality=false,hasFaceQuality=false;
     int mask0 = 0; //initializie import mask
     tri::io::Importer<MyMeshImport>::LoadMask(filename, mask0);
     // start allocating space for availables stuff
@@ -56,6 +56,14 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       //Rprintf("norm");
       m.vert.EnableNormal();
       hasNormal = true;
+    }
+    if( (mask0 & tri::io::Mask::IOM_VERTQUALITY)) {
+      m.vert.EnableQuality();
+      hasQuality = true;
+    }
+    if( (mask0 & tri::io::Mask::IOM_FACEQUALITY)) {
+      m.face.EnableQuality();
+      hasFaceQuality = true;
     }
     tri::io::Mask::ClampMask(m, mask0);
     int err2 = tri::io::Importer<MyMeshImport>::Open(m,filename,mask0);
@@ -90,6 +98,14 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       if (updateNormals || hasNormal) {
 	normals.resize(3*m.vn);
       }
+      std::vector<double> quality;
+      if (hasQuality) {
+	quality.resize(m.vn);
+      }
+      std::vector<double> facequality;
+      if (hasFaceQuality) {
+	facequality.resize(m.fn);
+      }
     
       if (updateNormals) { // update Normals
 	if (!hasNormal)
@@ -115,6 +131,9 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	  colvec[i*3+1] = (*vi).C()[1];
 	  colvec[i*3+2] = (*vi).C()[2];
 	}
+	if (hasQuality) {
+	  quality[i] = (*vi).Q();
+	}
 	++vi;
       }
       FacePointer fp;
@@ -130,6 +149,9 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	    it[i*3]=vv[0];
 	    it[i*3+1]=vv[1];
 	    it[i*3+2]=vv[2];
+	    if (hasFaceQuality) {
+	        facequality[i] =(*fi).Q();
+	    }
 	    ++fi;
 	  }
 	}
@@ -152,7 +174,9 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 			  Named("normals") = normals,
 			  Named("colors") = colvec,
 			  Named("texcoord") = texvec,
-			  Named("texfile") = texfile
+			  Named("texfile") = texfile,
+			  Named("quality") = quality,
+			  Named("facequality") = facequality
 			  );
     }
   } catch (std::exception& e) {

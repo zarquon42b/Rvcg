@@ -76,7 +76,8 @@ class MyFaceImport: public Face  <MyUsedTypes,
 				  face::WedgeTexCoordfOcf,
 				  face::Color4bOcf, 
 				  // face::FFAdj, 
-				  face::Normal3fOcf
+				  face::Normal3fOcf,
+				  face::QualityfOcf
 				  >{};
 
 

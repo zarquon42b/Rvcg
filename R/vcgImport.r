@@ -85,5 +85,9 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
                     out$texcoords <- out$texcoords[,1:ncol(out$vb)]
             }
     }
+    if (length(tmp$quality))
+        out$quality <- tmp$quality
+    if (length(tmp$facequality))
+        out$facequality <- tmp$facequality
     return(out)
 }
