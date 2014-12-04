@@ -8,20 +8,6 @@ Within R:
        
        install.packages("Rvcg")
 
-#### Installation of the R-package "Rvcg": ####
-0. Make sure to work with the latest version of R and install dependencies (type the following commands into your R terminal):                
-        
-	    install.packages("RcppEigen")
-
-1. Download the version suitable for your OS from [here](https://github.com/zarquon42b/Rvcg/releases/). Either the compiled package (for Windows and OS X) or the source tarball (Linux).
-
-2. Installation command from within R: 
-   
-        install.packages("Path_to_downloaded_package_Rvcg[Version_OS]",repos=NULL)
-
-3. check if the package can be loaded:
-        
-        load package: library(Rvcg)
 
 #### Installation of the-R package "Rvcg" (latest development code) using *devtools*:: ####
 
