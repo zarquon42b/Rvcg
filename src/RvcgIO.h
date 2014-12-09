@@ -96,7 +96,7 @@ namespace Rvcg
    
       static Rcpp::List RvcgToR(MeshType &m, bool exnormals=false) {
 	List out;
-	SimpleTempData<typename MeshType::VertContainer,int> indices(m.vert);
+	vcg::SimpleTempData<typename MeshType::VertContainer,int> indices(m.vert);
 	Rcpp::NumericMatrix vb(4, m.vn), normals(4, m.vn);
 	std::fill(vb.begin(),vb.end(),1);
 	std::fill(normals.begin(),normals.end(),1);
