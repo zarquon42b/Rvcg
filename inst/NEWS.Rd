@@ -2,7 +2,7 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rvcg version 0.10 (2014-12-25)}{
+\section{Changes in Rvcg version 0.10 (2014-12-16)}{
   \subsection{New features}{
     \itemize{
       \item added support for reading face and vertex quality from ply files in vcgImport
@@ -11,7 +11,6 @@
       \item vcgClean now allows to fix uncoherently oriented faces
       \item added option tol to specify a search radius in vcgClost
       \item added example and docu to vcgUniformRemesh
-      \item removed accidentally committed Makevars
       \item new function vcgUniformRemesh to remesh based on a voxelized space
       faces for the closest one with a correct normal orientation.
       \item added option weightnorm in vcgClostKD to enable/disable
