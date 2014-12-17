@@ -52,11 +52,12 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
     clean <- as.logical(clean)
 
 
-    tmp <- .Call("RallRead", file, updateNormals, readcolor, clean, silent)
-    if (!is.list(tmp))
-        stop("mesh is not readable")
+    tmp <- try(.Call("RallRead", file, updateNormals, readcolor, clean, silent))
+    
     ## go back to current wd
     setwd(wdold)
+    if (inherits(tmp,"try-error"))
+        stop("mesh is not readable")
     out <- list()
     class(out) <- "mesh3d"
     
