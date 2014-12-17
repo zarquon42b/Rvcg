@@ -8,11 +8,11 @@ vcgIsosurface(vol, threshold, spacing = NULL, origin = NULL)
 \arguments{
 \item{vol}{an integer valued 3D-array}
 
+\item{threshold}{threshold for creating the surface}
+
 \item{spacing}{numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.}
 
 \item{origin}{numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.}
-
-\item{threshold}{threshold for creating the surface}
 }
 \value{
 returns a triangular mesh of class "mesh3d"
