@@ -1,7 +1,7 @@
 Index: vcglib/vcg/complex/algorithms/clustering.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/clustering.h	2014-05-20 20:28:45.000000000 +0200
-+++ vcglib/vcg/complex/algorithms/clustering.h	2014-05-20 20:30:29.399191134 +0200
+--- vcglib.orig/vcg/complex/algorithms/clustering.h	2014-12-17 10:48:11.672086701 +0100
++++ vcglib/vcg/complex/algorithms/clustering.h	2014-12-17 10:48:11.668086681 +0100
 @@ -35,7 +35,7 @@
  #include <limits>
  
@@ -42,8 +42,8 @@ Index: vcglib/vcg/complex/algorithms/clustering.h
  
 Index: vcglib/vcg/space/index/spatial_hashing.h
 ===================================================================
---- vcglib.orig/vcg/space/index/spatial_hashing.h	2014-05-20 20:28:45.000000000 +0200
-+++ vcglib/vcg/space/index/spatial_hashing.h	2014-05-20 20:30:29.399191134 +0200
+--- vcglib.orig/vcg/space/index/spatial_hashing.h	2014-12-17 10:48:11.672086701 +0100
++++ vcglib/vcg/space/index/spatial_hashing.h	2014-12-17 10:48:11.668086681 +0100
 @@ -29,7 +29,7 @@
  //#include <map>
  #include <vector>
