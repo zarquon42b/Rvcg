@@ -2,6 +2,18 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.10.1 (2014-12-18)}{
+  \subsection{bug fixes}{
+    \itemize{
+      \item fixed texture import in vcgImport
+      \item fixed missing <#include time.h> in upstream code preventing
+      windows build
+      
+    }
+  }
+}
+
+
 \section{Changes in Rvcg version 0.10 (2014-12-16)}{
   \subsection{New features}{
     \itemize{
