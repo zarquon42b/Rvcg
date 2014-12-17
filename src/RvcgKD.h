@@ -40,13 +40,16 @@ namespace Rvcg
       std::fill(result.begin(), result.end(),-1);
       VertexConstDataWrapper<MeshTarget> ww(target);
       KdTree<float> tree(ww, nofPointsPerCell, maxDepth);
-      tree.setMaxNofNeighbors(k);
+      //tree.setMaxNofNeighbors(k);
+      KdTree<float>::PriorityQueue queue;
       for (int i = 0; i < query.vn; i++) {
-	tree.doQueryK(query.vert[i].cP());
-	int neighbours = tree.getNofFoundNeighbors();
+	//tree.doQueryK(query.vert[i].cP());
+	tree.doQueryK(query.vert[i].cP(), k, queue);
+	//int neighbours = tree.getNofFoundNeighbors();
+	int neighbours = queue.getNofElements();
 	vector<mypair> sortit;
 	for (int j=0; j < neighbours; j++) {      
-	  int neightId = tree.getNeighborId(j);
+	  int neightId = queue.getIndex(j);
 	  float dist = Distance(query.vert[i].cP(),target.vert[neightId].cP());
 	  sortit.push_back(mypair(dist, neightId));
 	}

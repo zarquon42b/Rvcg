@@ -32,7 +32,7 @@ public:
   const VOX_TYPE &cV(const int &x,const int &y,const int &z) const {
     return Vol[x+y*siz[0]+z*siz[0]*siz[1]];
   }
-
+  bool ValidCell(const Point3i & /*p0*/, const Point3i & /*p1*/) const { return true;}
 
   template < class VertexPointerType >
   void GetXIntercept(const vcg::Point3i &p1, const vcg::Point3i &p2, VertexPointerType &v, const float thr)
