@@ -22,14 +22,12 @@ using namespace Rcpp;
 //using namespace std;
 //#include "Voxel.h"
 
-RcppExport SEXP RMarchC(SEXP array_, SEXP lower_, SEXP upper_, SEXP thresh_) {
+RcppExport SEXP RMarchC(SEXP array_, SEXP thresh_) {
   try {
   IntegerVector vecArray(array_);
-  double lower = as<double>(lower_);
-  double upper = as<double>(upper_);
-  double thresh= as<double>(thresh_);
+    double thresh= as<double>(thresh_);
   IntegerVector arrayDims = vecArray.attr("dim");
-  //icube myCube(vecArray.begin(), arrayDims[0],arrayDims[1], arrayDims[2], false);
+  
 MyMesh m;
 VertexIterator vi;
 FaceIterator fi;
@@ -49,10 +47,10 @@ volume.Init(Point3i(arrayDims[0],arrayDims[1],arrayDims[2]));
    for(j=0;j<arrayDims[1];j++) {
      for(k=0;k< arrayDims[2];k++) {
        int tmpval = vecArray[i+j*arrayDims[0]+k*(arrayDims[0]*arrayDims[1])];
-       if (tmpval >= lower && tmpval <= upper)
-	 volume.Val(i,j,k)=1;
-       else 
-	 volume.Val(i,j,k)=0;
+       /*if (tmpval >= lower && tmpval <= upper)
+	 volume.Val(i,j,k)=tmpval;
+	 else*/ 
+	 volume.Val(i,j,k)=tmpval;
      }
    }
  }
