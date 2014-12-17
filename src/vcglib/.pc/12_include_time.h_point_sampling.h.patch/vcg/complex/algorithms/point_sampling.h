@@ -47,7 +47,6 @@ sampling strategies (montecarlo, stratified etc).
 #include <vcg/complex/algorithms/update/bounding.h>
 #include <vcg/complex/algorithms/update/flag.h>
 #include <vcg/space/segment2.h>
-#include <time.h>
 
 namespace vcg
 {
