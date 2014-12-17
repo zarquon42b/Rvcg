@@ -1,0 +1,13 @@
+--- vcg/space/index/kdtree/priorityqueue.h	2014-09-10 16:13:09.145904799 +0200
++++ vcg/space/index/kdtree/priorityqueue.h	2014-09-10 16:14:54.234425905 +0200
+@@ -111,6 +111,10 @@
+ 		}
+ 	}
+ 
++  ~HeapMaxPriorityQueue() {
++    delete[] mElements;
++  }
++
+ protected:
+ 
+ 	int mCount;
