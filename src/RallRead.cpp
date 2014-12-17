@@ -79,8 +79,12 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       std::vector<float> texvec;
       std::vector<string> texfile;
       if (m.textures.size() > 0 && colorread) {
+
+	if (!silent && clean)
+	  Rprintf("To avoid wrong assingment of texture, cleaning has been disabled\n");
+	
+	clean = false;
 	if (!VertTex && WedgeTex) {
-	  clean = false;
 	  m.vert.EnableTexCoord();	
 	  tri::AttributeSeam::SplitVertex(m, ExtractVertex, CompareVertex);
 	  vcg::tri::Allocator< MyMeshImport >::CompactVertexVector(m);
@@ -88,7 +92,6 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	  texfile = m.textures;
 	  texvec.resize(2*m.vn);
 	}
-	Rprintf("%i\n",m.vn);
 	VertexIterator vi=m.vert.begin();
 	for (int i=0;  i < m.vn; i++) {
 	  texvec[i*2] = (*vi).T().U();
@@ -177,7 +180,6 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
 	  }
 	}
       }
-      Rprintf("%i\n",m.vn);
       
      
     
