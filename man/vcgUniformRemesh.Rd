@@ -34,6 +34,7 @@ Resample a mesh uniformly
 \dontrun{
 data(humface)
 humresample <- vcgUniformRemesh(humface,voxelSize=1,multiSample = TRUE)
+require(rgl)
 shade3d(humresample,col=3)
 }
 }
