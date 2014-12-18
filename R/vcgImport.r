@@ -79,13 +79,16 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
                 out$material$color <- matrix(colfun(out$it),dim(out$it))
             }
             if (length(tmp$texfile)) {
-                if (length(grep(".jpg",ignore.case = T,tmp$texfile))) {
-                    message("please convert texture images to png format")
-                    tmp$texfile <- paste0(folder,"/",gsub("jpg","png",tmp$texfile))
-                }
                 if (length(tmp$texfile) > 1)
                     message("only single texture files supported, only first one stored")
-                out$material$texture <- tmp$texfile[1]
+                tmp$texfile <- tmp$texfile[1]
+                setwd(folder)
+                imghandle <- convertTexture(tmp$texfile,wdold)
+                setwd(wdold)
+                
+                out$material$texture <- imghandle$texfile
+                if(!imghandle$exist)
+                    message("autoconversion of texture image failed: please convert texture images to png format manually")
                 out$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
                 if (ncol(out$texcoords) > ncol(out$vb))
                     out$texcoords <- out$texcoords[,1:ncol(out$vb)]
@@ -97,3 +100,28 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
         out$facequality <- tmp$facequality
     return(out)
 }
+
+#' @importFrom readbitmap read.bitmap
+#' @importFrom png writePNG
+convertTexture <- function(texfile,folder="./") {
+      
+    hack <- unlist(strsplit(texfile,split="[.]"))
+    ext <- hack[length(hack)]
+    base <- paste(hack[-length(hack)],collapse = ".")
+    if (!file.exists(texfile))
+        return(list(exist=FALSE,texfile=paste0(base,".png")))
+    
+    exist <- TRUE
+    if (! ext %in% c("png","PNG")) {
+        img <- read.bitmap(texfile)
+        chk <- try(writePNG(img,paste0(folder,"/",base,".png")))
+        if (inherits(chk,"try-error") || inherits(img,"try-error"))
+            exist <- FALSE
+    } else {
+        chk <- try(file.copy(texfile,folder))
+        if (inherits(chk,"try-error"))
+            exist <- FALSE
+    }
+    return(list(exist=exist,texfile=paste0(base,".png")))
+}
+        
