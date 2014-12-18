@@ -81,7 +81,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       if (m.textures.size() > 0 && colorread) {
 
 	if (!silent && clean)
-	  Rprintf("To avoid wrong assingment of texture, cleaning has been disabled\n");
+	  Rprintf("To avoid wrong assignment of texture, cleaning has been disabled\n");
 	
 	clean = false;
 	if (!VertTex && WedgeTex) {
