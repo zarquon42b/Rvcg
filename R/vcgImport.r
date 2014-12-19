@@ -41,6 +41,20 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
         stop("only one file at a time please")
     if (! file.exists(x))
         stop(paste0("file ", file," does not exist"))
+
+    ## read xyz files
+    hack <- unlist(strsplit(file,split="[.]"))
+    ext <- hack[length(hack)]
+    if (ext == "xyz") {
+        out <- list()
+        xyz <- as.matrix(read.table(file))
+        colnames(xyz) <- rownames(xyz) <- NULL
+        out$vb <- rbind(t(xyz),1)
+        class(out) <- "mesh3d"
+        return(out)
+    }
+        
+    
     ## get file and folder names and cd to target directory
     wdold <- getwd()
     folder <- dirname(file)
@@ -52,11 +66,12 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
     clean <- as.logical(clean)
 
 
-    tmp <- .Call("RallRead", file, updateNormals, readcolor, clean, silent)
-    if (!is.list(tmp))
-        stop("mesh is not readable")
+    tmp <- try(.Call("RallRead", file, updateNormals, readcolor, clean, silent))
+    
     ## go back to current wd
     setwd(wdold)
+    if (inherits(tmp,"try-error") || !is.list(tmp))
+        stop("mesh is not readable")
     out <- list()
     class(out) <- "mesh3d"
     
@@ -78,13 +93,16 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
                 out$material$color <- matrix(colfun(out$it),dim(out$it))
             }
             if (length(tmp$texfile)) {
-                if (length(grep(".jpg",ignore.case = T,tmp$texfile))) {
-                    message("please convert texture images to png format")
-                    tmp$texfile <- paste0(folder,"/",gsub("jpg","png",tmp$texfile))
-                }
+                setwd(folder)
+                imghandle <- convertTexture(tmp$texfile[1],wdold)
+                setwd(wdold)
+                if (!imghandle$exist && !silent)
+                    message(paste("please convert texture image",tmp$texfile[1],"to png format and save it to your working directory"))
+                else if (!silent)
+                    message("texture file has been copied to your current working directory")
                 if (length(tmp$texfile) > 1)
                     message("only single texture files supported, only first one stored")
-                out$material$texture <- tmp$texfile[1]
+                out$material$texture <- imghandle$texfile
                 out$texcoords <- matrix(tmp$texcoord,2,length(tmp$texcoord)/2)
                 if (ncol(out$texcoords) > ncol(out$vb))
                     out$texcoords <- out$texcoords[,1:ncol(out$vb)]
@@ -95,4 +113,22 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
     if (length(tmp$facequality))
         out$facequality <- tmp$facequality
     return(out)
+}
+
+convertTexture <- function(texfile,folder="./") {
+      
+    hack <- unlist(strsplit(texfile,split="[.]"))
+    ext <- hack[length(hack)]
+    base <- paste(hack[-length(hack)],collapse = ".")
+    if (!file.exists(texfile))
+        return(list(exist=FALSE,texfile=paste0(base,".png")))
+    exist <- TRUE
+    if (! ext %in% c("png","PNG")) {
+        exist <- FALSE
+    } else {
+        chk <- try(file.copy(texfile,folder))
+        if (inherits(chk,"try-error"))
+            exist <- FALSE
+    }
+    return(list(exist=exist,texfile=paste0(base,".png")))
 }

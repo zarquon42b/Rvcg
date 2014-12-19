@@ -70,8 +70,10 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     if (err2) {
       return wrap(1);
     } else { 
-      if (m.fn == 0)
+      if (m.fn == 0) {
 	updateNormals = false;
+	clean = false;
+      }
       
       
       // do texture processing
