@@ -41,6 +41,20 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
         stop("only one file at a time please")
     if (! file.exists(x))
         stop(paste0("file ", file," does not exist"))
+
+    ## read xyz files
+    hack <- unlist(strsplit(file,split="[.]"))
+    ext <- hack[length(hack)]
+    if (ext == "xyz") {
+        out <- list()
+        xyz <- as.matrix(read.table(file))
+        colnames(xyz) <- rownames(xyz) <- NULL
+        out$vb <- rbind(t(xyz),1)
+        class(out) <- "mesh3d"
+        return(out)
+    }
+        
+    
     ## get file and folder names and cd to target directory
     wdold <- getwd()
     folder <- dirname(file)
