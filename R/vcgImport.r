@@ -56,7 +56,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
     
     ## go back to current wd
     setwd(wdold)
-    if (inherits(tmp,"try-error"))
+    if (inherits(tmp,"try-error") || !is.list(tmp))
         stop("mesh is not readable")
     out <- list()
     class(out) <- "mesh3d"
