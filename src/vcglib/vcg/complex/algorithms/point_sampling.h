@@ -73,8 +73,10 @@ template <class MeshType>
 class TrivialSampler
 {
 public:
+  typedef typename MeshType::ScalarType  ScalarType;
   typedef typename MeshType::CoordType  CoordType;
   typedef typename MeshType::VertexType VertexType;
+  typedef typename MeshType::EdgeType   EdgeType;
   typedef typename MeshType::FaceType   FaceType;
 
   void reset()
@@ -109,6 +111,11 @@ public:
   {
     sampleVec->push_back(p.cP());
   }
+  void AddEdge(const EdgeType& e, ScalarType u ) // u==0 -> v(0) u==1 -> v(1);
+  {
+    sampleVec->push_back(e.cV(0)->cP()*(1.0-u)+e.cV(1)->cP()*u);
+  }
+
   void AddFace(const FaceType &f, const CoordType &p)
   {
     sampleVec->push_back(f.cP(0)*p[0] + f.cP(1)*p[1] +f.cP(2)*p[2] );
@@ -200,15 +207,17 @@ template <class MeshType, class VertexSampler = TrivialSampler< MeshType> >
 class SurfaceSampling
 {
   typedef typename MeshType::CoordType       CoordType;
+  typedef typename MeshType::BoxType         BoxType;
   typedef typename MeshType::ScalarType      ScalarType;
   typedef typename MeshType::VertexType      VertexType;
   typedef typename MeshType::VertexPointer   VertexPointer;
   typedef typename MeshType::VertexIterator  VertexIterator;
+  typedef typename MeshType::EdgeType        EdgeType;
+  typedef typename MeshType::EdgeIterator    EdgeIterator;
+  typedef typename MeshType::FaceType        FaceType;
   typedef typename MeshType::FacePointer     FacePointer;
   typedef typename MeshType::FaceIterator    FaceIterator;
-  typedef typename MeshType::FaceType        FaceType;
   typedef typename MeshType::FaceContainer   FaceContainer;
-  typedef typename vcg::Box3<ScalarType>      BoxType;
 
   typedef typename vcg::SpatialHashTable<FaceType, ScalarType> MeshSHT;
   typedef typename vcg::SpatialHashTable<FaceType, ScalarType>::CellIterator MeshSHTIterator;
@@ -470,6 +479,79 @@ static void VertexUniform(MeshType & m, VertexSampler &ps, int sampleNum)
         ps.AddVert(*vertVec[i]);
 }
 
+
+/// Perform an uniform sampling over an EdgeMesh.
+///
+/// It assumes that the mesh is 1-manifold.
+/// each connected component is sampled in a independent way.
+/// For each component of lenght <L> we place on it floor(L/radius) samples.
+///
+static void EdgeMeshUniform(MeshType &m, VertexSampler &ps, float radius)
+{
+  tri::RequireEEAdjacency(m);
+  tri::RequireCompactness(m);
+  tri::UpdateTopology<MeshType>::EdgeEdge(m);
+  tri::UpdateFlags<MeshType>::EdgeClearV(m);
+
+  for(EdgeIterator ei = m.edge.begin();ei!=m.edge.end();++ei)
+  {
+    if(!ei->IsV())
+    {
+      edge::Pos<EdgeType> ep(&*ei,0);
+      edge::Pos<EdgeType> startep =ep;
+      VertexPointer startVertex=0;
+      do // first loop to search a boundary component.
+      {
+        ep.NextE();
+        if(ep.IsBorder()) break;
+      } while(startep!=ep);
+      if(!ep.IsBorder())
+        startVertex=ep.V();
+
+      ScalarType totalLen=0;
+      ep.FlipV();
+      do // second loop to compute len of the chain.
+      {
+        ep.E()->SetV();
+        totalLen+=Distance(ep.V()->P(),ep.VFlip()->P());
+        ep.NextE();
+      } while(!ep.IsBorder() && ep.V()!=startVertex);
+      ep.E()->SetV();
+      totalLen+=Distance(ep.V()->P(),ep.VFlip()->P());
+
+      // Third loop actually perform the sampling.
+      int sampleNum = floor(totalLen / radius);
+      ScalarType sampleDist = totalLen/sampleNum;
+      printf("Found a chain of %f with %i samples every %f (%f)\n",totalLen,sampleNum,sampleDist,radius);
+
+      ScalarType curLen=0;
+      int sampleCnt=1;
+      ps.AddEdge(*(ep.E()),ep.VInd()==0?0.0:1.0);
+      ep.FlipV();
+      do
+      {
+        ScalarType edgeLen = Distance(ep.V()->P(),ep.VFlip()->P());
+        ScalarType d0 = curLen;
+        ScalarType d1 = d0+edgeLen;
+
+        while(d1>sampleCnt*sampleDist)
+        {
+          ScalarType off = (sampleCnt*sampleDist-d0) /edgeLen;
+          printf("edgeLen %f off %f samplecnt %i\n",edgeLen,off,sampleCnt);
+          ps.AddEdge(*(ep.E()),ep.VInd()==0?1.0-off:off);
+          sampleCnt++;
+        }
+        curLen+=edgeLen;
+        ep.NextE();
+      } while(!ep.IsBorder() && ep.V()!=startVertex);
+
+      if(ep.V()!=startVertex)
+          ps.AddEdge(*(ep.E()),ep.VInd()==0?0.0:1.0);
+    }
+  }
+}
+
+
 /// \brief Sample all the border corner vertices
 ///
 /// It assumes that the border flag have been set over the mesh both for vertex and for faces.
@@ -492,7 +574,8 @@ static void VertexBorderCorner(MeshType & m, VertexSampler &ps, float angleRad)
 
   for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
   {
-    if(angleSumH[vi]<angleRad && vi->IsB())
+    if((angleSumH[vi]<angleRad && vi->IsB())||
+       (angleSumH[vi]>(360-angleRad) && vi->IsB()))
         ps.AddVert(*vi);
   }
 
@@ -581,31 +664,32 @@ static void AllEdge(MeshType & m, VertexSampler &ps)
 
 static void EdgeUniform(MeshType & m, VertexSampler &ps,int sampleNum, bool sampleFauxEdge=true)
 {
-        typedef typename UpdateTopology<MeshType>::PEdge SimpleEdge;
-        std::vector< SimpleEdge > Edges;
-    UpdateTopology<MeshType>::FillUniqueEdgeVector(m,Edges,sampleFauxEdge);
-        // First loop compute total edge length;
-        float edgeSum=0;
-        typename std::vector< SimpleEdge >::iterator ei;
-        for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
-                    edgeSum+=Distance((*ei).v[0]->P(),(*ei).v[1]->P());
+  typedef typename UpdateTopology<MeshType>::PEdge SimpleEdge;
 
-        float sampleLen = edgeSum/sampleNum;
-        float rest=0;
-        for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
-                {
-                    float len = Distance((*ei).v[0]->P(),(*ei).v[1]->P());
-                    float samplePerEdge = floor((len+rest)/sampleLen);
-                    rest = (len+rest) - samplePerEdge * sampleLen;
-                    float step = 1.0/(samplePerEdge+1);
-                    for(int i=0;i<samplePerEdge;++i)
-                    {
-                        Point3f interp(0,0,0);
-                        interp[ (*ei).z     ]=step*(i+1);
-                        interp[((*ei).z+1)%3]=1.0-step*(i+1);
-                        ps.AddFace(*(*ei).f,interp);
-                    }
-                }
+  std::vector< SimpleEdge > Edges;
+  UpdateTopology<MeshType>::FillUniqueEdgeVector(m,Edges,sampleFauxEdge);
+  // First loop compute total edge length;
+  float edgeSum=0;
+  typename std::vector< SimpleEdge >::iterator ei;
+  for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
+    edgeSum+=Distance((*ei).v[0]->P(),(*ei).v[1]->P());
+
+  float sampleLen = edgeSum/sampleNum;
+  float rest=0;
+  for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
+  {
+    float len = Distance((*ei).v[0]->P(),(*ei).v[1]->P());
+    float samplePerEdge = floor((len+rest)/sampleLen);
+    rest = (len+rest) - samplePerEdge * sampleLen;
+    float step = 1.0/(samplePerEdge+1);
+    for(int i=0;i<samplePerEdge;++i)
+    {
+      CoordType interp(0,0,0);
+      interp[ (*ei).z     ]=step*(i+1);
+      interp[((*ei).z+1)%3]=1.0-step*(i+1);
+      ps.AddFace(*(*ei).f,interp);
+    }
+  }
 }
 
 // Generate the barycentric coords of a random point over a single face,
@@ -1272,6 +1356,7 @@ struct PoissonDiskParam
     preGenFlag = false;
     preGenMesh = NULL;
     geodesicDistanceFlag = false;
+    randomSeed = 0;
   }
 
   struct Stat
@@ -1282,7 +1367,7 @@ struct PoissonDiskParam
     int totalTime;
     Point3i gridSize;
     int gridCellNum;
-    int sampleNum;
+    size_t sampleNum;
     int montecarloSampleNum;
   };
 
@@ -1297,6 +1382,7 @@ struct PoissonDiskParam
   MeshType *preGenMesh;      // There are two ways of passing the pregen vertexes to the pruning, 1) is with a mesh pointer
                               // 2) with a per vertex attribute.
   int MAXLEVELS;
+  int randomSeed;
 
   Stat pds;
 };
@@ -1396,9 +1482,9 @@ static void InitSpatialHashTable(MeshType &montecarloMesh, MontecarloSHT &montec
     assert(!bb.IsNull());
     bb.Offset(cellsize);
 
-    int sizeX = std::max(1.0f,bb.DimX() / cellsize);
-    int sizeY = std::max(1.0f,bb.DimY() / cellsize);
-    int sizeZ = std::max(1.0f,bb.DimZ() / cellsize);
+    int sizeX = std::max(1,int(bb.DimX() / cellsize));
+    int sizeY = std::max(1,int(bb.DimY() / cellsize));
+    int sizeZ = std::max(1,int(bb.DimZ() / cellsize));
     Point3i gridsize(sizeX, sizeY, sizeZ);
 
     montecarloSHT.InitEmpty(bb, gridsize);
@@ -1420,7 +1506,7 @@ static void InitSpatialHashTable(MeshType &montecarloMesh, MontecarloSHT &montec
 }
 
 static void PoissonDiskPruningByNumber(VertexSampler &ps, MeshType &m,
-                                       int sampleNum, ScalarType &diskRadius,
+                                       size_t sampleNum, ScalarType &diskRadius,
                                        PoissonDiskParam &pp,
                                        float tolerance=0.04,
                                        int maxIter=20)
@@ -1451,7 +1537,7 @@ static void PoissonDiskPruningByNumber(VertexSampler &ps, MeshType &m,
   } while(RangeMaxRadNum > sampleNum);
 
 
-  float curRadius;
+  float curRadius=RangeMaxRad;
   int iterCnt=0;
   while(iterCnt<maxIter &&
         (pp.pds.sampleNum < sampleNumMin || pp.pds.sampleNum  > sampleNumMax) )
@@ -1460,7 +1546,7 @@ static void PoissonDiskPruningByNumber(VertexSampler &ps, MeshType &m,
     ps.reset();
     curRadius=(RangeMaxRad+RangeMinRad)/2.0f;
     PoissonDiskPruning(ps, m ,curRadius,pp);
-    qDebug("PoissonDiskPruning Iteratin (%6.3f:%5i %6.3f:%5i) Cur Radius %f -> %i sample instead of %i",RangeMinRad,RangeMinRadNum,RangeMaxRad,RangeMaxRadNum,curRadius,pp.pds.sampleNum,sampleNum);
+//    qDebug("PoissonDiskPruning Iteratin (%6.3f:%5lu %6.3f:%5lu) Cur Radius %f -> %lu sample instead of %lu",RangeMinRad,RangeMinRadNum,RangeMaxRad,RangeMaxRadNum,curRadius,pp.pds.sampleNum,sampleNum);
     if(pp.pds.sampleNum > sampleNum){
       RangeMinRad = curRadius;
       RangeMinRadNum = pp.pds.sampleNum;
@@ -1482,6 +1568,7 @@ static void PoissonDiskPruning(VertexSampler &ps, MeshType &montecarloMesh,
                                ScalarType diskRadius, PoissonDiskParam &pp)
 {
   tri::RequireCompactness(montecarloMesh);
+  if(pp.randomSeed) SamplingRandomGenerator().initialize(pp.randomSeed);
   if(pp.adaptiveRadiusFlag)
     tri::RequirePerVertexQuality(montecarloMesh);
   int t0 = clock();
@@ -1688,15 +1775,14 @@ static void HierarchicalPoissonDisk(MeshType &origMesh, VertexSampler &ps, MeshT
 // vcg::tri::UpdateFlags<Mesh>::FaceBorderFromFF(m);
 static void Texture(MeshType & m, VertexSampler &ps, int textureWidth, int textureHeight, bool correctSafePointsBaryCoords=true)
 {
-        FaceIterator fi;
-
+typedef Point2<ScalarType> Point2x;
         printf("Similar Triangles face sampling\n");
-        for(fi=m.face.begin(); fi != m.face.end(); fi++)
+        for(FaceIterator fi=m.face.begin(); fi != m.face.end(); fi++)
             if (!fi->IsD())
             {
-                Point2f ti[3];
+                Point2x ti[3];
                 for(int i=0;i<3;++i)
-                    ti[i]=Point2f((*fi).WT(i).U() * textureWidth - 0.5, (*fi).WT(i).V() * textureHeight - 0.5);
+                    ti[i]=Point2x((*fi).WT(i).U() * textureWidth - 0.5, (*fi).WT(i).V() * textureHeight - 0.5);
                     // - 0.5 constants are used to obtain correct texture mapping
 
                 SingleFaceRaster(*fi,  ps, ti[0],ti[1],ti[2], correctSafePointsBaryCoords);
@@ -1714,7 +1800,7 @@ tri::FaceTmark<MeshType> markerFunctor;
 TriMeshGrid gM;
 };
 
-static void RegularRecursiveOffset(MeshType & m, std::vector<Point3f> &pvec, ScalarType offset, float minDiag)
+static void RegularRecursiveOffset(MeshType & m, std::vector<CoordType> &pvec, ScalarType offset, float minDiag)
 {
     Box3<ScalarType> bb=m.bbox;
     bb.Offset(offset*2.0);
@@ -1731,44 +1817,46 @@ static void RegularRecursiveOffset(MeshType & m, std::vector<Point3f> &pvec, Sca
     SubdivideAndSample(m, pvec, bb, rrp, bb.Diag());
 }
 
-static void SubdivideAndSample(MeshType & m, std::vector<Point3f> &pvec, const Box3<ScalarType> bb, RRParam &rrp, float curDiag)
+static void SubdivideAndSample(MeshType & m, std::vector<CoordType> &pvec, const Box3<ScalarType> bb, RRParam &rrp, float curDiag)
 {
-    Point3f startPt = bb.Center();
+  CoordType startPt = bb.Center();
 
-    ScalarType dist;
-    // Compute mesh point nearest to bb center
-    FaceType   *nearestF=0;
-    float dist_upper_bound = curDiag+rrp.offset;
-    Point3f closestPt;
-    vcg::face::PointDistanceBaseFunctor<ScalarType> PDistFunct;
-    dist=dist_upper_bound;
-    nearestF =  rrp.gM.GetClosest(PDistFunct,rrp.markerFunctor,startPt,dist_upper_bound,dist,closestPt);
+  ScalarType dist;
+  // Compute mesh point nearest to bb center
+  FaceType   *nearestF=0;
+  ScalarType dist_upper_bound = curDiag+rrp.offset;
+  CoordType closestPt;
+  vcg::face::PointDistanceBaseFunctor<ScalarType> PDistFunct;
+  dist=dist_upper_bound;
+  nearestF =  rrp.gM.GetClosest(PDistFunct,rrp.markerFunctor,startPt,dist_upper_bound,dist,closestPt);
   curDiag /=2;
-    if(dist < dist_upper_bound)
+  if(dist < dist_upper_bound)
+  {
+    if(curDiag/3 < rrp.minDiag) //store points only for the last level of recursion (?)
+    {
+      if(rrp.offset==0)
+        pvec.push_back(closestPt);
+      else
+      {
+        if(dist>rrp.offset) // points below the offset threshold cannot be displaced at the right offset distance, we can only make points nearer.
         {
-            if(curDiag/3 < rrp.minDiag) //store points only for the last level of recursion (?)
-                {
-                    if(rrp.offset==0)
-                            pvec.push_back(closestPt);
-                    else
-                        {
-                            if(dist>rrp.offset) // points below the offset threshold cannot be displaced at the right offset distance, we can only make points nearer.
-                            {
-                                Point3f delta = startPt-closestPt;
-                                pvec.push_back(closestPt+delta*(rrp.offset/dist));
-                            }
-                        }
-                }
-            if(curDiag < rrp.minDiag) return;
-            Point3f hs = (bb.max-bb.min)/2;
-            for(int i=0;i<2;i++)
-                for(int j=0;j<2;j++)
-                    for(int k=0;k<2;k++)
-                        SubdivideAndSample(m,pvec,
-                                                                            Box3f(Point3f( bb.min[0]+i*hs[0], bb.min[1]+j*hs[1], bb.min[2]+k*hs[2]),
-                                                                                        Point3f(startPt[0]+i*hs[0],startPt[1]+j*hs[1],startPt[2]+k*hs[2])),rrp,curDiag);
-
+          CoordType delta = startPt-closestPt;
+          pvec.push_back(closestPt+delta*(rrp.offset/dist));
         }
+      }
+    }
+    if(curDiag < rrp.minDiag) return;
+    CoordType hs = (bb.max-bb.min)/2;
+    for(int i=0;i<2;i++)
+      for(int j=0;j<2;j++)
+        for(int k=0;k<2;k++)
+          SubdivideAndSample(m, pvec,
+                             BoxType(CoordType( bb.min[0]+i*hs[0],  bb.min[1]+j*hs[1],  bb.min[2]+k*hs[2]),
+                                     CoordType(startPt[0]+i*hs[0], startPt[1]+j*hs[1], startPt[2]+k*hs[2]) ),
+                             rrp,curDiag
+              );
+
+  }
 }
 }; // end sampling class
 
@@ -1816,10 +1904,12 @@ void MontecarloSampling(MeshType &m, // the mesh that has to be sampled
 //
 template <class MeshType>
 void PoissonSampling(MeshType &m, // the mesh that has to be sampled
-                     std::vector<Point3f> &poissonSamples, // the vector that will contain the set of points
+                     std::vector<typename MeshType::CoordType> &poissonSamples, // the vector that will contain the set of points
                      int sampleNum, // the desired number sample, if zero you must set the radius to the wanted value
-                     float &radius,  // the Poisson Disk Radius (used if sampleNum==0, setted if sampleNum!=0)
-                     float radiusVariance=1)
+                     typename MeshType::ScalarType &radius,  // the Poisson Disk Radius (used if sampleNum==0, setted if sampleNum!=0)
+                     typename MeshType::ScalarType radiusVariance=1,
+                     typename MeshType::ScalarType PruningByNumberTolerance=0.04f,
+                     unsigned int randSeed=0)
 
 {
   typedef tri::TrivialSampler<MeshType> BaseSampler;
@@ -1828,10 +1918,11 @@ void PoissonSampling(MeshType &m, // the mesh that has to be sampled
   typename tri::SurfaceSampling<MeshType, BaseSampler>::PoissonDiskParam pp;
   int t0=clock();
 
-  if(sampleNum>0) radius = tri::SurfaceSampling<MeshType,BaseSampler>::ComputePoissonDiskRadius(m,sampleNum);
+//  if(sampleNum>0) radius = tri::SurfaceSampling<MeshType,BaseSampler>::ComputePoissonDiskRadius(m,sampleNum);
   if(radius>0 && sampleNum==0) sampleNum = tri::SurfaceSampling<MeshType,BaseSampler>::ComputePoissonSampleNum(m,radius);
 
   pp.pds.sampleNum = sampleNum;
+  pp.randomSeed = randSeed;
   poissonSamples.clear();
 //  std::vector<Point3f> MontecarloSamples;
   MeshType MontecarloMesh;
@@ -1840,6 +1931,7 @@ void PoissonSampling(MeshType &m, // the mesh that has to be sampled
   MontecarloSampler mcSampler(MontecarloMesh);
   BaseSampler pdSampler(poissonSamples);
 
+  if(randSeed) tri::SurfaceSampling<MeshType,MontecarloSampler>::SamplingRandomGenerator().initialize(randSeed);
   tri::SurfaceSampling<MeshType,MontecarloSampler>::Montecarlo(m, mcSampler, std::max(10000,sampleNum*40));
   tri::UpdateBounding<MeshType>::Box(MontecarloMesh);
 //  tri::Build(MontecarloMesh, MontecarloSamples);
@@ -1851,7 +1943,8 @@ void PoissonSampling(MeshType &m, // the mesh that has to be sampled
     pp.adaptiveRadiusFlag=true;
     pp.radiusVariance=radiusVariance;
   }
-  tri::SurfaceSampling<MeshType,BaseSampler>::PoissonDiskPruning(pdSampler, MontecarloMesh, radius,pp);
+  if(sampleNum==0) tri::SurfaceSampling<MeshType,BaseSampler>::PoissonDiskPruning(pdSampler, MontecarloMesh, radius,pp);
+  else tri::SurfaceSampling<MeshType,BaseSampler>::PoissonDiskPruningByNumber(pdSampler, MontecarloMesh, sampleNum, radius,pp,PruningByNumberTolerance);
   int t2=clock();
   pp.pds.totalTime = t2-t0;
 }
@@ -1867,8 +1960,7 @@ void PoissonPruning(MeshType &m, // the mesh that has to be pruned
 {
   typedef tri::TrivialPointerSampler<MeshType> BaseSampler;
   typename tri::SurfaceSampling<MeshType, BaseSampler>::PoissonDiskParam pp;
-  if(randSeed !=0)
-    tri::SurfaceSampling<MeshType,BaseSampler>::SamplingRandomGenerator().initialize(randSeed);
+  pp.randomSeed = randSeed;
 
   tri::UpdateBounding<MeshType>::Box(m);
   BaseSampler pdSampler;
@@ -1904,10 +1996,11 @@ void PoissonPruning(MeshType &m, // the mesh that has to be pruned
 template <class MeshType>
 void PoissonPruningExact(MeshType &m, /// the mesh that has to be pruned
                          std::vector<typename MeshType::VertexPointer> &poissonSamples, /// the vector that will contain the chosen set of points
-                         float & radius,
+                         typename MeshType::ScalarType & radius,
                          int sampleNum,
                          float tolerance=0.04,
-                         int maxIter=20)
+                         int maxIter=20,
+                         unsigned int randSeed=0)
 {
   size_t sampleNumMin = int(float(sampleNum)*(1.0f-tolerance));  // the expected values range.
   size_t sampleNumMax = int(float(sampleNum)*(1.0f+tolerance));  // e.g. any sampling in [sampleNumMin, sampleNumMax] is OK
@@ -1920,14 +2013,14 @@ void PoissonPruningExact(MeshType &m, /// the mesh that has to be pruned
   do
   {
     RangeMinRad/=2.0f;
-    PoissonPruning(m,poissonSamplesTmp,RangeMinRad);
+    PoissonPruning(m,poissonSamplesTmp,RangeMinRad,randSeed);
     RangeMinSampleNum = poissonSamplesTmp.size();
   } while(RangeMinSampleNum < sampleNumMin);
 
   do
   {
     RangeMaxRad*=2.0f;
-    PoissonPruning(m,poissonSamplesTmp,RangeMaxRad);
+    PoissonPruning(m,poissonSamplesTmp,RangeMaxRad,randSeed);
     RangeMaxSampleNum = poissonSamplesTmp.size();
   } while(RangeMaxSampleNum > sampleNumMax);
 
@@ -1937,7 +2030,7 @@ void PoissonPruningExact(MeshType &m, /// the mesh that has to be pruned
         (poissonSamplesTmp.size() < sampleNumMin || poissonSamplesTmp.size() > sampleNumMax) )
   {
     curRadius=(RangeMaxRad+RangeMinRad)/2.0f;
-    PoissonPruning(m,poissonSamplesTmp,curRadius);
+    PoissonPruning(m,poissonSamplesTmp,curRadius,randSeed);
     //qDebug("(%6.3f:%5i %6.3f:%5i) Cur Radius %f -> %i sample instead of %i",RangeMinRad,RangeMinSampleNum,RangeMaxRad,RangeMaxSampleNum,curRadius,poissonSamplesTmp.size(),sampleNum);
     if(poissonSamplesTmp.size() > sampleNum)
       RangeMinRad = curRadius;

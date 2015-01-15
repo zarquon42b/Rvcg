@@ -29,35 +29,38 @@ namespace vcg {
 // just an example of the interface that the trivial walker expects
 
 template <class VOX_TYPE>
-class SimpleVolume : public BasicGrid<float>
+class SimpleVolume : public BasicGrid<typename VOX_TYPE::ScalarType>
 {
 public:
   typedef VOX_TYPE VoxelType;
+  typedef typename VoxelType::ScalarType ScalarType;
+  typedef typename BasicGrid<typename VOX_TYPE::ScalarType>::Box3x Box3x;
 
-  const Point3i &ISize() {return siz;}   /// Dimensioni griglia come numero di celle per lato
+  const Point3i &ISize() {return this->siz;}   /// Dimensioni griglia come numero di celle per lato
 
-  float Val(const int &x,const int &y,const int &z) const {
+  ScalarType Val(const int &x,const int &y,const int &z) const {
     return cV(x,y,z).V();
     //else return numeric_limits<float>::quiet_NaN( );
   }
 
-  float &Val(const int &x,const int &y,const int &z) {
+  ScalarType &Val(const int &x,const int &y,const int &z) {
     return V(x,y,z).V();
     //else return numeric_limits<float>::quiet_NaN( );
   }
 
   VOX_TYPE &V(const int &x,const int &y,const int &z) {
-    return Vol[x+y*siz[0]+z*siz[0]*siz[1]];
+    return Vol[x+y*this->siz[0]+z*this->siz[0]*this->siz[1]];
   }
 
   VOX_TYPE &V(const Point3i &pi) {
-    return Vol[ pi[0] + pi[1]*siz[0] + pi[2]*siz[0]*siz[1] ];
+    return Vol[ pi[0] + pi[1]*this->siz[0] + pi[2]*this->siz[0]*this->siz[1] ];
   }
 
   const VOX_TYPE &cV(const int &x,const int &y,const int &z) const {
-    return Vol[x+y*siz[0]+z*siz[0]*siz[1]];
+    return Vol[x+y*this->siz[0]+z*this->siz[0]*this->siz[1]];
   }
 
+  bool ValidCell(const Point3i & /*p0*/, const Point3i & /*p1*/) const { return true;}
 
   template < class VertexPointerType >
   void GetXIntercept(const vcg::Point3i &p1, const vcg::Point3i &p2, VertexPointerType &v, const float thr)
@@ -91,31 +94,34 @@ public:
     if(AxisVal==ZAxis) v->P().Z() = (float) p1.Z()*(1-u) + u*p2.Z();
     else v->P().Z() = (float) p1.Z();
     this->IPfToPf(v->P(),v->P());
-    if(VoxelType::HasNormal()) v->N() = V(p1).N()*(1-u) + V(p2).N()*u;
+    if(VoxelType::HasNormal()) v->N().Import(V(p1).N()*(1-u) + V(p2).N()*u);
   }
 
 
 
-  void Init(Point3i _sz)
+  void Init(Point3i _sz, Box3x bb)
   {
-    siz=_sz;
-    Vol.resize(siz[0]*siz[1]*siz[2]);
+    this->siz=_sz;
+    this->bbox = bb;
+    Vol.resize(this->siz[0]*this->siz[1]*this->siz[2]);
+    this->ComputeDimAndVoxel();
   }
 
 
 
 };
-
+template <class _ScalarType=float>
 class SimpleVoxel
 {
 private:
-  float _v;
+  _ScalarType _v;
 public:
-  float &V() {return _v;}
-  float V() const {return _v;}
+  typedef _ScalarType ScalarType;
+  ScalarType &V() {return _v;}
+  ScalarType V() const {return _v;}
   static bool HasNormal() {return false;}
-  vcg::Point3f N() const {return Point3f(0,0,0);}
-  vcg::Point3f &N()  { static Point3f _p(0,0,0); return _p;}
+  vcg::Point3<ScalarType> N() const {return Point3<ScalarType>(0,0,0);}
+  vcg::Point3<ScalarType> &N()  { static Point3<ScalarType> _p(0,0,0); return _p;}
 };
 
 class SimpleVoxelWithNormal
@@ -153,14 +159,18 @@ private:
   typedef typename MeshType::VertexPointer VertexPointer;
     public:
 
-  // bbox is the portion of the volume to be computed
+  // subbox is the portion of the volume to be computed
   // resolution determine the sampling step:
   // should be a divisor of bbox size (e.g. if bbox size is 256^3 resolution could be 128,64, etc)
 
-
   void Init(VolumeType &volume)
+  {
+    Init(volume,Box3i(Point3i(0,0,0),volume.ISize()));
+  }
+
+  void Init(VolumeType &/*volume*/, Box3i subbox)
     {
-        _bbox				= Box3i(Point3i(0,0,0),volume.ISize());
+        _bbox				= subbox;
         _slice_dimension = _bbox.DimX()*_bbox.DimZ();
 
         _x_cs = new VertexIndex[ _slice_dimension ];
@@ -169,7 +179,7 @@ private:
         _x_ns = new VertexIndex[ _slice_dimension ];
         _z_ns = new VertexIndex[ _slice_dimension ];
 
-    };
+    }
 
     ~TrivialWalker()
     {
@@ -183,36 +193,37 @@ private:
 
     template<class EXTRACTOR_TYPE>
   void BuildMesh(MeshType &mesh, VolumeType &volume, EXTRACTOR_TYPE &extractor, const float threshold, vcg::CallBackPos * cb=0)
-    {
+  {
     Init(volume);
-        _volume = &volume;
-        _mesh		= &mesh;
-        _mesh->Clear();
+    _volume = &volume;
+    _mesh		= &mesh;
+    _mesh->Clear();
     _thr=threshold;
-        vcg::Point3i p1, p2;
+    vcg::Point3i p1, p2;
 
-        Begin();
-        extractor.Initialize();
-        for (int j=_bbox.min.Y(); j<(_bbox.max.Y()-1)-1; j+=1)
+    Begin();
+    extractor.Initialize();
+    for (int j=_bbox.min.Y(); j<(_bbox.max.Y()-1)-1; j+=1)
     {
 
       if(cb && ((j%10)==0) ) 	cb(j*_bbox.DimY()/100.0,"Marching volume");
 
-            for (int i=_bbox.min.X(); i<(_bbox.max.X()-1)-1; i+=1)
-            {
-                for (int k=_bbox.min.Z(); k<(_bbox.max.Z()-1)-1; k+=1)
-                {
-                    p1.X()=i;									p1.Y()=j;									p1.Z()=k;
-                    p2.X()=i+1;	p2.Y()=j+1;	p2.Z()=k+1;
-          extractor.ProcessCell(p1, p2);
-                }
-            }
-            NextSlice();
+      for (int i=_bbox.min.X(); i<(_bbox.max.X()-1)-1; i+=1)
+      {
+        for (int k=_bbox.min.Z(); k<(_bbox.max.Z()-1)-1; k+=1)
+        {
+          p1.X()=i;	  p1.Y()=j;     p1.Z()=k;
+          p2.X()=i+1; p2.Y()=j+1;	p2.Z()=k+1;
+          if(volume.ValidCell(p1,p2))
+            extractor.ProcessCell(p1, p2);
         }
-        extractor.Finalize();
-        _volume = NULL;
-        _mesh		= NULL;
-    };
+      }
+      NextSlice();
+    }
+    extractor.Finalize();
+    _volume = NULL;
+    _mesh		= NULL;
+  }
 
     float V(int pi, int pj, int pk)
     {
@@ -359,6 +370,6 @@ protected:
 
     }
 };
-} // end namespace
-} // end namespace
+} // end namespace tri
+} // end namespace vcg
 #endif // __VCGTEST_WALKER

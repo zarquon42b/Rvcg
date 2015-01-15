@@ -1,0 +1,13 @@
+Index: vcglib/vcg/space/index/space_iterators.h
+===================================================================
+--- vcglib.orig/vcg/space/index/space_iterators.h	2014-12-17 11:16:36.888542413 +0100
++++ vcglib/vcg/space/index/space_iterators.h	2014-12-17 11:16:36.884542393 +0100
+@@ -314,7 +314,7 @@
+ 		RayType r;							//ray to find intersections
+ 		Spatial_Idexing &Si;	  //reference to spatial index algorithm
+ 		bool end;								//true if the scan is terminated
+-		INTFUNCTOR &int_funct;
++		INTFUNCTOR int_funct;
+ 		TMARKER tm;
+ 
+ 		std::vector<Entry_Type> Elems;					//element loaded from curren cell

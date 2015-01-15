@@ -1,32 +1,23 @@
---- vcg/space/index/kdtree/kdtree.h	2014-05-20 20:23:34.541133951 +0200
-+++ vcg/space/index/kdtree/kdtree.h	2014-05-20 20:31:32.215502595 +0200
-@@ -54,20 +54,20 @@
- 
- 	struct Node
- 	{
--		union {
-+	  union {
-                         //standard node
- 			struct {
- 				Scalar splitValue;
- 				unsigned int firstChildId:24;
- 				unsigned int dim:2;
- 				unsigned int leaf:1;
--			};
-+		  } mynode;
+--- vcg/space/index/kdtree/kdtree.h	2014-06-06 10:41:55.929551707 +0200
++++ vcg/space/index/kdtree/kdtree.h	2014-06-06 10:47:04.715082892 +0200
+@@ -70,13 +70,13 @@
+                 unsigned int firstChildId:24;
+                 unsigned int dim:2;
+                 unsigned int leaf:1;
+-            };
++            }mynode;
                          //leaf
--			struct {
-+		  struct {
- 				unsigned int start;
- 				unsigned short size;
--			};
+             struct {
+                 unsigned int start;
+                 unsigned short size;
+-            };
 -                };
-+			  	} myleaf;
-+	  } NodeU;
- 	};
- 	typedef std::vector<Node> NodeList;
++            }myleaf;
++                }NodeU;
+     };
+     typedef std::vector<Node> NodeList;
  
-@@ -191,34 +191,34 @@
+@@ -200,34 +200,34 @@
                  if (qnode.sq < mNeighborQueue.getTopWeight())
                  {
                          //when we arrive to a lef
@@ -37,15 +28,15 @@
  
                                  //end is the index of the last element of the leaf in mPoints
 -                                unsigned int end = node.start+node.size;
-+                                unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
++                                 unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
                                  //adding the element of the leaf to the heap
 -                                for (unsigned int i=node.start ; i<end ; ++i)
-+                                for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
++                                 for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
                                                  mNeighborQueue.insert(i, vcg::SquaredNorm(queryPoint - mPoints[i]));
                          }
                          //otherwise, if we're not on a leaf
                          else
-                         {   
+                         {
                                  // the new offset is the distance between the searched point and the actual split coordinate
 -                                float new_off = queryPoint[node.dim] - node.splitValue;
 +                                float new_off = queryPoint[node.NodeU.mynode.dim] - node.NodeU.mynode.splitValue;
@@ -69,3 +60,65 @@
                                  }
                                  //distance is inherited from the father (while descending the tree it's equal to 0)
                                  mNodeStack[count].sq = qnode.sq;
+@@ -302,47 +302,47 @@
+ 
+         //the split "dim" is the dimension of the box with the biggest value
+         unsigned int dim = vcg::MaxCoeffId(diag);
+-        node.dim = dim;
++        node.NodeU.mynode.dim = dim;
+         //we divide the bounding box in 2 partitions, considering the average of the "dim" dimension
+-        node.splitValue = Scalar(0.5*(aabb.max[dim] + aabb.min[dim]));
++        node.NodeU.mynode.splitValue = Scalar(0.5*(aabb.max[dim] + aabb.min[dim]));
+ 
+         //midId is the index of the first element in the second partition
+-        unsigned int midId = split(start, end, dim, node.splitValue);
++        unsigned int midId = split(start, end, dim, node.NodeU.mynode.splitValue);
+ 
+ 
+-        node.firstChildId = mNodes.size();
++        node.NodeU.mynode.firstChildId = mNodes.size();
+         mNodes.resize(mNodes.size()+2);
+ 
+         {
+                 // left child
+-                unsigned int childId = mNodes[nodeId].firstChildId;
++                unsigned int childId = mNodes[nodeId].NodeU.mynode.firstChildId;
+                 Node& child = mNodes[childId];
+                 if (midId - start <= targetCellSize || level>=targetMaxDepth)
+                 {
+-                                child.leaf = 1;
+-                                child.start = start;
+-                                child.size = midId - start;
++                                child.NodeU.mynode.leaf = 1;
++                                child.NodeU.myleaf.start = start;
++                                child.NodeU.myleaf.size = midId - start;
+                 }
+                 else
+                 {
+-                                child.leaf = 0;
++                                child.NodeU.mynode.leaf = 0;
+                                 createTree(childId, start, midId, level+1, targetCellSize, targetMaxDepth);
+                 }
+         }
+ 
+         {
+                 // right child
+-                unsigned int childId = mNodes[nodeId].firstChildId+1;
++                unsigned int childId = mNodes[nodeId].NodeU.mynode.firstChildId+1;
+                 Node& child = mNodes[childId];
+                 if (end - midId <= targetCellSize || level>=targetMaxDepth)
+                 {
+-                        child.leaf = 1;
+-                        child.start = midId;
+-                        child.size = end - midId;
++                        child.NodeU.mynode.leaf = 1;
++                        child.NodeU.myleaf.start = midId;
++                        child.NodeU.myleaf.size = end - midId;
+                 }
+                 else
+                 {
+-                        child.leaf = 0;
++                        child.NodeU.mynode.leaf = 0;
+                         createTree(childId, midId, end, level+1, targetCellSize, targetMaxDepth);
+                 }
+         }

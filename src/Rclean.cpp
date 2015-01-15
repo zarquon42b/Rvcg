@@ -32,7 +32,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
   tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
   tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
   vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
-  vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
+  vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFaceBorder(m);
   */
   //tri::UpdateFlags<TopoMyMesh>::FaceBorderFromNone(m); 
    
@@ -52,7 +52,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
       tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
       tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
       vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
-      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFaceBorder(m);
       rem = tri::Clean<TopoMyMesh>::RemoveNonManifoldFace(m);
       if (!silent)
 	Rprintf("removed %d Non-manifold faces\n",rem);
@@ -64,7 +64,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
       tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
       tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
       vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
-      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFaceBorder(m);
       rem = tri::Clean<TopoMyMesh>::RemoveNonManifoldVertex(m);
       if (!silent)
 	Rprintf("removed %d Non-manifold vertices\n",rem);
@@ -72,7 +72,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
       tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
       tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
       vcg::tri::UpdateFlags<TopoMyMesh>::FaceBorderFromFF(m);
-      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFace(m);
+      vcg::tri::UpdateFlags<TopoMyMesh>::VertexBorderFromFaceBorder(m);
       int split =tri::Clean<TopoMyMesh>::SplitNonManifoldVertex(m,tol);
     if (!silent)
       Rprintf("split %d non-manifold vertices\n",split);

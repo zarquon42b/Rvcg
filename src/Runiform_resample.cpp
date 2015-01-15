@@ -40,7 +40,7 @@ RcppExport SEXP RuniformResampling(SEXP vb_, SEXP it_, SEXP voxelSize_, SEXP off
     Rprintf("     VoxelSize is %f, offset is %f\n", voxelSize,offsetThr);
     Rprintf("     Mesh Box is %f %f %f\n",baseMesh.bbox.DimX(),baseMesh.bbox.DimY(),baseMesh.bbox.DimZ() );
   }
-  tri::Resampler<MyMesh,MyMesh,float>::Resample(baseMesh, offsetMesh, volumeBox, volumeDim, voxelSize*3.5, offsetThr,discretizeFlag,multiSampleFlag,absDistFlag);
+  tri::Resampler<MyMesh,MyMesh>::Resample(baseMesh, offsetMesh, volumeBox, volumeDim, voxelSize*3.5, offsetThr,discretizeFlag,multiSampleFlag,absDistFlag);
   if (mergeCloseVert) {
     float mergeThr =offsetMesh.bbox.Diag()/10000.0f;
     int total = tri::Clean<MyMesh>::MergeCloseVertex(offsetMesh,mergeThr);

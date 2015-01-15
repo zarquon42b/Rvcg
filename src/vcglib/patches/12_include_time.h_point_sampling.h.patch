@@ -1,0 +1,12 @@
+Index: vcglib/vcg/complex/algorithms/point_sampling.h
+===================================================================
+--- vcglib.orig/vcg/complex/algorithms/point_sampling.h	2014-12-17 11:16:40.952562565 +0100
++++ vcglib/vcg/complex/algorithms/point_sampling.h	2014-12-17 11:16:40.952562565 +0100
+@@ -47,6 +47,7 @@
+ #include <vcg/complex/algorithms/update/bounding.h>
+ #include <vcg/complex/algorithms/update/flag.h>
+ #include <vcg/space/segment2.h>
++#include <time.h>
+ 
+ namespace vcg
+ {
