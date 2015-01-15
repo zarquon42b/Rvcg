@@ -11,17 +11,16 @@
 #' 
 #' @export
 vcgKDtree <- function(target, query,k) {
+   
+    if (inherits(target,"mesh3d"))
+        target <- t(target$vb[1:3,])
+    if (inherits(query,"mesh3d"))
+        query <- t(query$vb[1:3,])
     m <- ncol(target)
     if (m == 2) {
         target <- cbind(target,0)
         query <- cbind(query,0)
     }
-
-    if (inherits(target,"mesh3d"))
-        target <- t(target$vb[1:3,])
-    if (inherits(query,"mesh3d"))
-        query <- t(query$vb[1:3,])
-    
     if ( !is.numeric(target) || !is.matrix(target) ||!is.numeric(query) || !is.matrix(query))
         stop("vertices/coordinates need to be numeric matrices")
 
