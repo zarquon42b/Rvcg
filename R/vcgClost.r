@@ -23,6 +23,7 @@
 #' \item{border }{integer vector of length n: if borderchk = TRUE, for each clostest point the value will be 1 if the hit face is at the border of the target mesh and 0 otherwise.} 
 #' \item{barycoords }{3 x m Matrix containing barycentric coordinates of
 #' closest points; only available if barycentric=TRUE.}
+#' \item{faceptr }{vector of face indeces on which the closest points are located}
 #' @note If large part of the reference mesh are far away from the target
 #' surface, calculation can become very slow. In that case, the function
 #' \code{vcgClostKD} will be significantly faster.
