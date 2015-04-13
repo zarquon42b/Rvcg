@@ -85,35 +85,32 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 	  if (  0 < angdev) { 
 	    
 	    MyMesh::CoordType refnorm = (*vi).N();
-	     tmpnorm = clost*0;
-	     if (!wnorm) {
-	       tmpnorm = target.face[fptr].N();
-	     } else {
-	       for (int j=0; j <3;j++) {
-		 Point3f vdist = target.face[fptr].V(j)->P() - tmp;
-		 float weight = sqrt(vdist.dot(vdist));
-		 if (weight > 0)
-		   weight = 1/weight;
-		 else 
-		   weight = 1e12;
-		 tmpnorm += target.face[fptr].V(j)->N()*weight;
-	       }
-	     }
-	     ang = Angle(tmpnorm,refnorm);
-	      
-	      //Rprintf("%f\n",ang);
+	    tmpnorm = clost*0;
+	    if (!wnorm) {
+	      tmpnorm = target.face[fptr].N();
+	    } else {
+	      for (int j1=0; j1 <3;j1++) {
+		Point3f vdist = target.face[fptr].V(j1)->P() - tmp;
+		float weight = sqrt(vdist.dot(vdist));
+		if (weight > 0)
+		  weight = 1/weight;
+		else 
+		  weight = 1e12;
+		tmpnorm += target.face[fptr].V(j1)->N()*weight;
+	      }
+	    }
+	    ang = Angle(tmpnorm,refnorm);
+	    
 	    if (ang > angdev)
 	      dist = 1e5;
 	  }
-	  Point3f vdist = target.face[fptr].V(j)->P() - clost;
 	  if (dist < distance_old) {
 	    distance_old = dist;
 	    clost = tmp;
 	    faceptr[i] = fptr;
 	    if (angdev > 0)
 	      angle[i] = ang;
-	      
-	    }
+	  }
 	}
       }
       distout[i] = distance_old;
