@@ -182,7 +182,14 @@ private:
     }
 
     ~TrivialWalker()
-    {_thr=0;}
+    {
+      _thr=0;
+      delete[] _x_cs;
+      delete[] _y_cs;
+      delete[] _z_cs;
+      delete[] _x_ns;
+      delete[] _z_ns;
+    }
 
     template<class EXTRACTOR_TYPE>
   void BuildMesh(MeshType &mesh, VolumeType &volume, EXTRACTOR_TYPE &extractor, const float threshold, vcg::CallBackPos * cb=0)

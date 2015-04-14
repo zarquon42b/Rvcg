@@ -452,7 +452,7 @@ public:
     return count_removed;
   }
 
-  static int SplitSelectedVertexOnEdgeMesh(MeshType& m)
+  static void SplitSelectedVertexOnEdgeMesh(MeshType& m)
   {
     tri::RequireCompactness(m);
     tri::UpdateFlags<MeshType>::VertexClearV(m);

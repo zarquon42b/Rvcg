@@ -314,7 +314,7 @@ namespace vcg{
 		RayType r;							//ray to find intersections
 		Spatial_Idexing &Si;	  //reference to spatial index algorithm
 		bool end;								//true if the scan is terminated
-		INTFUNCTOR &int_funct;
+		INTFUNCTOR int_funct;
 		TMARKER tm;
 
 		std::vector<Entry_Type> Elems;					//element loaded from curren cell
