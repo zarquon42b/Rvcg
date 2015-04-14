@@ -105,7 +105,7 @@ namespace vcg {
 			{
 				if (weight<mElements[0].weight)
 				{
-					int j, k;
+					register int j, k;
 					j = 1;
 					k = 2;
 					while (k <= mMaxSize)
