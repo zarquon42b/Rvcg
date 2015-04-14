@@ -2,6 +2,24 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.11 (2015-04-14)}{
+  \subsection{new features}{
+    \itemize{
+      \item updated vcglib source code to Revision: 5496
+      \item added support for xyz files
+      \item improved handling of texture files
+      }
+  }
+  \subsection{bug fixes}{
+    \itemize{
+      \item fixed Rkdtree.cpp where a flying snippet could provoke assertion errors
+      \item fixed issues if target of a vcgKdtree query is a mesh
+      \item disabled cleaning for pointclouds in RallRead.cpp      
+    }
+  }
+}
+
+
 \section{Changes in Rvcg version 0.10.1 (2014-12-18)}{
   \subsection{bug fixes}{
     \itemize{
