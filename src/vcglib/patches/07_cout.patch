@@ -1,7 +1,7 @@
 Index: vcglib/vcg/complex/exception.h
 ===================================================================
---- vcglib.orig/vcg/complex/exception.h	2014-12-17 11:15:05.936091404 +0100
-+++ vcglib/vcg/complex/exception.h	2014-12-17 11:15:05.936091404 +0100
+--- vcglib.orig/vcg/complex/exception.h	2015-04-14 11:44:26.957732634 +0200
++++ vcglib/vcg/complex/exception.h	2015-04-14 11:44:26.953732614 +0200
 @@ -30,7 +30,7 @@
  public:
    MissingComponentException(const std::string &err):std::runtime_error(err)

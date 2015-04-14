@@ -1,8 +1,8 @@
 Index: vcglib/wrap/io_trimesh/import_stl.h
 ===================================================================
---- vcglib.orig/wrap/io_trimesh/import_stl.h	2014-12-17 11:15:02.832076012 +0100
-+++ vcglib/wrap/io_trimesh/import_stl.h	2014-12-17 11:15:02.828075992 +0100
-@@ -102,7 +102,8 @@
+--- vcglib.orig/wrap/io_trimesh/import_stl.h	2015-04-14 11:42:13.285069787 +0200
++++ vcglib/wrap/io_trimesh/import_stl.h	2015-04-14 11:46:37.490379910 +0200
+@@ -101,7 +101,8 @@
      return false;
     FILE *fp = fopen(filename, "rb");
     char buf[STL_LABEL_SIZE+1];
@@ -12,7 +12,7 @@ Index: vcglib/wrap/io_trimesh/import_stl.h
     std::string strInput(buf);
     size_t cInd = strInput.rfind("COLOR=");
     size_t mInd = strInput.rfind("MATERIAL=");
-@@ -111,16 +112,17 @@
+@@ -110,16 +111,17 @@
     else
       magicsMode = false;
     int facenum;
@@ -34,7 +34,7 @@ Index: vcglib/wrap/io_trimesh/import_stl.h
       if(attr!=0)
       {
        if(Color4b::FromUnsignedR5G5B5(attr) != Color4b(Color4b::White))
-@@ -139,13 +141,14 @@
+@@ -138,13 +140,15 @@
    fseek(fp, 0, SEEK_END);
    int file_size = ftell(fp);
    int facenum;
@@ -47,24 +47,21 @@ Index: vcglib/wrap/io_trimesh/import_stl.h
    if(file_size ==  expected_file_size) binary = true;
    unsigned char tmpbuf[128];
 -  fread(tmpbuf,sizeof(tmpbuf),1,fp);
++  size_t res0;
 +  res0 = fread(tmpbuf,sizeof(tmpbuf),1,fp);
    for(unsigned int i = 0; i < sizeof(tmpbuf); i++)
      {
        if(tmpbuf[i] > 127)
-@@ -183,10 +186,10 @@
-   bool magicsMode;
-   if(!IsSTLColored(filename,magicsMode))
-     loadMask = loadMask & (~Mask::IOM_FACECOLOR);
--
-+  size_t res0;
+@@ -185,7 +189,7 @@
+ 
    int facenum;
    fseek(fp, STL_LABEL_SIZE, SEEK_SET);
 -  fread(&facenum, sizeof(int), 1, fp);
 +  res0 = fread(&facenum, sizeof(int), 1, fp);
-   
+ 
    m.Clear();
    FaceIterator fi=Allocator<OpenMeshType>::AddFaces(m,facenum);
-@@ -197,9 +200,9 @@
+@@ -196,9 +200,9 @@
        unsigned short attr;
        Point3f norm;
        Point3f tri[3];
