@@ -9,9 +9,10 @@ using namespace Rcpp;
 //using namespace std;
 
 
-RcppExport SEXP ROneRing(SEXP vb_, SEXP it_)
+RcppExport SEXP ROneRing(SEXP vb_, SEXP it_, SEXP both_ = wrap(false))
 {
   try {
+    bool both = as<bool>(both_);
     TopoMyMesh m;
     Rvcg::IOMesh<TopoMyMesh>::RvcgReadR(m,vb_,it_);
     tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
@@ -34,6 +35,7 @@ RcppExport SEXP ROneRing(SEXP vb_, SEXP it_)
       ++vi;
      
     }
+    if (both) {
     FaceIterator fi = m.face.begin();
     for (int i=0;i < m.fn;i++) {
       ScalarType test = 0;
@@ -54,6 +56,7 @@ RcppExport SEXP ROneRing(SEXP vb_, SEXP it_)
       vcg::tri::UpdateFlags<TopoMyMesh>::FaceClearV(m);
 
       ++fi;
+    }
     }
     return Rcpp::List::create(Rcpp::Named("areaverts") = area,
 			      Rcpp::Named("areafaces") = areaf
