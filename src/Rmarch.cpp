@@ -24,9 +24,14 @@ using namespace Rcpp;
 
 RcppExport SEXP RMarchC(SEXP array_, SEXP thresh_) {
   try {
-  IntegerVector vecArray(array_);
+    IntegerVector tmparr(array_);
+    IntegerVector arrayDims = tmparr.attr("dim");
+   
+    std::vector<float> vecArray = as<std::vector<float>>(array_);
+    
+    //bin/IntegerVector vecArray(array_);
     double thresh= as<double>(thresh_);
-  IntegerVector arrayDims = vecArray.attr("dim");
+    
   
 MyMesh m;
 VertexIterator vi;

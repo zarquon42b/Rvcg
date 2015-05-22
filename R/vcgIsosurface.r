@@ -3,9 +3,11 @@
 #' Create Isosurface from 3D-array using Marching Cubes algorithm
 #'
 #' @param vol an integer valued 3D-array
+#' @param threshold threshold for creating the surface
 #' @param spacing numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.
 #' @param origin numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.
-#' @param threshold threshold for creating the surface 
+#' @param as.int logical: if TRUE, the array will be stored as integer (might decrease RAM usage)
+#' 
 #' @return returns a triangular mesh of class "mesh3d"
 #' @examples
 #' #this is the example from the package "misc3d"
@@ -21,7 +23,7 @@
 #' wire3d(vcgSmooth(mesh,"HC",iteration=3),col=3)
 #' }
 #' @export
-vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL) {
+vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,as.int=FALSE) {
     if (length(dim(vol)) != 3)
         stop("3D array needed")
     
@@ -31,8 +33,11 @@ vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL) {
         threshold <- threshold-1e-5
     else if (threshold > mvol || threshold < minvol)
         stop("threshold is outside volume values")
-    storage.mode(vol) <- "integer"
+    if (as.int)
+        storage.mode(vol) <- "integer"
     volmesh <- .Call("RMarchC",vol,threshold)
+    rm(vol)
+    gc()
     volmesh$vb <- rbind(volmesh$vb,1)
     volmesh$it <- volmesh$it
     
