@@ -24,8 +24,6 @@ vcgKDtree <- function(target, query,k) {
     if ( !is.numeric(target) || !is.matrix(target) ||!is.numeric(query) || !is.matrix(query))
         stop("vertices/coordinates need to be numeric matrices")
 
-    if (ncol(target) != 3 || ncol(query) !=3)
-        stop("please provide 3D coordinates")
     target <- t(target)
     query <- t(query)
     out <- .Call("Rkdtree",target, query,k)
