@@ -9,3 +9,4 @@ src/Makevars$
 src/upOBJ.sh
 src/vcglib/patches
 src/vcglib/.pc
+.travis.yml
