@@ -84,7 +84,7 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALS
         outmesh$it <- tmp$it
         outmesh$normals <- rbind(tmp$normals, 1)
                                         #outmesh <- adnormals(outmesh)
-        if(!is.null(edgeLength))
+        if (!is.null(edgeLength) && !silent)
             cat(paste("Mean Edge length is",vcgMeshres(outmesh)$res,"\n"))
         return(outmesh)
     }
