@@ -1,6 +1,5 @@
-[![Travis Build Status](https://travis-ci.org/zarquon42b/Rvcg.png?branch=master)](https://travis-ci.org/zarquon42b/Rvcg)
 
-Rvcg
+Rvcg [![Travis Build Status](https://travis-ci.org/zarquon42b/Rvcg.png?branch=master)](https://travis-ci.org/zarquon42b/Rvcg)
 ====
 __Rvcg__ is an R-package providing methods for manipulations on triangular meshes by using the API of the [VCGLIB](http://vcg.sf.net/) library.
 
@@ -28,5 +27,5 @@ During installation of *Rtools* make sure to install the *toolchain*, and to sel
 Run the following command in R:
         
         require(devtools)
-            install_github("zarquon42b/Rvcg", local=FALSE)
+        install_github("zarquon42b/Rvcg", local=FALSE)
     
