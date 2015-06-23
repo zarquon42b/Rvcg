@@ -6,8 +6,8 @@
 #' \tabular{ll}{
 #' Package: \tab Rvcg\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.11.150414\cr
-#' Date: \tab 2015-04-14\cr
+#' Version: \tab 0.12.0\cr
+#' Date: \tab 2015-06-23\cr
 #' License: \tab GPL\cr
 #' LazyLoad: \tab yes\cr }
 #' 

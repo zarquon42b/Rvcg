@@ -2,6 +2,23 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.12.0 (2015-06-23)}{
+  \subsection{new features}{
+    \itemize{
+      \item updated vcglib source code to Revision: 5521
+      \item added option as.int to vcgIsosurface
+      \item added option iterate in vcgClean
+    }
+  }
+  \subsection{bug fixes}{
+    \itemize{
+      \item removed wrong error call in vcgKDtree
+      \item silenced all output in vcgQEdecim if silent=T
+    }
+  }
+}
+
+
 \section{Changes in Rvcg version 0.11 (2015-04-14)}{
   \subsection{new features}{
     \itemize{
