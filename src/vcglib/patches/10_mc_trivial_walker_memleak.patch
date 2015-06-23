@@ -1,7 +1,7 @@
 Index: vcglib/vcg/complex/algorithms/create/mc_trivial_walker.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/create/mc_trivial_walker.h	2015-04-14 11:44:27.361734637 +0200
-+++ vcglib/vcg/complex/algorithms/create/mc_trivial_walker.h	2015-04-14 11:44:27.357734617 +0200
+--- vcglib.orig/vcg/complex/algorithms/create/mc_trivial_walker.h	2015-06-23 10:56:31.694099134 +0200
++++ vcglib/vcg/complex/algorithms/create/mc_trivial_walker.h	2015-06-23 10:56:31.690099114 +0200
 @@ -182,7 +182,14 @@
      }
  
