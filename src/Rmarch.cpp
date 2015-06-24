@@ -27,7 +27,7 @@ RcppExport SEXP RMarchC(SEXP array_, SEXP thresh_) {
     IntegerVector tmparr(array_);
     IntegerVector arrayDims = tmparr.attr("dim");
    
-    std::vector<float> vecArray = as<std::vector<float>>(array_);
+    std::vector<float> vecArray = as<std::vector<float> >(array_);
     
     //bin/IntegerVector vecArray(array_);
     double thresh= as<double>(thresh_);
