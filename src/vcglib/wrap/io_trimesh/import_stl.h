@@ -181,14 +181,13 @@ static int OpenBinary( OpenMeshType &m, const char * filename, int &loadMask, Ca
   {
     return E_CANTOPEN;
   }
-  
+
   bool magicsMode;
   if(!IsSTLColored(filename,magicsMode))
     loadMask = loadMask & (~Mask::IOM_FACECOLOR);
-
+  size_t res0;
   int facenum;
   fseek(fp, STL_LABEL_SIZE, SEEK_SET);
-  size_t res0;
   res0 = fread(&facenum, sizeof(int), 1, fp);
 
   m.Clear();
