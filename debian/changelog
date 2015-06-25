@@ -1,0 +1,19 @@
+rvcg (0.12.2-precise2) precise; urgency=medium
+
+  *  added r-cran-rcppeigen as dependency
+
+ -- Stefan Schlager <zarquon42@gmail.com>  Thu, 25 Jun 2015 11:06:44 +0200
+
+rvcg (0.12.2-precise1) precise; urgency=medium
+
+  * made architecure = any
+
+ -- Stefan Schlager <zarquon42@gmail.com>  Thu, 25 Jun 2015 10:47:29 +0200
+
+rvcg (0.12.2-precise0) precise; urgency=medium
+
+  * initial debianization
+
+ -- Stefan Schlager <zarquon42@gmail.com>  Thu, 25 Jun 2015 09:54:55 +0200
+
+

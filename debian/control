@@ -1,0 +1,17 @@
+Source: rvcg
+Section: gnu-r
+Priority: optional
+Maintainer: Stefan Schlager <zarquon42@gmail.com>
+Build-Depends: r-base-dev, xvfb, xauth, xfonts-base, r-base-core, r-cran-rcpp, r-cran-rcppeigen, debhelper (>> 4.1.0), cdbs
+Standards-Version: 3.9.1
+
+Package: r-cran-rvcg
+Architecture: any
+Depends: r-base-core, r-cran-rcpp, r-cran-rcppeigen
+Description: Manipulations of Triangular Meshes Based on the 'VCGLIB' API
+ .
+ Operations on triangular meshes based on 'VCGLIB'. This package integrates nicely with the R-package 'rgl' to render the meshes processed by 'Rvcg'. The Visualization and Computer Graphics Library (VCG for short) is an open source portable C++ templated library for manipulation, processing and displaying with OpenGL of triangle and tetrahedral meshes. The library, composed by more than 100k lines of code, is released under the GPL license, and it is the base of most of the software tools of the Visual Computing Lab of the Italian National Research Council Institute ISTI (http://vcg.isti.cnr.it), like 'metro' and 'MeshLab'. The 'VCGLIB' source is pulled from trunk (svn://svn.code.sf.net/p/vcg/code/trunk/vcglib) and patched to work with options determined by the configure script as well as to work with the header files included by 'RcppEigen'.
+ .
+ Author: Stefan Schlager
+ .
+ Maintainer: Stefan Schlager <zarquon42@gmail.com>
