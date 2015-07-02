@@ -22,7 +22,10 @@ Description: Operations on triangular meshes based on 'VCGLIB'. This package
 Depends:
     R (>= 3.0.0)
 Imports:
-    Rcpp
+    Rcpp,
+    grDevices,
+    stats,
+    utils
 Suggests:
     Morpho,
     rgl
