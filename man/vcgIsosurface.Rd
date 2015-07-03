@@ -5,7 +5,7 @@
 \title{Create Isosurface from 3D-array}
 \usage{
 vcgIsosurface(vol, threshold, spacing = NULL, origin = NULL,
-  as.int = FALSE)
+  direction = NULL, IJK2RAS = diag(c(-1, -1, 1, 1)), as.int = FALSE)
 }
 \arguments{
 \item{vol}{an integer valued 3D-array}
@@ -15,6 +15,10 @@ vcgIsosurface(vol, threshold, spacing = NULL, origin = NULL,
 \item{spacing}{numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.}
 
 \item{origin}{numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.}
+
+\item{direction}{a 3x3 direction matrix}
+
+\item{IJK2RAS}{4x4 IJK2RAS transformation matrix}
 
 \item{as.int}{logical: if TRUE, the array will be stored as integer (might decrease RAM usage)}
 }

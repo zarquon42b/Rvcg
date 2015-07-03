@@ -6,6 +6,8 @@
 #' @param threshold threshold for creating the surface
 #' @param spacing numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.
 #' @param origin numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.
+#' @param direction a 3x3 direction matrix
+#' @param IJK2RAS 4x4 IJK2RAS transformation matrix
 #' @param as.int logical: if TRUE, the array will be stored as integer (might decrease RAM usage)
 #' 
 #' @return returns a triangular mesh of class "mesh3d"
@@ -23,10 +25,10 @@
 #' wire3d(vcgSmooth(mesh,"HC",iteration=3),col=3)
 #' }
 #' @export
-vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,as.int=FALSE) {
+vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,direction=NULL,IJK2RAS=diag(c(-1,-1,1,1)),as.int=FALSE) {
     if (length(dim(vol)) != 3)
         stop("3D array needed")
-    
+    mirr <- FALSE
     mvol <- max(vol)
     minvol <- min(vol)
     if (threshold == mvol)
@@ -40,14 +42,82 @@ vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,as.int=FALSE) 
     gc()
     volmesh$vb <- rbind(volmesh$vb,1)
     volmesh$it <- volmesh$it
-    
+    origin <- as.vector(applyTransform(t(origin),IJK2RAS))
     class(volmesh) <- "mesh3d"
     if (!is.null(spacing))
         volmesh$vb[1:3,] <- volmesh$vb[1:3,]*spacing
+    if (!is.null(direction)) {
+        IJK2RAS <- cbind(rbind(direction,0),c(0,0,0,1))%*%IJK2RAS
+        if (det(direction) < 0)
+            mirr <- TRUE
+    }
+    volmesh <- applyTransform(volmesh,IJK2RAS)
     
     if (!is.null(origin))
             volmesh$vb[1:3,] <- volmesh$vb[1:3,]+origin
-    
+    if (mirr)
+        volmesh <- invertFaces(volmesh)
     return(volmesh)
 }
 
+
+
+###helpers imported from Morpho
+invertFaces <- function (mesh) {
+    mesh$it <- mesh$it[c(3, 2, 1), ]
+    mesh <- vcgUpdateNormals(mesh)
+    return(mesh)
+}
+
+
+applyTransform <- function(x,trafo,inverse)UseMethod("applyTransform")
+
+applyTransform.matrix <- function(x,trafo,inverse=FALSE) {
+    if (is.matrix(trafo)) {
+        if (ncol(trafo) == 3 && ncol(x) ==3)
+            trafo <- mat3x3tomat4x4(trafo)
+        if (inverse)
+            trafo <- solve(trafo)
+        out <-homg2mat(trafo%*%mat2homg(x))
+    } else {
+       error("trafo must be a matrix")
+   }
+    return(out)
+}
+
+applyTransform.mesh3d <- function(x,trafo,inverse=FALSE) {
+    
+    x$vb[1:3,] <- t(applyTransform(t(x$vb[1:3,]),trafo,inverse = inverse))
+    ## case affine transformation
+    reflect <- FALSE
+    if (is.matrix(trafo)) {
+        if (det(trafo) < 0) 
+            reflect <- TRUE
+    } else {
+       error("trafo must be a matrix")
+   }
+    if (reflect) {
+        x <- invertFaces(x)
+    }
+    if (!is.null(x$normals))
+        x <- vcgUpdateNormals(x)
+    return(x)
+}
+
+
+mat3x3tomat4x4 <- function(x) {
+    n <- ncol(x)
+    x <- rbind(cbind(x,0),0);x[n+1,n+1] <-1
+    return(x)
+}
+
+mat2homg <- function(x) {
+    x <- rbind(t(x),1)
+    return(x)
+}
+
+homg2mat <- function(x) {
+    m <- nrow(x)
+    x <- t(x[1:(m-1),])
+    return(x)
+}
