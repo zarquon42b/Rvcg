@@ -80,7 +80,7 @@ applyTransform.matrix <- function(x,trafo,inverse=FALSE) {
             trafo <- solve(trafo)
         out <-homg2mat(trafo%*%mat2homg(x))
     } else {
-       error("trafo must be a matrix")
+       stop("trafo must be a matrix")
    }
     return(out)
 }
