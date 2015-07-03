@@ -94,7 +94,7 @@ applyTransform.mesh3d <- function(x,trafo,inverse=FALSE) {
         if (det(trafo) < 0) 
             reflect <- TRUE
     } else {
-       error("trafo must be a matrix")
+       stop("trafo must be a matrix")
    }
     if (reflect) {
         x <- invertFaces(x)
