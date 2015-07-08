@@ -1,5 +1,5 @@
 
-Rvcg [![Travis Build Status](https://travis-ci.org/zarquon42b/Rvcg.png?branch=master)](https://travis-ci.org/zarquon42b/Rvcg)
+Rvcg [![Travis Build Status](https://travis-ci.org/zarquon42b/Rvcg.png?branch=master)](https://travis-ci.org/zarquon42b/Rvcg)  [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  [![Downloads](http://cranlogs.r-pkg.org/badges/Rvcg?color=brightgreen)](http://www.r-pkg.org/pkg/Rvcg)
 ====
 __Rvcg__ is an R-package providing methods for manipulations on triangular meshes by using the API of the [VCGLIB](http://vcg.sf.net/) library.
 
