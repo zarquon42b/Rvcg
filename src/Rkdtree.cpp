@@ -6,15 +6,17 @@
 using namespace tri;
 using namespace Rcpp;
 
-RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_) {
+RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64)) {
   try {
     int k = as<int>(k_);
+    unsigned int nofP = as<unsigned int >(nofP_);
+    unsigned int mDepth = as<unsigned int >(mDepth_);
     typedef pair<float,int> mypair;
     PcMesh target, query;
     Rvcg::IOMesh<PcMesh>::RvcgReadR(target, vb0_);  
     Rvcg::IOMesh<PcMesh>::RvcgReadR(query, vb1_);
  
-    List out = Rvcg::KDtree< PcMesh, PcMesh >::KDtreeIO(target, query, k);
+    List out = Rvcg::KDtree< PcMesh, PcMesh >::KDtreeIO(target, query, k,nofP, mDepth);
     return out;
   } catch (std::exception& e) {
     ::Rf_error( e.what());
