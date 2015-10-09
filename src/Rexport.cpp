@@ -2,6 +2,8 @@
 #include <wrap/ply/plylib.h>
 #include <vcg/container/simple_temporary_data.h>
 #include <wrap/io_trimesh/import.h>
+#include <vcg/complex/algorithms/pointcloud_normal.h>
+
 #include <string.h>
 #include "RvcgIO.h" 
 #include <Rcpp.h>  
@@ -106,28 +108,57 @@
    }
 */
 using namespace Rcpp;
-RcppExport SEXP RPlyWrite(SEXP vb_, SEXP it_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_)
+RcppExport SEXP RPlyWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_, SEXP writeNormals_)
 { 
   try {
     MyMeshImport m;
     //set up parameters 
+    List mesh(mesh_);
     bool binary = Rcpp::as<bool>(binary_);
     bool addNormals = Rcpp::as<bool>(addNormals_);
     bool hasCol =  Rcpp::as<bool>(hasCol_);
+    bool writeNormals =  Rcpp::as<bool>(writeNormals_);
     std::string str = Rcpp::as<std::string>(filename_);
+    bool hasFaces = true;
     const char *filename = str.c_str();
     //char *filename[256] = strcpy(cstr
     //strcpy(filename1, filename);
     //allocate mesh and fill it
     Rcpp::IntegerMatrix colvec(colvec_);
-    Rvcg::IOMesh<MyMeshImport>::RvcgReadR(m,vb_,it_);
-    int mask0 = 0;
-  
-    if (addNormals) {
+    if (addNormals || writeNormals) {
       m.vert.EnableNormal();
-      tri::UpdateNormal<MyMeshImport>::PerVertexAngleWeighted(m);
-      mask0 = mask0 + tri::io::Mask::IOM_VERTNORMAL;
     }
+    Rcpp::CharacterVector normname("normals");
+    Rcpp::CharacterVector nam = mesh.names();
+    Rcpp::IntegerVector ind(Rf_match(nam,normname,0));
+    Rcpp::LogicalVector   log(ind);
+    
+    if (log[0] == 0) {
+      mesh["normals"] = wrap(0);
+      writeNormals = false;
+    }
+    if (!Rf_isMatrix(mesh["it"]))
+      hasFaces = false;
+  
+    Rvcg::IOMesh<MyMeshImport>::RvcgReadR(m,mesh["vb"],mesh["it"],mesh["normals"]);
+    int mask0 = 0;
+    
+    if (addNormals) {
+      if (hasFaces) {
+	tri::UpdateNormal<MyMeshImport>::PerVertexAngleWeighted(m);
+      } else {
+	Rcpp::IntegerVector pointcloud= IntegerVector::create(10,0);
+	PointCloudNormal<MyMeshImport>::Param p;
+	p.fittingAdjNum = pointcloud[0];
+	p.smoothingIterNum = pointcloud[1];
+	p.viewPoint = Point3f(0,0,0);
+	p.useViewPoint = false;
+	PointCloudNormal<MyMeshImport>::Compute(m,p);
+      }
+	}
+    if ( addNormals || writeNormals)
+	 mask0 = mask0 + tri::io::Mask::IOM_VERTNORMAL;
+    
     if (hasCol) {
       m.vert.EnableColor();
       mask0 =mask0+ tri::io::Mask::IOM_VERTCOLOR;

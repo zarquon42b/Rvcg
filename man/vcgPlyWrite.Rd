@@ -9,9 +9,10 @@
 vcgPlyWrite(mesh, filename, binary = TRUE, ...)
 
 \method{vcgPlyWrite}{mesh3d}(mesh, filename = dataname, binary = TRUE,
-  addNormals = FALSE, writeCol = TRUE, ...)
+  addNormals = FALSE, writeCol = TRUE, writeNormals = TRUE, ...)
 
-\method{vcgPlyWrite}{matrix}(mesh, filename = dataname, binary = TRUE, ...)
+\method{vcgPlyWrite}{matrix}(mesh, filename = dataname, binary = TRUE,
+  addNormals = FALSE, ...)
 }
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns}
@@ -23,6 +24,8 @@ vcgPlyWrite(mesh, filename, binary = TRUE, ...)
 \item{addNormals}{logical: compute per-vertex normals and add to file}
 
 \item{writeCol}{logical: export existing per-vertex color stored in mesh$material$color}
+
+\item{writeNormals}{write existing normals to file}
 
 \item{\dots}{additional arguments, currently not used.}
 }

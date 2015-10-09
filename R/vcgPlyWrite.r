@@ -7,6 +7,7 @@
 #' @param binary logical: write binary file
 #' @param addNormals logical: compute per-vertex normals and add to file
 #' @param writeCol logical: export existing per-vertex color stored in mesh$material$color
+#' @param writeNormals write existing normals to file
 #' @param \dots additional arguments, currently not used.
 #' @examples
 #' data(humface)
@@ -17,19 +18,15 @@ vcgPlyWrite <- function(mesh, filename, binary = TRUE, ...) UseMethod("vcgPlyWri
 
 #' @rdname vcgPlyWrite
 #' @export
-vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE, writeCol=TRUE,...)
+vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormals = FALSE, writeCol=TRUE,writeNormals=TRUE,...)
 {
     hasCol <- FALSE
     colvec <- matrix(0)
     vb <- mesh$vb[1:3,,drop=FALSE]
     if (!is.matrix(vb))
         stop("mesh has no vertices to write")
-    it <- (mesh$it-1)
     dataname <- deparse(substitute(mesh))
     filename <- path.expand(as.character(filename))
-    storage.mode(it) <- "integer"
-     if ( FALSE %in% is.integer(c(it)) || FALSE %in% is.numeric(c(vb)) || !is.character(filename))
-         stop("Please provide sensible arguments!")
     filename <- paste(filename,".ply",sep="")
     if (!is.null(mesh$material$color) && writeCol==TRUE) {
         ## setup color export
@@ -45,19 +42,20 @@ vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormal
     }
     binary <- as.logical(binary)
     addNormals <- as.logical(addNormals)
-    
-    tmp <- .Call("RPlyWrite", vb, it , binary, addNormals, filename, colvec, hasCol)
+    mesh$it <- mesh$it-1L
+    #mesh$normals <- mesh$normals*1
+    tmp <- .Call("RPlyWrite", mesh , binary, addNormals, filename, colvec, hasCol,writeNormals)
 }
 
 #' @rdname vcgPlyWrite
 #' @export
-vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, ...) {
+vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, addNormals=FALSE, ...) {
     dataname <- deparse(substitute(mesh))
     filename <- path.expand(as.character(filename))
     mm <- list()
     mm$vb <- t(mesh)
     class(mm) <- "mesh3d"
-    vcgPlyWrite(mm,filename=filename,binary =binary)
+    vcgPlyWrite(mm,filename=filename,binary =binary,writeNormals=FALSE)
 }
     
 #' Export meshes to STL-files

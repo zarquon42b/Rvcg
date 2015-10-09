@@ -46,7 +46,6 @@ namespace Rvcg
 	    (*vi).P() = CoordType(x,y,z);
 	    ++vi;
 	  }
-	  
 	  //insert vertex normals
 	  if (Rf_isMatrix(normals_) && vcg::tri::HasPerVertexNormal(m)) {
 	    Rcpp::NumericMatrix normals(normals_);
@@ -66,7 +65,6 @@ namespace Rvcg
 	    }
 	  
 	  }
-	  
 	  //process faces but check attributes and input first
 	  if (Rf_isMatrix(it_) && FaceType::HasVertexRef()) {
 	    Rcpp::IntegerMatrix it(it_);
