@@ -25,7 +25,8 @@ Imports:
     Rcpp,
     grDevices,
     stats,
-    utils
+    utils,
+    parallel
 Suggests:
     Morpho,
     rgl

@@ -16,7 +16,8 @@
 #' @param nofPoints integer: number of points per cell in the kd-tree (don't change unless you know what you are doing!)
 #' @param maxDepth integer: depth of the kd-tree (don't change unless you know what you are doing!)
 #' @param angdev maximum deviation between reference and target normals. If the none of the k closest triangles match this criterion, the closest point on the closest triangle is returned but the corresponding distance in $quality is set to 1e5.
-#' @param weightnorm logical if angdev is set, this requests the normal of the closest points to be estimated by weighting the surrounding vertex normals. Otherwise, simply the hit face's normal is used (faster but slightly less accurate).
+#' @param weightnorm logical if angdev is set, this requests the normal of the closest points to be estimated by weighting the surrounding vertex normals. Otherwise, simply the hit face's normal is used (faster but slightly less accurate)
+#' @param threads integer: threads to use in closest point search.
 #' @param ... additional parameters, currently unused.
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{4 x n matrix containing n vertices as homolougous coordinates.}
@@ -33,8 +34,9 @@
 #' @references Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed
 #' Distance Fields From Triangle Meshes. Informatics and Mathematical
 #' Modelling.
-#' #' @export
-vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64,angdev=NULL, weightnorm=FALSE,...) {
+#' @importFrom parallel detectCores
+#' @export
+vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64,angdev=NULL, weightnorm=FALSE,threads=parallel::detectCores(),...) {
     if (inherits(x,"mesh3d")) {
         x$it <- x$it-1
         io <- x$vb
@@ -57,7 +59,7 @@ vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE,
         angdev <- 0
     nofPoints <- as.integer(nofPoints)
     maxDepth <- as.integer(maxDepth)
-    tmp <- .Call("RclosestKD", vb , it, io,x$it, as.integer(k[1]),as.logical(sign[1]), as.logical(smoothNormals[1]),as.logical(barycentric[1]),as.logical(borderchk[1]), nofPoints[1],maxDepth[1],angdev,weightnorm)
+    tmp <- .Call("RclosestKD", vb , it, io,x$it, as.integer(k[1]),as.logical(sign[1]), as.logical(smoothNormals[1]),as.logical(barycentric[1]),as.logical(borderchk[1]), nofPoints[1],maxDepth[1],angdev,weightnorm,threads)
     x$vb <- rbind(tmp$iomat,1)
     x$normals <- rbind(tmp$normals, 1)
     x$faceptr <- tmp$faceptr+1

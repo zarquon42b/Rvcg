@@ -3,6 +3,10 @@
 #include "RvcgIO.h"
 #include <Rcpp.h>
 #include <RvcgKD.h>
+#include <Rconfig.h>
+#ifdef SUPPORT_OPENMP
+#include <omp.h>
+#endif
 using namespace tri;
 using namespace Rcpp;
 
@@ -26,7 +30,11 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP
   }
   
 }
-RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_, SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64),SEXP angdev_=wrap(0), SEXP wnorm_=wrap(true)) {
+
+SEXP searchfun(MyMesh::VertexIterator vi) {
+}
+
+RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_, SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64),SEXP angdev_=wrap(0), SEXP wnorm_=wrap(true),SEXP threads_=wrap(1)) {
   try {
     bool smooth = as<bool>(smooth_);
     bool barycentric = as<bool>(barycentric_);
@@ -34,6 +42,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
     bool wnorm = as<bool>(wnorm_);
     unsigned int nofP = as<unsigned int >(nofP_);
     unsigned int mDepth = as<unsigned int >(mDepth_);
+    int threads = as<int>(threads_);
     int k = as<int>(k_);
     bool sign = as<bool>(sign_);
     MyMesh target;
@@ -63,10 +72,15 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
     NumericMatrix barycoord(3,query.vn);
     IntegerVector border(query.vn), faceptr(query.vn);
     std::fill(border.begin(), border.end(),0);
-    MyMesh::VertexIterator vi = query.vert.begin();
+    //MyMesh::VertexIterator vi = query.vert.begin();
     NumericVector distout(query.vn);
     NumericVector angle(query.vn);
+#ifdef SUPPORT_OPENMP
+    omp_set_num_threads(threads);
+#endif
+ #pragma omp parallel for schedule(static)
     for (int i = 0; i < query.vn; i++) {
+      MyMesh::VertexIterator vi = query.vert.begin()+i;
       Point3f clost;
       MyMesh::CoordType tt, tmpnorm;
       MyFace::ScalarType dist = 1e12;
