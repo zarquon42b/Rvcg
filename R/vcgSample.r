@@ -22,7 +22,7 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
-        type <- type[1]
+        type <- match.arg(type[1],c("km","pd","mc"))
         if (type == "mc")
             type <- 1
         else if (type == "pd")
