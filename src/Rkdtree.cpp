@@ -10,9 +10,10 @@
 using namespace tri;
 using namespace Rcpp;
 
-RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64)) {
+RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64),SEXP threads_=wrap(1)) {
   try {
     int k = as<int>(k_);
+    int threads = as<int>(threads_);
     unsigned int nofP = as<unsigned int >(nofP_);
     unsigned int mDepth = as<unsigned int >(mDepth_);
     typedef pair<float,int> mypair;
@@ -20,7 +21,7 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP
     Rvcg::IOMesh<PcMesh>::RvcgReadR(target, vb0_);  
     Rvcg::IOMesh<PcMesh>::RvcgReadR(query, vb1_);
  
-    List out = Rvcg::KDtree< PcMesh, PcMesh >::KDtreeIO(target, query, k,nofP, mDepth);
+    List out = Rvcg::KDtree< PcMesh, PcMesh >::KDtreeIO(target, query, k,nofP, mDepth,threads);
     return out;
   } catch (std::exception& e) {
     ::Rf_error( e.what());
@@ -66,7 +67,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
       tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(target);
     }
     Rvcg::KDtree< MyMesh, PcMesh >::getBary(target, bary);
-    List indices = Rvcg::KDtree< PcMesh, MyMesh >::KDtreeIO(bary, query, k,nofP, mDepth);
+    List indices = Rvcg::KDtree< PcMesh, MyMesh >::KDtreeIO(bary, query, k,nofP, mDepth,threads);
     IntegerMatrix ktree = indices["index"];
     NumericMatrix iomat(3,query.vn), normals(3,query.vn);
     NumericMatrix barycoord(3,query.vn);
@@ -78,7 +79,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 #ifdef SUPPORT_OPENMP
     omp_set_num_threads(threads);
 #endif
- #pragma omp parallel for schedule(static)
+#pragma omp parallel for schedule(static)
     for (int i = 0; i < query.vn; i++) {
       MyMesh::VertexIterator vi = query.vert.begin()+i;
       Point3f clost;
