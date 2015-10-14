@@ -177,7 +177,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 	if (target.face[faceptr[i]].IsS())
 	  border[i] = 1;
       }
-      ++vi;//update iterator
+     
     }
     return List::create(Named("iomat")=iomat,
 			Named("distance")= distout,
