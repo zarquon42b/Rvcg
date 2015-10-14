@@ -35,14 +35,14 @@ namespace Rvcg
 	//insert vertices
 	if (Rf_isMatrix(vb_) && VertexType::HasCoord() ) {
 	  Rcpp::NumericMatrix vb(vb_);
-	  int d =  vb.ncol();
+	  size_t d =  vb.ncol();
 	  ScalarType x,y,z;	 
 	  vcg::tri::Allocator<MeshType>::AddVertices(m,d);
 	  std::vector<VertexPointer> ivp;
 	  ivp.resize(d);
 	  vcg::SimpleTempData<typename MeshType::VertContainer, int> indices(m.vert);
 	  //VertexIterator vi = m.vert.begin();
-	  //#pragma omp parallel for schedule(static)
+	  // #pragma omp parallel for schedule(static)
 	  for (size_t i=0; i < d; i++) {
 	    VertexIterator vi = m.vert.begin()+i;
 	    ivp[i]=&*vi;
@@ -59,7 +59,7 @@ namespace Rvcg
 	    } else {
 	      vcg::SimpleTempData<typename MeshType::VertContainer, int> indices(m.vert);
 	      
-	      //#pragma omp parallel for schedule(static)
+	      // #pragma omp parallel for schedule(static)
 	      for (size_t i=0; i < d; i++) {
 		VertexIterator vi = m.vert.begin()+i;
 		ivp[i]=&*vi;
@@ -78,7 +78,7 @@ namespace Rvcg
 	    vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
 	    vcg::SimpleTempData<typename MeshType::FaceContainer, int> indicesf(m.face);
 	    
-	    //#pragma omp parallel for schedule(static)
+	    // #pragma omp parallel for schedule(static)
 	    for (size_t i=0; i < faced ; i++) {
 	      int itx,ity,itz;
 	      FaceIterator fi=m.face.begin()+i;
@@ -112,7 +112,7 @@ namespace Rvcg
 	std::fill(vb.begin(),vb.end(),1);
 	std::fill(normals.begin(),normals.end(),1);
 	Rcpp::IntegerMatrix itout(3, m.fn);
-	//#pragma omp parallel for schedule(static)
+	// #pragma omp parallel for schedule(static)
 	for (unsigned int i=0;  i < m.vn; i++) {
 	  VertexIterator vi=m.vert.begin()+i;
 	  indices[vi] = i;//important: updates vertex indices
@@ -125,7 +125,7 @@ namespace Rvcg
 	    normals(2,i) = (*vi).N()[2];
 	  }
 	}
-	//#pragma omp parallel for schedule(static)
+	// #pragma omp parallel for schedule(static)
 	for (size_t i=0; i < m.fn;i++) {
 	  FacePointer fp;
 	  FaceIterator fi=m.face.begin()+i;
