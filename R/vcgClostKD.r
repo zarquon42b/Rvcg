@@ -36,7 +36,7 @@
 #' Modelling.
 #' @importFrom parallel detectCores
 #' @export
-vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64,angdev=NULL, weightnorm=FALSE,threads=parallel::detectCores(),...) {
+vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64,angdev=NULL, weightnorm=FALSE,threads=1,...) {
     if (inherits(x,"mesh3d")) {
         x$it <- x$it-1
         io <- x$vb

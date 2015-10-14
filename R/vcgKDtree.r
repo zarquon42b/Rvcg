@@ -13,7 +13,7 @@
 #' \item{distances}{corresponding distances}
 #' 
 #' @export
-vcgKDtree <- function(target, query,k, nofPoints = 16, maxDepth = 64,threads=parallel::detectCores()) {
+vcgKDtree <- function(target, query,k, nofPoints = 16, maxDepth = 64,threads=1) {
    
     if (inherits(target,"mesh3d"))
         target <- t(target$vb[1:3,])
