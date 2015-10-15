@@ -25,14 +25,10 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP
     return out;
   } catch (std::exception& e) {
     ::Rf_error( e.what());
-    return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");
   }
   
-}
-
-SEXP searchfun(MyMesh::VertexIterator vi) {
 }
 
 RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEXP k_, SEXP sign_, SEXP smooth_, SEXP barycentric_, SEXP borderchk_, SEXP nofP_= wrap(16),SEXP mDepth_= wrap(64),SEXP angdev_=wrap(0), SEXP wnorm_=wrap(true),SEXP threads_=wrap(1)) {
@@ -135,7 +131,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
       tt = clost*0;
       for (int j=0; j <3;j++) {
       
-	if (&(target.face[faceptr[i]].V(j)->N())) {
+	//if (&(target.face[faceptr[i]].V(j)->N())) {
 	  Point3f vdist = target.face[faceptr[i]].V(j)->P() - clost;
 	  float weight = sqrt(vdist.dot(vdist));
 	  if (weight > 0)
@@ -145,7 +141,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
 	    
 	  tt +=(target.face[faceptr[i]].V(j)->N()*weight);
 	}
-      }
+      //}
       float vl = sqrt(tt.dot(tt));
       if (vl > 0) {//check for zero length normals
 	tt=tt/vl;

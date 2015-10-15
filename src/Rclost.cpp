@@ -85,7 +85,7 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	  tt = currp*0;
 	
 	  for (int j=0; j <3;j++) {
-	    if (&(m.face[f_i].V(j)->N())) {
+	    //if (&(m.face[f_i].V(j)->N())) {
 	      Point3f vdist = m.face[f_i].V(j)->P() - clost;
 	      float weight = sqrt(vdist.dot(vdist));
 	      if (weight > 0)
@@ -95,7 +95,7 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	    
 	      tt +=(m.face[f_i].V(j)->N()*weight);
 	    }
-	  }
+	  //}
 	  if (barycentric) {
 	    baryco = currp*0;
 	    InterpolationParameters<MyFace,ScalarType>(*f_ptr,f_ptr->N(),clost,baryco);
