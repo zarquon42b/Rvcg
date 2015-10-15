@@ -21,7 +21,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
     float maxtol = as<float>(maxtol_);
     Rcpp::NumericMatrix ioclost(ioclost_);
     Rcpp::NumericMatrix normals(normals_);
-    size_t dref =  ioclost.ncol();
+    unsigned int dref =  ioclost.ncol();
     NumericVector dis(dref);
     NumericVector hitbool(dref);
     // section read from input
@@ -41,7 +41,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
       //vi=refmesh.vert.begin();
       Point3f normtmp;
       // #pragma omp parallel for schedule(static)
-      for (size_t i=0; i < dref; i++) {
+      for (unsigned int i=0; i < dref; i++) {
 	MyMesh::VertexIterator vi = refmesh.vert.begin()+i;
 	x = ioclost(0,i);
 	y = ioclost(1,i);
@@ -77,7 +77,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
       // run search 
       //#pragma omp parallel for firstprivate(minDist,maxDist,static_grid,PDistFunct,FintFunct) private(mf) schedule(static)
 
-      for (size_t i=0; i < refmesh.vn; i++) {
+      for (unsigned int i=0; i < refmesh.vn; i++) {
     	float t, t1;
 	t=0; t1=0;
 	vcg::Ray3f ray;
