@@ -11,3 +11,4 @@ src/vcglib/patches
 src/vcglib/.pc
 .travis.yml
 debian
+README.md
