@@ -19,24 +19,24 @@ AC_LANG_CPLUSPLUS
 # check C++11 compliance and flags
 AX_CXX_COMPILE_STDCXX_11([noext],)
 
-# check availability of TR1 headers
-AC_DEFUN([AC_HEADER_STDCXX_TR1], [
-  AC_CACHE_CHECK(for ISO C++ TR1 include files,
-  ac_cv_cxx_stdcxx_tr1,
-  [AC_LANG_SAVE
-  AC_LANG_CPLUSPLUS
-  AC_TRY_COMPILE([
-  #include <tr1/unordered_set>
-  #include <tr1/unordered_map>
-  ],,
-  ac_cv_cxx_stdcxx_tr1=yes, ac_cv_cxx_stdcxx_tr1=no)
-  AC_LANG_RESTORE
-  ])
-  if test "$ac_cv_cxx_stdcxx_tr1" = yes; then
-    AC_DEFINE(HAVE_TR1,,[Define if ISO C++ TR1 header files are present. ])
-  fi
-])
-AC_HEADER_STDCXX_TR1
+dnl # check availability of TR1 headers
+dnl AC_DEFUN([AC_HEADER_STDCXX_TR1], [
+dnl   AC_CACHE_CHECK(for ISO C++ TR1 include files,
+dnl   ac_cv_cxx_stdcxx_tr1,
+dnl   [AC_LANG_SAVE
+dnl   AC_LANG_CPLUSPLUS
+dnl   AC_TRY_COMPILE([
+dnl   #include <tr1/unordered_set>
+dnl   #include <tr1/unordered_map>
+dnl   ],,
+dnl   ac_cv_cxx_stdcxx_tr1=yes, ac_cv_cxx_stdcxx_tr1=no)
+dnl   AC_LANG_RESTORE
+dnl   ])
+dnl   if test "$ac_cv_cxx_stdcxx_tr1" = yes; then
+dnl     AC_DEFINE(HAVE_TR1,,[Define if ISO C++ TR1 header files are present. ])
+dnl   fi
+dnl ])
+dnl AC_HEADER_STDCXX_TR1
 
 # check for inttypes.h
 AC_DEFUN([AC_HEADER_STDCXX_INTTYPES], [

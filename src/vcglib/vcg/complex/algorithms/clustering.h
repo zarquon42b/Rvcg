@@ -76,16 +76,10 @@ public:
 
 // needed for gcc compilation
 #ifndef _MSC_VER
-}} namespace std {
-#if defined(HAVE_TR1) && !defined(HAVE_CXX11)
-  namespace tr1 {
- #endif
+}} namespace STDEXT {
   template <> struct hash<vcg::tri::HashedPoint3i>{
   inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
 };
-#if defined(HAVE_TR1) && !defined(HAVE_CXX11)
-  }
- #endif
 } namespace vcg{ namespace tri{
 #endif
 
