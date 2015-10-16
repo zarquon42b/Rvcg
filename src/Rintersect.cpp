@@ -1,7 +1,10 @@
 #include "typedef.h"
 #include "RvcgIO.h" 
 #include <Rcpp.h>
-
+// #include <Rconfig.h>
+// #ifdef SUPPORT_OPENMP
+// #include <omp.h>
+// #endif
 using namespace Rcpp;
 //#include <wrap/ply/plylib.cpp>
  
@@ -10,20 +13,23 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
   try {
     typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
     ScalarType x,y,z;
-    int i;
-    VertexIterator vi;
+    //int i;
+    //VertexIterator vi;
     MyMesh m;
     MyMesh refmesh;
     float tol = Rcpp::as<float>(tol_);
     float maxtol = as<float>(maxtol_);
     Rcpp::NumericMatrix ioclost(ioclost_);
     Rcpp::NumericMatrix normals(normals_);
-    int dref =  ioclost.ncol();
-    std::vector<float> dis;
-    std::vector<float> hitbool;
+    unsigned int dref =  ioclost.ncol();
+    NumericVector dis(dref);
+    NumericVector hitbool(dref);
     // section read from input
     bool mindist = as<bool>(mindist_);
-    float t, t1;
+    
+// #ifdef SUPPORT_OPENMP
+//     omp_set_num_threads(threads);
+// #endif
     int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     if (check != 0) {
       ::Rf_error("mesh has no faces or no vertices, nothing done");
@@ -32,9 +38,11 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
       typedef MyMesh::VertexPointer VertexPointer;
       std::vector<VertexPointer> ivp;
       vcg::tri::Allocator<MyMesh>::AddVertices(refmesh,dref);
-      vi=refmesh.vert.begin();
+      //vi=refmesh.vert.begin();
       Point3f normtmp;
-      for (i=0; i < dref; i++) {
+      // #pragma omp parallel for schedule(static)
+      for (unsigned int i=0; i < dref; i++) {
+	MyMesh::VertexIterator vi = refmesh.vert.begin()+i;
 	x = ioclost(0,i);
 	y = ioclost(1,i);
 	z = ioclost(2,i);
@@ -67,7 +75,11 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
       TriMeshGrid static_grid;    
       static_grid.Set(m.face.begin(), m.face.end());
       // run search 
-      for (i=0; i < refmesh.vn; i++) {
+      //#pragma omp parallel for firstprivate(minDist,maxDist,static_grid,PDistFunct,FintFunct) private(mf) schedule(static)
+
+      for (unsigned int i=0; i < refmesh.vn; i++) {
+    	float t, t1;
+	t=0; t1=0;
 	vcg::Ray3f ray;
 	Point3f orig = refmesh.vert[i].P();
 	Point3f orig0 = orig;
@@ -75,7 +87,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
 	Point3f dirOrig = dir;
 	Point3f clost = CoordType(0,0,0);
 	MyFace* f_ptr; MyFace* f_ptr1;
-	t=0; t1=0;
+
 	ray.SetOrigin(orig);
 	ray.SetDirection(dir);
 	f_ptr = GridDoRay(static_grid, FintFunct, mf, ray, maxDist, t);
@@ -102,17 +114,17 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
 	if (f_ptr && abs(t) < maxtol) {
 	  if (abs(t) >= tol) {
 	    clost = refmesh.vert[i].P()+dir*t;//the hit point
-	    dis.push_back(t);
-	    hitbool.push_back(1);
+	    dis[i] = t;//.push_back(t);
+	    hitbool[i] = 1;
 	  } else {
-	    dis.push_back(t);
-	    hitbool.push_back(0);
+	    dis[i] = t;//.push_back(t);
+	    hitbool[i] = 0;//hitbool.push_back(0);
 	  }
 	} else {
 	  Point3f& currp = refmesh.vert[i].P();
 	  f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
-	  dis.push_back(minDist);
-	  hitbool.push_back(0);
+	  dis[i] = minDist;//.push_back(minDist);
+	  hitbool[i] = 0;//hitbool.push_back(0);
 	}
   
 	int f_i = vcg::tri::Index(m, f_ptr);

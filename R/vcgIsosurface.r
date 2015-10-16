@@ -42,7 +42,8 @@ vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,direction=NULL
     gc()
     volmesh$vb <- rbind(volmesh$vb,1)
     volmesh$it <- volmesh$it
-    origin <- as.vector(applyTransform(t(origin),IJK2RAS))
+    if (!is.null(origin))
+        origin <- as.vector(applyTransform(t(origin),IJK2RAS))
     class(volmesh) <- "mesh3d"
     if (!is.null(spacing))
         volmesh$vb[1:3,] <- volmesh$vb[1:3,]*spacing

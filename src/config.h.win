@@ -2,7 +2,9 @@
 /* src/config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define if ISO C++ TR1 header files are present. */
-#define HAVE_TR1 
+/* #define HAVE_TR1 */
+
+#define HAVE_CXX11
 
 /* Define if inttype headers are present*/
 #define HAVE_INTTYPES

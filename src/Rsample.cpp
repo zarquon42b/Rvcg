@@ -57,13 +57,13 @@ RcppExport SEXP Rsample(SEXP vb_, SEXP it_, SEXP SampleNum_, SEXP type_, SEXP MC
 	SurfaceSampling<MyMesh,BaseSampler>::Montecarlo(m, mcSampler, SampleNum*MCsamp);
     
 	tri::Allocator<MyMesh>::AddVertices(MontecarloMesh,MontecarloSamples.size());
-	for(size_t j=0;j < MontecarloSamples.size();++j)
+	for(unsigned int j=0;j < MontecarloSamples.size();++j)
 	  MontecarloMesh.vert[j].P()=MontecarloSamples[j];
     
 	tri::UpdateBounding<MyMesh>::Box(MontecarloMesh);
 	tri::SurfaceSampling<MyMesh,BaseSampler>::PoissonDiskPruning(pdSampler, MontecarloMesh, radius, pp);
       }
-      size_t outsize = poissonsamples.size();
+      unsigned int outsize = poissonsamples.size();
       Rcpp::NumericMatrix vbout(3,outsize);
   
       for (i=0;  i < outsize; i++) {

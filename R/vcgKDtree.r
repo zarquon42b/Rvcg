@@ -7,12 +7,13 @@
 #' @param k number of neighbours to find
 #' @param nofPoints integer: number of points per cell in the kd-tree (don't change unless you know what you are doing!)
 #' @param maxDepth integer: depth of the kd-tree (don't change unless you know what you are doing!)
+#' @param threads integer: threads to use in closest point search.
 #' @return a list with
 #' \item{index}{integer matrices with indeces of closest points}
 #' \item{distances}{corresponding distances}
 #' 
 #' @export
-vcgKDtree <- function(target, query,k, nofPoints = 16, maxDepth = 64) {
+vcgKDtree <- function(target, query,k, nofPoints = 16, maxDepth = 64,threads=1) {
    
     if (inherits(target,"mesh3d"))
         target <- t(target$vb[1:3,])
@@ -28,7 +29,7 @@ vcgKDtree <- function(target, query,k, nofPoints = 16, maxDepth = 64) {
 
     target <- t(target)
     query <- t(query)
-    out <- .Call("Rkdtree",target, query,k,nofPoints,maxDepth)
+    out <- .Call("Rkdtree",target, query,k,nofPoints,maxDepth,threads)
     out$index <- out$index+1
     return(out)
 }

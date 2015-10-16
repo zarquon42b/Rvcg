@@ -25,7 +25,7 @@ RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP 
        
     if (method == 0) {
       tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
-      size_t cnt=tri::UpdateSelection<MyMesh>::VertexFromFaceStrict(m);
+      unsigned int cnt=tri::UpdateSelection<MyMesh>::VertexFromFaceStrict(m);
       tri::Smooth<MyMesh>::VertexCoordTaubin(m, iter, lambda, mu, cnt>0);
     } else if (method == 1) { 
       tri::Smooth<MyMesh>::VertexCoordLaplacian(m, iter);

@@ -1,8 +1,8 @@
 Package: Rvcg
 Type: Package
 Title: Manipulations of Triangular Meshes Based on the 'VCGLIB' API
-Version: 0.12.2.150717
-Date: 2015-07-17
+Version: 0.12.2.151015
+Date: 2015-10-15
 Author: Stefan Schlager; the authors of VCGLIB for the included version of the
     code
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
@@ -20,12 +20,13 @@ Description: Operations on triangular meshes based on 'VCGLIB'. This package
     with options determined by the configure script as well as
     to work with the header files included by 'RcppEigen'. 
 Depends:
-    R (>= 3.0.0)
+    R (>= 3.1.0)
 Imports:
     Rcpp,
     grDevices,
     stats,
-    utils
+    utils,
+    parallel
 Suggests:
     Morpho,
     rgl
