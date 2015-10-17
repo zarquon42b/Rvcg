@@ -5,7 +5,7 @@
 \title{Project coordinates onto a target triangular surface mesh.}
 \usage{
 vcgClost(x, mesh, sign = TRUE, barycentric = FALSE, smoothNormals = FALSE,
-  borderchk = FALSE, tol = 0, ...)
+  borderchk = FALSE, tol = 0, facenormals = FALSE, ...)
 }
 \arguments{
 \item{x}{k x 3 matrix containing 3D-coordinates or object of class "mesh3d".}
@@ -22,6 +22,8 @@ points are returned.}
 \item{borderchk}{logical: request checking if the hit face is at the border of the mesh.}
 
 \item{tol}{maximum distance to search. If distance is beyond that, the original point will be kept and the distance set to 1e12.}
+
+\item{facenormals}{logical: if TRUE only the facenormal of the face the closest point has hit is returned, the weighted average of the surrounding vertex normals otherwise.}
 
 \item{...}{additional parameters, currently unused.}
 }
