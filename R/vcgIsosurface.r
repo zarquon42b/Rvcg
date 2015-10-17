@@ -58,6 +58,8 @@ vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,direction=NULL
             volmesh$vb[1:3,] <- volmesh$vb[1:3,]+origin
     if (mirr)
         volmesh <- invertFaces(volmesh)
+    if (!checkNormOrient(volmesh))
+        volmesh <- invertFaces(volmesh)
     return(volmesh)
 }
 
