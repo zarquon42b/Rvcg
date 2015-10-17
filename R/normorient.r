@@ -5,8 +5,7 @@ cSizeMesh <- function(mesh) {
     return(y)
 }
 meshOff <- function(x,offset) {
-    if (is.null(x$normals))
-        x <- vcgUpdateNormals(x)
+    x <- vcgUpdateNormals(x)
     x$vb[1:3,] <- x$vb[1:3,]+offset*x$normals[1:3,]
     return(x)
 }
