@@ -1,7 +1,7 @@
 Index: vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/create/extended_marching_cubes.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h	2015-06-23 10:47:02.527276788 +0200
+--- vcglib.orig/vcg/complex/algorithms/create/extended_marching_cubes.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h	2015-10-19 10:46:57.026461696 +0200
 @@ -32,7 +32,7 @@
  #include <vcg/complex/algorithms/update/topology.h>
  #include <vcg/complex/algorithms/clean.h>
@@ -13,8 +13,8 @@ Index: vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h
  {
 Index: vcglib/vcg/complex/algorithms/inertia.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/inertia.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/complex/algorithms/inertia.h	2015-06-23 10:47:02.527276788 +0200
+--- vcglib.orig/vcg/complex/algorithms/inertia.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/complex/algorithms/inertia.h	2015-10-19 10:46:57.026461696 +0200
 @@ -24,8 +24,8 @@
  #define _VCG_INERTIA_
  
@@ -28,8 +28,8 @@ Index: vcglib/vcg/complex/algorithms/inertia.h
  namespace vcg
 Index: vcglib/vcg/complex/algorithms/parametrization/poisson_solver.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/parametrization/poisson_solver.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/complex/algorithms/parametrization/poisson_solver.h	2015-06-23 10:47:02.527276788 +0200
+--- vcglib.orig/vcg/complex/algorithms/parametrization/poisson_solver.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/complex/algorithms/parametrization/poisson_solver.h	2015-10-19 10:46:57.026461696 +0200
 @@ -24,7 +24,7 @@
  #ifndef VCG_POISSON_SOLVER
  #define VCG_POISSON_SOLVER
@@ -38,11 +38,11 @@ Index: vcglib/vcg/complex/algorithms/parametrization/poisson_solver.h
 +#include <Eigen/Sparse>
  
  #include <vcg/complex/algorithms/clean.h>
- #include <vcg/complex/algorithms/parametrization/distortion.h>
+ #include <vcg/complex/algorithms/update/bounding.h>
 Index: vcglib/vcg/complex/algorithms/update/curvature.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/update/curvature.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/complex/algorithms/update/curvature.h	2015-06-23 10:47:02.527276788 +0200
+--- vcglib.orig/vcg/complex/algorithms/update/curvature.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/complex/algorithms/update/curvature.h	2015-10-19 10:46:57.026461696 +0200
 @@ -32,7 +32,7 @@
  #include <vcg/complex/algorithms/point_sampling.h>
  #include <vcg/complex/algorithms/intersection.h>
@@ -54,8 +54,8 @@ Index: vcglib/vcg/complex/algorithms/update/curvature.h
  namespace tri {
 Index: vcglib/vcg/complex/algorithms/update/curvature_fitting.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/update/curvature_fitting.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/complex/algorithms/update/curvature_fitting.h	2015-06-23 10:47:02.531276808 +0200
+--- vcglib.orig/vcg/complex/algorithms/update/curvature_fitting.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/complex/algorithms/update/curvature_fitting.h	2015-10-19 10:46:57.026461696 +0200
 @@ -38,11 +38,11 @@
  #include <vcg/complex/algorithms/inertia.h>
  #include <vcg/complex/algorithms/nring.h>
@@ -75,8 +75,8 @@ Index: vcglib/vcg/complex/algorithms/update/curvature_fitting.h
  namespace vcg {
 Index: vcglib/vcg/complex/algorithms/update/fitmaps.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/update/fitmaps.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/complex/algorithms/update/fitmaps.h	2015-06-23 10:47:02.531276808 +0200
+--- vcglib.orig/vcg/complex/algorithms/update/fitmaps.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/complex/algorithms/update/fitmaps.h	2015-10-19 10:46:57.026461696 +0200
 @@ -34,10 +34,10 @@
  #include <vcg/complex/algorithms/update/bounding.h>
  #include "vcg/complex/algorithms/update/curvature_fitting.h"
@@ -94,8 +94,8 @@ Index: vcglib/vcg/complex/algorithms/update/fitmaps.h
  
 Index: vcglib/vcg/math/eigen.h
 ===================================================================
---- vcglib.orig/vcg/math/eigen.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/math/eigen.h	2015-06-23 10:47:02.531276808 +0200
+--- vcglib.orig/vcg/math/eigen.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/math/eigen.h	2015-10-19 10:46:57.026461696 +0200
 @@ -53,10 +53,10 @@
  }
  
@@ -113,8 +113,8 @@ Index: vcglib/vcg/math/eigen.h
  namespace Eigen {
 Index: vcglib/vcg/math/matrix44.h
 ===================================================================
---- vcglib.orig/vcg/math/matrix44.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/math/matrix44.h	2015-06-23 10:47:02.531276808 +0200
+--- vcglib.orig/vcg/math/matrix44.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/math/matrix44.h	2015-10-19 10:46:57.026461696 +0200
 @@ -30,8 +30,8 @@
  #include <vcg/space/point4.h>
  #include <vector>
@@ -128,8 +128,8 @@ Index: vcglib/vcg/math/matrix44.h
  
 Index: vcglib/vcg/math/polar_decomposition.h
 ===================================================================
---- vcglib.orig/vcg/math/polar_decomposition.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/math/polar_decomposition.h	2015-06-23 10:47:02.531276808 +0200
+--- vcglib.orig/vcg/math/polar_decomposition.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/math/polar_decomposition.h	2015-10-19 10:46:57.026461696 +0200
 @@ -26,8 +26,8 @@
  
  #include <vcg/math/matrix33.h>
@@ -143,8 +143,8 @@ Index: vcglib/vcg/math/polar_decomposition.h
  
 Index: vcglib/vcg/space/fitting3.h
 ===================================================================
---- vcglib.orig/vcg/space/fitting3.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/space/fitting3.h	2015-06-23 10:47:02.531276808 +0200
+--- vcglib.orig/vcg/space/fitting3.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/space/fitting3.h	2015-10-19 10:46:57.026461696 +0200
 @@ -29,8 +29,8 @@
  #include <vcg/math/matrix44.h>
  #include <vcg/math/matrix33.h>
@@ -158,8 +158,8 @@ Index: vcglib/vcg/space/fitting3.h
  
 Index: vcglib/vcg/space/point_matching.h
 ===================================================================
---- vcglib.orig/vcg/space/point_matching.h	2015-06-23 10:47:02.531276808 +0200
-+++ vcglib/vcg/space/point_matching.h	2015-06-23 10:47:02.531276808 +0200
+--- vcglib.orig/vcg/space/point_matching.h	2015-10-19 10:46:57.026461696 +0200
++++ vcglib/vcg/space/point_matching.h	2015-10-19 10:46:57.026461696 +0200
 @@ -27,8 +27,8 @@
  #include <vcg/math/quaternion.h>
  #include <vcg/math/matrix44.h>

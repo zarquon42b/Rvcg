@@ -1,7 +1,7 @@
 Index: vcglib/vcg/space/index/kdtree/kdtree.h
 ===================================================================
---- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-06-23 10:47:17.103349067 +0200
-+++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-06-23 10:55:58.633935198 +0200
+--- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-10-19 10:48:48.667015291 +0200
++++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-10-19 11:03:09.559284226 +0200
 @@ -99,13 +99,13 @@
                      unsigned int firstChildId:24;
                      unsigned int dim:2;
@@ -21,14 +21,14 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
  
 @@ -167,7 +167,7 @@
          mNodes.reserve(4*mPoints.size()/nofPointsPerCell);
- 		//first node inserted (no leaf). The others are made by the createTree function (recursively)
+     //first node inserted (no leaf). The others are made by the createTree function (recursively)
          mNodes.resize(1);
 -        mNodes.back().leaf = 0;
 +        mNodes.back().NodeU.mynode.leaf = 0;
-         int numLevel = createTree(0, 0, mPoints.size(), 1, nofPointsPerCell, maxDepth);
+         /*int numLevel = */
+         createTree(0, 0, mPoints.size(), 1, nofPointsPerCell, maxDepth);
      }
- 
-@@ -219,34 +219,34 @@
+@@ -220,34 +220,34 @@
              if (qnode.sq < mNeighborQueue.getTopWeight())
              {
                  //when we arrive to a lef
@@ -71,7 +71,16 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
                      }
                      //distance is inherited from the father (while descending the tree it's equal to 0)
                      mNodeStack[count].sq = qnode.sq;
-@@ -459,50 +459,50 @@
+@@ -286,7 +286,7 @@
+ 
+             if (qnode.sq < sqrareDist)
+             {
+-                if (node.leaf)
++                if (node.NodeU.mynode.leaf)
+                 {
+                     --count; // pop
+                     unsigned int end = node.start+node.size;
+@@ -460,50 +460,50 @@
          else
              dim = diag.Y() > diag.Z() ? 1 : 2;
  
@@ -79,23 +88,22 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
 +        node.NodeU.mynode.dim = dim;
          //we divide the bounding box in 2 partitions, considering the average of the "dim" dimension
 -        node.splitValue = Scalar(0.5*(aabb.max[dim] + aabb.min[dim]));
--
 +        node.NodeU.mynode.splitValue = Scalar(0.5*(aabb.max[dim] + aabb.min[dim]));
-+	
+ 
          //midId is the index of the first element in the second partition
 -        unsigned int midId = split(start, end, dim, node.splitValue);
-+        unsigned int midId = split(start, end, dim,node.NodeU.mynode.splitValue);
++        unsigned int midId = split(start, end, dim, node.NodeU.mynode.splitValue);
  
  
 -        node.firstChildId = mNodes.size();
 +        node.NodeU.mynode.firstChildId = mNodes.size();
          mNodes.resize(mNodes.size()+2);
- 		int leftLevel, rightLevel;
+     int leftLevel, rightLevel;
  
          {
              // left child
 -            unsigned int childId = mNodes[nodeId].firstChildId;
-+            unsigned int childId = mNodes[nodeId].NodeU.mynode.firstChildId;;
++            unsigned int childId = mNodes[nodeId].NodeU.mynode.firstChildId;
              Node& child = mNodes[childId];
              if (midId - start <= targetCellSize || level>=targetMaxDepth)
              {
@@ -103,9 +111,9 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
 -                child.start = start;
 -                child.size = midId - start;
 +                child.NodeU.mynode.leaf = 1;
-+		child.NodeU.myleaf.start = start;
++                child.NodeU.myleaf.start = start;
 +                child.NodeU.myleaf.size = midId - start;
- 				leftLevel = level;
+         leftLevel = level;
              }
              else
              {
@@ -128,12 +136,12 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
 +                child.NodeU.mynode.leaf = 1;
 +                child.NodeU.myleaf.start = midId;
 +                child.NodeU.myleaf.size = end - midId;
- 				rightLevel = level;
+         rightLevel = level;
              }
              else
              {
 -                child.leaf = 0;
-+                child.NodeU.mynode.leaf = 0;
++	        child.NodeU.mynode.leaf = 0;
                  rightLevel = createTree(childId, midId, end, level+1, targetCellSize, targetMaxDepth);
              }
          }

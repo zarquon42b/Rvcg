@@ -1,7 +1,7 @@
 Index: vcglib/vcg/space/index/grid_util.h
 ===================================================================
---- vcglib.orig/vcg/space/index/grid_util.h	2015-06-23 10:56:30.666094037 +0200
-+++ vcglib/vcg/space/index/grid_util.h	2015-06-23 10:56:30.662094017 +0200
+--- vcglib.orig/vcg/space/index/grid_util.h	2015-10-19 11:04:32.831697151 +0200
++++ vcglib/vcg/space/index/grid_util.h	2015-10-19 11:04:32.823697111 +0200
 @@ -27,11 +27,16 @@
  #include<vcg/space/index/base.h>
  #include<vcg/space/box3.h>

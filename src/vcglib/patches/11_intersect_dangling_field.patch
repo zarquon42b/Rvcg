@@ -1,7 +1,7 @@
 Index: vcglib/vcg/space/index/space_iterators.h
 ===================================================================
---- vcglib.orig/vcg/space/index/space_iterators.h	2015-06-23 10:56:31.898100146 +0200
-+++ vcglib/vcg/space/index/space_iterators.h	2015-06-23 10:56:31.894100126 +0200
+--- vcglib.orig/vcg/space/index/space_iterators.h	2015-10-19 11:05:30.291982081 +0200
++++ vcglib/vcg/space/index/space_iterators.h	2015-10-19 11:05:30.283982042 +0200
 @@ -314,7 +314,7 @@
  		RayType r;							//ray to find intersections
  		Spatial_Idexing &Si;	  //reference to spatial index algorithm
