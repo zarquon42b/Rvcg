@@ -20,7 +20,7 @@ Description: Operations on triangular meshes based on 'VCGLIB'. This package
     with options determined by the configure script as well as
     to work with the header files included by 'RcppEigen'. 
 Depends:
-    R (>= 3.1.0)
+    R (>= 3.0.0)
 Imports:
     Rcpp,
     grDevices,

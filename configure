@@ -2417,6 +2417,57 @@ $as_echo "#define HAVE_CXX11 1" >>confdefs.h
   fi
 
 
+# check availability of TR1 headers
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ISO C++ TR1 include files" >&5
+$as_echo_n "checking for ISO C++ TR1 include files... " >&6; }
+if ${ac_cv_cxx_stdcxx_tr1+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+  ac_ext=cpp
+ac_cpp='$CXXCPP $CPPFLAGS'
+ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+  #include <tr1/unordered_set>
+  #include <tr1/unordered_map>
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_compile "$LINENO"; then :
+  ac_cv_cxx_stdcxx_tr1=yes
+else
+  ac_cv_cxx_stdcxx_tr1=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+  ac_ext=cpp
+ac_cpp='$CXXCPP $CPPFLAGS'
+ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_cxx_stdcxx_tr1" >&5
+$as_echo "$ac_cv_cxx_stdcxx_tr1" >&6; }
+  if test "$ac_cv_cxx_stdcxx_tr1" = yes; then
+
+$as_echo "#define HAVE_TR1 /**/" >>confdefs.h
+
+  fi
+
 
 # check for inttypes.h
 

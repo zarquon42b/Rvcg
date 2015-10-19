@@ -6,6 +6,9 @@
 /* Define if inttypes.h header files are present. */
 #undef HAVE_INTTYPES
 
+/* Define if ISO C++ TR1 header files are present. */
+#undef HAVE_TR1
+
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
 

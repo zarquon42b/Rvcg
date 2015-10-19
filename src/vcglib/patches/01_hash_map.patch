@@ -1,7 +1,7 @@
 Index: vcglib/vcg/complex/algorithms/clustering.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/clustering.h	2015-10-08 16:56:34.525695718 +0200
-+++ vcglib/vcg/complex/algorithms/clustering.h	2015-10-16 14:08:02.372987126 +0200
+--- vcglib.orig/vcg/complex/algorithms/clustering.h	2015-06-23 10:47:02.699277641 +0200
++++ vcglib/vcg/complex/algorithms/clustering.h	2015-06-23 10:47:02.699277641 +0200
 @@ -35,7 +35,7 @@
  #include <limits>
  
@@ -22,10 +22,28 @@ Index: vcglib/vcg/complex/algorithms/clustering.h
  
  
  namespace vcg{
+@@ -74,10 +76,16 @@
+ 
+ // needed for gcc compilation
+ #ifndef _MSC_VER
+-}} namespace STDEXT {
++}} namespace std {
++#if defined(HAVE_TR1) && !defined(HAVE_CXX11)
++  namespace tr1 {
++ #endif
+   template <> struct hash<vcg::tri::HashedPoint3i>{
+   inline	size_t	operator ()(const vcg::tri::HashedPoint3i &p) const {return size_t(p);}
+ };
++#if defined(HAVE_TR1) && !defined(HAVE_CXX11)
++  }
++ #endif
+ } namespace vcg{ namespace tri{
+ #endif
+ 
 Index: vcglib/vcg/space/index/spatial_hashing.h
 ===================================================================
---- vcglib.orig/vcg/space/index/spatial_hashing.h	2015-10-08 16:56:34.525695718 +0200
-+++ vcglib/vcg/space/index/spatial_hashing.h	2015-10-08 16:56:34.521695698 +0200
+--- vcglib.orig/vcg/space/index/spatial_hashing.h	2015-06-23 10:47:02.699277641 +0200
++++ vcglib/vcg/space/index/spatial_hashing.h	2015-06-23 10:47:02.699277641 +0200
 @@ -29,7 +29,7 @@
  //#include <map>
  #include <vector>
