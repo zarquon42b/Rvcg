@@ -32,6 +32,7 @@ Suggests:
     rgl
 LinkingTo: Rcpp, RcppEigen
 License: GPL (>= 2) | file LICENSE
+BugReports: https://github.com/zarquon42b/Rvcg/issues
 Copyright: see files COPYRIGHTS for detailed information
 LazyLoad: yes
 Biarch: yes
