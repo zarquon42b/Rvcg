@@ -31,11 +31,7 @@
 #include <vector>
 #include <limits>
 #include <iostream>
-#ifdef HAVE_CXX11
 #include <cstdint>
-#else
-#include <stdint.h>
-#endif
 
 namespace vcg {
 

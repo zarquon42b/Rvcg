@@ -8,7 +8,7 @@ using namespace tri;
 
 using namespace Rcpp;
 
-RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, SEXP barycentric_, SEXP smooth_,SEXP tol_)
+RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, SEXP barycentric_, SEXP smooth_,SEXP tol_, SEXP facenormals_ = wrap(true))
 {
   try {
     typedef vcg::SpatialHashTable<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid; 
@@ -17,6 +17,7 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
     bool borderchk = as<bool>(borderchk_);
     bool barycentric = as<bool>(barycentric_);
     bool smooth = as<bool>(smooth_);
+    bool facenormals = as<bool>(facenormals_);
     float tol = as<float>(tol_);
     Rcpp::NumericMatrix ioclost(ioclost_);
     int i;
@@ -83,9 +84,11 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	  faceptr[i] = indices[f_ptr];
 	  int f_i = vcg::tri::Index(m, f_ptr);
 	  tt = currp*0;
-	
-	  for (int j=0; j <3;j++) {
-	    //if (&(m.face[f_i].V(j)->N())) {
+	  if (facenormals) {
+	    tt = m.face[f_i].N();
+	  } else {
+	    for (int j=0; j <3;j++) {
+	      //if (&(m.face[f_i].V(j)->N())) {
 	      Point3f vdist = m.face[f_i].V(j)->P() - clost;
 	      float weight = sqrt(vdist.dot(vdist));
 	      if (weight > 0)
@@ -95,6 +98,7 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	    
 	      tt +=(m.face[f_i].V(j)->N()*weight);
 	    }
+	  }
 	  //}
 	  if (barycentric) {
 	    baryco = currp*0;

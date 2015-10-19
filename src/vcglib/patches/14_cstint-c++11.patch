@@ -1,0 +1,16 @@
+Index: vcglib/vcg/space/index/kdtree/kdtree.h
+===================================================================
+--- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-10-19 08:27:28.896966382 +0200
++++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-10-19 08:28:10.557172964 +0200
+@@ -31,7 +31,11 @@
+ #include <vector>
+ #include <limits>
+ #include <iostream>
++#ifdef HAVE_CXX11
+ #include <cstdint>
++#else
++#include <stdint.h>
++#endif
+ 
+ namespace vcg {
+ 

@@ -13,6 +13,7 @@
 #' @param smoothNormals logical: if TRUE, laplacian smoothed normals are used.
 #' @param borderchk logical: request checking if the hit face is at the border of the mesh.
 #' @param tol maximum distance to search. If distance is beyond that, the original point will be kept and the distance set to 1e12.
+#' @param facenormals logical: if TRUE only the facenormal of the face the closest point has hit is returned, the weighted average of the surrounding vertex normals otherwise.
 #' @param ... additional parameters, currently unused.
 #' @return returns an object of class "mesh3d" with:
 #' \item{vb }{4 x n matrix containing n vertices as homolougous coordinates.}
@@ -42,7 +43,7 @@
 #' 
 #' 
 #' @export vcgClost
-vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE,tol=0,...)
+vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE,tol=0,facenormals=FALSE,...)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
@@ -68,7 +69,7 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, bo
             stop("please provide sensible input")
         
         storage.mode(clost) <- "double"
-        tmp <- .Call("Rclost",vb, it, clost,sign,borderchk,barycentric,smoothNormals,tol)
+        tmp <- .Call("Rclost",vb, it, clost,sign,borderchk,barycentric,smoothNormals,tol,facenormals)
         x$vb <- rbind(tmp$ioclost,1)
         x$normals <- rbind(tmp$normals,1)
         chcknorm <- which(is.nan(x$normals))
