@@ -35,7 +35,6 @@
 #' @references Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed
 #' Distance Fields From Triangle Meshes. Informatics and Mathematical
 #' Modelling.
-#' @importFrom parallel detectCores
 #' @export
 vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64,angdev=NULL, weightnorm=FALSE,facenormals=FALSE, threads=1,...) {
     if (inherits(x,"mesh3d")) {
