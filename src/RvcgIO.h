@@ -1,6 +1,7 @@
 #include <vector>
 #include <limits>
 #include <Rcpp.h>
+#include <checkListNames.h>
 #include <vcg/complex/complex.h>
 //#include <vcg/complex/allocate.h>
 #include <vcg/complex/append.h>
@@ -11,6 +12,7 @@
 // #include <omp.h>
 // #endif
 using Rcpp::List;
+
 namespace Rvcg
 {
   template <class IOMeshType>
@@ -148,6 +150,22 @@ namespace Rvcg
       } catch (...) {
 	::Rf_error("unknown exception");
       }
+    };
+    
+    static int mesh3d2Rvcg(MeshType &m, SEXP mesh_) {
+      List mesh(mesh_);
+      Rcpp::CharacterVector mychar = Rcpp::CharacterVector::create("vb","it","normals");
+      std::vector<bool> test = checkListNames(mesh,mychar);
+      for (int i = 0; i < 3; i++) {
+	if (!test[i]) {
+	  std::string tmp = Rcpp::as<std::string>(mychar[i]);
+	  mesh[tmp] = Rcpp::wrap(0);
+	}
+      }
+      if (!test[0])
+	::Rf_error("mesh has no vertices");
+      int out = RvcgReadR(m , mesh["vb"],mesh["it"],mesh["normals"]);
+      return out;
     };
   };
 }
