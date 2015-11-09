@@ -24,7 +24,8 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_)
 		flags = SamplingFlags::VERTEX_SAMPLING |
 		SamplingFlags::EDGE_SAMPLING |
 		SamplingFlags::FACE_SAMPLING |
-		SamplingFlags::SIMILAR_SAMPLING;
+		SamplingFlags::SIMILAR_SAMPLING |
+		SamplingFlags::USE_HASH_GRID;
 
 		// compute face information
 		tri::UpdateComponentEP<CMesh>::Set(m0);
@@ -35,18 +36,18 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_)
 		tri::UpdateBounding<CMesh>::Box(m1);
 
 		// set Bounding Box.
-		Box3<CMesh::ScalarType>    bbox, tmp_bbox_M1=m0.bbox, tmp_bbox_M2=m1.bbox;
-		bbox.Add(m0.bbox);
-		bbox.Add(m1.bbox);
-		bbox.Offset(bbox.Diag()*0.02);
-		m0.bbox = bbox;
-		m1.bbox = bbox;
+		// Box3<CMesh::ScalarType>    bbox, tmp_bbox_M1=m0.bbox, tmp_bbox_M2=m1.bbox;
+		// bbox.Add(m0.bbox);
+		// bbox.Add(m1.bbox);
+		// bbox.Offset(bbox.Diag()*0.02);
+		// m0.bbox = bbox;
+		// m1.bbox = bbox;
 
 		// sampling
 		Sampling<CMesh> ForwardSampling(m0,m1);
 		Sampling<CMesh> BackwardSampling(m1,m0);
 
-		double n_samples_target (100000);
+		unsigned long int n_samples_target (100000);
 		double SamplesPerAreaUnit;
 		ForwardSampling.SetSamplesTarget(n_samples_target);
 		SamplesPerAreaUnit = ForwardSampling.GetNSamplesPerAreaUnit();
@@ -59,8 +60,8 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_)
 		dist0_max  = ForwardSampling.GetDistMax();
 		double mean0 = ForwardSampling.GetDistMean();
 		double rms0 = ForwardSampling.GetDistRMS();
-		double nvertsamples0 = ForwardSampling.GetNVertexSamples();
-		double nsamples0 = ForwardSampling.GetNSamples();
+		unsigned long int nvertsamples0 = ForwardSampling.GetNVertexSamples();
+		unsigned long int nsamples0 = ForwardSampling.GetNSamples();
 
 
 		BackwardSampling.SetFlags(flags);
@@ -79,20 +80,8 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_)
 				Rcpp::Named("meandist") = mean0,
 				Rcpp::Named("RMSdist") = rms0,
 				Rcpp::Named("nvbsamples") = nvertsamples0,
-				Rcpp::Named("nsamples") = bbox.DimX()
+				Rcpp::Named("nsamples") = nsamples0
 			);
-
-		// mesh1 = Rcpp::List::create(
-		// 		Rcpp::Named("maxdist") = dist1_max,
-		// 		Rcpp::Named("meandist") = mean1,
-		// 		Rcpp::Named("RMSdist") = rms1,
-		// 		Rcpp::Named("nvbsamples") = nvertsamples1,
-		// 		Rcpp::Named("nsamples") = nsamples1,
-		// 	);
-		// return Rcpp::List::create(
-		// 	Rcpp::Named("forward") = mesh0,
-		// 	Rcpp::Named("backward") = mesh1,
-		// 	);
 	}
 	catch (std::exception& e) {
 		::Rf_error( e.what());
