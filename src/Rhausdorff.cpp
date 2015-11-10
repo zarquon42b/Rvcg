@@ -75,13 +75,22 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_)
 		double nvertsamples1 = BackwardSampling.GetNVertexSamples();
 		double nsamples1 = BackwardSampling.GetNSamples();
 
-		return Rcpp::List::create(
+		Rcpp::List out;
+		out["ForwardSampling"] = Rcpp::List::create(
 				Rcpp::Named("maxdist") = dist0_max,
 				Rcpp::Named("meandist") = mean0,
 				Rcpp::Named("RMSdist") = rms0,
 				Rcpp::Named("nvbsamples") = nvertsamples0,
 				Rcpp::Named("nsamples") = nsamples0
 			);
+		out["BackwardSampling"] = Rcpp::List::create(
+				Rcpp::Named("maxdist") = dist1_max,
+				Rcpp::Named("meandist") = mean1,
+				Rcpp::Named("RMSdist") = rms1,
+				Rcpp::Named("nvbsamples") = nvertsamples1,
+				Rcpp::Named("nsamples") = nsamples1
+			);
+		return out;
 	}
 	catch (std::exception& e) {
 		::Rf_error( e.what());
