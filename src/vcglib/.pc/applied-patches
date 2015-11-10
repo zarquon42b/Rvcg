@@ -1,7 +1,6 @@
 00_eigen.patch
 02_kdtree_anonstruct.patch
 03_longlong.patch
-05_stdisnan.patch
 06_stl_unused_var.patch
 07_cout.patch
 10_mc_trivial_walker_memleak.patch
