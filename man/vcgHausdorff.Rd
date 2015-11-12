@@ -4,12 +4,40 @@
 \alias{vcgHausdorff}
 \title{calculate the Hausdorff beteween 2 meshes}
 \usage{
-vcgHausdorff(ref, target)
+vcgHausdorff(ref, target, nSamples = NULL, nSamplesArea = NULL,
+  vertSamp = T, edgeSamp = T, faceSamp = T, unrefVert = F,
+  samplingType = c("SS", "MC", "SD"), searchStruct = c("SGRID", "AABB",
+  "OCTREE", "HGRID"), saveMesh = F, from = NULL, to = NULL,
+  writeHist = F)
 }
 \arguments{
-\item{ref}{triangular mesh (object of class 'mesh3d')}
+\item{ref}{triangular mesh (object of class 'mesh3d').}
 
-\item{target}{triangular mesh (object of class 'mesh3d')}
+\item{target}{triangular mesh (object of class 'mesh3d').}
+
+\item{nSamples}{set the required number of samples.}
+
+\item{nSamplesArea}{set the required number of samples per area unit, override nSamples.}
+
+\item{vertSamp}{logical: if FALSE, disable vertex sampling.}
+
+\item{edgeSamp}{logical: if FALSE, disable edge sampling.}
+
+\item{faceSamp}{logical: if FALSE, disable face sampling.}
+
+\item{unrefVert}{logical: if TRUE, ignore unreferred vertices.}
+
+\item{samplingType}{SS (similar triangles sampling), SD (subdivision sampling), MC (montecarlo sampling).}
+
+\item{searchStruct}{SGIRD (static Uniform Grid), OCTREE, AABB (AxisAligned Bounding Box Tree), HGRID (Hashed Uniform Grid).}
+
+\item{saveMesh}{logical: if TRUE, save a mesh with error as per-vertex colour and quality.}
+
+\item{writeHist}{logical: if TRUE, write files with histograms of error distribution.}
+
+\item{from:}{numeric: minimum value for color mapping.}
+
+\item{to:}{numeric: maximum value for color mapping.}
 }
 \value{
 \item{maxdist}{maximal Hausdorff distance}
