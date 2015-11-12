@@ -12,7 +12,7 @@
 #include <wrap/io_trimesh/export.h>
 #include <vcg/complex/algorithms/update/component_ep.h>
 #include <vcg/complex/algorithms/update/bounding.h>
-#include "apps/metro/sampling.h"
+#include "sampling.h"
 
 using namespace std;
 // #include "/media/celli/Data/Rvcg/src/vcglib/apps/metro/sampling.h"
