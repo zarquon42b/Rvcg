@@ -45,6 +45,11 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 		bool NumberOfSamples = false;
 		bool SamplesPerAreaUnit = false;
 
+		flags = SamplingFlags::VERTEX_SAMPLING |
+			SamplingFlags::EDGE_SAMPLING |
+			SamplingFlags::FACE_SAMPLING |
+			SamplingFlags::SIMILAR_SAMPLING;
+
 		if (writeHist) flags |= SamplingFlags::HIST;
 		if (vertSamp) flags &= ~SamplingFlags::VERTEX_SAMPLING;
 		if (edgeSamp) flags &= ~SamplingFlags::EDGE_SAMPLING;
@@ -52,9 +57,10 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 		if (unrefVert) flags |= SamplingFlags::INCLUDE_UNREFERENCED_VERTICES;
 
 		switch(samplingType){
-			case 0 : flags = (flags | SamplingFlags::MONTECARLO_SAMPLING  ) & (~ SamplingFlags::NO_SAMPLING );break;
-			case 1 : flags = (flags | SamplingFlags::SUBDIVISION_SAMPLING ) & (~ SamplingFlags::NO_SAMPLING );break;
-			case 2 : flags = (flags | SamplingFlags::SIMILAR_SAMPLING     ) & (~ SamplingFlags::NO_SAMPLING );break;
+			case 0 : flags = (flags | SamplingFlags::MONTECARLO_SAMPLING  ) & (~ SamplingFlags::NO_SAMPLING ); break;
+			case 1 : flags = (flags | SamplingFlags::SUBDIVISION_SAMPLING ) & (~ SamplingFlags::NO_SAMPLING ); break;
+			case 2 : flags = (flags | SamplingFlags::SIMILAR_SAMPLING     ) & (~ SamplingFlags::NO_SAMPLING ); break;
+			default : Rprintf("%s\n","samplingType unknown" );
 			exit(0);
 		}
 
@@ -72,6 +78,7 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 			case 1 : flags |= SamplingFlags::USE_STATIC_GRID; break;
 			case 2 : flags |= SamplingFlags::USE_HASH_GRID; break;
 			case 3 : flags |= SamplingFlags::USE_OCTREE; break;
+			default : Rprintf("%s\n","searchStruct unknown" );
 			exit(0);
 		}
 
@@ -92,8 +99,8 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 		// SamplingFlags::USE_HASH_GRID;
 
 		// compute face information
-		// tri::UpdateComponentEP<CMesh>::Set(m0);
-		// tri::UpdateComponentEP<CMesh>::Set(m1);
+		tri::UpdateComponentEP<CMesh>::Set(m0);
+		tri::UpdateComponentEP<CMesh>::Set(m1);
 
 		// // set bounding boxes for S1 and S2
 		// tri::UpdateBounding<CMesh>::Box(m0);
