@@ -6,10 +6,10 @@
 #' @param target triangular mesh (object of class 'mesh3d').
 #' @param nSamples set the required number of samples.
 #' @param nSamplesArea set the required number of samples per area unit, override nSamples.
-#' @param vertSamp logical: if FALSE, disable vertex sampling.
-#' @param edgeSamp logical: if FALSE, disable edge sampling.
-#' @param faceSamp logical: if FALSE, disable face sampling.
-#' @param unrefVert logical: if TRUE, ignore unreferred vertices.
+#' @param vertSamp logical: if TRUE, disable vertex sampling.
+#' @param edgeSamp logical: if TRUE, disable edge sampling.
+#' @param faceSamp logical: if TRUE, disable face sampling.
+#' @param unrefVert logical: if FLASE, ignore unreferred vertices.
 #' @param samplingType SS (similar triangles sampling), SD (subdivision sampling), MC (montecarlo sampling).
 #' @param searchStruct SGIRD (static Uniform Grid), OCTREE, AABB (AxisAligned Bounding Box Tree), HGRID (Hashed Uniform Grid).
 #' @param saveMesh logical: if TRUE, save a mesh with error as per-vertex colour and quality.
@@ -26,7 +26,7 @@
 #'
 #' @export vcgHausdorff
 # vcgHausdorff <- function(ref, target) {
-vcgHausdorff <- function(ref, target, nSamples=NULL, nSamplesArea=NULL, vertSamp=T, edgeSamp=T, faceSamp=T, unrefVert=F,samplingType=c("SS","MC","SD"),searchStruct=c("SGRID","AABB","OCTREE","HGRID"), saveMesh=F, from=NULL, to=NULL, writeHist=F){
+vcgHausdorff <- function(ref, target, nSamples=0, nSamplesArea=0, vertSamp=F, edgeSamp=F, faceSamp=F, unrefVert=T,samplingType=c("SS","MC","SD"),searchStruct=c("SGRID","AABB","OCTREE","HGRID"), saveMesh=F, from=0, to=0, writeHist=F){
 	if (!inherits(ref,"mesh3d"))
 		stop("argument 'ref' needs to be object of class 'mesh3d'")
 	if (!inherits(target,"mesh3d"))
@@ -35,9 +35,9 @@ vcgHausdorff <- function(ref, target, nSamples=NULL, nSamplesArea=NULL, vertSamp
 	samplingType <- match.arg(samplingType[1],c("SS","MC","SD") )
 	if (samplingType == "MC")
 		samplingType <- 0
-	if (samplingType == "SS")
-		samplingType <- 1
 	if (samplingType == "SD")
+		samplingType <- 1
+	if (samplingType == "SS")
 		samplingType <- 2
 
 	searchStruct <- match.arg(searchStruct[1],c( "SGRID", "AABB", "OCTREE", "HGRID") )
