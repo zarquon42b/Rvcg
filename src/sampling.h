@@ -35,6 +35,9 @@
 #include <vcg/space/index/aabb_binary_tree/aabb_binary_tree.h>
 #include <vcg/space/index/octree.h>
 #include <vcg/space/index/spatial_hashing.h>
+#include <Rcpp.h>
+
+using namespace Rcpp;
 namespace vcg
 {
 
@@ -267,7 +270,7 @@ void Sampling<MetroMesh>::VertexSampling()
     int   cnt = 0;
     float error;
 
-    printf("Vertex sampling\n");
+    Rprintf("Vertex sampling\n");
     VertexIterator vi;
         typename std::vector<VertexPointer>::iterator vif;
     for(vi=S1.vert.begin();vi!=S1.vert.end();++vi)
@@ -283,9 +286,9 @@ void Sampling<MetroMesh>::VertexSampling()
 
         // print progress information
         if(!(++cnt % print_every_n_elements))
-            printf("Sampling vertices %d%%\r", (100 * cnt/S1.vn));
+            Rprintf("Sampling vertices %d%%\r", (100 * cnt/S1.vn));
     }
-    printf("                       \r");
+    Rprintf("                       \r");
 }
 
 
@@ -314,7 +317,7 @@ void Sampling<MetroMesh>::EdgeSampling()
 		typedef std::pair<VertexPointer, VertexPointer> pvv;
 		std::vector< pvv > Edges;
 
-	printf("Edge sampling\n");
+	Rprintf("Edge sampling\n");
 
     // compute edge list.
     FaceIterator fi;
@@ -347,9 +350,9 @@ void Sampling<MetroMesh>::EdgeSampling()
 
         // print progress information
         if(!(++cnt % print_every_n_elements))
-            printf("Sampling edge %lu%%\r", (100 * cnt/Edges.size()));
+            Rprintf("Sampling edge %lu%%\r", (100 * cnt/Edges.size()));
     }
-    printf("                     \r");
+    Rprintf("                     \r");
 }
 
 
@@ -393,7 +396,7 @@ void Sampling<MetroMesh>::MontecarloFaceSampling()
     FaceIterator fi;
 
     srand(clock());
- //   printf("Montecarlo face sampling\n");
+ //   Rprintf("Montecarlo face sampling\n");
     for(fi=S1.face.begin(); fi != S1.face.end(); fi++)
         if(!(*fi).IsD())
     {
@@ -409,9 +412,9 @@ void Sampling<MetroMesh>::MontecarloFaceSampling()
 
         // print progress information
 //        if(!(++cnt % print_every_n_elements))
- //           printf("Sampling face %d%%\r", (100 * cnt/S1.fn));
+ //           Rprintf("Sampling face %d%%\r", (100 * cnt/S1.fn));
     }
- //   printf("                     \r");
+ //   Rprintf("                     \r");
 }
 
 
@@ -468,7 +471,7 @@ void Sampling<MetroMesh>::SubdivFaceSampling()
     double  n_samples_decimal = 0.0;
     typename MetroMesh::FaceIterator fi;
 
-    printf("Subdivision face sampling\n");
+    Rprintf("Subdivision face sampling\n");
     for(fi=S1.face.begin(); fi != S1.face.end(); fi++)
     {
         // compute # samples in the current face.
@@ -485,9 +488,9 @@ void Sampling<MetroMesh>::SubdivFaceSampling()
 
         // print progress information
         if(!(++cnt % print_every_n_elements))
-            printf("Sampling face %d%%\r", (100 * cnt/S1.fn));
+            Rprintf("Sampling face %d%%\r", (100 * cnt/S1.fn));
     }
-    printf("                     \r");
+    Rprintf("                     \r");
 }
 
 
@@ -517,7 +520,7 @@ void Sampling<MetroMesh>::SimilarFaceSampling()
     double  n_samples_decimal = 0.0;
     FaceIterator fi;
 
-    printf("Similar Triangles face sampling\n");
+    Rprintf("Similar Triangles face sampling\n");
     for(fi=S1.face.begin(); fi != S1.face.end(); fi++)
     {
         // compute # samples in the current face.
@@ -534,9 +537,9 @@ void Sampling<MetroMesh>::SimilarFaceSampling()
 
         // print progress information
         if(!(++cnt % print_every_n_elements))
-            printf("Sampling face %d%%\r", (100 * cnt/S1.fn));
+            Rprintf("Sampling face %d%%\r", (100 * cnt/S1.fn));
     }
-    printf("                     \r");
+    Rprintf("                     \r");
 }
 
 
