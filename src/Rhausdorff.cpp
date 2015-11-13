@@ -92,27 +92,22 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 				NumberOfSamples = true;
 				n_samples_target = 10 * max(m0.fn,m1.fn);// take 10 samples per face
 		}
-		// flags = SamplingFlags::VERTEX_SAMPLING |
-		// SamplingFlags::EDGE_SAMPLING |
-		// SamplingFlags::FACE_SAMPLING |
-		// SamplingFlags::SIMILAR_SAMPLING |
-		// SamplingFlags::USE_HASH_GRID;
 
 		// compute face information
 		tri::UpdateComponentEP<CMesh>::Set(m0);
 		tri::UpdateComponentEP<CMesh>::Set(m1);
 
 		// // set bounding boxes for S1 and S2
-		// tri::UpdateBounding<CMesh>::Box(m0);
-		// tri::UpdateBounding<CMesh>::Box(m1);
+		tri::UpdateBounding<CMesh>::Box(m0);
+		tri::UpdateBounding<CMesh>::Box(m1);
 
 		// set Bounding Box.
-		// Box3<CMesh::ScalarType>    bbox, tmp_bbox_M1=m0.bbox, tmp_bbox_M2=m1.bbox;
-		// bbox.Add(m0.bbox);
-		// bbox.Add(m1.bbox);
-		// bbox.Offset(bbox.Diag()*0.02);
-		// m0.bbox = bbox;
-		// m1.bbox = bbox;
+		Box3<CMesh::ScalarType>    bbox, tmp_bbox_M1=m0.bbox, tmp_bbox_M2=m1.bbox;
+		bbox.Add(m0.bbox);
+		bbox.Add(m1.bbox);
+		bbox.Offset(bbox.Diag()*0.02);
+		m0.bbox = bbox;
+		m1.bbox = bbox;
 
 		// sampling
 		Sampling<CMesh> ForwardSampling(m0,m1);
