@@ -36,11 +36,11 @@ using namespace std;
 #define PRINT_EVERY_N_ELEMENTS          1000
 
 
-class CFaceH;
-class CVertexH;
-struct UsedTypes:public vcg::UsedTypes< vcg::Use<CFaceH>::AsFaceType, vcg::Use<CVertexH>::AsVertexType>{};
-class CVertexH   : public vcg::Vertex<UsedTypes,vcg::vertex::Coord3d,vcg::vertex::Qualityf,vcg::vertex::Normal3d,vcg::vertex::Color4b,vcg::vertex::BitFlags> {};
-class CFaceH     : public vcg::Face< UsedTypes,vcg::face::VertexRef, vcg::face::Normal3d, vcg::face::EdgePlane,vcg::face::Color4b,vcg::face::Mark,vcg::face::BitFlags> {};
-class CMesh     : public vcg::tri::TriMesh< std::vector<CVertexH>, std::vector<CFaceH> > {};
+class CFaceMetro;
+class CVertexMetro;
+struct UsedTypes:public vcg::UsedTypes< vcg::Use<CFaceMetro>::AsFaceType, vcg::Use<CVertexMetro>::AsVertexType>{};
+class CVertexMetro   : public vcg::Vertex<UsedTypes,vcg::vertex::Coord3d,vcg::vertex::Qualityf,vcg::vertex::Normal3d,vcg::vertex::Color4b,vcg::vertex::BitFlags> {};
+class CFaceMetro     : public vcg::Face< UsedTypes,vcg::face::VertexRef, vcg::face::Normal3d, vcg::face::EdgePlane,vcg::face::Color4b,vcg::face::Mark,vcg::face::BitFlags> {};
+class CMesh     : public vcg::tri::TriMesh< std::vector<CVertexMetro>, std::vector<CFaceMetro> > {};
 
 #endif
