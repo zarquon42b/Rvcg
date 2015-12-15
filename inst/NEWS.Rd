@@ -2,6 +2,31 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.13.0 (2015-12-15)}{
+  \subsection{new features}{
+    \itemize{
+      \item updated vcglib source code to Revision: 5542
+      \item added functions to create basic meshes (spheres,
+      polyhedrons)
+      \item enabled OpenMP support to run closest point search in
+      parallel (vcgKDtree and vcgClostKD)
+      \item added options IJK2RAS and direction in vcgIsosurface
+      \item added new option writeNormals in vcgPlyWrite
+      \item added option facenormals in vcgClost* functions
+      \item added functions to check if the normals of a mesh are
+      oriented outward
+      \item added additional low-level options in vcgKDtree
+
+    }
+  }
+  \subsection{bug fixes}{
+    \itemize{
+      \item fixed useless check in vcgUpdateNormals
+      \item added BugReport page in DESCRIPITON
+    }
+  }
+}
+
 \section{Changes in Rvcg version 0.12.0 (2015-06-23)}{
   \subsection{new features}{
     \itemize{
