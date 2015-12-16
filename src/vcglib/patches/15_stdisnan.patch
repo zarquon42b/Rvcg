@@ -1,13 +1,26 @@
 Index: vcglib/vcg/math/base.h
 ===================================================================
 --- vcglib.orig/vcg/math/base.h	2015-12-16 08:59:35.266304264 +0100
-+++ vcglib/vcg/math/base.h	2015-12-16 08:59:55.386404034 +0100
-@@ -190,7 +190,7 @@
++++ vcglib/vcg/math/base.h	2015-12-16 09:36:17.033222237 +0100
+@@ -85,7 +85,7 @@
+ 
+ #ifndef __VCGLIB_MATH_BASE
+ #define __VCGLIB_MATH_BASE
+-
++#include <config.h>
+ #include <float.h>
+ #include <math.h>
+ #include <assert.h>
+@@ -190,7 +190,11 @@
  #if defined(_MSC_VER) // Microsoft Visual C++
  template<class T> int IsNAN(T t) {    return _isnan(t) || (!_finite(t)); }
  #elif defined(__GNUC__) // GCC
 -template<class T> int IsNAN(T t) {    return isnan(t) || isinf(t); }
++#ifdef HAVE_CXX11
 +  template<class T> int IsNAN(T t) {    return std::isnan(t) || std::isinf(t); }
++#else
++  template<class T> int IsNAN(T t) {    return isnan(t) || isinf(t); }
++#endif
  #else // generic
  
  template<class T> int IsNAN(T t)
