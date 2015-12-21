@@ -1,7 +1,7 @@
 Index: vcglib/vcg/complex/algorithms/clean.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/clean.h	2015-10-19 11:05:30.651983866 +0200
-+++ vcglib/vcg/complex/algorithms/clean.h	2015-10-19 11:05:30.647983847 +0200
+--- vcglib.orig/vcg/complex/algorithms/clean.h	2015-12-21 17:09:09.341141618 +0100
++++ vcglib/vcg/complex/algorithms/clean.h	2015-12-21 17:09:09.337141598 +0100
 @@ -452,7 +452,7 @@
      return count_removed;
    }

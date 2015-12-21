@@ -1,7 +1,7 @@
 Index: vcglib/vcg/space/index/kdtree/kdtree.h
 ===================================================================
---- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-10-19 10:48:48.667015291 +0200
-+++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-10-19 11:03:09.559284226 +0200
+--- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-12-21 17:07:52.112758663 +0100
++++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-12-21 17:07:52.112758663 +0100
 @@ -99,13 +99,13 @@
                      unsigned int firstChildId:24;
                      unsigned int dim:2;
