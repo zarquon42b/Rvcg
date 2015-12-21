@@ -1,7 +1,7 @@
 Index: vcglib/vcg/space/index/kdtree/kdtree.h
 ===================================================================
---- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-10-19 08:27:28.896966382 +0200
-+++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-10-19 08:28:10.557172964 +0200
+--- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-10-19 11:05:30.839984799 +0200
++++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-10-19 11:05:30.835984779 +0200
 @@ -31,7 +31,11 @@
  #include <vector>
  #include <limits>

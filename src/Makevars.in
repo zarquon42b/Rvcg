@@ -2,6 +2,6 @@ OBJECTS=vcglib/wrap/ply/plylib.o checkListNames.o RallRead.o Rborder.o Rclean.o 
 
 PKG_CPPFLAGS=-Ivcglib -I.
 PKG_LIBS=`$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"` $(SHLIB_OPENMP_CXXFLAGS)
-#CXX_STD = CXX11
-PKG_CXXFLAGS=@CXXFLAGS@ $(SHLIB_OPENMP_CXXFLAGS)
+CXX_STD = CXX11
+PKG_CXXFLAGS= $(SHLIB_OPENMP_CXXFLAGS)
 

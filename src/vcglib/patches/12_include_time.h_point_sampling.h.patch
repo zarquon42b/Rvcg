@@ -1,12 +1,12 @@
 Index: vcglib/vcg/complex/algorithms/point_sampling.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/point_sampling.h	2015-06-23 10:56:32.086101078 +0200
-+++ vcglib/vcg/complex/algorithms/point_sampling.h	2015-06-23 10:56:32.082101058 +0200
-@@ -47,6 +47,7 @@
- #include <vcg/complex/algorithms/update/bounding.h>
+--- vcglib.orig/vcg/complex/algorithms/point_sampling.h	2015-12-21 17:07:56.624781037 +0100
++++ vcglib/vcg/complex/algorithms/point_sampling.h	2015-12-21 17:08:58.117085961 +0100
+@@ -48,6 +48,7 @@
  #include <vcg/complex/algorithms/update/flag.h>
  #include <vcg/space/segment2.h>
+ #include <vcg/space/index/grid_static_ptr.h>
 +#include <time.h>
- 
  namespace vcg
  {
+ namespace tri
