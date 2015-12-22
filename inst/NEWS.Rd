@@ -3,7 +3,9 @@
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 \section{Changes in Rvcg version 0.13.1 (2015-12-17)}{
   \subsection{bug fixes}{
-    \item fixed build for solaris
+    \itemize{
+      \item fixed build for solaris
+      }
   }
 }
 
