@@ -1,7 +1,15 @@
 \name{NEWS}
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\section{Changes in Rvcg version 0.13.1 (2015-12-17)}{
+  \subsection{bug fixes}{
+    \itemize{
+      \item fixed build for solaris
+      }
+  }
+}
 
+  
 \section{Changes in Rvcg version 0.13.0 (2015-12-15)}{
   \subsection{new features}{
     \itemize{
