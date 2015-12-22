@@ -88,6 +88,7 @@ Edited Comments and GPL license
 #include <config.h>
 #include <float.h>
 #include <math.h>
+#include <cmath.h>
 #include <assert.h>
 #include <limits>
 #include <algorithm>
