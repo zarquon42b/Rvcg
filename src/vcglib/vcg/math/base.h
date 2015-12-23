@@ -87,8 +87,12 @@ Edited Comments and GPL license
 #define __VCGLIB_MATH_BASE
 #include <config.h>
 #include <float.h>
+#ifdef HAVE_CXX11
+#include <cmath>
+using namespace std;
+#else
 #include <math.h>
-#include <cmath.h>
+#endif
 #include <assert.h>
 #include <limits>
 #include <algorithm>
@@ -191,11 +195,8 @@ inline double  ToRad(const double &a){return M_PI*a/180.0;}
 #if defined(_MSC_VER) // Microsoft Visual C++
 template<class T> int IsNAN(T t) {    return _isnan(t) || (!_finite(t)); }
 #elif defined(__GNUC__) // GCC
-#ifdef HAVE_CXX11
-  template<class T> int IsNAN(T t) {    return std::isnan(t) || std::isinf(t); }
-#else
-  template<class T> int IsNAN(T t) {    return isnan(t) || isinf(t); }
-#endif
+template<class T> int IsNAN(T t) {    return isnan(t) || isinf(t); }
+
 #else // generic
 
 template<class T> int IsNAN(T t)
