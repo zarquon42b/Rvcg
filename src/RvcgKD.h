@@ -46,7 +46,7 @@ namespace Rvcg
 	KdTree<float> tree(ww, nofPointsPerCell, maxDepth);
 	//tree.setMaxNofNeighbors(k);
 	KdTree<float>::PriorityQueue queue;
-#ifdef SUPPORT_OPENMP
+#ifdef _OPENMP
 	omp_set_num_threads(threads);
 #endif
 #pragma omp parallel for firstprivate(queue, tree, ww) schedule(static)
