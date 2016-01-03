@@ -4,7 +4,7 @@
 #include <Rcpp.h>
 #include <RvcgKD.h>
 #include <Rconfig.h>
-#ifdef SUPPORT_OPENMP
+#ifdef _OPENMP
 #include <omp.h>
 #endif
 using namespace tri;
@@ -73,7 +73,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
     //MyMesh::VertexIterator vi = query.vert.begin();
     NumericVector distout(query.vn);
     NumericVector angle(query.vn);
-#ifdef SUPPORT_OPENMP
+#ifdef _OPENMP
     omp_set_num_threads(threads);
 #endif
 #pragma omp parallel for schedule(static)
