@@ -3,7 +3,7 @@
 #include <vcg/complex/complex.h>
 #include <vcg/space/index/kdtree/kdtree.h>
 #include <Rconfig.h>
-#ifdef SUPPORT_OPENMP
+#ifdef _OPENMP
 #include <omp.h>
 #endif
 using namespace tri;

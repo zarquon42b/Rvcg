@@ -4,7 +4,7 @@
 #include <Rcpp.h>
 #include <RvcgKD.h>
 #include <Rconfig.h>
-#ifdef SUPPORT_OPENMP
+#ifdef _OPENMP
 #include <omp.h>
 #endif
 using namespace tri;
