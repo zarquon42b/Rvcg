@@ -2,6 +2,15 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.13.1.2 (2016-01-22)}{
+  \subsection{bug fixes}{
+    \itemize{
+      \item  changed SUPPORT_OPENMP to _OPENMP in C++ code to comply
+      with CRAN rules.
+      }
+  }
+}
+
 \section{Changes in Rvcg version 0.13.1.1 (2015-12-31)}{
   \subsection{bug fixes}{
     \itemize{
