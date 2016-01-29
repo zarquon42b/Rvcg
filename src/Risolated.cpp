@@ -53,18 +53,18 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
 	chunks.push_back(diag);
 	chunkface.push_back(CCV[i1].first);
       }
+      
       if (!split) {
-      if (diameter == 0)
-	diameter = *std::max_element(chunks.begin(),chunks.end());
-  
-      if (connect < 0) {
-	delInfo= tri::Clean<TopoMyMesh>::RemoveSmallConnectedComponentsDiameter(m,diameter);
-      } else {
-	if (connect == 0)
-	  connect = *std::max_element(chunkface.begin(),chunkface.end());
-	delInfo = tri::Clean<TopoMyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
-      }
-      if (!silent)
+	if (diameter == 0)
+	  diameter = *std::max_element(chunks.begin(),chunks.end());
+	if (connect < 0) {
+	  delInfo= tri::Clean<TopoMyMesh>::RemoveSmallConnectedComponentsDiameter(m,diameter);
+	} else {
+	  if (connect == 0)
+	    connect = *std::max_element(chunkface.begin(),chunkface.end());
+	  delInfo = tri::Clean<TopoMyMesh>::RemoveSmallConnectedComponentsSize(m,connect);
+	}
+	if (!silent)
 	Rprintf("Removed %i connected components out of %i\n", delInfo.second, delInfo.first); 
       tri::Clean<TopoMyMesh>::RemoveUnreferencedVertex(m);
       // get a vector of which vertices were removed
@@ -90,7 +90,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
 	
       } else {
 	int length = CCV.size();
-	List out(length);
+	std::list<List> out;
 	for(unsigned int i=0; i < CCV.size(); ++i ) {
 	  TopoMyMesh destMesh;
 	  tri::UpdateSelection<TopoMyMesh>::FaceClear(m);
@@ -98,14 +98,18 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
 	  tri::UpdateSelection<TopoMyMesh>::FaceConnectedFF(m);
 	  tri::UpdateSelection<TopoMyMesh>::VertexClear(m);
 	  tri::UpdateSelection<TopoMyMesh>::VertexFromFaceLoose(m);
-
-	  tri::Append<TopoMyMesh,TopoMyMesh>::Mesh(destMesh, m, true);
-	  //tri::UpdateBounding<TopoMyMesh>::Box(destMesh);						// updates bounding box
-	  tri::UpdateNormal<TopoMyMesh>::PerVertexNormalized(destMesh);				// vertex normals
 	  
-	  out[i] = Rvcg::IOMesh<TopoMyMesh>::RvcgToR(destMesh,true);
+	  tri::Append<TopoMyMesh,TopoMyMesh>::Mesh(destMesh, m, true);
+	  unsigned int facenum = destMesh.fn;
+	  tri::UpdateBounding<TopoMyMesh>::Box(destMesh);
+	  float mybboxdiam = destMesh.bbox.Diag();
+	  if ((connect < 0 && mybboxdiam >= diameter) || (connect >= 0 && facenum >= connect))
+	    {
+	      tri::UpdateNormal<TopoMyMesh>::PerVertexNormalized(destMesh);				// vertex normals
+	      out.push_back(Rvcg::IOMesh<TopoMyMesh>::RvcgToR(destMesh,true));
+	    }
 	}
-	return out;
+	return wrap(out);
       }
 	
     } 

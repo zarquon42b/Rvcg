@@ -11,7 +11,8 @@
 #' with the most faces is kept. 
 #' @param diameter numeric: all connected pieces smaller diameter are removed
 #' removed. \code{diameter = 0} removes all component but the largest ones. This option overrides the option \code{facenum}.
-#' @param split logical: if TRUE, a list with all connected components of the mesh will be returned.
+#' @param split logical: if TRUE, a list with all connected components (optionally matching requirements facenum/diameter) of the mesh will be returned.
+#' @param keep integer: if split=T, \code{keep} specifies the number of largest chunks (number of faces) to keep. 
 #' @param silent logical, if TRUE no console output is issued.
 #' @return returns the reduced mesh.
 #' @author Stefan Schlager
@@ -25,7 +26,7 @@
 #' 
 #' 
 #' @export vcgIsolated
-vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL,split=FALSE,silent=FALSE) {
+vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL,split=FALSE,keep=0, silent=FALSE) {
     if (!inherits(mesh,"mesh3d"))
         stop("argument 'mesh' needs to be object of class 'mesh3d'")
     if (is.null(facenum))
@@ -68,6 +69,19 @@ vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL,split=FALSE,silent=FALSE
             }
         }
     }
-    
+    if (split) {
+        if (length(tmp)) { 
+        ll <- length(tmp)
+        nverts <- sapply(tmp,function(x) x <- ncol(x$it))
+        tmp <- tmp[order(nverts,decreasing = T)]
+        if (keep > 0) 
+            ll <- min(ll,keep)
+        tmp <- tmp[1:ll]
+        if (!silent)
+            cat(paste0("mesh is split into ",ll," pieces\n"))
+    } else {
+        stop("no parts match your requirements")
+    }
+    }
     invisible(tmp)
 }
