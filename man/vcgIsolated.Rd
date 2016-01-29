@@ -5,7 +5,7 @@
 \title{Remove isolated pieces from a surface mesh or split into connected components}
 \usage{
 vcgIsolated(mesh, facenum = NULL, diameter = NULL, split = FALSE,
-  silent = FALSE)
+  keep = 0, silent = FALSE)
 }
 \arguments{
 \item{mesh}{triangular mesh of class "mesh3d".}
@@ -17,7 +17,9 @@ with the most faces is kept.}
 \item{diameter}{numeric: all connected pieces smaller diameter are removed
 removed. \code{diameter = 0} removes all component but the largest ones. This option overrides the option \code{facenum}.}
 
-\item{split}{logical: if TRUE, a list with all connected components of the mesh will be returned.}
+\item{split}{logical: if TRUE, a list with all connected components (optionally matching requirements facenum/diameter) of the mesh will be returned.}
+
+\item{keep}{integer: if split=T, \code{keep} specifies the number of largest chunks (number of faces) to keep.}
 
 \item{silent}{logical, if TRUE no console output is issued.}
 }
