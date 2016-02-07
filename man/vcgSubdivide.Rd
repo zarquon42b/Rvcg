@@ -19,7 +19,7 @@ vcgSubdivide(x, threshold = NULL, type = c("Butterfly", "Loop"),
 
 \item{iterations}{integer: number of iterations}
 
-\item{silence}{logical: suppress output.}
+\item{silent}{logical: suppress output.}
 }
 \value{
 returns subdivided mesh
