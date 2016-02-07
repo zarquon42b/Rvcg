@@ -1,8 +1,8 @@
 Index: vcglib/vcg/space/index/kdtree/kdtree.h
 ===================================================================
---- vcglib.orig/vcg/space/index/kdtree/kdtree.h	2015-12-21 17:07:52.112758663 +0100
-+++ vcglib/vcg/space/index/kdtree/kdtree.h	2015-12-21 17:07:52.112758663 +0100
-@@ -99,13 +99,13 @@
+--- vcglib.orig/vcg/space/index/kdtree/kdtree.h
++++ vcglib/vcg/space/index/kdtree/kdtree.h
+@@ -99,13 +99,13 @@ namespace vcg {
                      unsigned int firstChildId:24;
                      unsigned int dim:2;
                      unsigned int leaf:1;
@@ -19,7 +19,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
          };
          typedef std::vector<Node> NodeList;
  
-@@ -167,7 +167,7 @@
+@@ -167,7 +167,7 @@ namespace vcg {
          mNodes.reserve(4*mPoints.size()/nofPointsPerCell);
      //first node inserted (no leaf). The others are made by the createTree function (recursively)
          mNodes.resize(1);
@@ -28,7 +28,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
          /*int numLevel = */
          createTree(0, 0, mPoints.size(), 1, nofPointsPerCell, maxDepth);
      }
-@@ -220,34 +220,34 @@
+@@ -220,34 +220,34 @@ namespace vcg {
              if (qnode.sq < mNeighborQueue.getTopWeight())
              {
                  //when we arrive to a lef
@@ -71,7 +71,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
                      }
                      //distance is inherited from the father (while descending the tree it's equal to 0)
                      mNodeStack[count].sq = qnode.sq;
-@@ -286,7 +286,7 @@
+@@ -286,7 +286,7 @@ namespace vcg {
  
              if (qnode.sq < sqrareDist)
              {
@@ -80,7 +80,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
                  {
                      --count; // pop
                      unsigned int end = node.start+node.size;
-@@ -460,50 +460,50 @@
+@@ -460,50 +460,50 @@ namespace vcg {
          else
              dim = diag.Y() > diag.Z() ? 1 : 2;
  
