@@ -6,7 +6,7 @@
 #' @param type character: algorithm used. Options are Butterfly and Loop (see notes)
 #' @param looptype character: method for type = loop options are "loop","regularity","continuity" (see notes)
 #' @param iterations integer: number of iterations
-#' @param silence logical: suppress output.
+#' @param silent logical: suppress output.
 #' @return returns subdivided mesh
 #' @note
 #' The different algorithms are (from meshlab description):
