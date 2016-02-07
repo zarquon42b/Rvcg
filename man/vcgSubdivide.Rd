@@ -34,4 +34,9 @@ The different algorithms are (from meshlab description):
 \item{\bold{Loop Subdivision:} Apply Loop's Subdivision Surface algorithm. It is an approximant subdivision method and it works for every triangle and has rules for extraordinary vertices. Options are "loop" a simple subdivision, "regularity" to enhance the meshe's regularity and "continuity" to enhance the mesh's continuity.}
 }
 }
+\examples{
+data(humface)
+subdivide <- vcgSubdivide(humface,type="Loop",looptype="regularity")
+
+}
 

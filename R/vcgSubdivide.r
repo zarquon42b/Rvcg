@@ -14,6 +14,10 @@
 #' \item{\bold{Butterfly Subdivision:} Apply Butterfly Subdivision Surface algorithm. It is an interpolated method, defined on arbitrary triangular meshes. The scheme is known to be C1 but not C2 on regular meshes}
 #' \item{\bold{Loop Subdivision:} Apply Loop's Subdivision Surface algorithm. It is an approximant subdivision method and it works for every triangle and has rules for extraordinary vertices. Options are "loop" a simple subdivision, "regularity" to enhance the meshe's regularity and "continuity" to enhance the mesh's continuity.}
 #' }
+#' @examples
+#' data(humface)
+#' subdivide <- vcgSubdivide(humface,type="Loop",looptype="regularity")
+#' 
 #' @export
 vcgSubdivide <- function(x, threshold=NULL, type=c("Butterfly","Loop"),looptype=c("loop","regularity","continuity"),iterations=3, silent= FALSE) {
     typeargs <- c("butterfly","loop")
