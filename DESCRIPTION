@@ -4,7 +4,7 @@ Title: Manipulations of Triangular Meshes Based on the 'VCGLIB' API
 Version: 0.13.1.2.160211
 Date: 2016-02-11
 Authors@R: c(
-    person("Stefan", "Schlager",, "stefan.schlager@uniklinik-freiburg.de", c("aut", "cre", "cph")),
+    person("Stefan", "Schlager",, "zarquon42@gmail.com", c("aut", "cre", "cph")),
     person("Girinon", "Francois",,, c("ctb"))
     )
 Description: Operations on triangular meshes based on 'VCGLIB'. This package
