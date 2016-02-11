@@ -29,7 +29,6 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     unsigned int searchStruct = Rcpp::as<unsigned int>(searchStruct_);
     bool colormeshes = as<bool>(colormeshes_);
     bool silent = as<bool>(silent_);
-    float ColorMin=0, ColorMax=0;
     unsigned long n_samples_target;
     double n_samples_per_area_unit;
 
@@ -65,11 +64,7 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     if (nSamplesArea != 0 ) SamplesPerAreaUnit = true; n_samples_per_area_unit = nSamplesArea;
     flags |= SamplingFlags::SAVE_ERROR;
 
-    if (from != 0 && to != 0)
-      {
-	ColorMin=float(from); ColorMax=float(to);
-      }
-
+   
     switch(searchStruct){
     case 0 : flags |= SamplingFlags::USE_AABB_TREE; break;
     case 1 : flags |= SamplingFlags::USE_STATIC_GRID; break;
@@ -150,21 +145,19 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     double nsamples1 = BackwardSampling.GetNSamples();
 
     //write heatmap to vertex color
-    if(flags && colormeshes){
-      vcg::tri::io::PlyInfo p;
-      p.mask|=vcg::tri::io::Mask::IOM_VERTCOLOR | vcg::tri::io::Mask::IOM_VERTQUALITY /* | vcg::ply::PLYMask::PM_VERTQUALITY*/ ;
-      //p.mask|=vcg::ply::PLYMask::PM_VERTCOLOR|vcg::ply::PLYMask::PM_VERTQUALITY;
-      if(ColorMax!=0 || ColorMin != 0){
-	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m0,ColorMin,ColorMax);
-	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m1,ColorMin,ColorMax);
+    if(colormeshes){
+      if(from != 0 || to != 0){
+	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m0,from,to);
+	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m1,from,to);
+      } else {
+	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m0);
+	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m1);
       }
-      //tri::io::ExporterPLY<CMesh>::Save( m0,m0NewName.c_str(),true,p);
-      //tri::io::ExporterPLY<CMesh>::Save( m1,m1NewName.c_str(),true,p);
     }
     // write back color information
     std::vector<int> colvec0(3*m0.vn),colvec1(3*m1.vn);
     std::vector<float> quality0(m0.vn), quality1(m1.vn);
-		
+    
     VertexIterator vi=m0.vert.begin();
     for (int i=0;  i < m0.vn; i++) {
       colvec0[i*3] = (*vi).C()[0];
@@ -181,6 +174,7 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
       quality1[i] = (*vi).Q();
       ++vi;
     }
+    
     List mesh0 = Rvcg::IOMesh<CMesh>::RvcgToR(m0);
     //mesh0["quality"] = quality0;
     List mesh1 = Rvcg::IOMesh<CMesh>::RvcgToR(m1);
