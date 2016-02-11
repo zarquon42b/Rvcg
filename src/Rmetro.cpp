@@ -81,7 +81,7 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     if(!NumberOfSamples && !SamplesPerAreaUnit){
       NumberOfSamples = true;
       n_samples_target = 10 * max(m0.fn,m1.fn);
-      if (!silent)
+      if (!silent && faceSamp)
 	Rprintf("Number of samples set to %i\n",n_samples_target);// take 10 samples per face
     }
 

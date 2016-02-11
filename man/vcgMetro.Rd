@@ -40,15 +40,15 @@ vcgMetro(mesh1, mesh2, nSamples = 0, nSamplesArea = 0, vertSamp = TRUE,
 \item{silent}{logical: if TRUE, output to console is suppressed.}
 }
 \value{
-\item{ForwardSampling, BackwardSampling}{lists containing information about forward sampling with the following entries}
+\item{ForwardSampling, BackwardSampling}{lists containing information about forward (mesh1 to mesh2) and backward (mesh2 to mesh1) sampling with the following entries}
 \itemize{
-\item{maxdist}{maximal Hausdorff distance}
-\item{meandist}{mean Hausdorff distance}
-\item{RMSdist}{RMS of the Hausdorff distances}
-\item{area}{mesh area (of }
-\item{RMSdist}{RMS of the Hausdorff distances}
-\item{nvbsamples}{number of vertices sampled}
-\item{nsamples}{number of samples}
+\item{ \code{maxdist} maximal Hausdorff distance}
+\item{ \code{meandist} mean Hausdorff distance}
+\item{ \code{RMSdist} RMS of the Hausdorff distances}
+\item{ \code{area} mesh area (of \code{mesh1} in \code{ForwardSampling} and  \code{mesh2} in  \code{BackwardSampling})}
+\item{ \code{RMSdist} RMS of the Hausdorff distances}
+\item{ \code{nvbsamples} number of vertices sampled}
+\item{ \code{nsamples} number of samples}
 }
 \item{distances1, distances2}{vectors containing vertex distances from mesh1 to mesh2 and mesh2 to mesh1.}
 \item{forward_hist, backward_hist}{Matrices tracking the sampling results}
