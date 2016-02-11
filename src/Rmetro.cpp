@@ -1,5 +1,5 @@
 
-#include "typedefHausdorff.h"
+#include "typedefMetro.h"
 
 
 #include "RvcgIO.h"
@@ -10,10 +10,9 @@ using namespace vcg;
 typedef  CMesh::VertexIterator VertexIterator;
 
 
-RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vertSamp_, SEXP edgeSamp_, SEXP faceSamp_, SEXP unrefVert_, SEXP samplingType_, SEXP nSamples_, SEXP nSamplesArea_, SEXP from_, SEXP to_, SEXP searchStruct_)
+RcppExport SEXP Rmetro( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vertSamp_, SEXP edgeSamp_, SEXP faceSamp_, SEXP unrefVert_, SEXP samplingType_, SEXP nSamples_, SEXP nSamplesArea_, SEXP from_, SEXP to_, SEXP searchStruct_, SEXP colormeshes_, SEXP silent_)
 {
   try {
-    // Read files
     CMesh m0, m1;
     Rvcg::IOMesh<CMesh>::RvcgReadR(m0,vb0_,it0_);
     Rvcg::IOMesh<CMesh>::RvcgReadR(m1,vb1_,it1_);
@@ -25,14 +24,15 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
     unsigned int samplingType = Rcpp::as<unsigned int>(samplingType_);
     unsigned long nSamples = Rcpp::as<unsigned long>(nSamples_);
     double nSamplesArea = Rcpp::as<double>(nSamplesArea_);
-    //bool saveMesh = Rcpp::as<bool>(saveMesh_);
     double from = Rcpp::as<double>(from_);
     double to = Rcpp::as<double>(to_);
     unsigned int searchStruct = Rcpp::as<unsigned int>(searchStruct_);
-
+    bool colormeshes = as<bool>(colormeshes_);
+    bool silent = as<bool>(silent_);
     float ColorMin=0, ColorMax=0;
     unsigned long n_samples_target;
     double n_samples_per_area_unit;
+
     // Sampling parameters
     double dist1_max, dist0_max;
     int flags;
@@ -42,19 +42,22 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
     flags = SamplingFlags::VERTEX_SAMPLING |
       SamplingFlags::EDGE_SAMPLING |
       SamplingFlags::FACE_SAMPLING |
-      SamplingFlags::SIMILAR_SAMPLING;
+      //SamplingFlags::SIMILAR_SAMPLING |
+      SamplingFlags::HIST;
+      
 
-    flags |= SamplingFlags::HIST;
-    if (vertSamp) flags &= ~SamplingFlags::VERTEX_SAMPLING;
-    if (edgeSamp) flags &= ~SamplingFlags::EDGE_SAMPLING;
-    if (faceSamp) flags &= ~SamplingFlags::FACE_SAMPLING;
+    if (silent) flags |= SamplingFlags::SILENT;
+    if (!vertSamp) flags &= ~SamplingFlags::VERTEX_SAMPLING;
+    if (!edgeSamp) flags &= ~SamplingFlags::EDGE_SAMPLING;
+    if (!faceSamp) flags &= ~SamplingFlags::FACE_SAMPLING;
     if (unrefVert) flags |= SamplingFlags::INCLUDE_UNREFERENCED_VERTICES;
 
     switch(samplingType){
-    case 0 : flags = (flags | SamplingFlags::MONTECARLO_SAMPLING  ) & (~ SamplingFlags::NO_SAMPLING ); break;
-    case 1 : flags = (flags | SamplingFlags::SUBDIVISION_SAMPLING ) & (~ SamplingFlags::NO_SAMPLING ); break;
-    case 2 : flags = (flags | SamplingFlags::SIMILAR_SAMPLING     ) & (~ SamplingFlags::NO_SAMPLING ); break;
-      //default : ::Rf_error("%s\n","samplingType unknown" );
+    case 0 : flags |= SamplingFlags::MONTECARLO_SAMPLING  ; break;
+    case 1 : flags |=  SamplingFlags::SUBDIVISION_SAMPLING; break;
+    case 2 : flags |=  SamplingFlags::SIMILAR_SAMPLING ; break;
+      //case 3 : flags |=  SamplingFlags::NO_SAMPLING ; break;
+     default : ::Rf_error("%s\n","samplingType unknown" );
       
     }
 
@@ -82,7 +85,9 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 		
     if(!NumberOfSamples && !SamplesPerAreaUnit){
       NumberOfSamples = true;
-      n_samples_target = 10 * max(m0.fn,m1.fn);// take 10 samples per face
+      n_samples_target = 10 * max(m0.fn,m1.fn);
+      if (!silent)
+	Rprintf("Number of samples set to %i\n",n_samples_target);// take 10 samples per face
     }
 
     // compute face information
@@ -130,6 +135,8 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
     dist0_max  = ForwardSampling.GetDistMax();
     double mean0 = ForwardSampling.GetDistMean();
     double rms0 = ForwardSampling.GetDistRMS();
+    double area0 = ForwardSampling.GetArea();
+    double distvol0 = ForwardSampling.GetDistVolume();
     unsigned long int nvertsamples0 = ForwardSampling.GetNVertexSamples();
     unsigned long int nsamples0 = ForwardSampling.GetNSamples();
 
@@ -137,11 +144,13 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
     dist1_max  = BackwardSampling.GetDistMax();
     double mean1 = BackwardSampling.GetDistMean();
     double rms1 = BackwardSampling.GetDistRMS();
+    double area1 = BackwardSampling.GetArea();
+    double distvol1 = BackwardSampling.GetDistVolume();
     double nvertsamples1 = BackwardSampling.GetNVertexSamples();
     double nsamples1 = BackwardSampling.GetNSamples();
 
     //write heatmap to vertex color
-    if(flags){
+    if(flags && colormeshes){
       vcg::tri::io::PlyInfo p;
       p.mask|=vcg::tri::io::Mask::IOM_VERTCOLOR | vcg::tri::io::Mask::IOM_VERTQUALITY /* | vcg::ply::PLYMask::PM_VERTQUALITY*/ ;
       //p.mask|=vcg::ply::PLYMask::PM_VERTCOLOR|vcg::ply::PLYMask::PM_VERTQUALITY;
@@ -173,9 +182,9 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
       ++vi;
     }
     List mesh0 = Rvcg::IOMesh<CMesh>::RvcgToR(m0);
-    mesh0["quality"] = quality0;
+    //mesh0["quality"] = quality0;
     List mesh1 = Rvcg::IOMesh<CMesh>::RvcgToR(m1);
-    mesh1["quality"] = quality1;
+    //mesh1["quality"] = quality1;
     // save error files.
 		
     // create sampling histogram as R matrices
@@ -207,6 +216,8 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 						Rcpp::Named("maxdist") = dist0_max,
 						Rcpp::Named("meandist") = mean0,
 						Rcpp::Named("RMSdist") = rms0,
+						Rcpp::Named("area") = area0,
+						Rcpp::Named("distvolume") = distvol0,
 						Rcpp::Named("nvbsamples") = nvertsamples0,
 						Rcpp::Named("nsamples") = nsamples0
 						);
@@ -214,9 +225,16 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 						 Rcpp::Named("maxdist") = dist1_max,
 						 Rcpp::Named("meandist") = mean1,
 						 Rcpp::Named("RMSdist") = rms1,
+						 Rcpp::Named("area") = area1,
+						 Rcpp::Named("distvolume") = distvol1,
 						 Rcpp::Named("nvbsamples") = nvertsamples1,
 						 Rcpp::Named("nsamples") = nsamples1
 						 );
+    out["forward_hist"] = forward_hist;
+    out["backward_hist"] = backward_hist;
+    out["distances1"] = quality0;
+    out["distances2"] = quality1;
+    if (colormeshes) {
     out["mesh1"] = Rcpp::List::create(
 				      Rcpp::Named("mesh") = mesh0,
 				      Rcpp::Named("colors") = colvec0
@@ -225,9 +243,9 @@ RcppExport SEXP Rhausdorff( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vert
 				      Rcpp::Named("mesh") = mesh1,
 				      Rcpp::Named("colors") = colvec1
 				      );
-    out["forward_hist"] = forward_hist;
-    out["backward_hist"] = backward_hist;
-    ;
+    }
+    
+    
     return out;
   }
   catch (std::exception& e) {
