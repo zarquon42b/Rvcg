@@ -38,7 +38,12 @@
 #' data(dummyhead)
 #' ## align humface to dummyhead.mesh
 #' humfalign <- rotmesh.onto(humface,humface.lm,dummyhead.lm)
-#' samp <- vcgMetro(humfalign$mesh,dummyhead.mesh,faceSamp=FALSE,edgeSamp=FALSE)
+#' samp <- vcgMetro(humfalign$mesh,dummyhead.mesh,faceSamp=FALSE,edgeSamp=FALSE,colormeshes = T)
+#' ## create heatmap using Morpho's meshDist function
+#' \dontrun{
+#' ## create custom heatmaps based on distances
+#' mD <- meshDist(humfalign$mesh,distvec=samp$distances1)
+#' }
 #' @note this is a straightforward implementation of the command line tool metro \url{http://vcg.isti.cnr.it/vcglib/metro.html}
 #' @references
 #' P. Cignoni, C. Rocchini and R. Scopigno. Metro: measuring error on simplified surfaces. Computer Graphics Forum, Blackwell Publishers, vol. 17(2), June 1998, pp 167-174
@@ -69,7 +74,7 @@ vcgMetro <- function(mesh1, mesh2, nSamples=0, nSamplesArea=0, vertSamp=TRUE, ed
 	if (searchStruct == "OCTREE")
 		searchStruct <- 3
 
-   tmp <- .Call("Rmetro",mesh1$vb[1:3,],mesh1$it-1L,mesh2$vb[1:3,],mesh2$it-1L, vertSamp, edgeSamp, faceSamp, unrefVert, samplingType, nSamples, nSamplesArea, from, to, searchStruct,colormeshes,silent)
+   tmp <- .Call("Rmetro",mesh1,mesh2, vertSamp, edgeSamp, faceSamp, unrefVert, samplingType, nSamples, nSamplesArea, from, to, searchStruct,colormeshes,silent)
         tmp$mesh1 <- updateColorFromVector(tmp$mesh1$mesh,tmp$mesh1$colors)
         tmp$mesh2 <- updateColorFromVector(tmp$mesh2$mesh,tmp$mesh2$colors)
         

@@ -10,12 +10,12 @@ using namespace vcg;
 typedef  CMesh::VertexIterator VertexIterator;
 
 
-RcppExport SEXP Rmetro( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vertSamp_, SEXP edgeSamp_, SEXP faceSamp_, SEXP unrefVert_, SEXP samplingType_, SEXP nSamples_, SEXP nSamplesArea_, SEXP from_, SEXP to_, SEXP searchStruct_, SEXP colormeshes_, SEXP silent_)
+RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_, SEXP faceSamp_, SEXP unrefVert_, SEXP samplingType_, SEXP nSamples_, SEXP nSamplesArea_, SEXP from_, SEXP to_, SEXP searchStruct_, SEXP colormeshes_, SEXP silent_)
 {
   try {
     CMesh m0, m1;
-    Rvcg::IOMesh<CMesh>::RvcgReadR(m0,vb0_,it0_);
-    Rvcg::IOMesh<CMesh>::RvcgReadR(m1,vb1_,it1_);
+    Rvcg::IOMesh<CMesh>::mesh3d2Rvcg(m0,mesh0_);
+    Rvcg::IOMesh<CMesh>::mesh3d2Rvcg(m1,mesh1_);
     // Declare variables
     bool vertSamp = Rcpp::as<bool>(vertSamp_);
     bool edgeSamp = Rcpp::as<bool>(edgeSamp_);
@@ -250,7 +250,6 @@ RcppExport SEXP Rmetro( SEXP vb0_, SEXP it0_,SEXP vb1_, SEXP it1_, SEXP vertSamp
   }
   catch (std::exception& e) {
     ::Rf_error( e.what());
-    return wrap(1);
   }
   catch (...) {
     ::Rf_error("unknown exception");
