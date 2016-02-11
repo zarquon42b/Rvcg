@@ -119,7 +119,8 @@ RcppExport SEXP Rclost(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP sign_, SEXP bord
 	    }
 	  }
 	} else {
-	  dis[i] = 1e12;
+	  double mynan = std::nan("1");
+	  dis[i] = mynan;
 	}
 	//write back output
 	ioclost(0,i) =clost[0];
