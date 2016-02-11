@@ -38,7 +38,7 @@
 #' data(dummyhead)
 #' ## align humface to dummyhead.mesh
 #' humfalign <- rotmesh.onto(humface,humface.lm,dummyhead.lm)
-#' samp <- vcgMetro(humfalign$mesh,dummyhead.mesh,faceSamp=FALSE,edgeSamp=FALSE,colormeshes = T)
+#' samp <- vcgMetro(humfalign$mesh,dummyhead.mesh,faceSamp=FALSE,edgeSamp=FALSE)
 #' ## create heatmap using Morpho's meshDist function
 #' \dontrun{
 #' ## create custom heatmaps based on distances

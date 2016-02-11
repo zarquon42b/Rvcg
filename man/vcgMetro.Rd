@@ -68,6 +68,11 @@ data(dummyhead)
 ## align humface to dummyhead.mesh
 humfalign <- rotmesh.onto(humface,humface.lm,dummyhead.lm)
 samp <- vcgMetro(humfalign$mesh,dummyhead.mesh,faceSamp=FALSE,edgeSamp=FALSE)
+## create heatmap using Morpho's meshDist function
+\dontrun{
+## create custom heatmaps based on distances
+mD <- meshDist(humfalign$mesh,distvec=samp$distances1)
+}
 }
 \references{
 P. Cignoni, C. Rocchini and R. Scopigno. Metro: measuring error on simplified surfaces. Computer Graphics Forum, Blackwell Publishers, vol. 17(2), June 1998, pp 167-174
