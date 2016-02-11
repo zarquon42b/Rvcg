@@ -12,7 +12,7 @@
 #include <wrap/io_trimesh/export.h>
 #include <vcg/complex/algorithms/update/component_ep.h>
 #include <vcg/complex/algorithms/update/bounding.h>
-#include "sampling.h"
+#include "metroSampling.h"
 
 using namespace std;
 // #include "/media/celli/Data/Rvcg/src/vcglib/apps/metro/sampling.h"
@@ -41,6 +41,6 @@ class CVertexMetro;
 struct UsedTypes:public vcg::UsedTypes< vcg::Use<CFaceMetro>::AsFaceType, vcg::Use<CVertexMetro>::AsVertexType>{};
 class CVertexMetro   : public vcg::Vertex<UsedTypes,vcg::vertex::Coord3d,vcg::vertex::Qualityf,vcg::vertex::Normal3d,vcg::vertex::Color4b,vcg::vertex::BitFlags> {};
 class CFaceMetro     : public vcg::Face< UsedTypes,vcg::face::VertexRef, vcg::face::Normal3d, vcg::face::EdgePlane,vcg::face::Color4b,vcg::face::Mark,vcg::face::BitFlags> {};
-class CMesh     : public vcg::tri::TriMesh< std::vector<CVertexMetro>, std::vector<CFaceMetro> > {};
+class CMeshMetro     : public vcg::tri::TriMesh< std::vector<CVertexMetro>, std::vector<CFaceMetro> > {};
 
 #endif

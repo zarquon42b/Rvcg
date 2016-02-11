@@ -7,15 +7,15 @@
 
 using namespace Rcpp;
 using namespace vcg;
-typedef  CMesh::VertexIterator VertexIterator;
+typedef  CMeshMetro::VertexIterator VertexIterator;
 
 
 RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_, SEXP faceSamp_, SEXP unrefVert_, SEXP samplingType_, SEXP nSamples_, SEXP nSamplesArea_, SEXP from_, SEXP to_, SEXP searchStruct_, SEXP colormeshes_, SEXP silent_)
 {
   try {
-    CMesh m0, m1;
-    Rvcg::IOMesh<CMesh>::mesh3d2Rvcg(m0,mesh0_);
-    Rvcg::IOMesh<CMesh>::mesh3d2Rvcg(m1,mesh1_);
+    CMeshMetro m0, m1;
+    Rvcg::IOMesh<CMeshMetro>::mesh3d2Rvcg(m0,mesh0_);
+    Rvcg::IOMesh<CMeshMetro>::mesh3d2Rvcg(m1,mesh1_);
     // Declare variables
     bool vertSamp = Rcpp::as<bool>(vertSamp_);
     bool edgeSamp = Rcpp::as<bool>(edgeSamp_);
@@ -86,15 +86,15 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     }
 
     // compute face information
-    tri::UpdateComponentEP<CMesh>::Set(m0);
-    tri::UpdateComponentEP<CMesh>::Set(m1);
+    tri::UpdateComponentEP<CMeshMetro>::Set(m0);
+    tri::UpdateComponentEP<CMeshMetro>::Set(m1);
 
     // // set bounding boxes for S1 and S2
-    tri::UpdateBounding<CMesh>::Box(m0);
-    tri::UpdateBounding<CMesh>::Box(m1);
+    tri::UpdateBounding<CMeshMetro>::Box(m0);
+    tri::UpdateBounding<CMeshMetro>::Box(m1);
 
     // set Bounding Box.
-    Box3<CMesh::ScalarType>    bbox, tmp_bbox_M1=m0.bbox, tmp_bbox_M2=m1.bbox;
+    Box3<CMeshMetro::ScalarType>    bbox, tmp_bbox_M1=m0.bbox, tmp_bbox_M2=m1.bbox;
     bbox.Add(m0.bbox);
     bbox.Add(m1.bbox);
     bbox.Offset(bbox.Diag()*0.02);
@@ -102,8 +102,8 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     m1.bbox = bbox;
 
     // sampling
-    Sampling<CMesh> ForwardSampling(m0,m1);
-    Sampling<CMesh> BackwardSampling(m1,m0);
+    Sampling<CMeshMetro> ForwardSampling(m0,m1);
+    Sampling<CMeshMetro> BackwardSampling(m1,m0);
 
     ForwardSampling.SetFlags(flags);
     if(NumberOfSamples){
@@ -147,11 +147,11 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     //write heatmap to vertex color
     if(colormeshes){
       if(from != 0 || to != 0){
-	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m0,from,to);
-	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m1,from,to);
+	vcg::tri::UpdateColor<CMeshMetro>::PerVertexQualityRamp(m0,from,to);
+	vcg::tri::UpdateColor<CMeshMetro>::PerVertexQualityRamp(m1,from,to);
       } else {
-	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m0);
-	vcg::tri::UpdateColor<CMesh>::PerVertexQualityRamp(m1);
+	vcg::tri::UpdateColor<CMeshMetro>::PerVertexQualityRamp(m0);
+	vcg::tri::UpdateColor<CMeshMetro>::PerVertexQualityRamp(m1);
       }
     }
     // write back color information
@@ -175,9 +175,9 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
       ++vi;
     }
     
-    List mesh0 = Rvcg::IOMesh<CMesh>::RvcgToR(m0);
+    List mesh0 = Rvcg::IOMesh<CMeshMetro>::RvcgToR(m0);
     //mesh0["quality"] = quality0;
-    List mesh1 = Rvcg::IOMesh<CMesh>::RvcgToR(m1);
+    List mesh1 = Rvcg::IOMesh<CMeshMetro>::RvcgToR(m1);
     //mesh1["quality"] = quality1;
     // save error files.
 		
