@@ -32,7 +32,7 @@ namespace Rvcg
     typedef typename MeshType::VertContainer  VertContainer;
   
     // Fill an empty mesh with vertices and faces from R
-    static int RvcgReadR(MeshType &m, SEXP vb_, SEXP it_= Rcpp::wrap(0), SEXP normals_ = Rcpp::wrap(0)) {
+    static int RvcgReadR(MeshType &m, SEXP vb_, SEXP it_= Rcpp::wrap(0), SEXP normals_ = Rcpp::wrap(0), bool zerobegin=true) {
       try {
 	//insert vertices
 	if (Rf_isMatrix(vb_) && VertexType::HasCoord() ) {
@@ -82,12 +82,15 @@ namespace Rvcg
 	    
 	    // #pragma omp parallel for schedule(static)
 	    for (size_t i=0; i < faced ; i++) {
+	      int subtract = 0;
+	      if (!zerobegin)
+		subtract=1;
 	      int itx,ity,itz;
 	      FaceIterator fi=m.face.begin()+i;
 	      indicesf[fi] = i;
-	      itx = it(0,i);
-	      ity = it(1,i);
-	      itz = it(2,i);
+	      itx = it(0,i)-subtract;
+	      ity = it(1,i)-subtract;
+	      itz = it(2,i)-subtract;
 	      (*fi).V(0)=ivp[itx];
 	      (*fi).V(1)=ivp[ity];
 	      (*fi).V(2)=ivp[itz];
@@ -152,7 +155,7 @@ namespace Rvcg
       }
     };
     
-    static int mesh3d2Rvcg(MeshType &m, SEXP mesh_) {
+    static int mesh3d2Rvcg(MeshType &m, SEXP mesh_,bool zerobegin=false) {
       List mesh(mesh_);
       Rcpp::CharacterVector mychar = Rcpp::CharacterVector::create("vb","it","normals");
       std::vector<bool> test = checkListNames(mesh,mychar);
@@ -164,7 +167,7 @@ namespace Rvcg
       }
       if (!test[0])
 	::Rf_error("mesh has no vertices");
-      int out = RvcgReadR(m , mesh["vb"],mesh["it"],mesh["normals"]);
+      int out = RvcgReadR(m , mesh["vb"],mesh["it"],mesh["normals"],zerobegin);
       return out;
     };
   };
