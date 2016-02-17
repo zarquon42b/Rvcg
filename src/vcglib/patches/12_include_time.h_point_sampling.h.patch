@@ -1,8 +1,8 @@
 Index: vcglib/vcg/complex/algorithms/point_sampling.h
 ===================================================================
---- vcglib.orig/vcg/complex/algorithms/point_sampling.h	2015-12-21 17:07:56.624781037 +0100
-+++ vcglib/vcg/complex/algorithms/point_sampling.h	2015-12-21 17:08:58.117085961 +0100
-@@ -48,6 +48,7 @@
+--- vcglib.orig/vcg/complex/algorithms/point_sampling.h
++++ vcglib/vcg/complex/algorithms/point_sampling.h
+@@ -48,6 +48,7 @@ sampling strategies (montecarlo, stratif
  #include <vcg/complex/algorithms/update/flag.h>
  #include <vcg/space/segment2.h>
  #include <vcg/space/index/grid_static_ptr.h>

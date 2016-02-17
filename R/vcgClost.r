@@ -12,7 +12,7 @@
 #' points are returned.
 #' @param smoothNormals logical: if TRUE, laplacian smoothed normals are used.
 #' @param borderchk logical: request checking if the hit face is at the border of the mesh.
-#' @param tol maximum distance to search. If distance is beyond that, the original point will be kept and the distance set to 1e12.
+#' @param tol maximum distance to search. If distance is beyond that, the original point will be kept and the distance set to NaN. If tol = 0, tol is set to 2*diagonal of the bounding box of \code{mesh}.
 #' @param facenormals logical: if TRUE only the facenormal of the face the closest point has hit is returned, the weighted average of the surrounding vertex normals otherwise.
 #' @param ... additional parameters, currently unused.
 #' @return returns an object of class "mesh3d" with:
@@ -82,6 +82,9 @@ vcgClost <- function(x,mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, bo
         if(barycentric)
             x$barycoords <- tmp$barycoord
         x$faceptr <- tmp$faceptr+1
+        nancheck <- which(is.nan(x$quality))
+        if (length(nancheck))
+            warning("some points where beyond the search tolerance")
         invisible(x)
     }
 

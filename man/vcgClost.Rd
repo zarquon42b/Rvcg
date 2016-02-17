@@ -21,7 +21,7 @@ points are returned.}
 
 \item{borderchk}{logical: request checking if the hit face is at the border of the mesh.}
 
-\item{tol}{maximum distance to search. If distance is beyond that, the original point will be kept and the distance set to 1e12.}
+\item{tol}{maximum distance to search. If distance is beyond that, the original point will be kept and the distance set to NaN. If tol = 0, tol is set to 2*diagonal of the bounding box of \code{mesh}.}
 
 \item{facenormals}{logical: if TRUE only the facenormal of the face the closest point has hit is returned, the weighted average of the surrounding vertex normals otherwise.}
 

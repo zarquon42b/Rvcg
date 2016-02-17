@@ -20,6 +20,11 @@ Files:  src/vcglib/vcg/complex/algorithms/create/emc_lookup_table.h
 Copyright: 2002 by Computer Graphics Group, RWTH Aachen
 License: GPL-2+
 
+Files: src/metroSampling.h
+Copyright: Visual Computing Lab ISTI - Italian National Research Council
+Copyright: Stefan Schlager
+License: GPL-2+
+
 Files: parts of src/RQEdecim.cpp [General setup for decimation]
 Copyright: 2003-2012 Visual Computing Lab I.S.T.I. C.N.R.
 License: GPL-2
