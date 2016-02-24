@@ -93,11 +93,11 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
 	std::list<List> out;
 	for(unsigned int i=0; i < CCV.size(); ++i ) {
 	  TopoMyMesh destMesh;
-	  tri::UpdateSelection<TopoMyMesh>::FaceClear(m);
+	  tri::UpdateSelection<TopoMyMesh>::Clear(m);
 	  CCV[i].second->SetS();
-	  tri::UpdateSelection<TopoMyMesh>::FaceConnectedFF(m);
-	  tri::UpdateSelection<TopoMyMesh>::VertexClear(m);
-	  tri::UpdateSelection<TopoMyMesh>::VertexFromFaceLoose(m);
+	  tri::UpdateSelection<TopoMyMesh>::FaceConnectedFF(m,true);
+	  //tri::UpdateSelection<TopoMyMesh>::Clear(m);
+	  tri::UpdateSelection<TopoMyMesh>::VertexFromFaceLoose(m,true);
 	  
 	  tri::Append<TopoMyMesh,TopoMyMesh>::Mesh(destMesh, m, true);
 	  unsigned int facenum = destMesh.fn;
