@@ -73,10 +73,8 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
     //MyMesh::VertexIterator vi = query.vert.begin();
     NumericVector distout(query.vn);
     NumericVector angle(query.vn);
-#ifdef _OPENMP
-    omp_set_num_threads(threads);
-#endif
-#pragma omp parallel for schedule(static)
+
+#pragma omp parallel for schedule(static) num_threads(threads)
     for (int i = 0; i < query.vn; i++) {
       MyMesh::VertexIterator vi = query.vert.begin()+i;
       Point3f clost;
@@ -180,6 +178,7 @@ RcppExport SEXP RclosestKD(SEXP vb_, SEXP it_, SEXP ioclost_, SEXP itclost_, SEX
       }
      
     }
+ 
     return List::create(Named("iomat")=iomat,
 			Named("distance")= distout,
 			Named("faceptr")= faceptr,

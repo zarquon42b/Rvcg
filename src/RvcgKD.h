@@ -46,10 +46,7 @@ namespace Rvcg
 	KdTree<float> tree(ww, nofPointsPerCell, maxDepth);
 	//tree.setMaxNofNeighbors(k);
 	KdTree<float>::PriorityQueue queue;
-#ifdef _OPENMP
-	omp_set_num_threads(threads);
-#endif
-#pragma omp parallel for firstprivate(queue, tree, ww) schedule(static)
+#pragma omp parallel for firstprivate(queue, tree, ww) schedule(static) num_threads(threads)
 	for (int i = 0; i < query.vn; i++) {
 	  //tree.doQueryK(query.vert[i].cP());
 	  tree.doQueryK(query.vert[i].cP(), k, queue);
