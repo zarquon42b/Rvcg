@@ -42,7 +42,7 @@ namespace Rvcg
 	  vcg::tri::Allocator<MeshType>::AddVertices(m,d);
 	  std::vector<VertexPointer> ivp;
 	  ivp.resize(d);
-	  vcg::SimpleTempData<typename MeshType::VertContainer, int> indices(m.vert);
+	  vcg::SimpleTempData<typename MeshType::VertContainer, size_t> indices(m.vert);
 	  //VertexIterator vi = m.vert.begin();
 	  // #pragma omp parallel for schedule(static)
 	  for (size_t i=0; i < d; i++) {
@@ -59,7 +59,7 @@ namespace Rvcg
 	    if (normals.ncol() != d) {
 	      Rprintf("number of normals is not equal to number of vertices");
 	    } else {
-	      vcg::SimpleTempData<typename MeshType::VertContainer, int> indices(m.vert);
+	      vcg::SimpleTempData<typename MeshType::VertContainer, size_t> indices(m.vert);
 	      
 	      // #pragma omp parallel for schedule(static)
 	      for (size_t i=0; i < d; i++) {
@@ -76,9 +76,9 @@ namespace Rvcg
 	  //process faces but check attributes and input first
 	  if (Rf_isMatrix(it_) && FaceType::HasVertexRef()) {
 	    Rcpp::IntegerMatrix it(it_);
-	    int faced = it.ncol();
+	    size_t faced = it.ncol();
 	    vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
-	    vcg::SimpleTempData<typename MeshType::FaceContainer, int> indicesf(m.face);
+	    vcg::SimpleTempData<typename MeshType::FaceContainer, size_t> indicesf(m.face);
 	    
 	    // #pragma omp parallel for schedule(static)
 	    for (size_t i=0; i < faced ; i++) {
@@ -112,13 +112,13 @@ namespace Rvcg
     static Rcpp::List RvcgToR(MeshType &m, bool exnormals=false) {
       try {
 	List out;
-	vcg::SimpleTempData<typename MeshType::VertContainer,int> indices(m.vert);
+	vcg::SimpleTempData<typename MeshType::VertContainer,size_t> indices(m.vert);
 	Rcpp::NumericMatrix vb(4, m.vn), normals(4, m.vn);
 	std::fill(vb.begin(),vb.end(),1);
 	std::fill(normals.begin(),normals.end(),1);
 	Rcpp::IntegerMatrix itout(3, m.fn);
 	// #pragma omp parallel for schedule(static)
-	for (unsigned int i=0;  i < m.vn; i++) {
+	for (size_t i=0;  i < m.vn; i++) {
 	  VertexIterator vi=m.vert.begin()+i;
 	  indices[vi] = i;//important: updates vertex indices
 	  vb(0,i) = (*vi).P()[0];
