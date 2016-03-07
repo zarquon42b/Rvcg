@@ -37,15 +37,15 @@ namespace Rvcg
 	//insert vertices
 	if (Rf_isMatrix(vb_) && VertexType::HasCoord() ) {
 	  Rcpp::NumericMatrix vb(vb_);
-	  size_t d =  vb.ncol();
+	  unsigned int d =  vb.ncol();
 	  ScalarType x,y,z;	 
 	  vcg::tri::Allocator<MeshType>::AddVertices(m,d);
 	  std::vector<VertexPointer> ivp;
 	  ivp.resize(d);
-	  vcg::SimpleTempData<typename MeshType::VertContainer, size_t> indices(m.vert);
+	  vcg::SimpleTempData<typename MeshType::VertContainer, unsigned int> indices(m.vert);
 	  //VertexIterator vi = m.vert.begin();
 	  // #pragma omp parallel for schedule(static)
-	  for (size_t i=0; i < d; i++) {
+	  for (unsigned int i=0; i < d; i++) {
 	    VertexIterator vi = m.vert.begin()+i;
 	    ivp[i]=&*vi;
 	    x = vb(0,i);
@@ -59,10 +59,10 @@ namespace Rvcg
 	    if (normals.ncol() != d) {
 	      Rprintf("number of normals is not equal to number of vertices");
 	    } else {
-	      vcg::SimpleTempData<typename MeshType::VertContainer, size_t> indices(m.vert);
+	      vcg::SimpleTempData<typename MeshType::VertContainer, unsigned int> indices(m.vert);
 	      
 	      // #pragma omp parallel for schedule(static)
-	      for (size_t i=0; i < d; i++) {
+	      for (unsigned int i=0; i < d; i++) {
 		VertexIterator vi = m.vert.begin()+i;
 		ivp[i]=&*vi;
 		x = normals(0,i);
@@ -76,12 +76,12 @@ namespace Rvcg
 	  //process faces but check attributes and input first
 	  if (Rf_isMatrix(it_) && FaceType::HasVertexRef()) {
 	    Rcpp::IntegerMatrix it(it_);
-	    size_t faced = it.ncol();
+	    unsigned int faced = it.ncol();
 	    vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
-	    vcg::SimpleTempData<typename MeshType::FaceContainer, size_t> indicesf(m.face);
+	    vcg::SimpleTempData<typename MeshType::FaceContainer, unsigned int> indicesf(m.face);
 	    
 	    // #pragma omp parallel for schedule(static)
-	    for (size_t i=0; i < faced ; i++) {
+	    for (unsigned int i=0; i < faced ; i++) {
 	      int subtract = 0;
 	      if (!zerobegin)
 		subtract=1;
@@ -112,13 +112,13 @@ namespace Rvcg
     static Rcpp::List RvcgToR(MeshType &m, bool exnormals=false) {
       try {
 	List out;
-	vcg::SimpleTempData<typename MeshType::VertContainer,size_t> indices(m.vert);
+	vcg::SimpleTempData<typename MeshType::VertContainer,unsigned int> indices(m.vert);
 	Rcpp::NumericMatrix vb(4, m.vn), normals(4, m.vn);
 	std::fill(vb.begin(),vb.end(),1);
 	std::fill(normals.begin(),normals.end(),1);
 	Rcpp::IntegerMatrix itout(3, m.fn);
 	// #pragma omp parallel for schedule(static)
-	for (size_t i=0;  i < m.vn; i++) {
+	for (unsigned int i=0;  i < m.vn; i++) {
 	  VertexIterator vi=m.vert.begin()+i;
 	  indices[vi] = i;//important: updates vertex indices
 	  vb(0,i) = (*vi).P()[0];
@@ -131,14 +131,17 @@ namespace Rvcg
 	  }
 	}
 	// #pragma omp parallel for schedule(static)
-	for (size_t i=0; i < m.fn;i++) {
+	for (unsigned int i=0; i < m.fn;i++) {
 	  FacePointer fp;
 	  FaceIterator fi=m.face.begin()+i;
 	  fp=&(*fi);
+	  if (fp) {
 	  if( ! fp->IsD() ) {
+	    if (fp->V(0) && fp->V(1) && fp->V(2)) {
 	    itout(0,i) = indices[fp->cV(0)]+1;
 	    itout(1,i) = indices[fp->cV(1)]+1;
 	    itout(2,i) = indices[fp->cV(2)]+1;
+	    }}
 	  }
 	}
 	out["vb"] = vb;
