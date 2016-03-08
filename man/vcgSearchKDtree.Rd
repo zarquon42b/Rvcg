@@ -23,4 +23,13 @@ a list with
 \description{
 search an existing KD-tree
 }
+\examples{
+data(humface);data(dummyhead)
+mytree <- vcgCreateKDtree(humface)
+## get indices and distances for 10 closest points.
+closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10)
+}
+\seealso{
+\code{\link{vcgCreateKDtree}}
+}
 

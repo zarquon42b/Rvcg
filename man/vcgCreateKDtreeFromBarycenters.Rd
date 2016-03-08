@@ -19,6 +19,11 @@ returns an object of class vcgKDtreeWithBarycenters containing external pointers
 \description{
 create a KD-tree from Barycenters for multiple closest point searches on a mesh
 }
+\examples{
+data(humface);data(dummyhead)
+barytree <- vcgCreateKDtreeFromBarycenters(humface)
+closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50)
+}
 \seealso{
 \code{\link{vcgClostOnKDtreeFromBarycenters}, \link{vcgSearchKDtree},  \link{vcgCreateKDtree}}
 }

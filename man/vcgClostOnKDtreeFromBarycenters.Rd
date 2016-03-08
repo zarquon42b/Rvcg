@@ -4,7 +4,7 @@
 \alias{vcgClostOnKDtreeFromBarycenters}
 \title{search a KD-tree from Barycenters for multiple closest point searches on a mesh}
 \usage{
-vcgClostOnKDtreeFromBarycenters(x, query, k = 10, sign = TRUE,
+vcgClostOnKDtreeFromBarycenters(x, query, k = 50, sign = TRUE,
   barycentric = FALSE, borderchk = FALSE, angdev = NULL,
   weightnorm = FALSE, facenormals = FALSE, threads = 1)
 }

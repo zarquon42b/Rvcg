@@ -6,6 +6,10 @@
 #' @param maxDepth maximum tree depth
 #' @return
 #' returns an object of class vcgKDtree containing external pointers to the tree and the target points
+#' @examples
+#' data(humface)
+#' mytree <- vcgCreateKDtree(humface)
+#' @seealso \code{\link{vcgSearchKDtree}}
 #' @export
 vcgCreateKDtree <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
     if (is.matrix(mesh))
@@ -26,6 +30,12 @@ vcgCreateKDtree <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
 #' a list with
 #' \item{index}{integer matrices with indeces of closest points}
 #' \item{distances}{corresponding distances}
+#' @examples
+#' data(humface);data(dummyhead)
+#' mytree <- vcgCreateKDtree(humface)
+#' ## get indices and distances for 10 closest points.
+#' closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10)
+#' @seealso \code{\link{vcgCreateKDtree}}
 #' @export
 vcgSearchKDtree <- function(kdtree, query,k ,threads=parallel::detectCores()) {
     if (!inherits(kdtree,"vcgKDtree"))
@@ -56,6 +66,10 @@ vcgSearchKDtree <- function(kdtree, query,k ,threads=parallel::detectCores()) {
 #' @return
 #' returns an object of class vcgKDtreeWithBarycenters containing external pointers to the tree, the barycenters and the target mesh
 #' @seealso \code{\link{vcgClostOnKDtreeFromBarycenters}, \link{vcgSearchKDtree},  \link{vcgCreateKDtree}}
+#' @examples
+#' data(humface);data(dummyhead)
+#' barytree <- vcgCreateKDtreeFromBarycenters(humface)
+#' closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50)
 #' @export
 vcgCreateKDtreeFromBarycenters <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
     mesh <- meshintegrity(mesh,facecheck=TRUE)
@@ -92,7 +106,7 @@ vcgCreateKDtreeFromBarycenters <- function(mesh, nofPointsPerCell=16,maxDepth=64
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgCreateKDtreeFromBarycenters}, \link{vcgSearchKDtree},  \link{vcgCreateKDtree}}
 #' @export
-vcgClostOnKDtreeFromBarycenters <- function(x,query,k=10,sign=TRUE,barycentric=FALSE, borderchk = FALSE, angdev=NULL, weightnorm=FALSE, facenormals=FALSE,threads=1) {
+vcgClostOnKDtreeFromBarycenters <- function(x,query,k=50,sign=TRUE,barycentric=FALSE, borderchk = FALSE, angdev=NULL, weightnorm=FALSE, facenormals=FALSE,threads=1) {
     if (! inherits(x,"vcgKDtreeWithBarycenters"))
         stop("provide valid object")
     if (is.matrix(query) && is.numeric(query)) {
@@ -104,12 +118,14 @@ vcgClostOnKDtreeFromBarycenters <- function(x,query,k=10,sign=TRUE,barycentric=F
     if (is.null(angdev) || is.null(query$it))
         angdev <- 0
     out <- .Call("searchKDtreeForClosestPoints",x$kdtree,x$target,x$targetptr,query,k,sign,borderchk,barycentric,angdev,weightnorm,facenormals,threads)
-    out$vb <- rbind(out$iomat,1)
-out$normals <- rbind(out$normals, 1)
+    out$vb <- rbind(out$vb,1)
+    out$normals <- rbind(out$normals, 1)
     out$faceptr <- out$faceptr+1
-    out$quality <- out$distance
-    out$angle <- out$angle
     out$it <- query$it
+    if (!borderchk)
+        out$border <- NULL
+    if(!barycentric)
+        out$barycoords <- NULL
     class(out) <- "mesh3d"
     return(out)
 }

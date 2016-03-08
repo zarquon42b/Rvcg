@@ -5,7 +5,7 @@
 \title{Subsamples points on a mesh surface}
 \usage{
 vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
-  geodes = TRUE, strict = FALSE)
+  geodes = TRUE, strict = FALSE, threads = parallel::detectCores())
 }
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d'}
@@ -19,6 +19,8 @@ vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
 \item{geodes}{logical: maximise geodesic distance between sample points (only for Poisson Disk sampling)}
 
 \item{strict}{logical: if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},  the resulting coordinates will be subsampled again by kmean clustering to reach the requested number.}
+
+\item{threads}{integer number of threads to use for kmean clustering}
 }
 \value{
 sampled points

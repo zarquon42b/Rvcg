@@ -213,13 +213,14 @@ RcppExport SEXP searchKDtreeForClosestPoints(SEXP kdtree_,SEXP bary_, SEXP targe
      
     }
  
-    return List::create(Named("iomat")=iomat,
-			Named("distance")= distout,
-			Named("faceptr")= faceptr,
-			Named("barycoord") = barycoord,
-			Named("border") = border, 
+    return List::create(Named("vb")=iomat,
+			Named("it")=wrap(1),
 			Named("normals") = normals,
-			Named("angle") = angle
+			Named("faceptr")= faceptr,
+			Named("quality")= distout,
+			Named("angle") = angle,
+			Named("barycoords") = barycoord,
+			Named("border") = border 
 			);
       
   } catch (std::exception& e) {

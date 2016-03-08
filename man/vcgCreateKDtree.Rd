@@ -19,4 +19,11 @@ returns an object of class vcgKDtree containing external pointers to the tree an
 \description{
 create a KD-tree
 }
+\examples{
+data(humface)
+mytree <- vcgCreateKDtree(humface)
+}
+\seealso{
+\code{\link{vcgSearchKDtree}}
+}
 
