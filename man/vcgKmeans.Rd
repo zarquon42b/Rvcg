@@ -12,6 +12,8 @@ vcgKmeans(x, k = 10, iter.max = 10, threads = parallel::detectCores())
 \item{k}{number of clusters}
 
 \item{iter.max}{maximum number of iterations}
+
+\item{threads}{integer: number of threads to use}
 }
 \value{
 returns a list containing

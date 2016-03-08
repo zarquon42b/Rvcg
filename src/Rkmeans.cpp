@@ -82,6 +82,15 @@ RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
     
     List subsetmeans = fastSubsetMeans(coords,clostinds,k,threads);
     centers = as<mat>(subsetmeans["centers"]);
+    vec checkempty = as<vec>(subsetmeans["checkempty"]);
+    //check if there are empty clusters, reshuffle and start again
+    if (arma::sum(checkempty > 0)) {
+	shufflesample = shuffle(samplevec);
+	clostinds = shufflesample;
+	subset2 = shufflesample(subset);
+	centers = coords.rows(subset2);
+	count = 0;
+      }
     centercheck = arma::max(arma::abs(clostinds-clost_old));
     count += 1;
     

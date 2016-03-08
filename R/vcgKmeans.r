@@ -2,6 +2,7 @@
 #' @param x matrix containing coordinates or mesh3d
 #' @param k number of clusters
 #' @param iter.max maximum number of iterations
+#' @param threads integer: number of threads to use
 #' @return
 #' returns a list containing
 #' \item{centers}{cluster center}
