@@ -36,17 +36,27 @@ namespace Rvcg
     typedef typename MeshQuery::FaceIterator   FaceIteratorQuery;
     typedef typename MeshQuery::FaceContainer  FaceContainerQuery;
 
+    static KdTree<float> KDTreeCreate(MeshTarget &target, unsigned int nofPointsPerCell, unsigned int maxDepth) {
+      try {
+      VertexConstDataWrapper<MeshTarget> ww(target);
+      KdTree<float> tree(ww, nofPointsPerCell, maxDepth);
+      return tree;
+       } catch (std::exception& e) {
+	::Rf_error( e.what());
+      } catch (...) {
+	::Rf_error("unknown exception");
+      }
+    }
     static  List KDtreeIO(MeshTarget &target, MeshQuery &query, int k, unsigned int nofPointsPerCell = 16, unsigned int maxDepth = 64, int threads = 1) {
       try {
 	typedef pair<float,int> mypair;
 	IntegerMatrix result(query.vn,k);
 	NumericMatrix distance(query.vn,k);
 	std::fill(result.begin(), result.end(),-1);
-	VertexConstDataWrapper<MeshTarget> ww(target);
-	KdTree<float> tree(ww, nofPointsPerCell, maxDepth);
+	KdTree<float> tree = KDTreeCreate(target, nofPointsPerCell, maxDepth);
 	//tree.setMaxNofNeighbors(k);
 	KdTree<float>::PriorityQueue queue;
-#pragma omp parallel for firstprivate(queue, tree, ww) schedule(static) num_threads(threads)
+#pragma omp parallel for firstprivate(queue, tree) schedule(static) num_threads(threads)
 	for (int i = 0; i < query.vn; i++) {
 	  //tree.doQueryK(query.vert[i].cP());
 	  tree.doQueryK(query.vert[i].cP(), k, queue);
@@ -70,7 +80,6 @@ namespace Rvcg
 	  ;
       } catch (std::exception& e) {
 	::Rf_error( e.what());
-	return wrap(1);
       } catch (...) {
 	::Rf_error("unknown exception");
       }
@@ -84,7 +93,5 @@ namespace Rvcg
 	++vi;
       }
     }
-    
-    
   };
 }
