@@ -1,6 +1,6 @@
 #include "typedef.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include <vcg/complex/algorithms/point_sampling.h>
 #include <vcg/complex/algorithms/point_sampling.h>
 #include <math.h>

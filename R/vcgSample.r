@@ -49,10 +49,12 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
                 stop("Please provide sensible arguments!")
             tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
             tmp <- t(tmp)
-            if (strict && nrow(tmp) > SampleNum)
-                tmp <- kmeans(tmp,centers=SampleNum, iter.max=100)$centers
+            if (strict && nrow(tmp) > SampleNum) {
+                tmp <- vcgKmeans(tmp,k=SampleNum, iter.max=10)$centers
+                t(vcgClost(tmp, mesh)$vb[1:3,])
+            }
         } else {
-            tmp <- kmeans(t(mesh$vb[1:3,]),centers=SampleNum, iter.max=100)$centers
+            tmp <-  vcgKmeans(tmp,k=SampleNum, iter.max=100)$centers
             if (!noit)
                 tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
         }

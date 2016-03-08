@@ -1,6 +1,6 @@
 #include "typedef.h"
 #include "RvcgIO.h" 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 // #include <Rconfig.h>
 // #ifdef SUPPORT_OPENMP
 // #include <omp.h>

@@ -1,6 +1,6 @@
 #include "typedef.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include <vcg/complex/algorithms/pointcloud_normal.h>
 
 //using namespace vcg;

@@ -24,7 +24,7 @@
 #include <vcg/complex/append.h>
 
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #ifndef RcppExport
 #define RcppExport extern "C"
 #endif

@@ -1,7 +1,7 @@
 #include "typedef.h"
 #include "pointcloud.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include <RvcgKD.h>
 
 RcppExport SEXP createKDtree(SEXP target_, SEXP nofPointsPerCell_, SEXP maxDepth_) {

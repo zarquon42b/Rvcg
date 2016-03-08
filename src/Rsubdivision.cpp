@@ -7,7 +7,7 @@
 #include <vcg/complex/algorithms/refine_loop.h>
 
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 using namespace vcg;
 using namespace tri;

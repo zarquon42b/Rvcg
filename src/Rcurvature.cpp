@@ -1,7 +1,7 @@
 #include "typedefCurvature.h"
 #include "RvcgIO.h"
 //#include <wrap/ply/plylib.cpp>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 //using namespace vcg;
 using namespace Rcpp;

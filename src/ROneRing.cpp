@@ -1,7 +1,7 @@
 #include <vcg/simplex/face/pos.h>
 #include "typedefTopo.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 //using namespace vcg;
 using namespace tri;

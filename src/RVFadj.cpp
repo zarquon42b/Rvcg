@@ -3,7 +3,7 @@
 
 #include "typedef.h"
 #include "RvcgIO.h" 
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace Rcpp;
 
 RcppExport SEXP RVFadj(SEXP vb_, SEXP it_)

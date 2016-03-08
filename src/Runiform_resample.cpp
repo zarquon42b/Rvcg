@@ -8,7 +8,7 @@
 #include "typedef.h"
 #include "pointcloud.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace tri;
 
 using namespace Rcpp;

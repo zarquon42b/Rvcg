@@ -1,7 +1,7 @@
 
 #include "typedef.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include<vcg/complex/algorithms/create/platonic.h>
 
 using namespace tri;

@@ -1,6 +1,6 @@
 #include "typedef.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 
 RcppExport SEXP RmeshXPtr(SEXP mesh_) {

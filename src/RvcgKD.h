@@ -1,4 +1,4 @@
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include <vector>
 #include <vcg/complex/complex.h>
 #include <vcg/space/index/kdtree/kdtree.h>

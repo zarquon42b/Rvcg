@@ -6,7 +6,7 @@
 
 #include <string.h>
 #include "RvcgIO.h" 
-#include <Rcpp.h>  
+#include <RcppArmadillo.h>  
   
 /* extern "C" {
 

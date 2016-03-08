@@ -1,6 +1,6 @@
 #include <vector>
 #include <limits>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include <checkListNames.h>
 #include <vcg/complex/complex.h>
 //#include <vcg/complex/allocate.h>
@@ -172,6 +172,33 @@ namespace Rvcg
 	::Rf_error("mesh has no vertices");
       int out = RvcgReadR(m , mesh["vb"],mesh["it"],mesh["normals"],zerobegin);
       return out;
+    };
+    static arma::mat GetVertsArma(MeshType &m) {
+      arma::mat vb(m.vn,3); 
+      for (unsigned int i = 0; i < m.vn; i++) {
+	VertexIterator vi=m.vert.begin()+i;
+	vb(i,0) = (*vi).P()[0];
+	vb(i,1) = (*vi).P()[1];
+	vb(i,2) = (*vi).P()[2];
+      }
+      return vb;
+    };
+    static void VertsArmaToMesh(MeshType &m, arma::mat coords) {
+      unsigned int d =  coords.n_rows;
+      ScalarType x,y,z;	 
+      vcg::tri::Allocator<MeshType>::AddVertices(m,d);
+      std::vector<VertexPointer> ivp;
+      ivp.resize(d);
+      //vcg::SimpleTempData<typename MeshType::VertContainer, unsigned int> indices(m.vert);
+	  //VertexIterator vi = m.vert.begin();
+	  // #pragma omp parallel for schedule(static)
+	  for (unsigned int i=0; i < d; i++) {
+	    VertexIterator vi = m.vert.begin()+i;
+	    x = coords(i,0);
+	    y = coords(i,1);
+	    z = coords(i,2);
+	    (*vi).P() = CoordType(x,y,z);
+	  }
     };
   };
 }

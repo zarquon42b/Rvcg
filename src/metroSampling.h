@@ -35,7 +35,7 @@
 #include <vcg/space/index/aabb_binary_tree/aabb_binary_tree.h>
 #include <vcg/space/index/octree.h>
 #include <vcg/space/index/spatial_hashing.h>
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 using namespace Rcpp;
 namespace vcg

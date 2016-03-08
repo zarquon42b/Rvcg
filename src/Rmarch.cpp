@@ -2,7 +2,7 @@
 #include "Volume.h"
 
 //#include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 //#include <RcppArmadillo.h>
 
 

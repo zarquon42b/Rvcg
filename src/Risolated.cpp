@@ -5,7 +5,7 @@
 // to work with R
 #include "typedefTopo.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 using namespace vcg;
 using namespace tri;
 using namespace Rcpp;

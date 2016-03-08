@@ -6,7 +6,7 @@
 #include <vcg/complex/algorithms/update/texture.h>
 #include <vcg/complex/algorithms/attribute_seam.h>
 #include <string.h>
-#include <Rcpp.h>  
+#include <RcppArmadillo.h>  
 using namespace Rcpp;
 
 /// The following to helper functions are copied from filter_texture plugin of meshlab

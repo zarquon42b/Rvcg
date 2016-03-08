@@ -1,7 +1,7 @@
 #include "typedef.h"
 #include "pointcloud.h"
 #include "RvcgIO.h"
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include <cmath>
 
 using namespace tri;
