@@ -5,7 +5,8 @@
 \title{Subsamples points on a mesh surface}
 \usage{
 vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
-  geodes = TRUE, strict = FALSE, threads = parallel::detectCores())
+  geodes = TRUE, strict = FALSE, iter.max = 100,
+  threads = parallel::detectCores())
 }
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d'}
@@ -20,7 +21,9 @@ vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
 
 \item{strict}{logical: if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},  the resulting coordinates will be subsampled again by kmean clustering to reach the requested number.}
 
-\item{threads}{integer number of threads to use for kmean clustering}
+\item{iter.max}{integer: maximum iterations to use in k-means clustering.}
+
+\item{threads}{integer number of threads to use for k-means clustering}
 }
 \value{
 sampled points

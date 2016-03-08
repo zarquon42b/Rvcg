@@ -7,7 +7,8 @@
 #' @param MCsamp integer: MonteCarlo sample iterations used in PoissonDisk sampling.
 #' @param geodes logical: maximise geodesic distance between sample points (only for Poisson Disk sampling)
 #' @param strict logical: if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},  the resulting coordinates will be subsampled again by kmean clustering to reach the requested number.
-#' @param threads integer number of threads to use for kmean clustering
+#' @param iter.max integer: maximum iterations to use in k-means clustering.
+#' @param threads integer number of threads to use for k-means clustering
 #' @details Poisson disk subsampling will not generate the exact amount of coordinates specified in \code{SampleNum}, depending on \code{MCsamp} the result will contain more or less coordinates.
 #' @return sampled points
 #' @examples
@@ -19,7 +20,7 @@
 #' points3d(ss)
 #' }
 #' @export vcgSample
-vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=FALSE,threads=parallel::detectCores())
+vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=FALSE,iter.max=100,threads=parallel::detectCores())
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
@@ -51,11 +52,11 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
             tmp <- t(tmp)
             if (strict && nrow(tmp) > SampleNum) {
-                tmp <- vcgKmeans(tmp,k=SampleNum, iter.max=100,threads=threads)$centers
+                tmp <- vcgKmeans(tmp,k=SampleNum, iter.max=iter.max,threads=threads)$centers
                 t(vcgClost(tmp, mesh)$vb[1:3,])
             }
         } else {
-            tmp <-  vcgKmeans(tmp,k=SampleNum, iter.max=100,threads=threads)$centers
+            tmp <-  vcgKmeans(tmp,k=SampleNum, iter.max=iter.max,threads=threads)$centers
             if (!noit)
                 tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
         }
