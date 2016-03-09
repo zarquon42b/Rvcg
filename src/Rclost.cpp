@@ -80,7 +80,7 @@ RcppExport SEXP Rclost(SEXP mesh_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, S
     vcg::tri::Append<PcMesh,PcMesh>::Mesh(outmesh,refmesh);
     PcMesh::CoordType vertexnormal;
     for(i=0; i < refmesh.vn; i++) {
-      border[i] = 0;
+      
       Point3f& currp = refmesh.vert[i].P();
       Point3f& clost = outmesh.vert[i].P();
       MyFace* f_ptr= GridClosest(static_grid, PDistFunct, mf, currp, maxDist, minDist, clost);
