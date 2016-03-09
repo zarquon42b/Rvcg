@@ -6,7 +6,7 @@
 
 RcppExport SEXP createKDtree(SEXP target_, SEXP nofPointsPerCell_, SEXP maxDepth_) {
   Rcpp::XPtr< MyMesh > target(new MyMesh,true);
-  Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(*target,target_);
+  Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(*target,target_,false);
   unsigned int nofPointsPerCell = as<unsigned int >(nofPointsPerCell_);
   unsigned int maxDepth = as<unsigned int >(maxDepth_);
   VertexConstDataWrapper<MyMesh> ww(*target);

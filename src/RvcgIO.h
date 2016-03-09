@@ -32,7 +32,7 @@ namespace Rvcg
     typedef typename MeshType::VertContainer  VertContainer;
   
     // Fill an empty mesh with vertices and faces from R
-    static int RvcgReadR(MeshType &m, SEXP vb_, SEXP it_= Rcpp::wrap(0), SEXP normals_ = Rcpp::wrap(0), bool zerobegin=true) {
+    static int RvcgReadR(MeshType &m, SEXP vb_, SEXP it_= Rcpp::wrap(0), SEXP normals_ = Rcpp::wrap(0), bool zerobegin=true, bool readnormals = true, bool readfaces=true) {
       try {
 	//insert vertices
 	if (Rf_isMatrix(vb_) && VertexType::HasCoord() ) {
@@ -42,15 +42,14 @@ namespace Rvcg
 	  std::vector<VertexPointer> ivp;
 	  ivp.resize(d);
 	  vcg::SimpleTempData<typename MeshType::VertContainer, unsigned int> indices(m.vert);
-	  //VertexIterator vi = m.vert.begin();
-	  // #pragma omp parallel for schedule(static)
+	  //read vertices
 	  for (unsigned int i=0; i < d; i++) {
 	    VertexIterator vi = m.vert.begin()+i;
 	    ivp[i]=&*vi;
 	    (*vi).P() = CoordType(vb(0,i),vb(1,i),vb(2,i));
 	  }
 	  //insert vertex normals
-	  if (Rf_isMatrix(normals_) && vcg::tri::HasPerVertexNormal(m)) {
+	  if (Rf_isMatrix(normals_) && vcg::tri::HasPerVertexNormal(m) && readnormals) {
 	    Rcpp::NumericMatrix normals(normals_);
 	    if (normals.ncol() != d) {
 	      Rprintf("number of normals is not equal to number of vertices");
@@ -66,7 +65,7 @@ namespace Rvcg
 	    }
 	  }
 	  //process faces but check attributes and input first
-	  if (Rf_isMatrix(it_) && FaceType::HasVertexRef()) {
+	  if (Rf_isMatrix(it_) && FaceType::HasVertexRef() && readfaces) {
 	    Rcpp::IntegerMatrix it(it_);
 	    unsigned int faced = it.ncol();
 	    vcg::tri::Allocator<MeshType>::AddFaces(m,faced);
@@ -76,7 +75,6 @@ namespace Rvcg
 	      int subtract = 0;
 	      if (!zerobegin)
 		subtract=1;
-	      int itx,ity,itz;
 	      FaceIterator fi=m.face.begin()+i;
 	      indicesf[fi] = i;
 	      for (int j = 0; j < 3; j++) 
@@ -143,7 +141,7 @@ namespace Rvcg
       }
     };
     
-    static int mesh3d2Rvcg(MeshType &m, SEXP mesh_,bool zerobegin=false) {
+    static int mesh3d2Rvcg(MeshType &m, SEXP mesh_,bool zerobegin=false,bool readnormals=true,bool readfaces=true) {
       List mesh(mesh_);
       Rcpp::CharacterVector mychar = Rcpp::CharacterVector::create("vb","it","normals");
       std::vector<bool> test = checkListNames(mesh,mychar);
@@ -156,7 +154,7 @@ namespace Rvcg
       }
       if (!test[0])
 	::Rf_error("mesh has no vertices");
-      int out = RvcgReadR(m , mesh["vb"],mesh["it"],mesh["normals"],zerobegin);
+      int out = RvcgReadR(m , mesh["vb"],mesh["it"],mesh["normals"],zerobegin,readnormals,readfaces);
       return out;
     };
     static arma::mat GetVertsArma(MeshType &m) {
