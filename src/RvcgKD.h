@@ -97,13 +97,20 @@ namespace Rvcg
     static List clostKD(MeshTarget &target, MeshQuery &query, arma::imat &closest_indices, int k, double angdev, bool facenormals, bool sign, bool weightnorm , bool borderchk, bool barycentric,int threads) {
       try {
 	//setup output datastructures
-	arma::mat iomat(4,query.vn), normals(4,query.vn);
-	iomat.fill(1);normals.fill(1);
-	arma::mat barycoord(3,query.vn);
-	arma::ivec border(query.vn), faceptr(query.vn);
-	border.fill(0);
-	arma::vec distout(query.vn);
-	arma::vec angle(query.vn);
+	arma::mat ioclost(4,query.vn), normals(4,query.vn);
+	ioclost.fill(1);normals.fill(1);
+	arma::mat barycoord;
+	arma::ivec border, faceptr(query.vn);
+	arma::vec distances(query.vn);
+	if (barycentric)
+	  barycoord.resize(3,query.vn);
+	if (borderchk) {
+	  border.resize(query.vn);
+	  border.fill(0);
+	}
+	arma::vec angle;
+	if (angdev > 0)
+	  angle.resize(query.vn);
 #pragma omp parallel for schedule(static) num_threads(threads)
 	for (int i = 0; i < query.vn; i++) {
 	  MyMesh::VertexIterator vi = query.vert.begin()+i;
@@ -155,7 +162,7 @@ namespace Rvcg
 	      }
 	    }
 	  }
-	  distout[i] = distance_old;
+	  distances[i] = distance_old;
 	  vertexnormal = clost*0;
 	    
 	  // get normals at hit point
@@ -178,15 +185,15 @@ namespace Rvcg
 	    vertexnormal=vertexnormal/vl;
 	  }   
 	  // calculate sign for distances
-	  if (sign && (distout[i] < 1e5)) {
+	  if (sign && (distances[i] < 1e5)) {
 	    Point3f dif = clost - currp;
 	    //float sign = dif.dot(vertexnormal);	
 	    if (dif.dot(vertexnormal) < 0)
-	      distout[i] = -distout[i];
+	      distances[i] = -distances[i];
 	  }
 	  // write back
 	  for (int j=0; j < 3;j++) {
-	    iomat(j,i) = clost[j];
+	    ioclost(j,i) = clost[j];
 	    normals(j,i) = vertexnormal[j];
 	  }
 	  // get barycentric coordinates
@@ -202,19 +209,20 @@ namespace Rvcg
 	  }
      	}
 	faceptr = faceptr+1;
-	List out = List::create(Named("vb")=iomat,
+	
+	List out = List::create(Named("vb")=ioclost,
 				Named("it")=wrap(1),
 				Named("normals") = normals,
-				Named("quality")= distout,
-				Named("faceptr")= faceptr
+				Named("quality")= NumericVector(distances.begin(),distances.end()),
+				Named("faceptr")= NumericVector(faceptr.begin(),faceptr.end())
 				);
 			    
 	if (barycentric)
 	  out["barycoords"] = barycoord;
 	if (borderchk)
-	  out["border"] = border;
+	  out["border"] = NumericVector(border.begin(),border.end());
 	if (angdev > 0)
-	  out["angle"] = angle;
+	  out["angle"] = NumericVector(angle.begin(),angle.end());
 	out.attr("class") = "mesh3d";
 	return out;
 			   
