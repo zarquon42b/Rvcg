@@ -44,12 +44,12 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             tmp <- t(tmp)
             if (strict && nrow(tmp) > SampleNum) {
                 tmp <- vcgKmeans(tmp,k=SampleNum, iter.max=iter.max,threads=threads)$centers
-                t(vcgClost(tmp, mesh)$vb[1:3,])
+                t(vcgClostKD(tmp, mesh,sign=FALSE,threads = threads)$vb[1:3,])
             }
         } else {
             tmp <-  vcgKmeans(mesh,k=SampleNum, iter.max=iter.max,threads=threads)$centers
             if (!noit)
-                tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
+                tmp <- t(vcgClostKD(tmp, mesh,sign=FALSE,threads=threads)$vb[1:3,])
         }
         return(tmp)
     }
