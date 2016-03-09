@@ -34,4 +34,7 @@ data(humface)
 set.seed(42)
 clust <- vcgKmeans(humface,k=1000,threads=2)
 }
+\seealso{
+\code{\link{vcgSample}}
+}
 

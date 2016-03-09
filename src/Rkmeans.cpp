@@ -1,3 +1,4 @@
+#include "pointcloud.h"
 #include "typedef.h"
 #include "RvcgIO.h"
 #include "RcppArmadillo.h"
@@ -5,7 +6,7 @@
 using namespace Rcpp;
 using namespace arma;
 
-List fastSubsetMeans(mat x, uvec inds, int k, int threads) {
+List fastSubsetMeans(mat &x, uvec &inds, int k, int threads) {
   try {
 
     mat center(k,x.n_cols);
@@ -38,14 +39,14 @@ List fastSubsetMeans(mat x, uvec inds, int k, int threads) {
 
 RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
   try {
-  MyMesh mesh;
+  PcMesh mesh;
   int k = as<int>(k_);
   int itermax = as<int>(itermax_);
   int threads = as<int>(threads_);
   int nofPointsPerCell = 16;
   int maxDepth = 64;
-  Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(mesh,mesh_);
-  arma::mat coords = Rvcg::IOMesh<MyMesh>::GetVertsArma(mesh);
+  Rvcg::IOMesh<PcMesh>::mesh3d2Rvcg(mesh,mesh_,false,false);
+  arma::mat coords = Rvcg::IOMesh<PcMesh>::GetVertsArma(mesh);
   unsigned int npts = coords.n_rows;
   uvec samplevec(npts);
   uvec subset(k);
@@ -62,14 +63,14 @@ RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
   int count = 0;
   double centercheck = 1e12;
   //set up kdtree search
-  VertexConstDataWrapper<MyMesh> ww(mesh);
+  VertexConstDataWrapper<PcMesh> ww(mesh);
   uvec clostinds = samplevec;
   
   while (count < itermax && centercheck != 0) {
     uvec clost_old = clostinds;
-    MyMesh centermesh;
-    Rvcg::IOMesh<MyMesh>::VertsArmaToMesh(centermesh,centers);
-    VertexConstDataWrapper<MyMesh> ww(centermesh);
+    PcMesh centermesh;
+    Rvcg::IOMesh<PcMesh>::VertsArmaToMesh(centermesh,centers);
+    VertexConstDataWrapper<PcMesh> ww(centermesh);
     KdTree<float> kdtree(ww, nofPointsPerCell, maxDepth);
     KdTree<float>::PriorityQueue queue;
 

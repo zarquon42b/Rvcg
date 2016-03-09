@@ -16,6 +16,7 @@
 #' data(humface)
 #' set.seed(42)
 #' clust <- vcgKmeans(humface,k=1000,threads=2)
+#' @seealso \code{\link{vcgSample}}
 #' @importFrom parallel detectCores
 #' @export
 vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=parallel::detectCores()) {
@@ -31,6 +32,8 @@ vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=parallel::dete
         if(!inherits(x,"mesh3d"))
             stop("only meshes or matrices allowed")
     }
+    if (k > ncol(x$vb))
+        stop("number of centers exceeds sample size")
     set.seed(rnorm(1))
     out <- .Call("Rkmeans",x,k,iter.max,threads)
     if (getClosest)

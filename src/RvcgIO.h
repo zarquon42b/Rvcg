@@ -167,7 +167,7 @@ namespace Rvcg
       }
       return vb;
     };
-    static void VertsArmaToMesh(MeshType &m, arma::mat coords) {
+    static void VertsArmaToMesh(MeshType &m, const arma::mat &coords) {
       unsigned int d =  coords.n_rows;
       vcg::tri::Allocator<MeshType>::AddVertices(m,d);
       std::vector<VertexPointer> ivp;
