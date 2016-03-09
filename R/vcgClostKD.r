@@ -37,39 +37,21 @@
 #' Modelling.
 #' @export
 vcgClostKD <- function(x, mesh,sign=TRUE,barycentric=FALSE, smoothNormals=FALSE, borderchk = FALSE, k = 50,nofPoints = 16, maxDepth = 64,angdev=NULL, weightnorm=FALSE,facenormals=FALSE, threads=1,...) {
-    if (inherits(x,"mesh3d")) {
-        x$it <- x$it-1
-        io <- x$vb
-    }
-    else if (is.matrix(x) && is.numeric(x)) {
-        io <- t(x)
-        x <- list()
-        x$vb <- io
-        x$it <- NULL
+    
+    if (is.matrix(x) && is.numeric(x)) {
+        x <- list(vb=t(x))
         class(x) <- "mesh3d"
-    } else
+    } else if (! inherits(x,"mesh3d"))
         stop("x must be a mesh or a matrix")
     if (!inherits(mesh,"mesh3d"))
         stop("argument 'mesh' needs to be object of class 'mesh3d'")
+
     mesh <- meshintegrity(mesh,facecheck=TRUE)
-    vb <- mesh$vb[1:3,,drop=FALSE]
-    it <- (mesh$it-1)
-    storage.mode(it) <- "integer"
     if (is.null(angdev))
         angdev <- 0
-    nofPoints <- as.integer(nofPoints)
-    maxDepth <- as.integer(maxDepth)
-    tmp <- .Call("RclosestKD", vb , it, io,x$it, as.integer(k[1]),as.logical(sign[1]), as.logical(smoothNormals[1]),as.logical(barycentric[1]),as.logical(borderchk[1]), nofPoints[1],maxDepth[1],angdev,weightnorm,facenormals,threads)
-    x$vb <- rbind(tmp$iomat,1)
-    x$normals <- rbind(tmp$normals, 1)
-    x$faceptr <- tmp$faceptr+1
-    x$quality <- tmp$distance
-    x$angle <- tmp$angle
-    x$it <- x$it+1
-    if (barycentric)
-        x$barycoords <- tmp$barycoord
-    if (borderchk)
-            x$border <- tmp$border
-return(x)
+    out <- .Call("RclosestKD", mesh , x,k, sign, smoothNormals,barycentric,borderchk, nofPoints,maxDepth,angdev,weightnorm,facenormals,threads)
+    out$it <- x$it
+    class(out) <- "mesh3d"
+return(out)
 
 }

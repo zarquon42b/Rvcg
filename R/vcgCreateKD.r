@@ -117,16 +117,8 @@ vcgClostOnKDtreeFromBarycenters <- function(x,query,k=50,sign=TRUE,barycentric=F
     }
     if (is.null(angdev) || is.null(query$it))
         angdev <- 0
-    out <- .Call("searchKDtreeForClosestPoints",x$kdtree,x$target,x$targetptr,query,k,sign,borderchk,barycentric,angdev,weightnorm,facenormals,threads)
-    out$vb <- rbind(out$vb,1)
-    out$normals <- rbind(out$normals, 1)
-    out$faceptr <- out$faceptr+1
+    out <- .Call("RsearchKDtreeForClosestPoints",x$kdtree,x$target,x$targetptr,query,k,sign,borderchk,barycentric,angdev,weightnorm,facenormals,threads)
     out$it <- query$it
-    if (!borderchk)
-        out$border <- NULL
-    if(!barycentric)
-        out$barycoords <- NULL
-    class(out) <- "mesh3d"
     return(out)
 }
 
