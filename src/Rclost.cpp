@@ -57,14 +57,19 @@ RcppExport SEXP Rclost(SEXP mesh_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, S
       tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
       tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
     }
-    //setup return structure
-    //setup output matrices
-    arma::mat ioclost(4,refmesh.vn);
-    ioclost.fill(1);
-    arma::mat normals(4,refmesh.vn), barycoord(3,refmesh.vn);
-    normals.fill(1);
-    Rcpp::IntegerVector border(refmesh.vn), faceptr(refmesh.vn);
-    Rcpp::NumericVector dis(refmesh.vn);
+    
+    //setup output datastructures
+    arma::mat ioclost(4,refmesh.vn), normals(4,refmesh.vn);
+    ioclost.fill(1);normals.fill(1);
+    arma::mat barycoord;
+    arma::ivec border, faceptr(refmesh.vn);
+    arma::vec distances(refmesh.vn);
+    if (barycentric)
+      barycoord.resize(3,refmesh.vn);
+    if (borderchk) {
+      border.resize(refmesh.vn);
+      border.fill(0);
+    }
     //index faces
     SimpleTempData<MyMesh::FaceContainer,int> indices(m.face);
     FaceIterator fi=m.face.begin();
@@ -105,23 +110,20 @@ RcppExport SEXP Rclost(SEXP mesh_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, S
 	  baryco = currp*0;
 	  InterpolationParameters<MyFace,ScalarType>(*f_ptr,f_ptr->N(),clost,baryco);
 	}
-	
 	float vl = sqrt(vertexnormal.dot(vertexnormal));
 	if (vl > 0) {//check for zero length normals
 	  vertexnormal=vertexnormal/vl;
-	  
-    
-	  dis[i] = minDist;
+	  distances[i] = minDist;
 	  if (signo) {
 	    Point3f dif = clost - currp;
 	    float sign = dif.dot(vertexnormal);	
 	    if (sign < 0)
-	      dis[i] = -dis[i] ;
+	      distances[i] = -distances[i] ;
 	  }
 	}
       } else {
 	double mynan = std::nan("1");
-	dis[i] = mynan;
+	distances[i] = mynan;
       }
       //write back output
       for (int j = 0; j < 3; j++) {
@@ -134,13 +136,13 @@ RcppExport SEXP Rclost(SEXP mesh_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, S
       List out = Rcpp::List::create(Rcpp::Named("vb") = ioclost,
 				    Rcpp::Named("it")=wrap(1),
 				    Rcpp::Named("normals") = normals,
-				    Rcpp::Named("quality") = dis,
-				    Rcpp::Named("faceptr") = faceptr
+				    Rcpp::Named("quality") = NumericVector(distances.begin(),distances.end()),
+				    Rcpp::Named("faceptr") = NumericVector(faceptr.begin(),faceptr.end())
 				    );
       if (barycentric)
 	out["barycoords"] = barycoord;
       if (borderchk)
-	out["border"] = border;
+	out["border"] = NumericVector(border.begin(),border.end());
 
       out.attr("class") = "mesh3d";
       return out;
