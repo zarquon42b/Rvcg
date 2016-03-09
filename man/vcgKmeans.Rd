@@ -4,7 +4,8 @@
 \alias{vcgKmeans}
 \title{fast Kmean clustering for 2D and 3D data}
 \usage{
-vcgKmeans(x, k = 10, iter.max = 10, threads = parallel::detectCores())
+vcgKmeans(x, k = 10, iter.max = 10, getClosest = FALSE,
+  threads = parallel::detectCores())
 }
 \arguments{
 \item{x}{matrix containing coordinates or mesh3d}
@@ -13,12 +14,16 @@ vcgKmeans(x, k = 10, iter.max = 10, threads = parallel::detectCores())
 
 \item{iter.max}{maximum number of iterations}
 
+\item{getClosest}{logical: if TRUE the indices of the points closest to the k-centers are sought.}
+
 \item{threads}{integer: number of threads to use}
 }
 \value{
 returns a list containing
 \item{centers}{cluster center}
 \item{class}{vector with cluster association for each coordinate}
+If \code{getClosest=TRUE}
+ \item{clost_center}{vector with indices of points closest to the centers}
 }
 \description{
 fast Kmean clustering for 2D and 3D data

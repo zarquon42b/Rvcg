@@ -2,11 +2,15 @@
 #' @param x matrix containing coordinates or mesh3d
 #' @param k number of clusters
 #' @param iter.max maximum number of iterations
+#' @param getClosest logical: if TRUE the indices of the points closest to the k-centers are sought.
 #' @param threads integer: number of threads to use
 #' @return
 #' returns a list containing
 #' \item{centers}{cluster center}
 #' \item{class}{vector with cluster association for each coordinate}
+#' If \code{getClosest=TRUE}
+#'  \item{clost_center}{vector with indices of points closest to the centers}
+#' 
 #' @examples
 #' require(Rvcg);require(rgl)
 #' data(humface)
@@ -14,7 +18,7 @@
 #' clust <- vcgKmeans(humface,k=1000,threads=2)
 #' @importFrom parallel detectCores
 #' @export
-vcgKmeans <- function(x,k=10,iter.max=10,threads=parallel::detectCores()) {
+vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=parallel::detectCores()) {
     if (is.matrix(x)) {
         if (ncol(x) == 2)
             x <- cbind(x,0)
@@ -29,6 +33,8 @@ vcgKmeans <- function(x,k=10,iter.max=10,threads=parallel::detectCores()) {
     }
     set.seed(rnorm(1))
     out <- .Call("Rkmeans",x,k,iter.max,threads)
+    if (getClosest)
+        out$clost_center <- sort(unique(vcgKDtree(x,out$centers,k=1,threads = threads)$index))
     return(out)
     
 }
