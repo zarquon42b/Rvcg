@@ -16,7 +16,7 @@ using namespace Rcpp;
 using namespace std;
 
 
-RcppExport SEXP Rsample(SEXP vb_, SEXP it_, SEXP SampleNum_, SEXP type_, SEXP MCsamp_, SEXP geodes_)
+RcppExport SEXP Rsample(SEXP mesh_, SEXP SampleNum_, SEXP type_, SEXP MCsamp_, SEXP geodes_)
 {
   try {// declare Mesh and helper variables
     int SampleNum = Rcpp::as<int>(SampleNum_);  
@@ -30,7 +30,7 @@ RcppExport SEXP Rsample(SEXP vb_, SEXP it_, SEXP SampleNum_, SEXP type_, SEXP MC
     VertexIterator vi;
     FaceIterator fi;
     // allocate mesh and fill it
-    int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
+    int check = Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(m,mesh_);
     if (check != 0) {
       return wrap(1);
     } else {

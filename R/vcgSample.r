@@ -39,24 +39,15 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
         }
         if (type %in% 1:2) {
             mesh <- meshintegrity(mesh)
-            vb <- mesh$vb[1:3,,drop=FALSE]
-            it <- mesh$it - 1
-            storage.mode(it) <- "integer"
-            dimit <- dim(it)[2]
-            dimvb <- dim(vb)[2]
             type <- as.integer(type)
-            SampleNum <- as.integer(SampleNum)
-            MCsamp <- as.integer(MCsamp)
-            if (!is.logical(geodes) || (FALSE %in% is.integer(c(it,type, MCsamp, SampleNum))) || (FALSE %in% is.numeric(vb)))
-                stop("Please provide sensible arguments!")
-            tmp <- .Call("Rsample", vb, it, SampleNum, type, MCsamp, geodes)
+            tmp <- .Call("Rsample", mesh, SampleNum, type, MCsamp, geodes)
             tmp <- t(tmp)
             if (strict && nrow(tmp) > SampleNum) {
                 tmp <- vcgKmeans(tmp,k=SampleNum, iter.max=iter.max,threads=threads)$centers
                 t(vcgClost(tmp, mesh)$vb[1:3,])
             }
         } else {
-            tmp <-  vcgKmeans(tmp,k=SampleNum, iter.max=iter.max,threads=threads)$centers
+            tmp <-  vcgKmeans(mesh,k=SampleNum, iter.max=iter.max,threads=threads)$centers
             if (!noit)
                 tmp <- t(vcgClost(tmp, mesh)$vb[1:3,])
         }

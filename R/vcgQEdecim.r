@@ -49,9 +49,7 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALS
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
         doit <- TRUE
         mesh <- meshintegrity(mesh,facecheck=TRUE)
-        vb <- mesh$vb[1:3,,drop=FALSE]
-        it <- mesh$it-1
-        dimit <- ncol(it)
+        dimit <- ncol(mesh$it)
         outmesh <- list()
         class(outmesh) <- "mesh3d"
         
@@ -78,12 +76,8 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALS
         doubleparams <- c(qthresh, boundweight, normalthr)
         storage.mode(doubleparams) <- "double"
 ###tmp <- .C("RQEdecim",vb,ncol(vb),it,ncol(it),tarface,vb,as.integer(topo),as.integer(quality),as.integer(bound))
-        tmp <- .Call("RQEdecim", vb, it, tarface, boolparams, doubleparams,silent)
-        outmesh$vb <- rbind(tmp$vb,1)
-        
-        outmesh$it <- tmp$it
-        outmesh$normals <- rbind(tmp$normals, 1)
-                                        #outmesh <- adnormals(outmesh)
+        outmesh <- .Call("RQEdecim", mesh, tarface, boolparams, doubleparams,silent)
+       
         if (!is.null(edgeLength) && !silent)
             cat(paste("Mean Edge length is",vcgMeshres(outmesh)$res,"\n"))
         return(outmesh)

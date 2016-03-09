@@ -90,7 +90,7 @@ typedef CMeshDec::VertexPointer VertexPointer;
 
 
 
-RcppExport SEXP RQEdecim(SEXP vb_ , SEXP it_, SEXP Finsize_, SEXP boolparams_, SEXP doubleparams_,SEXP silent_)
+RcppExport SEXP RQEdecim(SEXP mesh_, SEXP Finsize_, SEXP boolparams_, SEXP doubleparams_,SEXP silent_)
 {
   try {
     // declare Mesh and helper variables
@@ -99,7 +99,7 @@ RcppExport SEXP RQEdecim(SEXP vb_ , SEXP it_, SEXP Finsize_, SEXP boolparams_, S
     VertexIterator vi;
     FaceIterator fi;
     bool silent = as<bool>(silent_);
-    int check = Rvcg::IOMesh<CMeshDec>::RvcgReadR(m,vb_,it_);
+    int check = Rvcg::IOMesh<CMeshDec>::mesh3d2Rvcg(m,mesh_);
     if (check == 1) {
       ::Rf_error("mesh has no faces");
     }  else {
@@ -154,37 +154,10 @@ RcppExport SEXP RQEdecim(SEXP vb_ , SEXP it_, SEXP Finsize_, SEXP boolparams_, S
       if (!silent)
 	Rprintf("Result: %d vertices and %d faces.\nEstimated error: %g \n",m.vn,m.fn,DeciSession.currMetric);
     
-      Rcpp::NumericMatrix vb(3, m.vn), normals(3, m.vn);
-      Rcpp::IntegerMatrix itout(3, m.fn);
-  
+      
       //write back data
-      vi=m.vert.begin();
-      for (i=0;  i < m.vn; i++) {
-	indices[vi] = i;//important: updates vertex indices
-	vb(0,i) = (*vi).P()[0];
-	vb(1,i) = (*vi).P()[1];
-	vb(2,i) = (*vi).P()[2];
-	normals(0,i) = (*vi).N()[0];
-	normals(1,i) = (*vi).N()[1];
-	normals(2,i) = (*vi).N()[2];
-	++vi;
-      }
-  
-      FacePointer fp;
-      fi=m.face.begin();
-      for (i=0; i < m.fn;i++) {
-	fp=&(*fi);
-	if( ! fp->IsD() ) {
-	  itout(0,i) = indices[fp->cV(0)]+1;
-	  itout(1,i) = indices[fp->cV(1)]+1;
-	  itout(2,i) = indices[fp->cV(2)]+1;
-	  ++fi;
-	}
-      }
-      return Rcpp::List::create(Rcpp::Named("vb") = vb,
-				Rcpp::Named("normals") = normals,
-				Rcpp::Named("it") = itout
-				);
+      List out = Rvcg::IOMesh<CMeshDec>::RvcgToR(m);
+      return out;
     }
   } catch (std::exception& e) {
     ::Rf_error( e.what());
