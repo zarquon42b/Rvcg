@@ -2,7 +2,7 @@
 % Please edit documentation in R/vcgKmeans.r
 \name{vcgKmeans}
 \alias{vcgKmeans}
-\title{fast Kmean clustering for 2D and 3D data}
+\title{fast Kmean clustering for 1D, 2D and 3D data}
 \usage{
 vcgKmeans(x, k = 10, iter.max = 10, getClosest = FALSE,
   threads = parallel::detectCores())
@@ -26,7 +26,7 @@ If \code{getClosest=TRUE}
  \item{clost_center}{vector with indices of points closest to the centers}
 }
 \description{
-fast Kmean clustering for 2D and 3D data
+fast Kmean clustering for 1D, 2D and 3D data
 }
 \examples{
 require(Rvcg);require(rgl)

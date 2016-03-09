@@ -1,4 +1,4 @@
-#' fast Kmean clustering for 2D and 3D data
+#' fast Kmean clustering for 1D, 2D and 3D data
 #' @param x matrix containing coordinates or mesh3d
 #' @param k number of clusters
 #' @param iter.max maximum number of iterations
@@ -20,9 +20,14 @@
 #' @importFrom parallel detectCores
 #' @export
 vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=parallel::detectCores()) {
+    if (is.vector(x))
+        x <- as.matrix(x)
     if (is.matrix(x)) {
-        if (ncol(x) == 2)
+        origdim <- ncol(x)
+        if (origdim == 2)
             x <- cbind(x,0)
+        else if (origdim == 1)
+            x <- cbind(x,0,0)
         if (ncol(x) == 3) {
             x <- list(vb=t(x))
             class(x) <- "mesh3d"
@@ -31,13 +36,17 @@ vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=parallel::dete
     } else {
         if(!inherits(x,"mesh3d"))
             stop("only meshes or matrices allowed")
+        else
+            origdim <- 3
     }
     if (k > ncol(x$vb))
         stop("number of centers exceeds sample size")
     set.seed(rnorm(1))
     out <- .Call("Rkmeans",x,k,iter.max,threads)
+    
     if (getClosest)
         out$clost_center <- sort(unique(vcgKDtree(x,out$centers,k=1,threads = threads)$index))
+    out$centers <- out$centers[,1:origdim]
     return(out)
     
 }
