@@ -5,7 +5,7 @@ src/vcglib/apps
 src/vcglib/docs
 ^.*.o$
 aclocal.m4$
-src/Makevars$
+#src/Makevars$
 src/upOBJ.sh
 src/vcglib/patches
 src/vcglib/.pc

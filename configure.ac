@@ -16,8 +16,8 @@ CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 LDFLAGS=`"${R_HOME}/bin/R" CMD config LDFLAGS`
 
 AC_LANG_CPLUSPLUS
-# check C++11 compliance and flags
-AX_CXX_COMPILE_STDCXX_11([noext],)
+dnl check C++11 compliance and flags
+dnl AX_CXX_COMPILE_STDCXX_11([noext],)
 
 dnl # check availability of TR1 headers
 dnl AC_DEFUN([AC_HEADER_STDCXX_TR1], [
@@ -56,7 +56,7 @@ AC_DEFUN([AC_HEADER_STDCXX_INTTYPES], [
 ])
 AC_HEADER_STDCXX_INTTYPES
 
-AC_SUBST(CXXFLAGS)
+dnl AC_SUBST(CXXFLAGS)
 AC_CONFIG_HEADERS([src/config.h])
-AC_CONFIG_FILES([src/Makevars])
+dnl AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
