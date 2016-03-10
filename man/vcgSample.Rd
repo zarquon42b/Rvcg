@@ -5,8 +5,7 @@
 \title{Subsamples points on a mesh surface}
 \usage{
 vcgSample(mesh, SampleNum = 100, type = c("km", "pd", "mc"), MCsamp = 20,
-  geodes = TRUE, strict = FALSE, iter.max = 100,
-  threads = parallel::detectCores())
+  geodes = TRUE, strict = FALSE, iter.max = 100, threads = 0)
 }
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d'}

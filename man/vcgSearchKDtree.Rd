@@ -4,7 +4,7 @@
 \alias{vcgSearchKDtree}
 \title{search an existing KD-tree}
 \usage{
-vcgSearchKDtree(kdtree, query, k, threads = parallel::detectCores())
+vcgSearchKDtree(kdtree, query, k, threads = 0)
 }
 \arguments{
 \item{kdtree}{object of class vcgKDtree}

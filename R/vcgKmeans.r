@@ -19,7 +19,7 @@
 #' @seealso \code{\link{vcgSample}}
 #' @importFrom parallel detectCores
 #' @export
-vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=parallel::detectCores()) {
+vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=0) {
     if (is.vector(x))
         x <- as.matrix(x)
     if (is.matrix(x)) {

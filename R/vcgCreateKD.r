@@ -37,7 +37,7 @@ vcgCreateKDtree <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
 #' closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10,threads=2)
 #' @seealso \code{\link{vcgCreateKDtree}}
 #' @export
-vcgSearchKDtree <- function(kdtree, query,k ,threads=parallel::detectCores()) {
+vcgSearchKDtree <- function(kdtree, query,k ,threads=0) {
     if (!inherits(kdtree,"vcgKDtree"))
         stop("no valid kdtree")
     if (is.matrix(query)) {

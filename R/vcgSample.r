@@ -20,7 +20,7 @@
 #' points3d(ss)
 #' }
 #' @export vcgSample
-vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=FALSE,iter.max=100,threads=parallel::detectCores())
+vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geodes=TRUE,strict=FALSE,iter.max=100,threads=0)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
