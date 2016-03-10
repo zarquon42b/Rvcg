@@ -9,7 +9,7 @@
 #' \item{centers}{cluster center}
 #' \item{class}{vector with cluster association for each coordinate}
 #' If \code{getClosest=TRUE}
-#'  \item{clost_center}{vector with indices of points closest to the centers}
+#'  \item{selected}{vector with indices of points closest to the centers}
 #' 
 #' @examples
 #' require(Rvcg);require(rgl)
@@ -45,7 +45,7 @@ vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=parallel::dete
     out <- .Call("Rkmeans",x,k,iter.max,threads)
     
     if (getClosest)
-        out$clost_center <- sort(unique(vcgKDtree(x,out$centers,k=1,threads = threads)$index))
+        out$selected <- sort(unique(vcgKDtree(x,out$centers,k=1,threads = threads)$index))
     out$centers <- out$centers[,1:origdim]
     return(out)
     

@@ -23,7 +23,7 @@ returns a list containing
 \item{centers}{cluster center}
 \item{class}{vector with cluster association for each coordinate}
 If \code{getClosest=TRUE}
- \item{clost_center}{vector with indices of points closest to the centers}
+ \item{selected}{vector with indices of points closest to the centers}
 }
 \description{
 fast Kmean clustering for 1D, 2D and 3D data
