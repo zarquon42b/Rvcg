@@ -15,7 +15,7 @@
 #' require(Rvcg);require(rgl)
 #' data(humface)
 #' set.seed(42)
-#' clust <- vcgKmeans(humface,k=1000,threads=2)
+#' clust <- vcgKmeans(humface,k=1000,threads=1)
 #' @seealso \code{\link{vcgSample}}
 #' @export
 vcgKmeans <- function(x,k=10,iter.max=10,getClosest=FALSE,threads=0) {

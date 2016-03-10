@@ -22,7 +22,7 @@ create a KD-tree from Barycenters for multiple closest point searches on a mesh
 \examples{
 data(humface);data(dummyhead)
 barytree <- vcgCreateKDtreeFromBarycenters(humface)
-closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50,threads=2)
+closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50,threads=1)
 }
 \seealso{
 \code{\link{vcgClostOnKDtreeFromBarycenters}, \link{vcgSearchKDtree},  \link{vcgCreateKDtree}}

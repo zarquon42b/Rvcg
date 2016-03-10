@@ -27,7 +27,7 @@ search an existing KD-tree
 data(humface);data(dummyhead)
 mytree <- vcgCreateKDtree(humface)
 ## get indices and distances for 10 closest points.
-closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10,threads=2)
+closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10,threads=1)
 }
 \seealso{
 \code{\link{vcgCreateKDtree}}
