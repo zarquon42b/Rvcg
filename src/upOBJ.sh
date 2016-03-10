@@ -6,4 +6,4 @@ srces="OBJECTS=vcglib/wrap/ply/plylib.o $srces"
 echo $srces 
 sed -i '/OBJECTS=/c\'"$srces"'' Makevars.in 
 #sed -i 's|OBJECTS|'"$srces"'|g' Makevars
-sed -i '/OBJECTS=/c\'"$srces"'' Makevars.win
+#sed -i '/OBJECTS=/c\'"$srces"'' Makevars.win
