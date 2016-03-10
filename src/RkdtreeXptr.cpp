@@ -6,7 +6,7 @@
 
 RcppExport SEXP createKDtree(SEXP target_, SEXP nofPointsPerCell_, SEXP maxDepth_) {
   Rcpp::XPtr< MyMesh > target(new MyMesh,true);
-  Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(*target,target_,false);
+  Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(*target,target_,false,false);
   unsigned int nofPointsPerCell = as<unsigned int >(nofPointsPerCell_);
   unsigned int maxDepth = as<unsigned int >(maxDepth_);
   VertexConstDataWrapper<MyMesh> ww(*target);
@@ -61,7 +61,7 @@ RcppExport SEXP RsearchKDtree(SEXP kdtree_,SEXP target_, SEXP query_, SEXP k_, S
     XPtr< KdTree<float> > kdtree(kdtree_);
     XPtr< MyMesh > target(target_);
     MyMesh query;
-    Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(query,query_);
+    Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(query,query_,false,false,false);
     int k = as<int>(k_);
     int threads = as<int>(threads_);
     List out = searchKDtree(*kdtree, *target, query, k, threads);
@@ -80,7 +80,7 @@ RcppExport SEXP RsearchKDtreeForClosestPoints(SEXP kdtree_,SEXP bary_, SEXP targ
     XPtr< MyMesh > bary(bary_);
     XPtr< MyMesh > target(targetmesh_);
     MyMesh query;
-    Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(query,query_);
+    Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(query,query_,false,true,false);
     int k = as<int>(k_);
     int threads = as<int>(threads_);
     bool barycentric = as<bool>(barycentric_);
