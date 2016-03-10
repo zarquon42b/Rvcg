@@ -34,7 +34,7 @@ vcgCreateKDtree <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
 #' data(humface);data(dummyhead)
 #' mytree <- vcgCreateKDtree(humface)
 #' ## get indices and distances for 10 closest points.
-#' closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10)
+#' closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10,threads=2)
 #' @seealso \code{\link{vcgCreateKDtree}}
 #' @export
 vcgSearchKDtree <- function(kdtree, query,k ,threads=parallel::detectCores()) {
@@ -69,7 +69,7 @@ vcgSearchKDtree <- function(kdtree, query,k ,threads=parallel::detectCores()) {
 #' @examples
 #' data(humface);data(dummyhead)
 #' barytree <- vcgCreateKDtreeFromBarycenters(humface)
-#' closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50)
+#' closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50,threads=2)
 #' @export
 vcgCreateKDtreeFromBarycenters <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
     mesh <- meshintegrity(mesh,facecheck=TRUE)
