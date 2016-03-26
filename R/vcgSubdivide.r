@@ -28,6 +28,8 @@ vcgSubdivide <- function(x, threshold=NULL, type=c("Butterfly","Loop"),looptype=
     loopargs <- c("loop","regularity","continuity")
     looptype <- match.arg(tolower(looptype[1]),loopargs)
     looptype <- match(looptype,loopargs)-1
-    out <- .Call("Rsubdivision",x$vb[1:3,], x$it-1L,iterations,threshold,type,looptype,silent)
+    if (!inherits(x,"mesh3d"))
+        stop("mesh must be of class mesh3d")
+    out <- .Call("Rsubdivision",x,iterations,threshold,type,looptype,silent)
     return(out)
 }

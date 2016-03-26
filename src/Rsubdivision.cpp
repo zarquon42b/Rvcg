@@ -13,7 +13,7 @@ using namespace vcg;
 using namespace tri;
 using namespace Rcpp;
 
-RcppExport SEXP Rsubdivision(SEXP vb_ , SEXP it_,SEXP iterations_, SEXP threshold_,SEXP type_,SEXP looptype_, SEXP silent_) {
+RcppExport SEXP Rsubdivision(SEXP mesh_ ,SEXP iterations_, SEXP threshold_,SEXP type_,SEXP looptype_, SEXP silent_) {
   try { 
     // declare Mesh and helper variables
     int i;
@@ -22,7 +22,7 @@ RcppExport SEXP Rsubdivision(SEXP vb_ , SEXP it_,SEXP iterations_, SEXP threshol
     FaceIterator fi;
     float threshold = as<float>(threshold_);
     int iterations = as<int>(iterations_);
-    int check = Rvcg::IOMesh<TopoMyMesh>::RvcgReadR(m,vb_,it_);
+    int check = Rvcg::IOMesh<TopoMyMesh>::mesh3d2Rvcg(m,mesh_);
     int type = as<int>(type_);
     int looptype = as<int>(looptype_);
     bool silent = as<bool>(silent_);
