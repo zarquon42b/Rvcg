@@ -11,7 +11,7 @@
   vcgCreateKDtreeFromBarycenters, vcgSearchKDtree to allow reusing KD-trees
       \item added vcgSubdivide to refine an existing mesh by subidviding faces
       \item added vcgMetro to compare differences between two meshes
-  using different types of subsampling
+  using different types of subsampling (thanks to F. Girinion)
       \item added vcgArea to calculate the surface area of a mesh
       \item added option keep to vcgIsolated and allowed options diameter/facenum to be used with split=T
       \item updated vcglib to revision 5670
@@ -22,7 +22,8 @@
   \subsection{bug fixes}{
     \itemize{
       \item vcgClost: in case distances are beyond threshold, distance values are
-    to NaN and a  warning is issued
+      to NaN and a  warning is issued
+      \item refactored and simplified C++ code
 
       
       }
