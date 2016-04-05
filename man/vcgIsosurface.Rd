@@ -4,13 +4,18 @@
 \alias{vcgIsosurface}
 \title{Create Isosurface from 3D-array}
 \usage{
-vcgIsosurface(vol, threshold, spacing = NULL, origin = NULL,
-  direction = NULL, IJK2RAS = diag(c(-1, -1, 1, 1)), as.int = FALSE)
+vcgIsosurface(vol, threshold, from = NULL, to = NULL, spacing = NULL,
+  origin = NULL, direction = NULL, IJK2RAS = diag(c(-1, -1, 1, 1)),
+  as.int = FALSE)
 }
 \arguments{
 \item{vol}{an integer valued 3D-array}
 
 \item{threshold}{threshold for creating the surface}
+
+\item{from}{numeric: the lower threshold of a range (overrides \code{threshold})}
+
+\item{to}{numeric: the upper threshold of a range (overrides \code{threshold})}
 
 \item{spacing}{numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.}
 

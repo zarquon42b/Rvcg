@@ -4,6 +4,8 @@
 #'
 #' @param vol an integer valued 3D-array
 #' @param threshold threshold for creating the surface
+#' @param from  numeric: the lower threshold of a range (overrides \code{threshold})
+#' @param to numeric: the upper threshold of a range (overrides \code{threshold})
 #' @param spacing numeric 3D-vector: specifies the voxel dimensons in x,y,z direction.
 #' @param origin numeric 3D-vector: origin of the original data set, will transpose the mesh onto that origin.
 #' @param direction a 3x3 direction matrix
@@ -25,9 +27,21 @@
 #' wire3d(vcgSmooth(mesh,"HC",iteration=3),col=3)
 #' }
 #' @export
-vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,direction=NULL,IJK2RAS=diag(c(-1,-1,1,1)),as.int=FALSE) {
+vcgIsosurface <- function(vol,threshold,from=NULL,to=NULL,spacing=NULL, origin=NULL,direction=NULL,IJK2RAS=diag(c(-1,-1,1,1)),as.int=FALSE) {
     if (length(dim(vol)) != 3)
         stop("3D array needed")
+     if (!is.null(from) && !is.null(to)) {
+        if (from > to)
+            stop("from must be > to")
+        tmpvol <- vol*0L+255L
+        storage.mode(tmpvol) <- "integer"
+        tmpvol[which(vol < from)] <- 0L
+        tmpvol[which(vol > to)] <- 0L
+        vol <- tmpvol
+        as.int <- TRUE
+        threshold <- 255
+        
+    }
     mirr <- FALSE
     mvol <- max(vol)
     minvol <- min(vol)
@@ -35,6 +49,8 @@ vcgIsosurface <- function(vol,threshold,spacing=NULL, origin=NULL,direction=NULL
         threshold <- threshold-1e-5
     else if (threshold > mvol || threshold < minvol)
         stop("threshold is outside volume values")
+
+   
     if (as.int)
         storage.mode(vol) <- "integer"
     volmesh <- .Call("RMarchC",vol,threshold)
