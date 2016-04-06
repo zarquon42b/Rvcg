@@ -53,3 +53,20 @@ NULL
 #' @keywords datasets
 #' 
 NULL
+
+
+#' document deprecated functions
+#'
+#' @title deprecated functions of Rvcg
+#' @name deprecated
+#' @rdname Rvcg-deprecated
+#' @keywords internal
+NULL
+
+#' @rdname Rvcg-deprecated
+#' @export 
+checkNormOrient <- function (...)
+{
+  .Deprecated("checkFaceOrientation", package="Rvcg")
+  checkFaceOrientation(...)
+}
