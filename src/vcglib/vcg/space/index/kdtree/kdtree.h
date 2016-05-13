@@ -99,13 +99,13 @@ namespace vcg {
                     unsigned int firstChildId:24;
                     unsigned int dim:2;
                     unsigned int leaf:1;
-                } mynode;
+                };
                 //leaf
                 struct {
                     unsigned int start;
                     unsigned short size;
-                } myleaf;
-            } NodeU;
+                };
+            };
         };
         typedef std::vector<Node> NodeList;
 
@@ -167,7 +167,7 @@ namespace vcg {
         mNodes.reserve(4*mPoints.size()/nofPointsPerCell);
     //first node inserted (no leaf). The others are made by the createTree function (recursively)
         mNodes.resize(1);
-        mNodes.back().NodeU.mynode.leaf = 0;
+        mNodes.back().leaf = 0;
         /*int numLevel = */
         createTree(0, 0, mPoints.size(), 1, nofPointsPerCell, maxDepth);
     }
@@ -219,34 +219,34 @@ namespace vcg {
 						if (mNeighborQueue.getNofElements() < k || qnode.sq < mNeighborQueue.getTopWeight())
 						{
                 //when we arrive to a leaf
-                if (node.NodeU.mynode.leaf)
+                if (node.leaf)
                 {
                     --count; //pop of the leaf
 
                     //end is the index of the last element of the leaf in mPoints
-                    unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
+                    unsigned int end = node.start+node.size;
                     //adding the element of the leaf to the heap
-                    for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
+                    for (unsigned int i=node.start ; i<end ; ++i)
                         mNeighborQueue.insert(mIndices[i], vcg::SquaredNorm(queryPoint - mPoints[i]));
                 }
                 //otherwise, if we're not on a leaf
                 else
                 {
                     // the new offset is the distance between the searched point and the actual split coordinate
-                    float new_off = queryPoint[node.NodeU.mynode.dim] - node.NodeU.mynode.splitValue;
+                    float new_off = queryPoint[node.dim] - node.splitValue;
 
                     //left sub-tree
                     if (new_off < 0.)
                     {
-                        mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId;
+                        mNodeStack[count].nodeId  = node.firstChildId;
                         //in the father's nodeId we save the index of the other sub-tree (for backtracking)
-			qnode.nodeId = node.NodeU.mynode.firstChildId+1;
+                        qnode.nodeId = node.firstChildId+1;
                     }
                     //right sub-tree (same as above)
                     else
                     {
-		        mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId+1;
-                        qnode.nodeId = node.NodeU.mynode.firstChildId;
+                        mNodeStack[count].nodeId  = node.firstChildId+1;
+                        qnode.nodeId = node.firstChildId;
                     }
                     //distance is inherited from the father (while descending the tree it's equal to 0)
                     mNodeStack[count].sq = qnode.sq;
@@ -285,7 +285,7 @@ namespace vcg {
 
             if (qnode.sq < sqrareDist)
             {
-                if (node.NodeU.mynode.leaf)
+                if (node.leaf)
                 {
                     --count; // pop
                     unsigned int end = node.start+node.size;
@@ -459,50 +459,50 @@ namespace vcg {
         else
             dim = diag.Y() > diag.Z() ? 1 : 2;
 
-        node.NodeU.mynode.dim = dim;
+        node.dim = dim;
         //we divide the bounding box in 2 partitions, considering the average of the "dim" dimension
-        node.NodeU.mynode.splitValue = Scalar(0.5*(aabb.max[dim] + aabb.min[dim]));
+        node.splitValue = Scalar(0.5*(aabb.max[dim] + aabb.min[dim]));
 
         //midId is the index of the first element in the second partition
-        unsigned int midId = split(start, end, dim, node.NodeU.mynode.splitValue);
+        unsigned int midId = split(start, end, dim, node.splitValue);
 
 
-        node.NodeU.mynode.firstChildId = mNodes.size();
+        node.firstChildId = mNodes.size();
         mNodes.resize(mNodes.size()+2);
     int leftLevel, rightLevel;
 
         {
             // left child
-            unsigned int childId = mNodes[nodeId].NodeU.mynode.firstChildId;
+            unsigned int childId = mNodes[nodeId].firstChildId;
             Node& child = mNodes[childId];
             if (midId - start <= targetCellSize || level>=targetMaxDepth)
             {
-                child.NodeU.mynode.leaf = 1;
-                child.NodeU.myleaf.start = start;
-                child.NodeU.myleaf.size = midId - start;
+                child.leaf = 1;
+                child.start = start;
+                child.size = midId - start;
         leftLevel = level;
             }
             else
             {
-                child.NodeU.mynode.leaf = 0;
+                child.leaf = 0;
                 leftLevel = createTree(childId, start, midId, level+1, targetCellSize, targetMaxDepth);
             }
         }
 
         {
             // right child
-            unsigned int childId = mNodes[nodeId].NodeU.mynode.firstChildId+1;
+            unsigned int childId = mNodes[nodeId].firstChildId+1;
             Node& child = mNodes[childId];
             if (end - midId <= targetCellSize || level>=targetMaxDepth)
             {
-                child.NodeU.mynode.leaf = 1;
-                child.NodeU.myleaf.start = midId;
-                child.NodeU.myleaf.size = end - midId;
+                child.leaf = 1;
+                child.start = midId;
+                child.size = end - midId;
         rightLevel = level;
             }
             else
             {
-	        child.NodeU.mynode.leaf = 0;
+                child.leaf = 0;
                 rightLevel = createTree(childId, midId, end, level+1, targetCellSize, targetMaxDepth);
             }
         }
