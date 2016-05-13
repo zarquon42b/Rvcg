@@ -28,10 +28,10 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
          /*int numLevel = */
          createTree(0, 0, mPoints.size(), 1, nofPointsPerCell, maxDepth);
      }
-@@ -220,34 +220,34 @@ namespace vcg {
-             if (qnode.sq < mNeighborQueue.getTopWeight())
-             {
-                 //when we arrive to a lef
+@@ -219,34 +219,34 @@ namespace vcg {
+ 						if (mNeighborQueue.getNofElements() < k || qnode.sq < mNeighborQueue.getTopWeight())
+ 						{
+                 //when we arrive to a leaf
 -                if (node.leaf)
 +                if (node.NodeU.mynode.leaf)
                  {
@@ -39,7 +39,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
  
                      //end is the index of the last element of the leaf in mPoints
 -                    unsigned int end = node.start+node.size;
-+		    unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
++                    unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
                      //adding the element of the leaf to the heap
 -                    for (unsigned int i=node.start ; i<end ; ++i)
 +                    for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
@@ -59,19 +59,19 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
 +                        mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId;
                          //in the father's nodeId we save the index of the other sub-tree (for backtracking)
 -                        qnode.nodeId = node.firstChildId+1;
-+                        qnode.nodeId = node.NodeU.mynode.firstChildId+1;
++			qnode.nodeId = node.NodeU.mynode.firstChildId+1;
                      }
                      //right sub-tree (same as above)
                      else
                      {
 -                        mNodeStack[count].nodeId  = node.firstChildId+1;
 -                        qnode.nodeId = node.firstChildId;
-+                        mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId+1;
++		        mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId+1;
 +                        qnode.nodeId = node.NodeU.mynode.firstChildId;
                      }
                      //distance is inherited from the father (while descending the tree it's equal to 0)
                      mNodeStack[count].sq = qnode.sq;
-@@ -286,7 +286,7 @@ namespace vcg {
+@@ -285,7 +285,7 @@ namespace vcg {
  
              if (qnode.sq < sqrareDist)
              {
@@ -80,7 +80,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
                  {
                      --count; // pop
                      unsigned int end = node.start+node.size;
-@@ -460,50 +460,50 @@ namespace vcg {
+@@ -459,50 +459,50 @@ namespace vcg {
          else
              dim = diag.Y() > diag.Z() ? 1 : 2;
  

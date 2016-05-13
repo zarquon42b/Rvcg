@@ -2,7 +2,7 @@ Index: vcglib/vcg/complex/algorithms/create/mc_trivial_walker.h
 ===================================================================
 --- vcglib.orig/vcg/complex/algorithms/create/mc_trivial_walker.h
 +++ vcglib/vcg/complex/algorithms/create/mc_trivial_walker.h
-@@ -184,7 +184,14 @@ private:
+@@ -186,7 +186,14 @@ private:
      }
  
      ~TrivialWalker()

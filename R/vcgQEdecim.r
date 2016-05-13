@@ -19,7 +19,7 @@
 #' @param optiplace logical: if TRUE, mesh boundary is preserved.
 #' @param scaleindi logical: if TRUE, decimatiion is scale independent.
 #' @param normcheck logical: if TRUE, normal directions are considered.
-#' @param safeheap logical: if TRUE, safeheap update option enabled.
+#' @param qweightFactor numeric: >= 1. Quality range is mapped into a squared 01 and than into the 1 - QualityWeightFactor range.
 #' @param qthresh numeric: Quality threshold for decimation process.
 #' @param boundweight numeric: Weight assigned to mesh boundaries.
 #' @param normalthr numeric: threshold for normal check in radians.
@@ -43,7 +43,7 @@
 #' decimface <- vcgSmooth(decimface,iteration = 1)
 #' } 
 #' @export vcgQEdecim
-vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, safeheap =FALSE, qthresh=0.3, boundweight = 1, normalthr = pi/2,silent=FALSE)
+vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, safeheap =FALSE, qweightFactor=100, boundweight = 1, normalthr = pi/2,silent=FALSE)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
@@ -71,7 +71,7 @@ vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALS
                 
             }
         ##concatenate parameters
-        boolparams <- c(topo, quality, bound, optiplace, scaleindi, normcheck, safeheap)
+        boolparams <- c(topo, quality, bound, optiplace, scaleindi, normcheck, qweightFactor)
         storage.mode(boolparams) <- "logical"
         doubleparams <- c(qthresh, boundweight, normalthr)
         storage.mode(doubleparams) <- "double"

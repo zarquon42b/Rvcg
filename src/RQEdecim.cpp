@@ -122,7 +122,7 @@ RcppExport SEXP RQEdecim(SEXP mesh_, SEXP Finsize_, SEXP boolparams_, SEXP doubl
       qparams.OptimalPlacement = boolparams[3];
       qparams.ScaleIndependent = boolparams[4];
       qparams.NormalCheck = boolparams[5];
-      qparams.SafeHeapUpdate = boolparams[6];
+      qparams.QualityWeightFactor = boolparams[6];
    
       tri::Clean<CMeshDec>::RemoveDuplicateVertex(m);
       tri::Clean<CMeshDec>::RemoveUnreferencedVertex(m);

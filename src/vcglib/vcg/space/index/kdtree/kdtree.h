@@ -199,8 +199,7 @@ namespace vcg {
     {
         mNeighborQueue.setMaxSize(k);
         mNeighborQueue.init();
-        mNeighborQueue.insert(0xffffffff, std::numeric_limits<Scalar>::max());
-
+				
         QueryNode mNodeStack[64];
         mNodeStack[0].nodeId = 0;
         mNodeStack[0].sq = 0.f;
@@ -217,15 +216,15 @@ namespace vcg {
             Node& node = mNodes[qnode.nodeId];
 
             //if the distance is less than the top of the max-heap, it could be one of the k-nearest neighbours
-            if (qnode.sq < mNeighborQueue.getTopWeight())
-            {
-                //when we arrive to a lef
+						if (mNeighborQueue.getNofElements() < k || qnode.sq < mNeighborQueue.getTopWeight())
+						{
+                //when we arrive to a leaf
                 if (node.NodeU.mynode.leaf)
                 {
                     --count; //pop of the leaf
 
                     //end is the index of the last element of the leaf in mPoints
-		    unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
+                    unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
                     //adding the element of the leaf to the heap
                     for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
                         mNeighborQueue.insert(mIndices[i], vcg::SquaredNorm(queryPoint - mPoints[i]));
@@ -241,12 +240,12 @@ namespace vcg {
                     {
                         mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId;
                         //in the father's nodeId we save the index of the other sub-tree (for backtracking)
-                        qnode.nodeId = node.NodeU.mynode.firstChildId+1;
+			qnode.nodeId = node.NodeU.mynode.firstChildId+1;
                     }
                     //right sub-tree (same as above)
                     else
                     {
-                        mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId+1;
+		        mNodeStack[count].nodeId  = node.NodeU.mynode.firstChildId+1;
                         qnode.nodeId = node.NodeU.mynode.firstChildId;
                     }
                     //distance is inherited from the father (while descending the tree it's equal to 0)

@@ -457,6 +457,7 @@ public:
   {
     tri::RequireCompactness(m);
     tri::UpdateFlags<MeshType>::VertexClearV(m);
+    int count_split = 0;
     for(size_t i=0;i<m.edge.size();++i)
     {
       for(int j=0;j<2;++j)
@@ -465,11 +466,19 @@ public:
         if(vp->IsS())
         {
           if(!vp->IsV())
+	    {
             m.edge[i].V(j) = &*(tri::Allocator<MeshType>::AddVertex(m,vp->P()));
-          else vp->SetV();
+	    ++count_split;
+	    }
+          else 
+	    {
+	      vp->SetV();
+	    }
+	  
         }
       }
     }
+    return count_split;
   }
 
 
@@ -496,7 +505,7 @@ public:
     for(size_t i=0;i<m.vert.size();++i)
     {
       std::vector<VertexPointer> VVStarVec;
-      edge::VVStarVE<typename MeshType::EdgeType>(&(m.vert[i]),VVStarVec);
+      edge::VVStarVE(&(m.vert[i]),VVStarVec);
       if(VVStarVec.size()==2)
       {
         CoordType v0 = m.vert[i].P() - VVStarVec[0]->P();

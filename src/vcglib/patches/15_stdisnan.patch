@@ -1,8 +1,8 @@
 Index: vcglib/vcg/math/base.h
 ===================================================================
---- vcglib.orig/vcg/math/base.h	2016-02-10 18:46:28.151181373 +0100
-+++ vcglib/vcg/math/base.h	2016-02-10 18:48:24.843760020 +0100
-@@ -87,7 +87,9 @@
+--- vcglib.orig/vcg/math/base.h
++++ vcglib/vcg/math/base.h
+@@ -87,7 +87,9 @@ Edited Comments and GPL license
  #define __VCGLIB_MATH_BASE
  
  #include <float.h>
@@ -13,9 +13,9 @@ Index: vcglib/vcg/math/base.h
  #include <assert.h>
  #include <limits>
  #include <algorithm>
-@@ -190,7 +192,8 @@
- #if defined(_MSC_VER) // Microsoft Visual C++
- template<class T> int IsNAN(T t) {    return _isnan(t) || (!_finite(t)); }
+@@ -196,7 +198,8 @@ template<class T> int IsNAN(T t) {    re
+ #elif defined(__MINGW32__) // GCC
+ template<class T> int IsNAN(T t) {    return std::isnan(t) || std::isinf(t); }
  #elif defined(__GNUC__) // GCC
 -template<class T> int IsNAN(T t) {    return isnan(t) || isinf(t); }
 +  template<class T> int IsNAN(T t) {    return std::isnan(t) || std::isinf(t); }
