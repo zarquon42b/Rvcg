@@ -81,6 +81,9 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
     if (length(tmp$normals))
         out$normals <- rbind(matrix(tmp$normals,3,length(tmp$normals)/3),1)
     if (readcolor) {
+        it <- out$it
+        if (is.null(out$it))
+            it <- t(1:ncol(out$vb))
         out$material <- list()
             if (length(tmp$colors)) {
                 colvec <- matrix(tmp$colors,3,(length(tmp$colors)/3))
@@ -90,7 +93,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
                         x <- colvec[x]
                         return(x)
                     }
-                out$material$color <- matrix(colfun(out$it),dim(out$it))
+                out$material$color <- matrix(colfun(it),dim(it))
             }
             if (length(tmp$texfile)) {
                 setwd(folder)

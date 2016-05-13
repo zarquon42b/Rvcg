@@ -33,7 +33,10 @@ vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormal
         hasCol <- TRUE
         vn <- ncol(vb)
         col = rep("#FFFFFF", vn)
-        tmp1 <- data.frame(it = as.vector(mesh$it))
+        if (!is.null(mesh$it))
+            tmp1 <- data.frame(it = as.vector(mesh$it))
+        else
+            tmp1 <- data.frame(it=1:vn)
         tmp1$rgb <- as.vector(mesh$material$color)
         tmp1 <- unique(tmp1)
         col[tmp1$it] <- tmp1$rgb
