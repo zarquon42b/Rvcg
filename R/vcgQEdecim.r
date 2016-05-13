@@ -43,7 +43,7 @@
 #' decimface <- vcgSmooth(decimface,iteration = 1)
 #' } 
 #' @export vcgQEdecim
-vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, safeheap =FALSE, qweightFactor=100, boundweight = 1, normalthr = pi/2,silent=FALSE)
+vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, qweightFactor =100, qthresh=0.3, boundweight = 1, normalthr = pi/2,silent=FALSE)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")
