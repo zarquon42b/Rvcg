@@ -27,15 +27,12 @@
 #include<vcg/space/index/base.h>
 #include<vcg/space/box3.h>
 #include <vcg/space/index/space_iterators.h>
-#include <cstdint>
-//#ifndef WIN32
 
 
-#define __int64 int64_t
-//#define __cdecl 
-
-//#define __cdecl
-
+#ifndef WIN32
+#define __int64 long long
+#define __cdecl
+#endif
 
 namespace vcg {
 

@@ -30,7 +30,7 @@ class MissingComponentException : public std::runtime_error
 public:
   MissingComponentException(const std::string &err):std::runtime_error(err)
   {
-    //std::cout << "Missing Component Exception -" << err << "- \n";
+    std::cout << "Missing Component Exception -" << err << "- \n";
   }
     virtual const char *what() const throw ()
     {
@@ -44,7 +44,7 @@ class MissingCompactnessException : public std::runtime_error
 public:
   MissingCompactnessException(const std::string &err):std::runtime_error(err)
   {
-    //std::cout << "Lack of Compactness Exception -" << err << "- \n";
+    std::cout << "Lack of Compactness Exception -" << err << "- \n";
   }
     virtual const char *what() const throw ()
     {
