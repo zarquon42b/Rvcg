@@ -2,7 +2,7 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rvcg version 0.14 (2016-03-31)}{
+\section{Changes in Rvcg version 0.14 (2016-07-06)}{
   \subsection{new features}{
     \itemize{
       \item added vcgBallPivoting: ball pivoting surface reconstruction
@@ -14,8 +14,11 @@
   using different types of subsampling (thanks to F. Girinion)
       \item added vcgArea to calculate the surface area of a mesh
       \item added option keep to vcgIsolated and allowed options diameter/facenum to be used with split=T
-      \item updated vcglib to revision 5670
-      \item added Rvcg::IOMesh::mesh3d2Rvcg<T>, allowing easier conversion from mesh3d to vcglib meshtypes
+      \item updated vcglib to revision 5735
+      \item added Rvcg::IOMesh::mesh3d2Rvcg<T>, allowing easier
+      conversion from mesh3d to vcglib meshtypes
+      \item added checkFaceOrientation to check whether a the outer
+  layer of a surface mesh points outward
       }
   }
   
