@@ -2,7 +2,7 @@
 * VCGLib                                                            o o     *
 * Visual and Computer Graphics Library                            o     o   *
 *                                                                _   O  _   *
-* Copyright(C) 2004                                                \/)\/    *
+* Copyright(C) 2004-2016                                           \/)\/    *
 * Visual Computing Lab                                            /\/|      *
 * ISTI - Italian National Research Council                           |      *
 *                                                                    \      *
@@ -23,7 +23,7 @@
 #ifndef __VCG_IMPLICIT_SMOOTHER
 #define __VCG_IMPLICIT_SMOOTHER
 
-#include <eigenlib/Eigen/Sparse>
+#include Eigen/Sparse>
 #include <vcg/complex/algorithms/mesh_to_matrix.h>
 #include <vcg/complex/algorithms/update/quality.h>
 #include <vcg/complex/algorithms/smooth.h>
