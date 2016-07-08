@@ -2,7 +2,7 @@ Index: vcglib/vcg/space/index/space_iterators.h
 ===================================================================
 --- vcglib.orig/vcg/space/index/space_iterators.h
 +++ vcglib/vcg/space/index/space_iterators.h
-@@ -314,7 +314,7 @@ namespace vcg{
+@@ -285,7 +285,7 @@ namespace vcg{
  		RayType r;							//ray to find intersections
  		Spatial_Idexing &Si;	  //reference to spatial index algorithm
  		bool end;								//true if the scan is terminated

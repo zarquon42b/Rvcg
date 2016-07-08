@@ -1,16 +1,3 @@
-Index: vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h
-===================================================================
---- vcglib.orig/vcg/complex/algorithms/create/extended_marching_cubes.h
-+++ vcglib/vcg/complex/algorithms/create/extended_marching_cubes.h
-@@ -32,7 +32,7 @@
- #include <vcg/complex/algorithms/update/topology.h>
- #include <vcg/complex/algorithms/clean.h>
- #include "emc_lookup_table.h"
--#include <eigenlib/Eigen/SVD>
-+#include <Eigen/SVD>
- 
- namespace vcg
- {
 Index: vcglib/vcg/complex/algorithms/inertia.h
 ===================================================================
 --- vcglib.orig/vcg/complex/algorithms/inertia.h
@@ -184,3 +171,29 @@ Index: vcglib/vcg/math/quadric.h
  
  namespace vcg {
  namespace math {
+Index: vcglib/vcg/complex/algorithms/harmonic.h
+===================================================================
+--- vcglib.orig/vcg/complex/algorithms/harmonic.h
++++ vcglib/vcg/complex/algorithms/harmonic.h
+@@ -24,7 +24,7 @@
+ #define __VCGLIB_HARMONIC_FIELD
+ 
+ #include <vcg/complex/complex.h>
+-#include <eigenlib/Eigen/Sparse>
++#include Eigen/Sparse>
+ 
+ namespace vcg {
+ namespace tri {
+Index: vcglib/vcg/complex/algorithms/implicit_smooth.h
+===================================================================
+--- vcglib.orig/vcg/complex/algorithms/implicit_smooth.h
++++ vcglib/vcg/complex/algorithms/implicit_smooth.h
+@@ -23,7 +23,7 @@
+ #ifndef __VCG_IMPLICIT_SMOOTHER
+ #define __VCG_IMPLICIT_SMOOTHER
+ 
+-#include <eigenlib/Eigen/Sparse>
++#include Eigen/Sparse>
+ #include <vcg/complex/algorithms/mesh_to_matrix.h>
+ #include <vcg/complex/algorithms/update/quality.h>
+ #include <vcg/complex/algorithms/smooth.h>
