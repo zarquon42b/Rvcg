@@ -187,8 +187,8 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     double fwdcnt = fwdhist.Cnt();
     NumericMatrix forward_hist(nfwd+2,2);
     for (int i = 0; i <= nfwd+1; i++) {
-      float lbi = fwdhist.BinLowerBound(i);
-      float hi = fwdhist.BinCountInd(i)/fwdcnt;
+      double lbi = fwdhist.BinLowerBound(i);
+      double hi = fwdhist.BinCountInd(i)/fwdcnt;
       forward_hist(i,0) = fwdhist.BinLowerBound(i);
       forward_hist(i,1) = fwdhist.BinCountInd(i)/fwdcnt;
     }
@@ -197,8 +197,8 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     double bckcnt = bckhist.Cnt();
     NumericMatrix backward_hist(nbck+2,2);
     for (int i = 0; i <= nbck+1; i++) {
-      float lbi = bckhist.BinLowerBound(i);
-      float hi = bckhist.BinCountInd(i)/bckcnt;
+      double lbi = bckhist.BinLowerBound(i);
+      double hi = bckhist.BinCountInd(i)/bckcnt;
       backward_hist(i,0) = bckhist.BinLowerBound(i);
       backward_hist(i,1) = bckhist.BinCountInd(i)/bckcnt;
     }
