@@ -20,3 +20,30 @@ Index: vcglib/vcg/complex/exception.h
    }
      virtual const char *what() const throw ()
      {
+@@ -58,7 +58,7 @@ class MissingTriangularRequirementExcept
+ public:
+   MissingTriangularRequirementException(const std::string &err):std::runtime_error(err)
+   {
+-    std::cout << "Mesh has to be composed by triangle and not polygons -" << err << "- \n";
++    //std::cout << "Mesh has to be composed by triangle and not polygons -" << err << "- \n";
+   }
+ 
+     virtual const char *what() const throw ()
+@@ -73,7 +73,7 @@ class MissingPolygonalRequirementExcepti
+ public:
+   MissingPolygonalRequirementException(const std::string &err):std::runtime_error(err)
+   {
+-    std::cout << "Mesh has to be composed by polygonal faces (not plain triangles) -" << err << "- \n";
++    //std::cout << "Mesh has to be composed by polygonal faces (not plain triangles) -" << err << "- \n";
+   }
+ 
+     virtual const char *what() const throw ()
+@@ -88,7 +88,7 @@ class MissingPreconditionException : pub
+ public:
+   MissingPreconditionException(const std::string &err):std::runtime_error(err)
+   {
+-    std::cout << "Mesh does not satisfy the following precondition:" << err << "- \n";
++    //std::cout << "Mesh does not satisfy the following precondition:" << err << "- \n";
+   }
+ 
+     virtual const char *what() const throw ()
