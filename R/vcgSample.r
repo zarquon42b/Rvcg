@@ -14,7 +14,7 @@
 #' @examples
 #' 
 #' data(humface)
-#' ss <- vcgSample(humface,SampleNum = 500, type="pd")
+#' ss <- vcgSample(humface,SampleNum = 500, type="km")
 #' \dontrun{
 #' require(rgl)
 #' points3d(ss)
