@@ -2,6 +2,16 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.15 (2017-01-13)}{
+  \subsection{new features}{
+    \itemize{
+      \item updated vcglib to revision 5760 and adapted patches and vcgQEdecim
+      \item added meshInfo, nfaces and nverts to obtain mesh information
+    }
+  }
+}
+  
+
 \section{Changes in Rvcg version 0.14 (2016-07-06)}{
   \subsection{new features}{
     \itemize{

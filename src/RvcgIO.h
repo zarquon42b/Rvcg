@@ -3,14 +3,10 @@
 #include <RcppArmadillo.h>
 #include <checkListNames.h>
 #include <vcg/complex/complex.h>
-//#include <vcg/complex/allocate.h>
 #include <vcg/complex/append.h>
 #include <vcg/container/simple_temporary_data.h>
 #include <vcg/space/point3.h>
-// #include <Rconfig.h>
-// #ifdef SUPPORT_OPENMP
-// #include <omp.h>
-// #endif
+
 using Rcpp::List;
 
 namespace Rvcg
