@@ -1,12 +1,7 @@
 #include "typedef.h"
 #include "RvcgIO.h" 
 #include <RcppArmadillo.h>
-// #include <Rconfig.h>
-// #ifdef SUPPORT_OPENMP
-// #include <omp.h>
-// #endif
 using namespace Rcpp;
-//#include <wrap/ply/plylib.cpp>
  
 RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SEXP tol_, SEXP maxtol_, SEXP mindist_)
 {
@@ -26,10 +21,6 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
     NumericVector hitbool(dref);
     // section read from input
     bool mindist = as<bool>(mindist_);
-    
-// #ifdef SUPPORT_OPENMP
-//     omp_set_num_threads(threads);
-// #endif
     int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     if (check != 0) {
       ::Rf_error("mesh has no faces or no vertices, nothing done");
