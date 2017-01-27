@@ -11,15 +11,5 @@ Index: vcglib/vcg/math/base.h
 +using namespace std;
 +
  #include <assert.h>
+ #include <cmath>
  #include <limits>
- #include <algorithm>
-@@ -196,7 +198,8 @@ template<class T> int IsNAN(T t) {    re
- #elif defined(__MINGW32__) // GCC
- template<class T> int IsNAN(T t) {    return std::isnan(t) || std::isinf(t); }
- #elif defined(__GNUC__) // GCC
--template<class T> int IsNAN(T t) {    return isnan(t) || isinf(t); }
-+  template<class T> int IsNAN(T t) {    return std::isnan(t) || std::isinf(t); }
-+
- #else // generic
- 
- template<class T> int IsNAN(T t)
