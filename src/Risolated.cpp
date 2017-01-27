@@ -95,7 +95,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
 	  TopoMyMesh destMesh;
 	  tri::UpdateSelection<TopoMyMesh>::Clear(m);
 	  CCV[i].second->SetS();
-	  tri::UpdateSelection<TopoMyMesh>::FaceConnectedFF(m,true);
+	  tri::UpdateSelection<TopoMyMesh>::FaceConnectedFF(m);
 	  //tri::UpdateSelection<TopoMyMesh>::Clear(m);
 	  tri::UpdateSelection<TopoMyMesh>::VertexFromFaceLoose(m,true);
 	  
