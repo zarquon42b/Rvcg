@@ -14,9 +14,9 @@ Description: Operations on triangular meshes based on 'VCGLIB'. This package
     and displaying with OpenGL of triangle and tetrahedral meshes. The library,
     composed by more than 100k lines of code, is released under the GPL license,
     and it is the base of most of the software tools of the Visual Computing Lab of
-    the Italian National Research Council Institute ISTI (http://vcg.isti.cnr.it),
-    like 'metro' and 'MeshLab'. The 'VCGLIB' source is pulled from trunk (svn://
-    svn.code.sf.net/p/vcg/code/trunk/vcglib) and patched to work with options
+    the Italian National Research Council Institute ISTI <http://vcg.isti.cnr.it>,
+    like 'metro' and 'MeshLab'. The 'VCGLIB' source is pulled from trunk
+    <svn://svn.code.sf.net/p/vcg/code/trunk/vcglib> and patched to work with options
     determined by the configure script as well as to work with the header files
     included by 'RcppEigen'.
 Depends:
