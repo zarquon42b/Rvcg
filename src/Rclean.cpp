@@ -41,7 +41,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
     int cnt = select[i];
     if (cnt == 0) { 
       int dupvb = tri::Clean<TopoMyMesh>::RemoveDuplicateVertex(m);
-      int dupit = tri::Clean<TopoMyMesh>::RemoveDuplicateFace(m);int unref = tri::Clean<TopoMyMesh>::RemoveUnreferencedVertex(m);
+      int dupit = tri::Clean<TopoMyMesh>::RemoveDuplicateFace(m);
       if (!silent)
 	Rprintf("removed %d duplicate faces and %d duplicate vertices\n",dupit,dupvb);
     } else if (cnt == 1) { 
