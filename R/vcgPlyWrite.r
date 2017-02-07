@@ -3,7 +3,7 @@
 #' Export meshes to PLY-files (binary or ascii)
 #'
 #' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
-#' @param filename character: filename (file extension '.ply' will be added automatically.
+#' @param filename character: filename (file extension '.ply' will be added automatically, if missing.
 #' @param binary logical: write binary file
 #' @param addNormals logical: compute per-vertex normals and add to file
 #' @param writeCol logical: export existing per-vertex color stored in mesh$material$color
@@ -27,7 +27,8 @@ vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormal
         stop("mesh has no vertices to write")
     dataname <- deparse(substitute(mesh))
     filename <- path.expand(as.character(filename))
-    filename <- paste(filename,".ply",sep="")
+    if (!grepl("*.ply$",filename))
+        filename <- paste(filename,".ply",sep="")
     if (!is.null(mesh$material$color) && writeCol==TRUE) {
         ## setup color export
         hasCol <- TRUE
@@ -78,7 +79,8 @@ vcgStlWrite <- function(mesh, filename=dataname, binary = FALSE) {
         stop("mesh must be of class mesh3d")
     dataname <- deparse(substitute(mesh))
     filename <- path.expand(as.character(filename))
-    filename <- paste(filename,".stl",sep="")
+    if (!grepl("*.stl$",filename))
+        filename <- paste(filename,".stl",sep="")
     vb <- mesh$vb[1:3,,drop=FALSE]
     if (!is.matrix(vb))
         stop("mesh has no vertices to write")
