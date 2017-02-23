@@ -3,7 +3,7 @@
 #include <RcppArmadillo.h>
 using namespace Rcpp;
  
-RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SEXP tol_, SEXP maxtol_, SEXP mindist_)
+RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SEXP tol_, SEXP maxtol_, SEXP mindist_,SEXP threads_ = wrap(1))
 {
   try {
     typedef vcg::GridStaticPtr<MyMesh::FaceType, MyMesh::ScalarType> TriMeshGrid;
@@ -21,6 +21,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
     NumericVector hitbool(dref);
     // section read from input
     bool mindist = as<bool>(mindist_);
+    int threads = as<int>(threads_);
     int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     if (check != 0) {
       ::Rf_error("mesh has no faces or no vertices, nothing done");
@@ -66,7 +67,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
       TriMeshGrid static_grid;    
       static_grid.Set(m.face.begin(), m.face.end());
       // run search 
-      //#pragma omp parallel for firstprivate(minDist,maxDist,static_grid,PDistFunct,FintFunct) private(mf) schedule(static)
+#pragma omp parallel for firstprivate(minDist,maxDist,static_grid,mf) schedule(static) num_threads(threads)
 
       for (unsigned int i=0; i < refmesh.vn; i++) {
     	float t, t1;
@@ -135,7 +136,6 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
     }
   } catch (std::exception& e) {
     ::Rf_error( e.what());
-    return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");
   }

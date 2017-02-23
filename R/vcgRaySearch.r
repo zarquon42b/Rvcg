@@ -6,6 +6,7 @@
 #' @param mintol minimum distance to target mesh
 #' @param maxtol maximum distance to search along ray
 #' @param mindist search both ways (ray and -ray) and select closest point.
+#' @param threads number of threads used during search.
 #' @details \code{vcgRaySearch} projects a mesh (or set of 3D-coordinates) along a set of given rays (stored as normals) onto a target and return the hit points as well as information if the target mesh was hit at all. If nothing is hit along the ray(within the given thresholds), the ordinary closest point's value will be returned and the corresponding entry in \code{quality} will be zero.
 #' @return list with following items:
 #' \item{vb }{4 x n matrix containing intersection points}
@@ -29,7 +30,7 @@
 #' }
 #'
 #' @export vcgRaySearch
-vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
+vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE,threads=1)
 {
   if (!inherits(mesh,"mesh3d") || !inherits(x,"mesh3d"))
             stop("arguments 'x' and 'mesh' needs to be object of class 'mesh3d'")
@@ -48,7 +49,7 @@ vcgRaySearch <- function(x, mesh, mintol=0, maxtol=1e15, mindist=FALSE)
   maxtol <- as.numeric(maxtol)
   mintol <- as.numeric(mintol)
   mindist <- as.logical(mindist)
-  tmp <- .Call("Rintersect",vb,it,clost,normals,mintol, maxtol, mindist)
+  tmp <- .Call("Rintersect",vb,it,clost,normals,mintol, maxtol, mindist,threads)
   x$vb <- rbind(tmp$vb,1)
   x$normals <- rbind(tmp$normals,1)
   x$quality <- tmp$hitbool
