@@ -21,7 +21,7 @@
 #' @keywords package
 #' @import grDevices stats utils
 #' @importFrom Rcpp evalCpp 
-#' @useDynLib Rvcg
+#' @useDynLib Rvcg, .registration=TRUE
 NULL
 
 #' Example mesh and landmarks
