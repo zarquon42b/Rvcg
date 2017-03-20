@@ -16,7 +16,7 @@ Description: Operations on triangular meshes based on 'VCGLIB'. This package
     and it is the base of most of the software tools of the Visual Computing Lab of
     the Italian National Research Council Institute ISTI <http://vcg.isti.cnr.it>,
     like 'metro' and 'MeshLab'. The 'VCGLIB' source is pulled from trunk
-    <svn://svn.code.sf.net/p/vcg/code/trunk/vcglib> and patched to work with options
+    <https://github.com/cnr-isti-vclab/vcglib> and patched to work with options
     determined by the configure script as well as to work with the header files
     included by 'RcppEigen'.
 Depends:
@@ -36,4 +36,4 @@ Copyright: see files COPYRIGHTS for detailed information
 LazyLoad: yes
 Biarch: yes
 URL: http://github.com/zarquon42b/Rvcg, http://vcg.sf.net/
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
