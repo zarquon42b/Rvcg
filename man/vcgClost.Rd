@@ -53,9 +53,6 @@ surface, calculation can become very slow. In that case, the function
 data(humface)
 clost <- vcgClost(humface.lm, humface)
 }
-\author{
-Stefan Schlager
-}
 \references{
 Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed
 Distance Fields From Triangle Meshes. Informatics and Mathematical
@@ -64,6 +61,8 @@ Modelling.
 \seealso{
 \code{\link{vcgPlyRead}}
 }
+\author{
+Stefan Schlager
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

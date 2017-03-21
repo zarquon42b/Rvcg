@@ -4,7 +4,8 @@
 \alias{vcgRaySearch}
 \title{check if a mesh is intersected by a set of rays}
 \usage{
-vcgRaySearch(x, mesh, mintol = 0, maxtol = 1e+15, mindist = FALSE)
+vcgRaySearch(x, mesh, mintol = 0, maxtol = 1e+15, mindist = FALSE,
+  threads = 1)
 }
 \arguments{
 \item{x}{a triangular mesh of class 'mesh3d' or a list containing vertices and vertex normals (fitting the naming conventions of 'mesh3d'). In the second case x must contain x$vb = 3 x n matrix containing 3D-coordinates and x$normals = 3 x n matrix containing normals associated with x$vb.}
@@ -16,6 +17,8 @@ vcgRaySearch(x, mesh, mintol = 0, maxtol = 1e+15, mindist = FALSE)
 \item{maxtol}{maximum distance to search along ray}
 
 \item{mindist}{search both ways (ray and -ray) and select closest point.}
+
+\item{threads}{number of threads used during search.}
 }
 \value{
 list with following items:
@@ -47,4 +50,3 @@ wire3d(humface,col="white")#'
 }
 
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/Rvcg-package.R
 \docType{package}
 \name{Rvcg-package}
-\alias{Rvcg}
 \alias{Rvcg-package}
+\alias{Rvcg}
 \title{Interface between R and vcglib libraries for mesh operations}
 \description{
 Provides meshing functionality from vcglib (meshlab) for R. E.g. mesh
@@ -18,13 +18,12 @@ Date: \tab 2017-01-13\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr }
 }
+\references{
+To be announced
+}
 \author{
 Stefan Schlager
 
 Maintainer: Stefan Schlager <zarquon42@gmail.com>
 }
-\references{
-To be announced
-}
 \keyword{package}
-

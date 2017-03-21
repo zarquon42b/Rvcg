@@ -47,4 +47,3 @@ wire3d(mesh)
 wire3d(vcgSmooth(mesh,"HC",iteration=3),col=3)
 }
 }
-

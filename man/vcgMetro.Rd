@@ -77,4 +77,3 @@ mD <- meshDist(humfalign$mesh,distvec=samp$distances1)
 \references{
 P. Cignoni, C. Rocchini and R. Scopigno. Metro: measuring error on simplified surfaces. Computer Graphics Forum, Blackwell Publishers, vol. 17(2), June 1998, pp 167-174
 }
-

@@ -69,12 +69,11 @@ shade3d(decimface, col=3)
 decimface <- vcgSmooth(decimface,iteration = 1)
 } 
 }
-\author{
-Stefan Schlager
-}
 \seealso{
 \code{\link{vcgSmooth}}
 }
+\author{
+Stefan Schlager
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

@@ -26,4 +26,3 @@ mytree <- vcgCreateKDtree(humface)
 \seealso{
 \code{\link{vcgSearchKDtree}}
 }
-

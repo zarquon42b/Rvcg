@@ -32,12 +32,11 @@ class "mesh3d" - momentarily only triangular meshes are supported.
 \note{
 from version 0.8 on this is only a wrapper for vcgImport (to avoid API breaking).
 }
-\author{
-Stefan Schlager
-}
 \seealso{
 \code{\link{vcgSmooth}},
 }
+\author{
+Stefan Schlager
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

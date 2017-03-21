@@ -15,4 +15,3 @@ list containing one vector per vertex containgin the indices of the adjacent fac
 \description{
 find all faces belonging to each vertex in a mesh and report their indices
 }
-

@@ -44,10 +44,9 @@ closest points; only available if barycentric=TRUE.}
 \description{
 search a KD-tree from Barycenters for multiple closest point searches on a mesh
 }
-\author{
-Stefan Schlager
-}
 \seealso{
 \code{\link{vcgCreateKDtreeFromBarycenters}, \link{vcgSearchKDtree},  \link{vcgCreateKDtree}}
 }
-
+\author{
+Stefan Schlager
+}

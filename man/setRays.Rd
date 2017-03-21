@@ -17,4 +17,3 @@ an object of class "mesh3d" (without faces) and the vertices representing the st
 \description{
 create a search structure from a matrix of coordinates and one of directional vectors to be processed by vcgRaySearch
 }
-

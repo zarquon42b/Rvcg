@@ -42,4 +42,3 @@ shade3d(humface, col=3)
 \seealso{
 \code{\link{vcgGetEdge}}
 }
-

@@ -29,4 +29,3 @@ require(Morpho)
 data(nose)
 nosereko <- vcgBallPivoting(shortnose.lm)
 }
-

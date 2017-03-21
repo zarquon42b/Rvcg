@@ -2,8 +2,8 @@
 % Please edit documentation in R/vcgPlyWrite.r
 \name{vcgPlyWrite}
 \alias{vcgPlyWrite}
-\alias{vcgPlyWrite.matrix}
 \alias{vcgPlyWrite.mesh3d}
+\alias{vcgPlyWrite.matrix}
 \title{Export meshes to PLY-files}
 \usage{
 vcgPlyWrite(mesh, filename, binary = TRUE, ...)
@@ -17,17 +17,17 @@ vcgPlyWrite(mesh, filename, binary = TRUE, ...)
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns}
 
-\item{filename}{character: filename (file extension '.ply' will be added automatically.}
+\item{filename}{character: filename (file extension '.ply' will be added automatically, if missing.}
 
 \item{binary}{logical: write binary file}
+
+\item{\dots}{additional arguments, currently not used.}
 
 \item{addNormals}{logical: compute per-vertex normals and add to file}
 
 \item{writeCol}{logical: export existing per-vertex color stored in mesh$material$color}
 
 \item{writeNormals}{write existing normals to file}
-
-\item{\dots}{additional arguments, currently not used.}
 }
 \description{
 Export meshes to PLY-files (binary or ascii)
@@ -36,4 +36,3 @@ Export meshes to PLY-files (binary or ascii)
 data(humface)
 vcgPlyWrite(humface,filename = "humface")
 }
-

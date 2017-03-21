@@ -32,4 +32,3 @@ shade3d(humface, col=3)
 ## now find the edge - hint: it is at the neck.
 }
 }
-

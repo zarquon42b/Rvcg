@@ -36,4 +36,3 @@ clust <- vcgKmeans(humface,k=1000,threads=1)
 \seealso{
 \code{\link{vcgSample}}
 }
-

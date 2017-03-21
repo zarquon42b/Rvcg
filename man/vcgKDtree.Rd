@@ -27,4 +27,3 @@ a list with
 \description{
 perform kdtree search for 3D-coordinates.
 }
-

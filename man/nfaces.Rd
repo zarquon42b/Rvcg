@@ -15,4 +15,3 @@ integer: number of triangular faces
 \description{
 get number of vertices from a mesh
 }
-

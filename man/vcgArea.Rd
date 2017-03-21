@@ -19,4 +19,3 @@ compute surface area of a triangular mesh
 data(humface)
 vcgArea(humface)
 }
-

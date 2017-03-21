@@ -28,12 +28,11 @@ wire3d(humface)
 require(rgl)
 }
 }
-\author{
-Stefan Schlager
-}
 \seealso{
 \code{\link{vcgPlyRead}}
 }
+\author{
+Stefan Schlager
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

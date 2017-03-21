@@ -27,4 +27,3 @@ closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50,threads=
 \seealso{
 \code{\link{vcgClostOnKDtreeFromBarycenters}, \link{vcgSearchKDtree},  \link{vcgCreateKDtree}}
 }
-

@@ -58,9 +58,6 @@ that point are calculated.
 \note{
 Other than \code{vcgClost} this does not search a grid, but first uses a KD-tree search to find the \code{k} closest barycenters for each point and then searches these faces for the closest match.
 }
-\author{
-Stefan Schlager
-}
 \references{
 Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed
 Distance Fields From Triangle Meshes. Informatics and Mathematical
@@ -69,4 +66,6 @@ Modelling.
 \seealso{
 \code{\link{vcgPlyRead}}
 }
-
+\author{
+Stefan Schlager
+}

@@ -12,4 +12,3 @@
 A triangular mesh representing a human face - called by data(humface)
 }
 \keyword{datasets}
-

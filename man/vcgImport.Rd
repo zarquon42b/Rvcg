@@ -44,12 +44,11 @@ data(humface)
 vcgPlyWrite(humface)
 readit <- vcgImport("humface.ply")
 }
-\author{
-Stefan Schlager
-}
 \seealso{
 \code{\link{vcgSmooth}}
 }
+\author{
+Stefan Schlager
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

@@ -32,4 +32,3 @@ closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10,threads=1)
 \seealso{
 \code{\link{vcgCreateKDtree}}
 }
-

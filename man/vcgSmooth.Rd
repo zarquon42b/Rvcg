@@ -56,9 +56,6 @@ shade3d(smoothface, col=3)
 }
 
 }
-\author{
-Stefan Schlager
-}
 \references{
 Taubin G. 1995. Curve and surface smoothing without shrinkage.
 In Computer Vision, 1995. Proceedings., Fifth International Conference on,
@@ -73,6 +70,8 @@ using diffusion and curvature flow: 317-324.
 \seealso{
 \code{\link{vcgPlyRead},\link{vcgClean}}
 }
+\author{
+Stefan Schlager
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

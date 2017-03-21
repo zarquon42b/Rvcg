@@ -20,4 +20,3 @@ Export meshes to STL-files (binary or ascii)
 data(humface)
 vcgStlWrite(humface,filename = "humface")
 }
-

@@ -15,4 +15,3 @@ integer: number of vertices
 \description{
 get number of vertices from a mesh
 }
-

@@ -27,4 +27,3 @@ checkFaceOrientation(dummyhead.mesh)
 dummyinward <- Morpho::invertFaces(dummyhead.mesh)
 checkFaceOrientation(dummyinward)
 }
-

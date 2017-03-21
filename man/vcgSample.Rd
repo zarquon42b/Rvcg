@@ -42,4 +42,3 @@ require(rgl)
 points3d(ss)
 }
 }
-

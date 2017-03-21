@@ -12,4 +12,3 @@ meshInfo(x)
 \description{
 print number of vertices and triangular faces of a mesh
 }
-

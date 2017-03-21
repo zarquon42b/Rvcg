@@ -24,4 +24,3 @@ points3d(bary,col=2)
 wire3d(humface)
 }
 }
-

@@ -39,12 +39,11 @@ cleanface <- vcgIsolated(humface)
 
 
 }
-\author{
-Stefan Schlager
-}
 \seealso{
 \code{\link{vcgPlyRead}}
 }
+\author{
+Stefan Schlager
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

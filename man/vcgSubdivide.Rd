@@ -39,4 +39,3 @@ data(humface)
 subdivide <- vcgSubdivide(humface,type="Loop",looptype="regularity")
 
 }
-

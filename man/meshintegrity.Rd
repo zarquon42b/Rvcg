@@ -19,4 +19,3 @@ if mesh data are valid, the mesh is returned, otherwise it stops with an error m
 \description{
 checks for existance and validity of vertices, faces and vertex normals of an object of class "mesh3d"
 }
-

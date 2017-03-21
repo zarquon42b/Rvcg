@@ -50,4 +50,3 @@ cleanface$vb <- cbind(cleanface$vb,cleanface$vb[,1:100])
 cleanface$vb <- cbind(cleanface$vb,rbind(matrix(rnorm(18),3,6),1))
 cleanface <- vcgClean(cleanface, sel=1)
 }
-

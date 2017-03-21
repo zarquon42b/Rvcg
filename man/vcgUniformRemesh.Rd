@@ -39,4 +39,3 @@ require(rgl)
 shade3d(humresample,col=3)
 }
 }
-
