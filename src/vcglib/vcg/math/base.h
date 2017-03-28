@@ -87,9 +87,7 @@ Edited Comments and GPL license
 #define __VCGLIB_MATH_BASE
 
 #include <float.h>
-#include <cmath>
-using namespace std;
-
+#include <math.h>
 #include <assert.h>
 #include <cmath>
 #include <limits>

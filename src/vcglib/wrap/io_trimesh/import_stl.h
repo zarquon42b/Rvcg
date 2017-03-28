@@ -101,8 +101,7 @@ static bool IsSTLColored(const char * filename, bool &magicsMode)
     return false;
    FILE *fp = fopen(filename, "rb");
    char buf[STL_LABEL_SIZE+1];
-   size_t res0; 
-   res0 = fread(buf,sizeof(char),STL_LABEL_SIZE,fp);
+   fread(buf,sizeof(char),STL_LABEL_SIZE,fp);
    std::string strInput(buf);
    size_t cInd = strInput.rfind("COLOR=");
    size_t mInd = strInput.rfind("MATERIAL=");
@@ -111,17 +110,16 @@ static bool IsSTLColored(const char * filename, bool &magicsMode)
    else
      magicsMode = false;
    int facenum;
-   
-   res0 = fread(&facenum, sizeof(int), 1, fp);
+   fread(&facenum, sizeof(int), 1, fp);
 
    for(int i=0;i<std::min(facenum,1000);++i)
    {
      unsigned short attr;
      Point3f norm;
      Point3f tri[3];
-     res0 = fread(&norm,sizeof(Point3f),1,fp);
-     res0 = fread(&tri,sizeof(Point3f),3,fp);
-     res0 = fread(&attr,sizeof(unsigned short),1,fp);
+     fread(&norm,sizeof(Point3f),1,fp);
+     fread(&tri,sizeof(Point3f),3,fp);
+     fread(&attr,sizeof(unsigned short),1,fp);
      if(attr!=0)
      {
       if(Color4b::FromUnsignedR5G5B5(attr) != Color4b(Color4b::White))
@@ -140,14 +138,13 @@ static bool IsSTLBinary(const char * filename)
   fseek(fp, 0, SEEK_END);
   int file_size = ftell(fp);
   int facenum;
-  size_t res0;
   /* Check for binary or ASCII file */
   fseek(fp, STL_LABEL_SIZE, SEEK_SET);
-  res0 = fread(&facenum, sizeof(int), 1, fp);
+  fread(&facenum, sizeof(int), 1, fp);
   int expected_file_size=STL_LABEL_SIZE + 4 + (sizeof(short)+sizeof(STLFacet) )*facenum ;
   if(file_size ==  expected_file_size) binary = true;
   unsigned char tmpbuf[128];
-  res0 = fread(tmpbuf,sizeof(tmpbuf),1,fp);
+  fread(tmpbuf,sizeof(tmpbuf),1,fp);
   for(unsigned int i = 0; i < sizeof(tmpbuf); i++)
     {
       if(tmpbuf[i] > 127)
@@ -185,10 +182,10 @@ static int OpenBinary( OpenMeshType &m, const char * filename, int &loadMask, Ca
   bool magicsMode;
   if(!IsSTLColored(filename,magicsMode))
     loadMask = loadMask & (~Mask::IOM_FACECOLOR);
-  size_t res0;
+
   int facenum;
   fseek(fp, STL_LABEL_SIZE, SEEK_SET);
-  res0 = fread(&facenum, sizeof(int), 1, fp);
+  fread(&facenum, sizeof(int), 1, fp);
 
   m.Clear();
   FaceIterator fi=Allocator<OpenMeshType>::AddFaces(m,facenum);
@@ -199,9 +196,9 @@ static int OpenBinary( OpenMeshType &m, const char * filename, int &loadMask, Ca
       unsigned short attr;
       Point3f norm;
       Point3f tri[3];
-      res0 = fread(&norm,sizeof(Point3f),1,fp);
-      res0 = fread(&tri,sizeof(Point3f),3,fp);
-      res0 = fread(&attr,sizeof(unsigned short),1,fp);
+      fread(&norm,sizeof(Point3f),1,fp);
+      fread(&tri,sizeof(Point3f),3,fp);
+      fread(&attr,sizeof(unsigned short),1,fp);
       if(tri::HasPerFaceColor(m) && (loadMask & Mask::IOM_FACECOLOR) )
       {
         if(magicsMode) (*fi).C()= Color4b::FromUnsignedR5G5B5(attr);

@@ -1,8 +1,5 @@
 00_eigen.patch
 02_kdtree_anonstruct.patch
-03_longlong.patch
-06_stl_unused_var.patch
 07_cout.patch
 11_intersect_dangling_field.patch
 12_include_time.h_point_sampling.h.patch
-15_stdisnan.patch
