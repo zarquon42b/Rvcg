@@ -53,8 +53,11 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
         class(out) <- "mesh3d"
         return(out)
     }
-        
-    
+    type0 <- c("obj","stl","ply","OBJ","STL","PLY")
+    if (ext %in% type0)
+        type <- 0
+    if (ext %in% c("OFF","off"))
+        type <- 1
     ## get file and folder names and cd to target directory
     wdold <- getwd()
     folder <- dirname(file)
@@ -66,7 +69,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
     clean <- as.logical(clean)
 
 
-    tmp <- try(.Call("RallRead", file, updateNormals, readcolor, clean, silent))
+    tmp <- try(.Call("RallRead", file, updateNormals, readcolor, clean, silent,type))
     
     ## go back to current wd
     setwd(wdold)

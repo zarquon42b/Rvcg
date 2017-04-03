@@ -1,5 +1,6 @@
 #include "typedefImport.h"
 #include <wrap/io_trimesh/import.h>
+#include <wrap/io_trimesh/import_off.h>
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/container/simple_temporary_data.h>
@@ -28,7 +29,7 @@ bool CompareVertex(const MyMeshImport & m, const MyMeshImport::VertexType & vA, 
 }
 ///////
 
-RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, SEXP clean_,SEXP silent_) 
+RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, SEXP clean_,SEXP silent_, SEXP type_) 
 {
   try {
     std::string str = Rcpp::as<std::string>(filename_);
@@ -37,6 +38,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     bool colorread = as<bool>(colorread_);
     bool clean = as<bool>(clean_);
     bool silent = as<bool>(silent_);
+    int type = as<int>(type_);
     MyMeshImport m; 
     bool hasNormal = false, WedgeTex=false, VertTex = false, hasQuality=false,hasFaceQuality=false;
     int mask0 = 0; //initializie import mask
@@ -66,7 +68,11 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       hasFaceQuality = true;
     }
     tri::io::Mask::ClampMask(m, mask0);
-    int err2 = tri::io::Importer<MyMeshImport>::Open(m,filename,mask0);
+    int err2 = 0;
+    if (type == 0)
+      err2 = tri::io::Importer<MyMeshImport>::Open(m,filename,mask0);
+    else if (type == 1)
+      err2 = tri::io::ImporterOFF<MyMeshImport>::Open(m,filename,mask0);
     if (err2) {
       return wrap(1);
     } else { 
