@@ -36,7 +36,7 @@ extern SEXP RmeshXPtr(SEXP);
 extern SEXP Rmetro(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP ROctahedron(SEXP);
 extern SEXP ROneRing(SEXP, SEXP, SEXP);
-extern SEXP RPlyWrite(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP RPlyWrite(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RQEdecim(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rsample(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RsearchKDtree(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -83,7 +83,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rmetro",                        (DL_FUNC) &Rmetro,                        14},
     {"ROctahedron",                   (DL_FUNC) &ROctahedron,                    1},
     {"ROneRing",                      (DL_FUNC) &ROneRing,                       3},
-    {"RPlyWrite",                     (DL_FUNC) &RPlyWrite,                      7},
+    {"RPlyWrite",                     (DL_FUNC) &RPlyWrite,                      8},
     {"RQEdecim",                      (DL_FUNC) &RQEdecim,                       5},
     {"Rsample",                       (DL_FUNC) &Rsample,                        5},
     {"RsearchKDtree",                 (DL_FUNC) &RsearchKDtree,                  5},

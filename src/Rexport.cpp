@@ -108,7 +108,7 @@
    }
 */
 using namespace Rcpp;
-RcppExport SEXP RPlyWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_, SEXP writeNormals_)
+RcppExport SEXP RPlyWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_, SEXP writeNormals_, SEXP type_)
 { 
   try {
     MyMeshImport m;
@@ -118,6 +118,7 @@ RcppExport SEXP RPlyWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP filen
     bool addNormals = Rcpp::as<bool>(addNormals_);
     bool hasCol =  Rcpp::as<bool>(hasCol_);
     bool writeNormals =  Rcpp::as<bool>(writeNormals_);
+    int type = as<int>(type_);
     std::string str = Rcpp::as<std::string>(filename_);
     bool hasFaces = true;
     const char *filename = str.c_str();
@@ -176,8 +177,10 @@ RcppExport SEXP RPlyWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP filen
     
     
     }
-  
-    tri::io::ExporterPLY<MyMeshImport>::Save(m, filename, mask0, binary);
+    if (type == 0)
+      tri::io::ExporterPLY<MyMeshImport>::Save(m, filename, mask0, binary);
+    if (type == 1)
+      tri::io::ExporterOFF<MyMeshImport>::Save(m, filename, mask0);
     return Rcpp::wrap(0);
   } catch (std::exception& e) {
     ::Rf_error( e.what());
@@ -208,3 +211,4 @@ try {
     ::Rf_error("unknown exception");
  }
 }
+
