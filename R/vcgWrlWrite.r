@@ -1,44 +1,3 @@
-#' Export meshes to WRL-files
-#'
-#' Export meshes to WRL-files (ascii)
-#'
-#' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
-#' @param filename character: filename (file extension '.wrl' will be added automatically.
-#' @param writeCol logical: export existing per-vertex color stored in mesh$material$color
-#' @rdname vcgWrlWrite
-#' @export 
-
-vcgWrlWrite <- function(mesh, filename=dataname, writeCol=TRUE)
-{
-    hasCol <- FALSE
-    colvec <- matrix(0)
-    vb <- mesh$vb[1:3,,drop=FALSE]
-    if (!is.matrix(vb))
-        stop("mesh has no vertices to write")
-    dataname <- deparse(substitute(mesh))
-    filename <- path.expand(as.character(filename))
-    filename <- paste(filename,".wrl",sep="")
-    if (!is.null(mesh$material$color) && writeCol==TRUE) {
-        ## setup color export
-        hasCol <- TRUE
-        vn <- ncol(vb)
-        col = rep("#FFFFFF", vn)
-        if (!is.null(mesh$it))
-            tmp1 <- data.frame(it = as.vector(mesh$it))
-        else
-            tmp1 <- data.frame(it=1:vn)
-        tmp1$rgb <- as.vector(mesh$material$color)
-        tmp1 <- unique(tmp1)
-        col[tmp1$it] <- tmp1$rgb
-        colvec <- matrix(col2rgb(col), 3, vn, byrow = F)
-        storage.mode(colvec) <- "integer"
-    }
-
-    mesh$it <- mesh$it-1L
-    #mesh$normals <- mesh$normals*1
-    tmp <- .Call("RWrlWrite", mesh , filename, colvec, hasCol)
-}
-
 #' Export meshes to PLY-files
 #'
 #' Export meshes to PLY-files (binary or ascii)
@@ -107,7 +66,7 @@ vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, addNormals
 #' Export meshes to STL-files (binary or ascii)
 #'
 #' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
-#' @param filename character: filename (file extension '.stl' will be added automatically.
+#' @param filename character: filename (file extension '.ply' will be added automatically.
 #' @param binary logical: write binary file
 #' @examples
 #' data(humface)
