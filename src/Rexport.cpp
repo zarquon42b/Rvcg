@@ -108,6 +108,53 @@
    }
 */
 using namespace Rcpp;
+RcppExport SEXP RWrlWrite(SEXP mesh_, SEXP filename_, SEXP colvec_, SEXP hasCol_)
+{ 
+  try {
+    MyMeshImport m;
+    //set up parameters 
+    List mesh(mesh_);
+    bool hasCol =  Rcpp::as<bool>(hasCol_);
+    std::string str = Rcpp::as<std::string>(filename_);
+
+    const char *filename = str.c_str();
+
+    //allocate mesh and fill it
+    Rcpp::IntegerMatrix colvec(colvec_);
+  
+    Rvcg::IOMesh<MyMeshImport>::RvcgReadR(m,mesh["vb"],mesh["it"]);
+    int mask0 = 0;
+
+    
+    if (hasCol) {
+      m.vert.EnableColor();
+      mask0 = mask0 + tri::io::Mask::IOM_VERTCOLOR;
+      if (m.vn > 0) {
+  int i;
+  VertexIterator vi=m.vert.begin();
+  for (i=0;  i < m.vn; i++) {
+    (*vi).C()[0] = colvec(0, i);
+    (*vi).C()[1] = colvec(1, i);
+    (*vi).C()[2] = colvec(2, i);
+    ++vi;
+  }
+     
+      }
+    
+    
+    }
+  
+    tri::io::ExporterWRL<MyMeshImport>::Save(m, filename, mask0, 0);
+    return Rcpp::wrap(0);
+  } catch (std::exception& e) {
+    ::Rf_error( e.what());
+    return Rcpp::wrap(1);
+  } catch (...) {
+    ::Rf_error("unknown exception");
+  }
+}
+
+using namespace Rcpp;
 RcppExport SEXP RPlyWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP filename_, SEXP colvec_, SEXP hasCol_, SEXP writeNormals_)
 { 
   try {

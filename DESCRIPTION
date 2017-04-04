@@ -36,4 +36,4 @@ Copyright: see files COPYRIGHTS for detailed information
 LazyLoad: yes
 Biarch: yes
 URL: http://github.com/zarquon42b/Rvcg, http://vcg.sf.net/
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
