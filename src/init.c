@@ -36,7 +36,7 @@ extern SEXP RmeshXPtr(SEXP);
 extern SEXP Rmetro(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP ROctahedron(SEXP);
 extern SEXP ROneRing(SEXP, SEXP, SEXP);
-extern SEXP RPlyWrite(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP RMeshWrite(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RQEdecim(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rsample(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RsearchKDtree(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -45,7 +45,7 @@ extern SEXP Rsmooth(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RSphere(SEXP, SEXP);
 extern SEXP RSphericalCap(SEXP, SEXP, SEXP);
 extern SEXP RSquare(SEXP);
-extern SEXP RSTLWrite(SEXP, SEXP, SEXP, SEXP);
+// extern SEXP RSTLWrite(SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rsubdivision(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RTetrahedron(SEXP);
 extern SEXP RuniformResampling(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -83,7 +83,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rmetro",                        (DL_FUNC) &Rmetro,                        14},
     {"ROctahedron",                   (DL_FUNC) &ROctahedron,                    1},
     {"ROneRing",                      (DL_FUNC) &ROneRing,                       3},
-    {"RPlyWrite",                     (DL_FUNC) &RPlyWrite,                      8},
+    {"RMeshWrite",                    (DL_FUNC) &RMeshWrite,                     8},
     {"RQEdecim",                      (DL_FUNC) &RQEdecim,                       5},
     {"Rsample",                       (DL_FUNC) &Rsample,                        5},
     {"RsearchKDtree",                 (DL_FUNC) &RsearchKDtree,                  5},
@@ -92,7 +92,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"RSphere",                       (DL_FUNC) &RSphere,                        2},
     {"RSphericalCap",                 (DL_FUNC) &RSphericalCap,                  3},
     {"RSquare",                       (DL_FUNC) &RSquare,                        1},
-    {"RSTLWrite",                     (DL_FUNC) &RSTLWrite,                      4},
+    //    {"RSTLWrite",                     (DL_FUNC) &RSTLWrite,                      4},
     {"Rsubdivision",                  (DL_FUNC) &Rsubdivision,                   6},
     {"RTetrahedron",                  (DL_FUNC) &RTetrahedron,                   1},
     {"RuniformResampling",            (DL_FUNC) &RuniformResampling,             9},

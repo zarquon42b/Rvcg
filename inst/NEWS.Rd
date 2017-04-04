@@ -2,6 +2,19 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.16 (2017-04-04)}{
+  \subsection{new features}{
+    \itemize{
+      \item updated vcglib to version 1.0.1
+      \item added meshInfo, nfaces and nverts to obtain mesh information
+      \item vcgStlWrite and vcgPlyWrite: avoid doubled file extension if
+      filename already contains extension
+      \item NEW: vcgObjWrite and vcgOffWrite
+      \item vcgImport: now supports OFF file format
+    }
+  }
+}
+
 \section{Changes in Rvcg version 0.15 (2017-01-13)}{
   \subsection{new features}{
     \itemize{
