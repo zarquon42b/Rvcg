@@ -9,8 +9,9 @@ vcgObjWrite(mesh, filename = dataname, writeNormals = TRUE)
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns}
 
-\item{filename}{character: filename (file extension '.off' will be added automatically.
-#' @param writeNormals write existing normals to file}
+\item{filename}{character: filename (file extension '.off' will be added automatically.}
+
+\item{writeNormals}{write existing normals to file}
 }
 \description{
 Export meshes to OBJ-files

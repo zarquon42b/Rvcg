@@ -130,7 +130,7 @@ vcgOffWrite <- function(mesh, filename=dataname) {
 #'
 #' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
 #' @param filename character: filename (file extension '.off' will be added automatically.
-#' #' @param writeNormals write existing normals to file
+#' @param writeNormals write existing normals to file
 #' @examples
 #' data(humface)
 #' vcgObjWrite(humface,filename = "humface")
