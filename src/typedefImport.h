@@ -33,6 +33,8 @@
 #include <wrap/io_trimesh/import.h>
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
+#include <wrap/io_trimesh/export_vrml.h>
+
 #include <vcg/complex/algorithms/update/color.h>
 //#include <vcg/complex/algorithms/update/curvature.h>
 

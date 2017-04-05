@@ -84,7 +84,9 @@ RcppExport SEXP RMeshWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP file
       tri::io::ExporterOBJ<MyMeshImport>::Save(m, filename, mask0);
     if (type == 3)
       tri::io::ExporterSTL<MyMeshImport>::Save(m, filename, binary,mask0);
-
+    if (type == 4)
+      tri::io::ExporterWRL<MyMeshImport>::Save(m, filename, mask0,0);
+    
     return Rcpp::wrap(0);
   } catch (std::exception& e) {
     ::Rf_error( e.what());
@@ -115,4 +117,5 @@ RcppExport SEXP RMeshWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP file
 //     ::Rf_error("unknown exception");
 //  }
 // }
+
 
