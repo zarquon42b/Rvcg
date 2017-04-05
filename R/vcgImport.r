@@ -44,7 +44,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
 
     ## read xyz files
     hack <- unlist(strsplit(file,split="[.]"))
-    ext <- hack[length(hack)]
+    ext <- tolower(hack[length(hack)])
     if (ext == "xyz") {
         out <- list()
         xyz <- as.matrix(read.table(file))
@@ -53,10 +53,10 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
         class(out) <- "mesh3d"
         return(out)
     }
-    type0 <- c("obj","stl","ply","OBJ","STL","PLY")
+    type0 <- c("obj","stl","ply")
     if (ext %in% type0)
         type <- 0
-    if (ext %in% c("OFF","off"))
+    if (ext %in% c("off"))
         type <- 1
     ## get file and folder names and cd to target directory
     wdold <- getwd()
@@ -124,12 +124,12 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
 convertTexture <- function(texfile,folder="./") {
       
     hack <- unlist(strsplit(texfile,split="[.]"))
-    ext <- hack[length(hack)]
+    ext <- tolower(hack[length(hack)])
     base <- paste(hack[-length(hack)],collapse = ".")
     if (!file.exists(texfile))
         return(list(exist=FALSE,texfile=paste0(base,".png")))
     exist <- TRUE
-    if (! ext %in% c("png","PNG")) {
+    if (! ext == "png") {
         exist <- FALSE
     } else {
         chk <- try(file.copy(texfile,folder))
