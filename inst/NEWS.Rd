@@ -9,7 +9,8 @@
       \item added meshInfo, nfaces and nverts to obtain mesh information
       \item vcgStlWrite and vcgPlyWrite: avoid doubled file extension if
       filename already contains extension
-      \item NEW: vcgObjWrite and vcgOffWrite
+      \item NEW: vcgObjWrite, vcgOffWrite and vcgWrlWrite, allowing
+      export of meshes into OBJ, OFF and WRL format
       \item vcgImport: now supports OFF file format
     }
   }
