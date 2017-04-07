@@ -120,7 +120,7 @@ vcgOffWrite <- function(mesh, filename=dataname) {
     binary <- FALSE
     writeNormals <- FALSE
     writeCol <- FALSE
-    tmp <- .Call("RMeshWrite", mesh , binary, addNormals, filename, colvec, hasCol,writeNormals,2)
+    tmp <- .Call("RMeshWrite", mesh , binary, addNormals, filename, colvec, hasCol,writeNormals,1)
     
 }
 #' Export meshes to OBJ-files
