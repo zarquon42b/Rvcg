@@ -30,9 +30,10 @@ RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP 
     } else if (method == 1) { 
       tri::Smooth<MyMesh>::VertexCoordLaplacian(m, iter);
     } else if (method == 2) {
+      tri::UpdateSelection<MyMesh>::FaceAll(m);
       tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
-      size_t cnt=tri::UpdateSelection<MyMesh>::VertexFromFaceStrict(m);
-      tri::Smooth<MyMesh>::VertexCoordLaplacianHC(m, iter);
+      unsigned int cnt=tri::UpdateSelection<MyMesh>::VertexFromFaceStrict(m);
+      tri::Smooth<MyMesh>::VertexCoordLaplacianHC(m, iter,cnt>0);
     } else if (method == 3) { 
       tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
       tri::UpdateFlags<MyMesh>::FaceClearB(m);
@@ -61,12 +62,14 @@ RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP 
     vi=m.vert.begin();
     for (i=0; i < m.vn; i++) {
       indices[vi] = i;
-      vb(0,i) = (*vi).P()[0];
-      vb(1,i) = (*vi).P()[1];
-      vb(2,i) = (*vi).P()[2];
-      normals(0,i) = (*vi).N()[0];
-      normals(1,i) = (*vi).N()[1];
-      normals(2,i) = (*vi).N()[2];
+      if( ! vi->IsD() ) {
+	vb(0,i) = (*vi).P()[0];
+	vb(1,i) = (*vi).P()[1];
+	vb(2,i) = (*vi).P()[2];
+	normals(0,i) = (*vi).N()[0];
+	normals(1,i) = (*vi).N()[1];
+	normals(2,i) = (*vi).N()[2];
+      }
       ++vi;
     }
   
@@ -78,8 +81,8 @@ RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP 
 	itout(0,i) = indices[fp->cV(0)]+1;
 	itout(1,i) = indices[fp->cV(1)]+1;
 	itout(2,i) = indices[fp->cV(2)]+1;
-	++fi;
       }
+      ++fi;
     }
     return Rcpp::List::create(Rcpp::Named("vb") = vb,
 			      Rcpp::Named("normals") = normals,
