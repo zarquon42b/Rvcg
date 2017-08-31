@@ -191,7 +191,7 @@ namespace Rvcg
 	    //float sign = dif.dot(vertexnormal);	
 	    if (dif.dot(vertexnormal) < 0)
 	      distances[i] = -distances[i];
-	  } else {
+	  } else if (distances[i] >= 1e12) {
 	    distances[i] = mynan;
 	  }
 	  // write back
