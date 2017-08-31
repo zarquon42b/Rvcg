@@ -10,7 +10,7 @@ vcgWrlWrite(mesh, filename = dataname, writeCol = TRUE,
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns}
 
-\item{filename}{character: filename (file extension '.off' will be added automatically.}
+\item{filename}{character: filename (file extension '.wrl' will be added automatically.}
 
 \item{writeCol}{logical: export existing per-vertex color stored in mesh$material$color}
 

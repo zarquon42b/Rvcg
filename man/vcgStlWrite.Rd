@@ -9,7 +9,7 @@ vcgStlWrite(mesh, filename = dataname, binary = FALSE)
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns}
 
-\item{filename}{character: filename (file extension '.ply' will be added automatically.}
+\item{filename}{character: filename (file extension '.stl' will be added automatically.}
 
 \item{binary}{logical: write binary file}
 }
