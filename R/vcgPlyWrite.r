@@ -66,7 +66,7 @@ vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, addNormals
 #' Export meshes to STL-files (binary or ascii)
 #'
 #' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
-#' @param filename character: filename (file extension '.ply' will be added automatically.
+#' @param filename character: filename (file extension '.stl' will be added automatically.
 #' @param binary logical: write binary file
 #' @examples
 #' data(humface)
@@ -128,7 +128,7 @@ vcgOffWrite <- function(mesh, filename=dataname) {
 #' Export meshes to OBJ-files
 #'
 #' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
-#' @param filename character: filename (file extension '.off' will be added automatically.
+#' @param filename character: filename (file extension '.obj' will be added automatically.
 #' @param writeNormals write existing normals to file
 #' @examples
 #' data(humface)
@@ -159,7 +159,7 @@ vcgObjWrite <- function(mesh, filename=dataname,writeNormals=TRUE) {
 #' Export meshes to WRL-files
 #'
 #' @param mesh triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns
-#' @param filename character: filename (file extension '.off' will be added automatically.
+#' @param filename character: filename (file extension '.wrl' will be added automatically.
 #' @param writeCol logical: export existing per-vertex color stored in mesh$material$color
 #' @param writeNormals write existing normals to file
 #' @examples
