@@ -33,7 +33,6 @@ Also the option only to keep the largest piece can be selected or to split a mes
 }
 \examples{
 
-require(rgl)
 data(humface)
 cleanface <- vcgIsolated(humface)
 

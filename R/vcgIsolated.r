@@ -20,7 +20,6 @@
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #' 
-#' require(rgl)
 #' data(humface)
 #' cleanface <- vcgIsolated(humface)
 #' 
