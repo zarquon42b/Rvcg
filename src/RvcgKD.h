@@ -102,6 +102,7 @@ namespace Rvcg
 	arma::mat barycoord;
 	arma::ivec border, faceptr(query.vn);
 	arma::vec distances(query.vn);
+	float mynan = std::nan("1");
 	if (barycentric)
 	  barycoord.resize(3,query.vn);
 	if (borderchk) {
@@ -185,11 +186,13 @@ namespace Rvcg
 	    vertexnormal=vertexnormal/vl;
 	  }   
 	  // calculate sign for distances
-	  if (sign && (distances[i] < 1e5)) {
+	  if (sign && (distances[i] < 1e12)) {
 	    Point3f dif = clost - currp;
 	    //float sign = dif.dot(vertexnormal);	
 	    if (dif.dot(vertexnormal) < 0)
 	      distances[i] = -distances[i];
+	  } else if (distances[i] >= 1e12) {
+	    distances[i] = mynan;
 	  }
 	  // write back
 	  for (int j=0; j < 3;j++) {

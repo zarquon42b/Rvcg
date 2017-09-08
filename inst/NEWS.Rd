@@ -2,6 +2,17 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+
+\section{Changes in Rvcg version 0.17 (2017-09-04)}{
+  \subsection{small changes and fixes}{
+    \itemize{
+      \item vcgClostKD now sets all distances > 1e12 to NaN
+      \item vcgOffWrite/vcgObjWrite: fixed typo in documentation
+    }
+  }
+}
+
+
 \section{Changes in Rvcg version 0.16 (2017-04-04)}{
   \subsection{new features}{
     \itemize{
