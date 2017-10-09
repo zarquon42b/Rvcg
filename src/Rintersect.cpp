@@ -58,7 +58,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
       tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
       tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
       tri::UpdateNormal<MyMesh>::NormalizePerVertex(refmesh);
-      float maxDist = m.bbox.Diag();
+      float maxDist = m.bbox.Diag()*2;
       float minDist = 1e-10;
       vcg::tri::FaceTmark<MyMesh> mf; 
       mf.SetMesh( &m );
@@ -120,7 +120,10 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
 	}
   
 	int f_i = vcg::tri::Index(m, f_ptr);
-	MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N())/3;//the smoothed normal at that point
+	if (!f_ptr)
+	  Rf_error("nothing found within search radius, objects are too far away from each other.");
+	MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N()).normalized();//the smoothed normal at that point
+
 	ioclost(0,i) = clost[0];
 	ioclost(1,i) = clost[1];
 	ioclost(2,i) = clost[2];
