@@ -9,6 +9,7 @@ sudo: required
 dist: trusty
 
 before_install:
+  - sudo rm /etc/apt/sources.list.d/mongodb-3.2.list
   - sudo add-apt-repository ppa:zarquon42/travis-trusty -y
   - sudo apt-get update -qq
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
