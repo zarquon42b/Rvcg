@@ -32,10 +32,10 @@ minimum amount of faces or of a diameter below a given threshold.
 Also the option only to keep the largest piece can be selected or to split a mesh into connected components.
 }
 \examples{
-
+\dontrun{
 data(humface)
 cleanface <- vcgIsolated(humface)
-
+}
 
 }
 \seealso{

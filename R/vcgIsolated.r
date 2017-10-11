@@ -19,10 +19,10 @@
 #' @seealso \code{\link{vcgPlyRead}}
 #' @keywords ~kwd1 ~kwd2
 #' @examples
-#' 
+#' \dontrun{
 #' data(humface)
 #' cleanface <- vcgIsolated(humface)
-#' 
+#' }
 #' 
 #' @export vcgIsolated
 vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL,split=FALSE,keep=0, silent=FALSE) {

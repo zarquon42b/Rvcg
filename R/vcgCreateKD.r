@@ -31,10 +31,12 @@ vcgCreateKDtree <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
 #' \item{index}{integer matrices with indeces of closest points}
 #' \item{distances}{corresponding distances}
 #' @examples
+#' \dontrun{
 #' data(humface);data(dummyhead)
 #' mytree <- vcgCreateKDtree(humface)
 #' ## get indices and distances for 10 closest points.
 #' closest <- vcgSearchKDtree(mytree,dummyhead.mesh,k=10,threads=1)
+#' }
 #' @seealso \code{\link{vcgCreateKDtree}}
 #' @export
 vcgSearchKDtree <- function(kdtree, query,k ,threads=0) {
@@ -67,9 +69,11 @@ vcgSearchKDtree <- function(kdtree, query,k ,threads=0) {
 #' returns an object of class vcgKDtreeWithBarycenters containing external pointers to the tree, the barycenters and the target mesh
 #' @seealso \code{\link{vcgClostOnKDtreeFromBarycenters}, \link{vcgSearchKDtree},  \link{vcgCreateKDtree}}
 #' @examples
+#' \dontrun{
 #' data(humface);data(dummyhead)
 #' barytree <- vcgCreateKDtreeFromBarycenters(humface)
 #' closest <- vcgClostOnKDtreeFromBarycenters(barytree,dummyhead.mesh,k=50,threads=1)
+#' }
 #' @export
 vcgCreateKDtreeFromBarycenters <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
     mesh <- meshintegrity(mesh,facecheck=TRUE)
