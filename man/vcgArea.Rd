@@ -4,10 +4,12 @@
 \alias{vcgArea}
 \title{compute surface area of a triangular mesh}
 \usage{
-vcgArea(mesh)
+vcgArea(mesh, perface = FALSE)
 }
 \arguments{
 \item{mesh}{triangular mesh of class mesh3d}
+
+\item{perface}{logical: if TRUE, a list containing the overall area, as well as the individual per-face area are reported.}
 }
 \value{
 surface area of mesh

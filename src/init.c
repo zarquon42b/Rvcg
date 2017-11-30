@@ -13,7 +13,7 @@ extern void Rborder(void *, void *, void *, void *, void *, void *);
 /* .Call calls */
 extern SEXP createKDtree(SEXP, SEXP, SEXP);
 extern SEXP RallRead(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP Rarea(SEXP);
+extern SEXP Rarea(SEXP, SEXP);
 extern SEXP Rballpivoting(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rbarycenter(SEXP);
 extern SEXP RBox(SEXP, SEXP);
@@ -60,7 +60,7 @@ static const R_CMethodDef CEntries[] = {
 static const R_CallMethodDef CallEntries[] = {
     {"createKDtree",                  (DL_FUNC) &createKDtree,                   3},
     {"RallRead",                      (DL_FUNC) &RallRead,                       6},
-    {"Rarea",                         (DL_FUNC) &Rarea,                          1},
+    {"Rarea",                         (DL_FUNC) &Rarea,                          2},
     {"Rballpivoting",                 (DL_FUNC) &Rballpivoting,                  5},
     {"Rbarycenter",                   (DL_FUNC) &Rbarycenter,                    1},
     {"RBox",                          (DL_FUNC) &RBox,                           2},
