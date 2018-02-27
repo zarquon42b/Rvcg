@@ -67,7 +67,7 @@ vcgSquare <- function(normals=TRUE) {
 
 #' @rdname vcgPlatonic
 #' @export
-vcgBox <- function(mesh,normals=TRUE) {
+vcgBox <- function(mesh=vcgSphere(),normals=TRUE) {
     out <- .Call("RBox",mesh,normals)
     return(out)
 }

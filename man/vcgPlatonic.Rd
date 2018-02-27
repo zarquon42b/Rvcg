@@ -29,7 +29,7 @@ vcgHexahedron(normals = TRUE)
 
 vcgSquare(normals = TRUE)
 
-vcgBox(mesh, normals = TRUE)
+vcgBox(mesh = vcgSphere(), normals = TRUE)
 
 vcgCone(r1, r2, h, normals = TRUE)
 }
