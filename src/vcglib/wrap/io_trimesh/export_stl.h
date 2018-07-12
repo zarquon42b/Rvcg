@@ -92,7 +92,7 @@ static int Save(SaveMeshType &m, const char * filename , bool binary =true, int 
     if(binary)
     {
         // Write Header
-        char header[256]="VCG                                                                                                  ";
+        char header[128]="VCG                                                                                                  ";
         if(objectname)	strncpy(header,objectname,80);
         if(magicsMode)
         {
