@@ -96,7 +96,7 @@ static int Save(SaveMeshType &m, const char * filename , bool binary =true, int 
         if(objectname)	strncpy(header,objectname,80);
         if(magicsMode)
         {
-          strncpy(header,"COLOR=XXX MATERIAL=AAA BBB CCC                                                  ",80);
+          strncpy(header,"COLOR=XXX MATERIAL=AAA BBB CCC                                                                       ",80);
           for(int i=0;i<3;++i)
           {
             header[0x06+i]=0x7f;

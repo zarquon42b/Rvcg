@@ -2,12 +2,12 @@ Index: vcglib/wrap/io_trimesh/export_stl.h
 ===================================================================
 --- vcglib.orig/wrap/io_trimesh/export_stl.h
 +++ vcglib/wrap/io_trimesh/export_stl.h
-@@ -92,7 +92,7 @@ static int Save(SaveMeshType &m, const c
-     if(binary)
-     {
-         // Write Header
--        char header[128]="VCG                                                                                                  ";
-+        char header[256]="VCG                                                                                                  ";
+@@ -96,7 +96,7 @@ static int Save(SaveMeshType &m, const c
          if(objectname)	strncpy(header,objectname,80);
          if(magicsMode)
          {
+-          strncpy(header,"COLOR=XXX MATERIAL=AAA BBB CCC                                                                       ",80);
++          strncpy(header,"COLOR=XXX MATERIAL=AAA BBB CCC                                                  ",80);
+           for(int i=0;i<3;++i)
+           {
+             header[0x06+i]=0x7f;
