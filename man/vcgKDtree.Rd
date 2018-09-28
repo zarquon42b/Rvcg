@@ -4,7 +4,8 @@
 \alias{vcgKDtree}
 \title{perform kdtree search for 3D-coordinates.}
 \usage{
-vcgKDtree(target, query, k, nofPoints = 16, maxDepth = 64, threads = 1)
+vcgKDtree(target, query, k, nofPoints = 16, maxDepth = 64,
+  threads = 1)
 }
 \arguments{
 \item{target}{n x 3 matrix with 3D coordinates or mesh of class "mesh3d". These coordinates are to be searched.}

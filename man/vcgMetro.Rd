@@ -4,11 +4,11 @@
 \alias{vcgMetro}
 \title{evaluate the difference between two triangular meshes.}
 \usage{
-vcgMetro(mesh1, mesh2, nSamples = 0, nSamplesArea = 0, vertSamp = TRUE,
-  edgeSamp = TRUE, faceSamp = TRUE, unrefVert = FALSE,
-  samplingType = c("SS", "MC", "SD"), searchStruct = c("SGRID", "AABB",
-  "OCTREE", "HGRID"), from = 0, to = 0, colormeshes = FALSE,
-  silent = FALSE)
+vcgMetro(mesh1, mesh2, nSamples = 0, nSamplesArea = 0,
+  vertSamp = TRUE, edgeSamp = TRUE, faceSamp = TRUE,
+  unrefVert = FALSE, samplingType = c("SS", "MC", "SD"),
+  searchStruct = c("SGRID", "AABB", "OCTREE", "HGRID"), from = 0,
+  to = 0, colormeshes = FALSE, silent = FALSE)
 }
 \arguments{
 \item{mesh1}{triangular mesh (object of class 'mesh3d').}

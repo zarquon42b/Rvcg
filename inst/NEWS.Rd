@@ -3,6 +3,18 @@
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
 
+\section{Changes in Rvcg version 0.18 (2018-09-28)}{
+  \subsection{small changes and fixes}{
+    \itemize{
+      \item Rintersect.cpp: check for valid pointer and increased search radius to 2*bbox
+      \item vcgBox: added default argument mesh=vcgSphere()
+      \item vcgArea: added option pertriangle to get per face area
+      \item vcglib: fixed potential buffer overflow in src/vcglib/wrap/io_trimesh/export_stl.h
+    }
+  }
+}
+
+
 \section{Changes in Rvcg version 0.17 (2017-09-04)}{
   \subsection{small changes and fixes}{
     \itemize{

@@ -4,8 +4,8 @@
 \alias{vcgImport}
 \title{Import common mesh file formats.}
 \usage{
-vcgImport(file, updateNormals = TRUE, readcolor = FALSE, clean = TRUE,
-  silent = FALSE)
+vcgImport(file, updateNormals = TRUE, readcolor = FALSE,
+  clean = TRUE, silent = FALSE)
 }
 \arguments{
 \item{file}{character: file to be read.}

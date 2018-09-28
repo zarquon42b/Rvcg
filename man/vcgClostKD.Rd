@@ -6,8 +6,8 @@
 \usage{
 vcgClostKD(x, mesh, sign = TRUE, barycentric = FALSE,
   smoothNormals = FALSE, borderchk = FALSE, k = 50, nofPoints = 16,
-  maxDepth = 64, angdev = NULL, weightnorm = FALSE, facenormals = FALSE,
-  threads = 1, ...)
+  maxDepth = 64, angdev = NULL, weightnorm = FALSE,
+  facenormals = FALSE, threads = 1, ...)
 }
 \arguments{
 \item{x}{k x 3 matrix containing 3D-coordinates or object of class "mesh3d".}
