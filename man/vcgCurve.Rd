@@ -17,6 +17,8 @@ vcgCurve(mesh)
 \item{borderit }{per face information if it is on the mesh's border (0=FALSE, 1=TRUE) }
 \item{bordervb }{per vertex information if it is on the mesh's border (0=FALSE, 1=TRUE)}
 \item{meanitmax }{per face maximum mean curvature of adjacent vertices}
+\item{K1 }{Principal Curvature 1}
+\item{K2 }{Principal Curvature 2}
 }
 \description{
 calculate curvature of faces/vertices of a triangular mesh using various methods.
