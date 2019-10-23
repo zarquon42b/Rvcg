@@ -32,6 +32,7 @@ extern SEXP Rkdtree(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rkmeans(SEXP, SEXP, SEXP, SEXP);
 extern SEXP RMarchC(SEXP, SEXP);
 extern SEXP Rmeshres(SEXP, SEXP);
+extern SEXP Rmeshvol(SEXP);
 extern SEXP RmeshXPtr(SEXP);
 extern SEXP Rmetro(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP ROctahedron(SEXP);
@@ -79,6 +80,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rkmeans",                       (DL_FUNC) &Rkmeans,                        4},
     {"RMarchC",                       (DL_FUNC) &RMarchC,                        2},
     {"Rmeshres",                      (DL_FUNC) &Rmeshres,                       2},
+    {"Rmeshvol",                      (DL_FUNC) &Rmeshvol,                       1},
     {"RmeshXPtr",                     (DL_FUNC) &RmeshXPtr,                      1},
     {"Rmetro",                        (DL_FUNC) &Rmetro,                        14},
     {"ROctahedron",                   (DL_FUNC) &ROctahedron,                    1},

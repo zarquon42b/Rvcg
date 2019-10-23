@@ -1,4 +1,4 @@
-OBJECTS=vcglib/wrap/ply/plylib.o checkListNames.o init.o RallRead.o Rarea.o Rballpivot.o Rborder.o Rclean.o Rclost.o Rcurvature.o Rexport.o RgetEdge.o Rintersect.o Risolated.o Rkdtree.o RkdtreeXptr.o Rkmeans.o Rmarch.o Rmeshres.o Rmetro.o ROneRing.o Rplatonic.o RQEdecim.o Rsample.o Rsmooth.o Rsubdivision.o Runiform_resample.o RupdateNormals.o RvcgXPTr.o RVFadj.o
+OBJECTS=vcglib/wrap/ply/plylib.o checkListNames.o init.o RallRead.o Rarea.o Rballpivot.o Rborder.o Rclean.o Rclost.o Rcurvature.o Rexport.o RgetEdge.o Rintersect.o Risolated.o Rkdtree.o RkdtreeXptr.o Rkmeans.o Rmarch.o Rmeshres.o Rmeshvol.o Rmetro.o ROneRing.o Rplatonic.o RQEdecim.o Rsample.o Rsmooth.o Rsubdivision.o Runiform_resample.o RupdateNormals.o RvcgXPTr.o RVFadj.o
 
 PKG_CPPFLAGS=-Ivcglib -I.
 PKG_LIBS= $(SHLIB_OPENMP_CXXFLAGS)
