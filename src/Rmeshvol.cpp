@@ -15,7 +15,7 @@ RcppExport SEXP Rmeshvol(SEXP mesh_) {
   try {
     TopoMyMesh m;
     int check = Rvcg::IOMesh<TopoMyMesh>::mesh3d2Rvcg(m,mesh_);
-    bool VManifold, FManifold, Watertight = false;
+    bool VManifold, FManifold, Watertight, Oriented = false;
     float Volume = 0;
     int numholes, BEdges = 0;
     //check manifoldness
@@ -27,6 +27,7 @@ RcppExport SEXP Rmeshvol(SEXP mesh_) {
       ::Rf_error("Mesh is no manifold\n");
      
     Watertight = Clean<TopoMyMesh>::IsWaterTight(m);
+    Oriented = Clean<TopoMyMesh>::IsCoherentlyOrientedMesh(m);
     tri::Inertia<TopoMyMesh> mm(m);
     mm.Compute(m);
     Volume = mm.Mass();
@@ -36,6 +37,8 @@ RcppExport SEXP Rmeshvol(SEXP mesh_) {
       Volume = -Volume;
     if (!Watertight)
       ::Rf_warning("Mesh is not watertight! USE RESULT WITH CARE!");
+    if (!Oriented)
+      ::Rf_warning("Mesh is not coherently oriented! USE RESULT WITH CARE!");
 
   return wrap(Volume);
 

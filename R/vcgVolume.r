@@ -6,7 +6,9 @@
 #' @examples
 #' mysphere <- vcgSphere()
 #' vcgVolume(mysphere)
-#' 
+#'
+#' @note
+#' Please note, that this function only works reliably on watertight, coherently oriented meshes that constitute a manifold. 
 #' @export
 vcgVolume <- function(x) {
     out <-  .Call("Rmeshvol",x)

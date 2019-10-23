@@ -15,6 +15,9 @@ returns volume
 \description{
 Compute volume for manifold meshes
 }
+\note{
+Please note, that this function only works reliably on watertight, coherently oriented meshes that constitute a manifold.
+}
 \examples{
 mysphere <- vcgSphere()
 vcgVolume(mysphere)
