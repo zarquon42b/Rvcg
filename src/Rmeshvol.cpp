@@ -15,16 +15,26 @@ RcppExport SEXP Rmeshvol(SEXP mesh_) {
   try {
     TopoMyMesh m;
     int check = Rvcg::IOMesh<TopoMyMesh>::mesh3d2Rvcg(m,mesh_);
-    bool VManifold, FManifold, Watertight, Oriented = false;
+    bool Watertight, Oriented = false;
+    int VManifold, FManifold;
     float Volume = 0;
     int numholes, BEdges = 0;
     //check manifoldness
     UpdateTopology<TopoMyMesh>::FaceFace(m);
-    VManifold = Clean<TopoMyMesh>::CountNonManifoldVertexFF(m) == 0;
-    FManifold = Clean<TopoMyMesh>::CountNonManifoldEdgeFF(m) == 0;
+    VManifold = Clean<TopoMyMesh>::CountNonManifoldVertexFF(m);
+    FManifold = Clean<TopoMyMesh>::CountNonManifoldEdgeFF(m);
     
-    if ((!VManifold) || (!FManifold))
-      ::Rf_error("Mesh is no manifold\n");
+    if ((VManifold>0) || (FManifold>0)) {
+      ::Rf_error(
+        (
+          "Mesh is not manifold\n  Non-manifold vertices: " +
+          std::to_string(VManifold) +"\n" +
+          "  Non-manifold edges: " + 
+          std::to_string(FManifold) +"\n"
+        ).c_str()
+      );
+    }
+      
      
     Watertight = Clean<TopoMyMesh>::IsWaterTight(m);
     Oriented = Clean<TopoMyMesh>::IsCoherentlyOrientedMesh(m);
