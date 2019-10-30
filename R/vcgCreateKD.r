@@ -1,3 +1,4 @@
+
 #' create a KD-tree
 #'
 #' create a KD-tree
@@ -12,8 +13,16 @@
 #' @seealso \code{\link{vcgSearchKDtree}}
 #' @export
 vcgCreateKDtree <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
-    if (is.matrix(mesh))
-        mesh <- list(vb=t(mesh))
+    if (is.matrix(mesh)) {
+       if (ncol(mesh) == 2)
+            mesh <- cbind(mesh,0)
+        if (ncol(mesh) == 3) {
+            mesh <- list(vb=t(mesh))
+            class(mesh) <- "mesh3d"
+        } else 
+            stop("if query is a matrix, only 2 or 3 columns are allowed")
+       
+    }
     out <- .Call("createKDtree",mesh,nofPointsPerCell,maxDepth)
     class(out) <- "vcgKDtree"
     return(out)
