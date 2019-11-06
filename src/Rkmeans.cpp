@@ -96,7 +96,7 @@ RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
     count += 1;
     
   }
-  clostinds -= 1;
+  //clostinds -= 1;
   return List::create(Named("centers") = centers,
 		      Named("class") = clostinds);
    }  catch (std::exception& e) {
