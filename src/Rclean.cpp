@@ -97,10 +97,9 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
   std::fill(remvert.begin(), remvert.end(),0);
   vi=m.vert.begin();
   
-  int j = 0;
-  for (i=0;  i < m.vert.size(); i++) {
+  for (unsigned int j=0;  j < m.vert.size(); j++) {
     if( vi->IsD() )	{
-      remvert[i] = 1;
+      remvert[j] = 1;
     }
     ++vi;
   }

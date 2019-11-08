@@ -13,7 +13,7 @@ using namespace Rcpp;
 RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP silent_, SEXP split_) {
   try { 
     // declare Mesh and helper variables
-    int i;
+    unsigned int i;
     TopoMyMesh m;
     VertexIterator vi;
     FaceIterator fi;
@@ -100,7 +100,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
 	  tri::UpdateSelection<TopoMyMesh>::VertexFromFaceLoose(m,true);
 	  
 	  tri::Append<TopoMyMesh,TopoMyMesh>::Mesh(destMesh, m, true);
-	  unsigned int facenum = destMesh.fn;
+	  int facenum = destMesh.fn;
 	  tri::UpdateBounding<TopoMyMesh>::Box(destMesh);
 	  float mybboxdiam = destMesh.bbox.Diag();
 	  if ((connect < 0 && mybboxdiam >= diameter) || (connect >= 0 && facenum >= connect))

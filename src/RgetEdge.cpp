@@ -62,16 +62,16 @@ RcppExport  SEXP RgetEdge(SEXP vb_, SEXP it_, SEXP unique_)
     i=0;
   
     // for(ei=Edges.begin(); ei!=Edges.end(); ++ei)
-    for (i = 0;i < size;i++) {
-      vp=Edges[i].v[0];
-      vp1=Edges[i].v[1];
-      fp=Edges[i].f;
-      if( (*fp).IsB(Edges[i].z)==true )
-	border[i] = 1;
+    for (unsigned int j = 0;j < size;j++) {
+      vp=Edges[j].v[0];
+      vp1=Edges[j].v[1];
+      fp=Edges[j].f;
+      if( (*fp).IsB(Edges[j].z)==true )
+	border[j] = 1;
     
-      edges(i,0)=indices[vp]+1;
-      edges(i,1)=indices[vp1]+1;
-      facept[i] = indicesf[Edges[i].f]+1;
+      edges(j,0)=indices[vp]+1;
+      edges(j,1)=indices[vp1]+1;
+      facept[j] = indicesf[Edges[j].f]+1;
     }
   
     return Rcpp::List::create(Rcpp::Named("edges") = edges,

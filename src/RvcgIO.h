@@ -33,13 +33,13 @@ namespace Rvcg
 	//insert vertices
 	if (Rf_isMatrix(vb_) && VertexType::HasCoord() ) {
 	  Rcpp::NumericMatrix vb(vb_);
-	  unsigned int d =  vb.ncol();
+	  int d =  vb.ncol();
 	  vcg::tri::Allocator<MeshType>::AddVertices(m,d);
 	  std::vector<VertexPointer> ivp;
 	  ivp.resize(d);
 	  vcg::SimpleTempData<typename MeshType::VertContainer, unsigned int> indices(m.vert);
 	  //read vertices
-	  for (unsigned int i=0; i < d; i++) {
+	  for (int i=0; i < d; i++) {
 	    VertexIterator vi = m.vert.begin()+i;
 	    ivp[i]=&*vi;
 	    (*vi).P() = CoordType(vb(0,i),vb(1,i),vb(2,i));
@@ -53,7 +53,7 @@ namespace Rvcg
 	      vcg::SimpleTempData<typename MeshType::VertContainer, unsigned int> indices(m.vert);
 	      
 	      // #pragma omp parallel for schedule(static)
-	      for (unsigned int i=0; i < d; i++) {
+	      for (int i=0; i < d; i++) {
 		VertexIterator vi = m.vert.begin()+i;
 		ivp[i]=&*vi;
 		(*vi).N() = CoordType(normals(0,i),normals(1,i),normals(2,i));
@@ -99,7 +99,7 @@ namespace Rvcg
 	std::fill(normals.begin(),normals.end(),1);
 	Rcpp::IntegerMatrix itout(3, m.fn);
 
-	for (unsigned int i=0;  i < m.vn; i++) {
+	for (int i=0;  i < m.vn; i++) {
 	  VertexIterator vi=m.vert.begin()+i;
 	  indices[vi] = i;//important: updates vertex indices
 	  for (int j = 0; j < 3; j++) {
@@ -109,7 +109,7 @@ namespace Rvcg
 	  }
 	}
 	
-	for (unsigned int i=0; i < m.fn;i++) {
+	for (int i=0; i < m.fn;i++) {
 	  FacePointer fp;
 	  FaceIterator fi=m.face.begin()+i;
 	  fp=&(*fi);
@@ -156,7 +156,7 @@ namespace Rvcg
     static arma::mat GetVertsArma(MeshType &m) {
       arma::mat vb(m.vn,3); 
 
-      for (unsigned int i = 0; i < m.vn; i++) {
+      for (int i = 0; i < m.vn; i++) {
 	VertexIterator vi=m.vert.begin()+i;
 	for (int j = 0; j < 3; j++) 
 	  vb(i,j) = (*vi).P()[j];

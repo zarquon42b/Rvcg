@@ -24,7 +24,7 @@ RcppExport SEXP Rsample(SEXP mesh_, SEXP SampleNum_, SEXP type_, SEXP MCsamp_, S
     const int type = Rcpp::as<int>(type_);  
     const int MCsamp = Rcpp::as<int>(MCsamp_);
     const bool geodes = Rcpp::as<bool>(geodes_);
-    int i;
+    
     MyMesh m,msamp;
     float radius;
     VertexIterator vi;
@@ -66,7 +66,7 @@ RcppExport SEXP Rsample(SEXP mesh_, SEXP SampleNum_, SEXP type_, SEXP MCsamp_, S
       unsigned int outsize = poissonsamples.size();
       Rcpp::NumericMatrix vbout(3,outsize);
   
-      for (i=0;  i < outsize; i++) {
+      for (unsigned int i=0;  i < outsize; i++) {
 	Point3f tmp = poissonsamples[i];
 	vbout(0,i) = tmp[0];
 	vbout(1,i) =  tmp[1];

@@ -20,7 +20,7 @@ List fastSubsetMeans(mat &x, uvec &inds, int k, int threads) {
       rowvec tmpresult(x.n_cols);tmpresult.fill(0);
       if (tmpinds.size() == 0)
 	checkempty(i) = 1;
-      for (int j = 0; j < tmpinds.size();j++)
+      for (unsigned int j = 0; j < tmpinds.size();j++)
 	tmpresult += tmpmat.row(j);
       tmpresult /= tmpinds.size();
       center.row(i) = tmpresult;
@@ -47,11 +47,11 @@ RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
   int maxDepth = 64;
   Rvcg::IOMesh<PcMesh>::mesh3d2Rvcg(mesh,mesh_,false,false);
   arma::mat coords = Rvcg::IOMesh<PcMesh>::GetVertsArma(mesh);
-  unsigned int npts = coords.n_rows;
+  int npts = coords.n_rows;
   uvec samplevec(npts);
   uvec subset(k);
   //initialize index vectors
-  for (unsigned int i =0; i < npts;i++) {
+  for (int i =0; i < npts;i++) {
     samplevec[i] = i;
     if (i < k)
       subset[i] = i;
@@ -75,7 +75,7 @@ RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
     KdTree<float>::PriorityQueue queue;
 
 #pragma omp parallel for schedule(static) firstprivate(queue, kdtree) num_threads(threads)
-    for (unsigned int i = 0; i < mesh.vn; i++) {
+    for (int i = 0; i < mesh.vn; i++) {
       kdtree.doQueryK(mesh.vert[i].cP(), 1, queue);
       int neighbours = queue.getNofElements();
       clostinds[i] = queue.getIndex(0);

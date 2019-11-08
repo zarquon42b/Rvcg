@@ -69,7 +69,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
       // run search 
 #pragma omp parallel for firstprivate(minDist,maxDist,static_grid,mf) schedule(static) num_threads(threads)
 
-      for (unsigned int i=0; i < refmesh.vn; i++) {
+      for (int i=0; i < refmesh.vn; i++) {
     	float t, t1;
 	t=0; t1=0;
 	vcg::Ray3f ray;
