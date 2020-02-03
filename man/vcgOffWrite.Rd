@@ -17,4 +17,5 @@ Export meshes to OFF-files
 \examples{
 data(humface)
 vcgOffWrite(humface,filename = "humface")
+unlink("humface.off")
 }

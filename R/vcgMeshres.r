@@ -16,7 +16,6 @@
 #' hist(mres$edgelength)
 #' #visualise average edgelength
 #' points( mres$res, 1000, pch=20, col=2, cex=2)
-#' @keywords ~kwd1 ~kwd2
 #' 
 #' @export vcgMeshres
 vcgMeshres <- function(mesh)

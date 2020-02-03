@@ -37,7 +37,6 @@
 #' @examples
 #' data(humface)
 #' clost <- vcgClost(humface.lm, humface)
-#' @keywords ~kwd1 ~kwd2
 #' 
 #' 
 #' 

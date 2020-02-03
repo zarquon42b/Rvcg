@@ -20,9 +20,7 @@
 #' @note from version 0.8 on this is only a wrapper for vcgImport (to avoid API breaking).
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgSmooth}},
-#' @keywords ~kwd1 ~kwd2
 #' @export 
-
 vcgPlyRead <-function (file,updateNormals=TRUE,clean=TRUE)
 {
     mesh <- vcgImport(file,updateNormals=updateNormals,clean=clean, readcolor=TRUE)

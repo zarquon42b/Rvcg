@@ -22,4 +22,5 @@ Export meshes to WRL-files
 \examples{
 data(humface)
 vcgWrlWrite(humface,filename = "humface")
+unlink("humface.wrl")
 }

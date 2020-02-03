@@ -28,7 +28,6 @@
 #' data(humface)
 #' vcgPlyWrite(humface)
 #' readit <- vcgImport("humface.ply")
-#' @keywords ~kwd1 ~kwd2
 #' @export 
 
 vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,silent=FALSE) {

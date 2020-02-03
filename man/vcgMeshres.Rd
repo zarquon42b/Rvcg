@@ -24,9 +24,8 @@ mres <- vcgMeshres(humface)
 hist(mres$edgelength)
 #visualise average edgelength
 points( mres$res, 1000, pch=20, col=2, cex=2)
+
 }
 \author{
 Stefan Schlager
 }
-\keyword{~kwd1}
-\keyword{~kwd2}
