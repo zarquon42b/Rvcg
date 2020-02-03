@@ -19,4 +19,5 @@ Export meshes to STL-files (binary or ascii)
 \examples{
 data(humface)
 vcgStlWrite(humface,filename = "humface")
+unlink("humface.stl")
 }

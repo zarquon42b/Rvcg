@@ -53,6 +53,10 @@ surface, calculation can become very slow. In that case, the function
 \examples{
 data(humface)
 clost <- vcgClost(humface.lm, humface)
+
+
+
+
 }
 \references{
 Baerentzen, Jakob Andreas. & Aanaes, H., 2002. Generating Signed
@@ -65,5 +69,3 @@ Modelling.
 \author{
 Stefan Schlager
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

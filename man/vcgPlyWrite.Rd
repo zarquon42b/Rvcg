@@ -35,4 +35,6 @@ Export meshes to PLY-files (binary or ascii)
 \examples{
 data(humface)
 vcgPlyWrite(humface,filename = "humface")
+## remove it 
+unlink("humface.ply")
 }

@@ -19,4 +19,5 @@ Export meshes to OBJ-files
 \examples{
 data(humface)
 vcgObjWrite(humface,filename = "humface")
+unlink("humface.obj")
 }

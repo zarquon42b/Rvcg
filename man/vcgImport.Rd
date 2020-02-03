@@ -50,5 +50,3 @@ readit <- vcgImport("humface.ply")
 \author{
 Stefan Schlager
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

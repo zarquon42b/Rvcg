@@ -35,7 +35,6 @@
 #' 
 #' Schroeder, P. and Barr, A. H. (1999). Implicit fairing of irregular meshes
 #' using diffusion and curvature flow: 317-324.
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #'  
 #' data(humface)

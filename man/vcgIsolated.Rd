@@ -44,5 +44,3 @@ cleanface <- vcgIsolated(humface)
 \author{
 Stefan Schlager
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

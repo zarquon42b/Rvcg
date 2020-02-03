@@ -17,7 +17,6 @@
 #' @return returns the reduced mesh.
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgPlyRead}}
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #' \dontrun{
 #' data(humface)

@@ -73,5 +73,3 @@ using diffusion and curvature flow: 317-324.
 \author{
 Stefan Schlager
 }
-\keyword{~kwd1}
-\keyword{~kwd2}
