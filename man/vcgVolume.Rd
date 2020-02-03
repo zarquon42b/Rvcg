@@ -16,7 +16,7 @@ returns volume
 Compute volume for manifold meshes
 }
 \note{
-Please note, that this function only works reliably on watertight, coherently oriented meshes that constitute a manifold. In case your mesh has some issues regarding non-manifoldness or there are isolated pieces flying around, you can use vcgIsolated and vcgClean to remove those (see \code{\link{details}}).
+Please note, that this function only works reliably on watertight, coherently oriented meshes that constitute a manifold. In case your mesh has some issues regarding non-manifoldness or there are isolated pieces flying around, you can use vcgIsolated and vcgClean to remove those.
 }
 \examples{
 mysphere <- vcgSphere()
