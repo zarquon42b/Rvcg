@@ -12,6 +12,8 @@
 #' @examples
 #' data(humface)
 #' vcgPlyWrite(humface,filename = "humface")
+#' ## remove it 
+#' unlink("humface.ply")
 #' @rdname vcgPlyWrite
 #' @export 
 vcgPlyWrite <- function(mesh, filename, binary = TRUE, ...) UseMethod("vcgPlyWrite")
@@ -71,6 +73,7 @@ vcgPlyWrite.matrix <- function(mesh,filename=dataname, binary = TRUE, addNormals
 #' @examples
 #' data(humface)
 #' vcgStlWrite(humface,filename = "humface")
+#' unlink("humface.stl")
 #' @rdname vcgStlWrite
 #' @export 
 vcgStlWrite <- function(mesh, filename=dataname, binary = FALSE) {
@@ -101,6 +104,7 @@ vcgStlWrite <- function(mesh, filename=dataname, binary = FALSE) {
 #' @examples
 #' data(humface)
 #' vcgOffWrite(humface,filename = "humface")
+#' unlink("humface.off")
 #' @rdname vcgOffWrite
 #' @export 
 vcgOffWrite <- function(mesh, filename=dataname) {
@@ -133,6 +137,7 @@ vcgOffWrite <- function(mesh, filename=dataname) {
 #' @examples
 #' data(humface)
 #' vcgObjWrite(humface,filename = "humface")
+#' unlink("humface.obj")
 #' @export 
 vcgObjWrite <- function(mesh, filename=dataname,writeNormals=TRUE) {
     if (!inherits(mesh,"mesh3d"))
@@ -165,6 +170,7 @@ vcgObjWrite <- function(mesh, filename=dataname,writeNormals=TRUE) {
 #' @examples
 #' data(humface)
 #' vcgWrlWrite(humface,filename = "humface")
+#' unlink("humface.wrl")
 #' @export 
 vcgWrlWrite <- function(mesh, filename=dataname, writeCol=TRUE,writeNormals=TRUE)
 {

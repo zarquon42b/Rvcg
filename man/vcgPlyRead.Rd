@@ -38,5 +38,3 @@ from version 0.8 on this is only a wrapper for vcgImport (to avoid API breaking)
 \author{
 Stefan Schlager
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

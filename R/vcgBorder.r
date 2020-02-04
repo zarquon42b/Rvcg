@@ -9,7 +9,6 @@
 #' \item{borderit}{logical: vector containing boolean value for each face, if it is a border vertex.}
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgPlyRead}}
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #' 
 #' data(humface)

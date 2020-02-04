@@ -27,7 +27,6 @@
 #' @return Returns a reduced mesh of class mesh3d.
 #' @author Stefan Schlager
 #' @seealso \code{\link{vcgSmooth}}
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #'
 #' 
