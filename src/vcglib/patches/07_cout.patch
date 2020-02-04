@@ -38,7 +38,7 @@ Index: vcglib/vcg/complex/exception.h
    }
  
      virtual const char *what() const throw ()
-@@ -88,7 +88,7 @@ class MissingPreconditionException : pub
+@@ -103,7 +103,7 @@ class MissingPreconditionException : pub
  public:
    MissingPreconditionException(const std::string &err):std::runtime_error(err)
    {

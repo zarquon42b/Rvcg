@@ -202,6 +202,22 @@ public:
             }
     }
 
+	static void GetUVData(const MeshType &mesh,
+	                      MatrixXm & uv)
+	{
+		tri::RequireVertexCompactness(mesh);
+		tri::RequirePerVertexTexCoord(mesh);
+
+		uv = MatrixXm(mesh.VN(), 2);
+
+		// per vertices uv
+		for (int i = 0; i < mesh.VN(); i++)
+		{
+			uv(i,0) = mesh.vert[i].cT().U();
+			uv(i,1) = mesh.vert[i].cT().V();
+		}
+	}
+
     // get edge to face and edge to vertex adjacency
     static void GetTriEdgeAdjacency(const MeshType &mesh,
                                     Eigen::MatrixXi& EV,
@@ -225,7 +241,7 @@ public:
     {
         tri::RequireCompactness(m);
         h.resize(m.vn);
-        for(int i=0;i<m.vn;++i) h[i]=0;
+        fill(h.begin(),h.end(),0);        
         for(FaceIterator fi=m.face.begin(); fi!=m.face.end();++fi)
         {
             ScalarType a = DoubleArea(*fi)/6.0;

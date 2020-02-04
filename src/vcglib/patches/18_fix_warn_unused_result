@@ -2,8 +2,8 @@ Index: vcglib/wrap/io_trimesh/import_stl.h
 ===================================================================
 --- vcglib.orig/wrap/io_trimesh/import_stl.h
 +++ vcglib/wrap/io_trimesh/import_stl.h
-@@ -101,7 +101,7 @@ static bool IsSTLColored(const char * fi
-     return false;
+@@ -114,7 +114,7 @@ static bool IsSTLColored(const char * fi
+    
     FILE *fp = fopen(filename, "rb");
     char buf[STL_LABEL_SIZE+1];
 -   fread(buf,sizeof(char),STL_LABEL_SIZE,fp);
@@ -11,7 +11,7 @@ Index: vcglib/wrap/io_trimesh/import_stl.h
     std::string strInput(buf);
     size_t cInd = strInput.rfind("COLOR=");
     size_t mInd = strInput.rfind("MATERIAL=");
-@@ -110,16 +110,16 @@ static bool IsSTLColored(const char * fi
+@@ -123,16 +123,16 @@ static bool IsSTLColored(const char * fi
     else
       magicsMode = false;
     int facenum;
@@ -32,21 +32,25 @@ Index: vcglib/wrap/io_trimesh/import_stl.h
       if(attr!=0)
       {
        if(Color4b::FromUnsignedR5G5B5(attr) != Color4b(Color4b::White))
-@@ -140,11 +140,11 @@ static bool IsSTLBinary(const char * fil
-   int facenum;
+@@ -157,7 +157,7 @@ static bool IsSTLBinary(const char * fil
+   unsigned int facenum;
    /* Check for binary or ASCII file */
    fseek(fp, STL_LABEL_SIZE, SEEK_SET);
--  fread(&facenum, sizeof(int), 1, fp);
-+  size_t myunsuedvar = fread(&facenum, sizeof(int), 1, fp);
+-  fread(&facenum, sizeof(unsigned int), 1, fp);
++  size_t myunsuedvar = fread(&facenum, sizeof(unsigned int), 1, fp);
+   
    int expected_file_size=STL_LABEL_SIZE + 4 + (sizeof(short)+sizeof(STLFacet) )*facenum ;
-   if(file_size ==  expected_file_size) binary = true;
-   unsigned char tmpbuf[128];
--  fread(tmpbuf,sizeof(tmpbuf),1,fp);
-+  myunsuedvar = fread(tmpbuf,sizeof(tmpbuf),1,fp);
-   for(unsigned int i = 0; i < sizeof(tmpbuf); i++)
+   if(file_size ==  expected_file_size) 
+@@ -170,7 +170,7 @@ static bool IsSTLBinary(const char * fil
+   // lets'make a test to check that we find only ascii stuff before assuming it is ascii
+   unsigned char tmpbuf[1000];
+   int byte_to_read = std::min(int(sizeof(tmpbuf)), int(file_size - 80));
+-  fread(tmpbuf, byte_to_read,1,fp);
++  myunsuedvar = fread(tmpbuf, byte_to_read,1,fp);
+   fclose(fp);
+   for(int i = 0; i < byte_to_read; i++)
      {
-       if(tmpbuf[i] > 127)
-@@ -185,7 +185,7 @@ static int OpenBinary( OpenMeshType &m,
+@@ -218,7 +218,7 @@ static int OpenBinary( OpenMeshType &m,
  
    int facenum;
    fseek(fp, STL_LABEL_SIZE, SEEK_SET);
@@ -55,7 +59,7 @@ Index: vcglib/wrap/io_trimesh/import_stl.h
  
    m.Clear();
    FaceIterator fi=Allocator<OpenMeshType>::AddFaces(m,facenum);
-@@ -196,9 +196,9 @@ static int OpenBinary( OpenMeshType &m,
+@@ -229,9 +229,9 @@ static int OpenBinary( OpenMeshType &m,
        unsigned short attr;
        Point3f norm;
        Point3f tri[3];

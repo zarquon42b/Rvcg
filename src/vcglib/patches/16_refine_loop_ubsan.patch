@@ -2,7 +2,7 @@ Index: vcglib/vcg/complex/algorithms/refine_loop.h
 ===================================================================
 --- vcglib.orig/vcg/complex/algorithms/refine_loop.h
 +++ vcglib/vcg/complex/algorithms/refine_loop.h
-@@ -103,7 +103,7 @@ struct RegularLoopWeight {
+@@ -100,7 +100,7 @@ struct RegularLoopWeight {
                  .69908
          };
  
@@ -11,7 +11,7 @@ Index: vcglib/vcg/complex/algorithms/refine_loop.h
      }
  
      inline SCALAR_TYPE incidentRegular(int k) {
-@@ -123,7 +123,7 @@ struct RegularLoopWeight {
+@@ -120,7 +120,7 @@ struct RegularLoopWeight {
                  .44579
          };
  
@@ -20,7 +20,7 @@ Index: vcglib/vcg/complex/algorithms/refine_loop.h
      }
      inline SCALAR_TYPE opposite(int k) {
          static SCALAR_TYPE bkPolar[] = {
-@@ -139,7 +139,7 @@ struct RegularLoopWeight {
+@@ -136,7 +136,7 @@ struct RegularLoopWeight {
                  .19828
          };
  
@@ -29,7 +29,7 @@ Index: vcglib/vcg/complex/algorithms/refine_loop.h
      }
  };
  
-@@ -159,7 +159,7 @@ struct ContinuityLoopWeight {
+@@ -156,7 +156,7 @@ struct ContinuityLoopWeight {
                  .70014
          };
  
@@ -38,7 +38,7 @@ Index: vcglib/vcg/complex/algorithms/refine_loop.h
      }
  
      inline SCALAR_TYPE incidentRegular(int k) {
-@@ -179,7 +179,7 @@ struct ContinuityLoopWeight {
+@@ -176,7 +176,7 @@ struct ContinuityLoopWeight {
                  .2452
          };
  
@@ -47,7 +47,7 @@ Index: vcglib/vcg/complex/algorithms/refine_loop.h
      }
      inline SCALAR_TYPE opposite(int k) {
          static SCALAR_TYPE bkPolar[] = {
-@@ -195,7 +195,7 @@ struct ContinuityLoopWeight {
+@@ -192,7 +192,7 @@ struct ContinuityLoopWeight {
                  .29934
          };
  

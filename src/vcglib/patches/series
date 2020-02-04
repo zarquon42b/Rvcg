@@ -1,4 +1,3 @@
-00_eigen.patch
 02_kdtree_anonstruct.patch
 07_cout.patch
 11_intersect_dangling_field.patch
@@ -6,3 +5,5 @@
 16_refine_loop_ubsan.patch
 17_fix_gcc_8_stl_export.patch
 18_fix_warn_unused_result
+19_fix_plylib_wstrict.patch
+
