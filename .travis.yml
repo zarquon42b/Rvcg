@@ -4,24 +4,26 @@
 # see the wiki:
 #   https://github.com/craigcitro/r-travis/wiki
 
-language: c
-sudo: required
-dist: trusty
+language: r
+#sudo: required
+#dist: bionic
 
-before_install:
-  - sudo add-apt-repository ppa:zarquon42/travis-trusty -y
-  - sudo apt-get update -qq
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - export RGL_USE_NULL=TRUE
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh install_r_binary rgl Rcpp RcppEigen RcppArmadillo foreach doParallel yaImpute testthat colorRamps morpho
-install:
-  - ./travis-tool.sh install_deps
-script: ./travis-tool.sh run_tests
+repos:
+  CRAN: https://cloud.r-project.org
 
-after_failure:
-  - ./travis-tool.sh dump_logs
+r_binary_packages:
+ - rgl
+ - Rcpp
+ - RcppEigen
+ - RcppArmadillo
+ - foreach
+
+r_packages:
+ - doParallel
+ - yaImpute
+ - testthat
+ - colorRamps
+ - Morpho
 
 notifications:
   email:
