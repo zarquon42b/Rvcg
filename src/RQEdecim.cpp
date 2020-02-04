@@ -113,7 +113,7 @@ RcppExport SEXP RQEdecim(SEXP mesh_, SEXP Finsize_, SEXP boolparams_, SEXP doubl
       TriEdgeCollapseQuadricParameter qparams;
       float TargetError=std::numeric_limits<float>::max();
       qparams.QualityThr = doubleparams[0];
-      qparams.BoundaryWeight = doubleparams[1];
+      qparams.BoundaryQuadricWeight = doubleparams[1];
       qparams.NormalThrRad = doubleparams[2];
 
       qparams.PreserveTopology = boolparams[0];
