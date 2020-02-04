@@ -29,8 +29,6 @@
 #ifndef __VCG_FACE_POS
 #define __VCG_FACE_POS
 
-#include <cassert>
-
 namespace vcg {
 namespace face {
 
