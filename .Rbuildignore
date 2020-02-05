@@ -12,3 +12,5 @@ src/vcglib/.pc
 .travis.yml
 debian
 README.md
+src/vcglib/.appveyor.yml
+src/vcglib/wrap/openfbx/.clang-format
