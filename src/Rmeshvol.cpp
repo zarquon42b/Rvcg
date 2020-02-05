@@ -3,7 +3,7 @@
 // of trimeshinfo
 // included in the vcglib sources
 // to work with R
-#include "typedefTopo.h"
+#include "typedef.h"
 #include "RvcgIO.h"
 #include <RcppArmadillo.h>
 
@@ -13,16 +13,20 @@ using namespace Rcpp;
 
 RcppExport SEXP Rmeshvol(SEXP mesh_) {
   try {
-    TopoMyMesh m;
-    int check = Rvcg::IOMesh<TopoMyMesh>::mesh3d2Rvcg(m,mesh_);
+    MyMesh m;
+    int check = Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(m,mesh_);
     bool Watertight, Oriented = false;
     int VManifold, FManifold;
     float Volume = 0;
     int numholes, BEdges = 0;
     //check manifoldness
-    UpdateTopology<TopoMyMesh>::FaceFace(m);
-    VManifold = Clean<TopoMyMesh>::CountNonManifoldVertexFF(m);
-    FManifold = Clean<TopoMyMesh>::CountNonManifoldEdgeFF(m);
+    m.vert.EnableVFAdjacency();
+    m.face.EnableFFAdjacency();
+    m.face.EnableVFAdjacency();
+    m.face.EnableNormal();
+    UpdateTopology<MyMesh>::FaceFace(m);
+    VManifold = Clean<MyMesh>::CountNonManifoldVertexFF(m);
+    FManifold = Clean<MyMesh>::CountNonManifoldEdgeFF(m);
     
     if ((VManifold>0) || (FManifold>0)) {
       ::Rf_error(
@@ -36,9 +40,9 @@ RcppExport SEXP Rmeshvol(SEXP mesh_) {
     }
       
      
-    Watertight = Clean<TopoMyMesh>::IsWaterTight(m);
-    Oriented = Clean<TopoMyMesh>::IsCoherentlyOrientedMesh(m);
-    tri::Inertia<TopoMyMesh> mm(m);
+    Watertight = Clean<MyMesh>::IsWaterTight(m);
+    Oriented = Clean<MyMesh>::IsCoherentlyOrientedMesh(m);
+    tri::Inertia<MyMesh> mm(m);
     mm.Compute(m);
     Volume = mm.Mass();
 
