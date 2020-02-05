@@ -31,9 +31,14 @@
 
 // VCG File Format Importer/Exporter
 #include <wrap/io_trimesh/import.h>
+#include <wrap/io_trimesh/import_off.h>
 #include <wrap/io_trimesh/export.h>
 #include <wrap/io_trimesh/export_ply.h>
 #include <vcg/complex/algorithms/update/color.h>
+#include <vcg/complex/algorithms/update/texture.h>
+#include <vcg/complex/algorithms/attribute_seam.h>
+#include <vcg/complex/algorithms/refine_loop.h>
+
 //#include <vcg/complex/algorithms/update/curvature.h>
 #ifndef RcppExport
 #define RcppExport extern "C"
@@ -61,7 +66,8 @@ class MyVertex  : public Vertex< MyUsedTypes,
   vertex::QualityfOcf,
   vertex::VFAdjOcf,
   vertex::CurvaturefOcf,
-  vertex::CurvatureDirfOcf
+  vertex::CurvatureDirfOcf,
+  vertex::TexCoordfOcf 
   /*vertex::VFAdj,
     vertex::Curvaturef,
     vertex::CurvatureDirf*/
@@ -72,7 +78,10 @@ class MyFace: public Face  <MyUsedTypes,
   face::BitFlags,
   face::Mark,
   face::FFAdjOcf, 
-  face::VFAdjOcf, 
+  face::VFAdjOcf,
+  face::WedgeTexCoordfOcf,
+  face::Color4bOcf,
+  face::QualityfOcf,
   face::Normal3fOcf
   /*face::FFAdj, 
     face::VFAdj,*/

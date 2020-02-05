@@ -1,4 +1,4 @@
-#include "typedefCurvature.h"
+#include "typedef.h"
 #include "RvcgIO.h"
 //#include <wrap/ply/plylib.cpp>
 #include <RcppArmadillo.h>
@@ -13,31 +13,31 @@ RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
   try {
     // declare Mesh and helper variables
     int i, j;
-    CurveMyMesh m;
+    MyMesh m;
     VertexIterator vi;
     FaceIterator fi;
  
-    Rvcg::IOMesh<CurveMyMesh>::RvcgReadR(m,vb_,it_);
-    /*m.vert.EnableQuality();
+    Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
+    m.vert.EnableQuality();
       m.vert.EnableCurvatureDir();
       m.vert.EnableCurvature();
       m.vert.EnableVFAdjacency();
       m.face.EnableFFAdjacency();
-      m.face.EnableVFAdjacency();*/
+      m.face.EnableVFAdjacency();
   
-    tri::UpdateTopology<CurveMyMesh>::FaceFace(m);
-    tri::UpdateTopology<CurveMyMesh>::VertexFace(m);
-    tri::UpdateBounding<CurveMyMesh>::Box(m);
-    tri::Allocator<CurveMyMesh>::CompactVertexVector(m);
-    tri::UpdateCurvature<CurveMyMesh>::MeanAndGaussian(m);
-    tri::UpdateQuality<CurveMyMesh>::VertexFromRMSCurvature(m);
-    tri::UpdateCurvature<CurveMyMesh>::PrincipalDirections(m);
+    tri::UpdateTopology<MyMesh>::FaceFace(m);
+    tri::UpdateTopology<MyMesh>::VertexFace(m);
+    tri::UpdateBounding<MyMesh>::Box(m);
+    tri::Allocator<MyMesh>::CompactVertexVector(m);
+    tri::UpdateCurvature<MyMesh>::MeanAndGaussian(m);
+    tri::UpdateQuality<MyMesh>::VertexFromRMSCurvature(m);
+    tri::UpdateCurvature<MyMesh>::PrincipalDirections(m);
    
     //Bordersearch
-    tri::UpdateFlags<CurveMyMesh>::FaceBorderFromNone(m);
-    tri::UpdateSelection<CurveMyMesh>::FaceFromBorderFlag(m);
-    tri::UpdateFlags<CurveMyMesh>::VertexBorderFromNone(m);
-    tri::UpdateSelection<CurveMyMesh>::VertexFromBorderFlag(m);
+    tri::UpdateFlags<MyMesh>::FaceBorderFromNone(m);
+    tri::UpdateSelection<MyMesh>::FaceFromBorderFlag(m);
+    tri::UpdateFlags<MyMesh>::VertexBorderFromNone(m);
+    tri::UpdateSelection<MyMesh>::VertexFromBorderFlag(m);
   
     std::vector<float> gaussvb, meanvb, gaussitmax, meanitmax, K1, K2;
     std::vector<float> RMSvb;

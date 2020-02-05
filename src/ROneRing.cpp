@@ -1,5 +1,5 @@
 #include <vcg/simplex/face/pos.h>
-#include "typedefTopo.h"
+#include "typedef.h"
 #include "RvcgIO.h"
 #include <RcppArmadillo.h>
 
@@ -13,22 +13,22 @@ RcppExport SEXP ROneRing(SEXP vb_, SEXP it_, SEXP both_ = wrap(false))
 {
   try {
     bool both = as<bool>(both_);
-    TopoMyMesh m;
-    Rvcg::IOMesh<TopoMyMesh>::RvcgReadR(m,vb_,it_);
-    tri::UpdateTopology<TopoMyMesh>::FaceFace(m);
-    tri::UpdateTopology<TopoMyMesh>::VertexFace(m);
+    MyMesh m;
+    Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
+    tri::UpdateTopology<MyMesh>::FaceFace(m);
+    tri::UpdateTopology<MyMesh>::VertexFace(m);
     NumericVector area(m.vn);
     NumericVector areaf(m.fn);
     VertexIterator vi = m.vert.begin();
     
     for (int i=0;i < m.vn;i++) {
       //TopoMyVertex v = *vi;
-      vcg::face::VFIterator<TopoMyFace> vfi(&*vi); //initialize the iterator tohe first face
+      vcg::face::VFIterator<MyFace> vfi(&*vi); //initialize the iterator tohe first face
       ScalarType test = 0;
       for(;!vfi.End();++vfi) {
 	  
-	  TopoMyFace* f = vfi.F();
-	  test +=  DoubleArea<TopoMyFace>(*f)/2;
+	  MyFace* f = vfi.F();
+	  test +=  DoubleArea<MyFace>(*f)/2;
 	  
 	  }
       area[i] = test;
@@ -39,21 +39,21 @@ RcppExport SEXP ROneRing(SEXP vb_, SEXP it_, SEXP both_ = wrap(false))
     FaceIterator fi = m.face.begin();
     for (int i=0;i < m.fn;i++) {
       ScalarType test = 0;
-      TopoMyFace* start = (&*fi);
+      MyFace* start = (&*fi);
       for (int j = 0; j < 3 ; j++) {
-      TopoMyVertex * v = (&*fi)->V(j);
-      vcg::face::JumpingPos<TopoMyFace> p((&*fi),j,v);// constructor that takes face, edge and vertex
+      MyVertex * v = (&*fi)->V(j);
+      vcg::face::JumpingPos<MyFace> p((&*fi),j,v);// constructor that takes face, edge and vertex
       do{
 	p.NextFE();
 	if (!(&*p.F())->IsV()){
 	  (&*p.F())->SetV();
-	  test += DoubleArea<TopoMyFace>(*p.F())/2;
+	  test += DoubleArea<MyFace>(*p.F())/2;
 	  
 	}
       } while(p.f!=start);
       }
       areaf[i] = test;
-      vcg::tri::UpdateFlags<TopoMyMesh>::FaceClearV(m);
+      vcg::tri::UpdateFlags<MyMesh>::FaceClearV(m);
 
       ++fi;
     }
