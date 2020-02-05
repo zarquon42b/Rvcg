@@ -18,6 +18,8 @@
 #' \item{5 = Split non-manifold vertices by threshold}
 #' \item{6 = merge close vertices (radius=\code{tol})}
 #' \item{7 = coherently orient faces}
+#'
+#' CAVEAT: sel=6 will not work keep vertex colors
 #' }
 #' @return cleaned mesh with an additional entry
 #' \item{remvert}{vector of length = number of vertices before cleaning. Entries = 1 indicate that this vertex was removed; 0 otherwise.}
@@ -47,27 +49,38 @@ vcgClean <- function(mesh, sel = 0,tol=0,silent=FALSE,iterate=FALSE) {
         sel <- as.vector(sel)
         tmp <- .Call("Rclean", vb, it, sel, tol,silent)
         removed <- sum(tmp$remvert)
+        
         if (!is.null(mesh$material$color)) {
-            if (length(tmp$remvert)) {
-                colframe <- data.frame(it=1:ncol(mesh$vb))
-                colframe$rgb <- rep("#FFFFFF",ncol(mesh$vb))
-                colframe$it <- 1:ncol(mesh$vb)
-                remvert <- tmp$remvert
-                tmp1 <- data.frame(it=as.vector(mesh$it))
-                tmp1$rgb <- as.vector(mesh$material$color)
-                tmp1 <- unique(tmp1)
-                tmp1 <- tmp1[order(tmp1$it),]
-                colframe$rgb[tmp1$it] <- tmp1$rgb
-                colvec <- colframe$rgb[!as.logical(remvert)]
-                colfun <- function(x) {
-                    x <- colvec[x]
-                    return(x)
+            if (! (6 %in% sel) && !(5 %in% sel)) {
+                if (removed > 0) {
+                    if (length(mesh$material$color) == dimit) {
+                        colframe <- data.frame(it=1:ncol(mesh$vb))
+                        colframe$rgb <- rep("#FFFFFF",ncol(mesh$vb))
+                        colframe$it <- 1:ncol(mesh$vb)
+                        remvert <- tmp$remvert
+                        tmp1 <- data.frame(it=as.vector(mesh$it))
+                        tmp1$rgb <- as.vector(mesh$material$color)
+                        tmp1 <- unique(tmp1)
+                        tmp1 <- tmp1[order(tmp1$it),]
+                        colframe$rgb[tmp1$it] <- tmp1$rgb
+                        colvec <- colframe$rgb[!as.logical(remvert)]
+                        colfun <- function(x) {
+                            x <- colvec[x]
+                            return(x)
+                        }
+                        tmp$material$color <- matrix(colfun(tmp$it),dim(tmp$it))
+                    } else {
+                        tmp$material$color <- mesh$material$color[-which(as.logical(tmp$remvert))]
+                    }
                 }
-                tmp$material$color <- matrix(colfun(tmp$it),dim(tmp$it))
+            } else if ((6 %in% sel) || (5 %in% sel)){
+                message("NOTE: vertex colors are removed")
+                tmp$material$color  <-  NULL
             } else {
                 tmp$material$color <- mesh$material$color
             }
         }
+    
         mesh <- tmp
         if (!iterate)
             removed <- 0

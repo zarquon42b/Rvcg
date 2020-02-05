@@ -11,6 +11,7 @@
 #' @param clean if TRUE, duplicated and unreferenced vertices as well as duplicate faces are removed (be careful when importing point clouds).
 #' @param silent logical, if TRUE no console output is issued.
 #' @note currently only meshes with either color or texture can be processed. If both are present, the function will mark the mesh as non-readable.
+#'
 #' @return Object of class "mesh3d"
 #' 
 #' with:
@@ -90,12 +91,8 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
             if (length(tmp$colors)) {
                 colvec <- matrix(tmp$colors,3,(length(tmp$colors)/3))
                 colvec <- rgb(colvec[1,],colvec[2,],colvec[3,],maxColorValue=255)
-                colfun <- function(x)
-                    {
-                        x <- colvec[x]
-                        return(x)
-                    }
-                out$material$color <- matrix(colfun(it),dim(it))
+                out$material$color <- colvec
+                ##matrix(colfun(it),dim(it))
             }
             if (length(tmp$texfile)) {
                 setwd(folder)

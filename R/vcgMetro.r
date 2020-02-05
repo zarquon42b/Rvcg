@@ -74,7 +74,7 @@ vcgMetro <- function(mesh1, mesh2, nSamples=0, nSamplesArea=0, vertSamp=TRUE, ed
 	if (searchStruct == "OCTREE")
 		searchStruct <- 3
 
-   tmp <- .Call("Rmetro",mesh1,mesh2, vertSamp, edgeSamp, faceSamp, unrefVert, samplingType, nSamples, nSamplesArea, from, to, searchStruct,colormeshes,silent)
+        tmp <- .Call("Rmetro",mesh1,mesh2, vertSamp, edgeSamp, faceSamp, unrefVert, samplingType, nSamples, nSamplesArea, from, to, searchStruct,colormeshes,silent)
         tmp$mesh1 <- updateColorFromVector(tmp$mesh1$mesh,tmp$mesh1$colors)
         tmp$mesh2 <- updateColorFromVector(tmp$mesh2$mesh,tmp$mesh2$colors)
         
@@ -88,12 +88,13 @@ updateColorFromVector <- function(out,colors) {
             if (length(colors)) {
                 colvec <- matrix(colors,3,(length(colors)/3))
                 colvec <- rgb(colvec[1,],colvec[2,],colvec[3,],maxColorValue=255)
-                colfun <- function(x)
-                    {
-                        x <- colvec[x]
-                        return(x)
-                    }
-                out$material$color <- matrix(colfun(out$it),dim(out$it))
+                #colfun <- function(x)
+                #    {
+                #        x <- colvec[x]
+                #        return(x)
+                #    }
+                out$material$color <-colvec
+                    #matrix(colfun(out$it),dim(out$it))
             }
     class(out) <- "mesh3d"
             
