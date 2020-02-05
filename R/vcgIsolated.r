@@ -47,39 +47,26 @@ vcgIsolated <- function(mesh,facenum=NULL,diameter=NULL,split=FALSE,keep=0, sile
         ## handle vertex color
         if (!is.null(mesh$material$color)) {
             if (length(tmp$remvert)) {
-                colframe <- data.frame(it=1:ncol(mesh$vb))
-                colframe$rgb <- rep("#FFFFFF",ncol(mesh$vb))
-                colframe$it <- 1:ncol(mesh$vb)
-                remvert <- tmp$remvert
-                tmp1 <- data.frame(it=as.vector(mesh$it))
-                tmp1$rgb <- as.vector(mesh$material$color)
-                tmp1 <- unique(tmp1)
-                tmp1 <- tmp1[order(tmp1$it),]
-                colframe$rgb[tmp1$it] <- tmp1$rgb
-                colvec <- colframe$rgb[!as.logical(remvert)]
-                colfun <- function(x) {
-                    x <- colvec[x]
-                    return(x)
-                }
-                tmp$material$color <- matrix(colfun(tmp$it),dim(tmp$it))
+                tmp$material$color <- mesh$material$color[-which(as.logical(tmp$remvert))]
             } else {
                 tmp$material$color <- mesh$material$color
             }
         }
+        
     }
     if (split) {
         if (length(tmp)) { 
-        ll <- length(tmp)
-        nverts <- sapply(tmp,function(x) x <- ncol(x$it))
-        tmp <- tmp[order(nverts,decreasing = T)]
-        if (keep > 0) 
-            ll <- min(ll,keep)
-        tmp <- tmp[1:ll]
-        if (!silent)
-            cat(paste0("mesh is split into ",ll," pieces\n"))
-    } else {
-        stop("no parts match your requirements")
-    }
+            ll <- length(tmp)
+            nverts <- sapply(tmp,function(x) x <- ncol(x$it))
+            tmp <- tmp[order(nverts,decreasing = T)]
+            if (keep > 0) 
+                ll <- min(ll,keep)
+            tmp <- tmp[1:ll]
+            if (!silent)
+                cat(paste0("mesh is split into ",ll," pieces\n"))
+        } else {
+            stop("no parts match your requirements")
+        }
     }
     invisible(tmp)
 }

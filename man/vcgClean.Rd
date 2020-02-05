@@ -37,6 +37,8 @@ available options are:
 \item{5 = Split non-manifold vertices by threshold}
 \item{6 = merge close vertices (radius=\code{tol})}
 \item{7 = coherently orient faces}
+
+CAVEAT: sel=6 will not work keep vertex colors
 }
 }
 \examples{
