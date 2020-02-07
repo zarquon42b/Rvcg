@@ -3663,8 +3663,7 @@ void interpret_texture_name(const char*a, const char*fn, char*output){
 
 					// 3) append
 					output[io]=0;
-					char* output1 = output;
-					sprintf(output,"%s%s",output1,fn2);
+					strcat(output, fn2); 
 					io=strlen(output);
 					ia+=6; //skip the "<this>"
 					continue;

@@ -2,13 +2,12 @@ Index: vcglib/wrap/ply/plylib.cpp
 ===================================================================
 --- vcglib.orig/wrap/ply/plylib.cpp
 +++ vcglib/wrap/ply/plylib.cpp
-@@ -3663,7 +3663,8 @@ void interpret_texture_name(const char*a
+@@ -3663,7 +3663,7 @@ void interpret_texture_name(const char*a
  
  					// 3) append
  					output[io]=0;
 -					sprintf(output,"%s%s",output,fn2);
-+					char* output1 = output;
-+					sprintf(output,"%s%s",output1,fn2);
++					strcat(output, fn2); 
  					io=strlen(output);
  					ia+=6; //skip the "<this>"
  					continue;
