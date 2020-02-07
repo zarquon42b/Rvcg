@@ -378,7 +378,7 @@ class Tetra
 
 		CoordType n1 = ((p2 - p0) ^ (p1 - p0)).normalized();
 
-		return M_PI - double(acos(n0 * n1));
+		return M_PI - double(std::acos(n0 * n1));
 	};
 
 	template <class TetraType>
@@ -475,7 +475,7 @@ class Tetra3 : public Tetra
 		CoordType norm2 = ((p1 - p0) ^ (p2 - p0));
 		norm1.Normalize();
 		norm2.Normalize();
-		return (M_PI - acos(double(norm1 * norm2)));
+		return (M_PI - std::acos(double(norm1 * norm2)));
 	}
 
 	/// compute and return the aspect ratio of the tetrahedron
