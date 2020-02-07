@@ -8,3 +8,4 @@
 19_fix_plylib_wstrict.patch
 
 20_include_assert.patch
+21_use_std_acos.patch
