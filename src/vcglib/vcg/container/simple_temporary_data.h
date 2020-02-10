@@ -24,8 +24,6 @@
 #ifndef __VCGLIB_SIMPLE__
 #define __VCGLIB_SIMPLE__
 
-#include <string.h>
-
 namespace vcg {
 
 class SimpleTempDataBase{
@@ -46,6 +44,12 @@ template <>
 class VectorNBW<bool>{
 public:
     VectorNBW():data(0),datasize(0),datareserve(0){}
+
+    ~VectorNBW() {
+        if (data)
+            delete[] data;
+    }
+
     bool * data ;
 
     void reserve (const int & sz)	{
@@ -99,7 +103,10 @@ class SimpleTempData:public SimpleTempDataBase{
         Init(val);
     };
 
-    ~SimpleTempData(){data.clear();}
+    ~SimpleTempData()
+	{
+		data.clear();
+	}
 
     void Init(const ATTR_TYPE &val)
     {

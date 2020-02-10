@@ -114,13 +114,13 @@ class VoronoiProcessing
   typedef typename MeshType::FaceContainer		FaceContainer;
   typedef typename tri::Geodesic<MeshType>::VertDist VertDist;
 
-  static math::MarsenneTwisterRNG &RandomGenerator()
-  {
-      static math::MarsenneTwisterRNG rnd;
-      return rnd;
-  }
 
 public:
+	static math::MarsenneTwisterRNG &RandomGenerator()
+    {
+        static math::MarsenneTwisterRNG rnd;
+        return rnd;
+    }
 
   typedef typename MeshType::template PerVertexAttributeHandle<VertexPointer> PerVertexPointerHandle;
   typedef typename MeshType::template PerVertexAttributeHandle<bool> PerVertexBoolHandle;
@@ -1224,7 +1224,7 @@ static int RestrictedVoronoiRelaxing(MeshType &m, std::vector<CoordType> &seedPo
       area[fi->V(i)]+=a3;
   }
 
-  assert(m.vn > (int)seedPosVec.size()*20);
+//  assert(m.vn > (int)seedPosVec.size()*20);
   int i;
   ScalarType perturb = m.bbox.Diag()*vpp.seedPerturbationAmount;
   for(i=0;i<relaxStep;++i)
@@ -1260,7 +1260,7 @@ static int RestrictedVoronoiRelaxing(MeshType &m, std::vector<CoordType> &seedPo
         if(sumVec[i].first != 0)
         {
           newseedVec.push_back(sumVec[i].second /ScalarType(sumVec[i].first));
-          if(vpp.seedPerturbationProbability > RandomGenerator().generate01())
+          if(vpp.seedPerturbationProbability > 0  && (vpp.seedPerturbationProbability > RandomGenerator().generate01()))
             newseedVec.back()+=math::GeneratePointInUnitBallUniform<ScalarType,math::MarsenneTwisterRNG>( RandomGenerator())*perturb;
           newfixedVec.push_back(false);
         }
