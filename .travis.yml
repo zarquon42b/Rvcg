@@ -5,6 +5,7 @@
 #   https://github.com/craigcitro/r-travis/wiki
 
 language: r
+cache: packages
 #sudo: required
 #dist: bionic
 
@@ -16,14 +17,7 @@ r_binary_packages:
  - Rcpp
  - RcppEigen
  - RcppArmadillo
- - foreach
-
-r_packages:
- - doParallel
- - yaImpute
- - testthat
- - colorRamps
- - Morpho
+ - morpho
 
 notifications:
   email:
