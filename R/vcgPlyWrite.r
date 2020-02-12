@@ -42,8 +42,6 @@ vcgPlyWrite.mesh3d <- function(mesh, filename=dataname, binary = TRUE, addNormal
                     stop("mesh color is not correct")
                 } else {
                     tmp1 <- data.frame(it = as.vector(mesh$it))
-                    
-                    tmp1 <- data.frame(it=1:vn)
                     tmp1$rgb <- as.vector(mesh$material$color)
                     tmp1 <- unique(tmp1)
                     col[tmp1$it] <- tmp1$rgb
