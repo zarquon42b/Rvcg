@@ -23,12 +23,12 @@ addons:
 repos:
   CRAN: https://cloud.r-project.org
 
-r_binary_packages:
+r_packages:
  - rgl
  - Rcpp
  - RcppEigen
  - RcppArmadillo
- - morpho
+ - Morpho
 
 notifications:
   email:
