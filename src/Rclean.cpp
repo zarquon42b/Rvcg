@@ -103,6 +103,18 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
     }
     ++vi;
   }
+   // get a vector of which vertices were removed
+  std::vector<int> remface(m.face.size());
+  std::fill(remface.begin(), remface.end(),0);
+  fi=m.face.begin();
+  
+  for (unsigned int j=0;  j < m.face.size(); j++) {
+    if( fi->IsD() )	{
+      remface[j] = 1;
+    }
+    ++fi;
+  }
+  
   //write back
   vcg::tri::Allocator< MyMesh >::CompactVertexVector(m);
   vcg::tri::Allocator< MyMesh >::CompactFaceVector(m);
@@ -110,6 +122,7 @@ RcppExport SEXP Rclean(SEXP vb_, SEXP it_, SEXP type_, SEXP tol_, SEXP silent_)
   tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
   List out = Rvcg::IOMesh<MyMesh>::RvcgToR(m,true);
   out["remvert"] = remvert;
+  out["remface"] = remface;
   out.attr("class") = "mesh3d";
   return out;
   } catch (std::exception& e) {

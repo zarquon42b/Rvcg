@@ -48,7 +48,7 @@ vcgClean <- function(mesh, sel = 0,tol=0,silent=FALSE,iterate=FALSE) {
         dimvb <- dim(vb)[2]
         sel <- as.vector(sel)
         tmp <- .Call("Rclean", vb, it, sel, tol,silent)
-        removed <- sum(tmp$remvert)
+        removed <- sum(tmp$remvert,tmp$remface)
         
         if (!is.null(mesh$material$color)) {
             if (! (6 %in% sel) && !(5 %in% sel)) {
