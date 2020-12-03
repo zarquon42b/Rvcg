@@ -16,7 +16,7 @@
 #' @param topo logical: if TRUE, mesh topology is preserved.
 #' @param quality logical: if TRUE, vertex quality is considered.
 #' @param bound logical: if TRUE, mesh boundary is preserved.
-#' @param optiplace logical: if TRUE, mesh boundary is preserved.
+#' @param optiplace logical: if TRUE, mesh boundary is preserved (may lead to unwanted distortions in some cases).
 #' @param scaleindi logical: if TRUE, decimatiion is scale independent.
 #' @param normcheck logical: if TRUE, normal directions are considered.
 #' @param qweightFactor numeric: >= 1. Quality range is mapped into a squared 01 and than into the 1 - QualityWeightFactor range.
@@ -42,7 +42,7 @@
 #' decimface <- vcgSmooth(decimface,iteration = 1)
 #' } 
 #' @export vcgQEdecim
-vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = TRUE, scaleindi = TRUE, normcheck = FALSE, qweightFactor =100, qthresh=0.3, boundweight = 1, normalthr = pi/2,silent=FALSE)
+vcgQEdecim <- function(mesh,tarface=NULL,percent=NULL,edgeLength=NULL, topo=FALSE,quality=TRUE,bound=FALSE, optiplace = FALSE, scaleindi = TRUE, normcheck = FALSE, qweightFactor =100, qthresh=0.3, boundweight = 1, normalthr = pi/2,silent=FALSE)
     {
         if (!inherits(mesh,"mesh3d"))
             stop("argument 'mesh' needs to be object of class 'mesh3d'")

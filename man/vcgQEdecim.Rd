@@ -4,10 +4,23 @@
 \alias{vcgQEdecim}
 \title{Performs Quadric Edge Decimation on triangular meshes.}
 \usage{
-vcgQEdecim(mesh, tarface = NULL, percent = NULL, edgeLength = NULL,
-  topo = FALSE, quality = TRUE, bound = FALSE, optiplace = TRUE,
-  scaleindi = TRUE, normcheck = FALSE, qweightFactor = 100,
-  qthresh = 0.3, boundweight = 1, normalthr = pi/2, silent = FALSE)
+vcgQEdecim(
+  mesh,
+  tarface = NULL,
+  percent = NULL,
+  edgeLength = NULL,
+  topo = FALSE,
+  quality = TRUE,
+  bound = FALSE,
+  optiplace = FALSE,
+  scaleindi = TRUE,
+  normcheck = FALSE,
+  qweightFactor = 100,
+  qthresh = 0.3,
+  boundweight = 1,
+  normalthr = pi/2,
+  silent = FALSE
+)
 }
 \arguments{
 \item{mesh}{Triangular mesh of class "mesh3d"}
@@ -27,7 +40,7 @@ long by dividing the triangle into 4 regular smaller triangles.}
 
 \item{bound}{logical: if TRUE, mesh boundary is preserved.}
 
-\item{optiplace}{logical: if TRUE, mesh boundary is preserved.}
+\item{optiplace}{logical: if TRUE, mesh boundary is preserved (may lead to unwanted distortions in some cases).}
 
 \item{scaleindi}{logical: if TRUE, decimatiion is scale independent.}
 
