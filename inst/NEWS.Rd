@@ -2,6 +2,17 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.19.2 (2020-12-10)}{
+  \subsection{small changes and fixes}{
+    \itemize{
+      
+      \item made example code with suggested packages optional
+      \item vcgQEdecim: set default optiplace=FALSE as this can lead to unwanted distortions in some cases.
+      \item vcgClean: when iterate=T, also check removed faces.
+      \item vcgPlyWrite: fixed mesh export for legacy rgl coloring
+    }
+  }
+}
 
 \section{Changes in Rvcg version 0.18 (2018-09-28)}{
   \subsection{small changes and fixes}{
