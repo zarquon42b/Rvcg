@@ -35,6 +35,6 @@ BugReports: https://github.com/zarquon42b/Rvcg/issues
 Copyright: see files COPYRIGHTS for detailed information
 LazyLoad: yes
 Biarch: yes
-URL: http://github.com/zarquon42b/Rvcg, http://vcg.sf.net/
+URL: https://github.com/zarquon42b/Rvcg, http://vcg.sf.net/
 Encoding: UTF-8
 RoxygenNote: 7.1.0
