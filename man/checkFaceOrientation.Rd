@@ -24,6 +24,9 @@ assuming that a correctly (i.e outward) oriented mesh increases its centroid siz
 data(dummyhead)
 ## now we invert faces inwards
 checkFaceOrientation(dummyhead.mesh)
+
+if (requireNamespace("Morpho", quietly = TRUE)) {
 dummyinward <- Morpho::invertFaces(dummyhead.mesh)
 checkFaceOrientation(dummyinward)
+}
 }

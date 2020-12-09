@@ -4,11 +4,22 @@
 \alias{vcgMetro}
 \title{evaluate the difference between two triangular meshes.}
 \usage{
-vcgMetro(mesh1, mesh2, nSamples = 0, nSamplesArea = 0,
-  vertSamp = TRUE, edgeSamp = TRUE, faceSamp = TRUE,
-  unrefVert = FALSE, samplingType = c("SS", "MC", "SD"),
-  searchStruct = c("SGRID", "AABB", "OCTREE", "HGRID"), from = 0,
-  to = 0, colormeshes = FALSE, silent = FALSE)
+vcgMetro(
+  mesh1,
+  mesh2,
+  nSamples = 0,
+  nSamplesArea = 0,
+  vertSamp = TRUE,
+  edgeSamp = TRUE,
+  faceSamp = TRUE,
+  unrefVert = FALSE,
+  samplingType = c("SS", "MC", "SD"),
+  searchStruct = c("SGRID", "AABB", "OCTREE", "HGRID"),
+  from = 0,
+  to = 0,
+  colormeshes = FALSE,
+  silent = FALSE
+)
 }
 \arguments{
 \item{mesh1}{triangular mesh (object of class 'mesh3d').}
@@ -62,6 +73,8 @@ Implementation of the command line tool "metro" to evaluate the difference betwe
 this is a straightforward implementation of the command line tool metro \url{http://vcg.isti.cnr.it/vcglib/metro.html}
 }
 \examples{
+
+if (requireNamespace("Morpho", quietly = TRUE)) {
 require(Morpho)
 data(humface)
 data(dummyhead)
@@ -69,6 +82,7 @@ data(dummyhead)
 humfalign <- rotmesh.onto(humface,humface.lm,dummyhead.lm)
 samp <- vcgMetro(humfalign$mesh,dummyhead.mesh,faceSamp=FALSE,edgeSamp=FALSE)
 ## create heatmap using Morpho's meshDist function
+}
 \dontrun{
 ## create custom heatmaps based on distances
 mD <- meshDist(humfalign$mesh,distvec=samp$distances1)

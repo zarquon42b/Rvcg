@@ -21,8 +21,11 @@ meshOff <- function(x,offset) {
 #' data(dummyhead)
 #' ## now we invert faces inwards
 #' checkFaceOrientation(dummyhead.mesh)
+#'
+#' if (requireNamespace("Morpho", quietly = TRUE)) {
 #' dummyinward <- Morpho::invertFaces(dummyhead.mesh)
 #' checkFaceOrientation(dummyinward)
+#' }
 #' @export
 checkFaceOrientation <- function(x,offset=NULL) {
     if (is.null(offset))

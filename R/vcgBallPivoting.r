@@ -8,9 +8,12 @@
 #' @param deleteFaces in case x is a mesh and \code{deleteFaces=TRUE}, existing faces will be deleted beforehand.
 #' @return triangular face of class mesh3d
 #' @examples
+#' if (requireNamespace("Morpho", quietly = TRUE)) {
 #' require(Morpho)
 #' data(nose)
 #' nosereko <- vcgBallPivoting(shortnose.lm)
+#' }
+#' 
 #' @export
 vcgBallPivoting <- function(x, radius=0, clustering=0.2, angle=pi/2,deleteFaces=FALSE) {
     if (is.matrix(x)) {

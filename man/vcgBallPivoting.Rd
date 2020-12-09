@@ -4,8 +4,13 @@
 \alias{vcgBallPivoting}
 \title{Ball pivoting surface reconstruction}
 \usage{
-vcgBallPivoting(x, radius = 0, clustering = 0.2, angle = pi/2,
-  deleteFaces = FALSE)
+vcgBallPivoting(
+  x,
+  radius = 0,
+  clustering = 0.2,
+  angle = pi/2,
+  deleteFaces = FALSE
+)
 }
 \arguments{
 \item{x}{k x 3 matrix or object of class mesh3d}
@@ -25,7 +30,10 @@ triangular face of class mesh3d
 Ball pivoting surface reconstruction
 }
 \examples{
+if (requireNamespace("Morpho", quietly = TRUE)) {
 require(Morpho)
 data(nose)
 nosereko <- vcgBallPivoting(shortnose.lm)
+}
+
 }

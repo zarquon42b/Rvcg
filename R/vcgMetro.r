@@ -33,6 +33,8 @@
 #' if colormeshes == TRUE
 #' \item{mesh1, mesh2}{meshes with color coded distances and an additional entry called quality containing the sampled per-vertex distances}
 #' @examples
+#' 
+#' if (requireNamespace("Morpho", quietly = TRUE)) {
 #' require(Morpho)
 #' data(humface)
 #' data(dummyhead)
@@ -40,6 +42,8 @@
 #' humfalign <- rotmesh.onto(humface,humface.lm,dummyhead.lm)
 #' samp <- vcgMetro(humfalign$mesh,dummyhead.mesh,faceSamp=FALSE,edgeSamp=FALSE)
 #' ## create heatmap using Morpho's meshDist function
+#' }
+#'
 #' \dontrun{
 #' ## create custom heatmaps based on distances
 #' mD <- meshDist(humfalign$mesh,distvec=samp$distances1)
