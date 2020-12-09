@@ -4,9 +4,15 @@
 \alias{vcgSmooth}
 \title{Smoothes a triangular mesh}
 \usage{
-vcgSmooth(mesh, type = c("taubin", "laplace", "HClaplace", "fujiLaplace",
-  "angWeight", "surfPreserveLaplace"), iteration = 10, lambda = 0.5,
-  mu = -0.53, delta = 0.1)
+vcgSmooth(
+  mesh,
+  type = c("taubin", "laplace", "HClaplace", "fujiLaplace", "angWeight",
+    "surfPreserveLaplace"),
+  iteration = 10,
+  lambda = 0.5,
+  mu = -0.53,
+  delta = 0.1
+)
 }
 \arguments{
 \item{mesh}{triangular mesh stored as object of class "mesh3d".}

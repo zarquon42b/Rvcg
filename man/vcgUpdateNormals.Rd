@@ -4,8 +4,7 @@
 \alias{vcgUpdateNormals}
 \title{updates vertex normals of a triangular meshes or point clouds}
 \usage{
-vcgUpdateNormals(mesh, type = 0, pointcloud = c(10, 0),
-  silent = FALSE)
+vcgUpdateNormals(mesh, type = 0, pointcloud = c(10, 0), silent = FALSE)
 }
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a n x 3 matrix containing 3D-coordinates.}

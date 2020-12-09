@@ -4,9 +4,14 @@
 \alias{vcgSubdivide}
 \title{subdivide the triangles of a mesh}
 \usage{
-vcgSubdivide(x, threshold = NULL, type = c("Butterfly", "Loop"),
-  looptype = c("loop", "regularity", "continuity"), iterations = 3,
-  silent = FALSE)
+vcgSubdivide(
+  x,
+  threshold = NULL,
+  type = c("Butterfly", "Loop"),
+  looptype = c("loop", "regularity", "continuity"),
+  iterations = 3,
+  silent = FALSE
+)
 }
 \arguments{
 \item{x}{triangular mesh of class "mesh3d"}

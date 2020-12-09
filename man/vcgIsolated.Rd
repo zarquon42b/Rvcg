@@ -4,8 +4,14 @@
 \alias{vcgIsolated}
 \title{Remove isolated pieces from a surface mesh or split into connected components}
 \usage{
-vcgIsolated(mesh, facenum = NULL, diameter = NULL, split = FALSE,
-  keep = 0, silent = FALSE)
+vcgIsolated(
+  mesh,
+  facenum = NULL,
+  diameter = NULL,
+  split = FALSE,
+  keep = 0,
+  silent = FALSE
+)
 }
 \arguments{
 \item{mesh}{triangular mesh of class "mesh3d".}

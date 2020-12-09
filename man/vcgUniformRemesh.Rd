@@ -4,9 +4,16 @@
 \alias{vcgUniformRemesh}
 \title{Resample a mesh uniformly}
 \usage{
-vcgUniformRemesh(x, voxelSize = NULL, offset = 0, discretize = FALSE,
-  multiSample = FALSE, absDist = FALSE, mergeClost = FALSE,
-  silent = FALSE)
+vcgUniformRemesh(
+  x,
+  voxelSize = NULL,
+  offset = 0,
+  discretize = FALSE,
+  multiSample = FALSE,
+  absDist = FALSE,
+  mergeClost = FALSE,
+  silent = FALSE
+)
 }
 \arguments{
 \item{x}{triangular mesh}

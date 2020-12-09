@@ -4,8 +4,7 @@
 \alias{vcgKmeans}
 \title{fast Kmean clustering for 1D, 2D and 3D data}
 \usage{
-vcgKmeans(x, k = 10, iter.max = 10, getClosest = FALSE,
-  threads = 0)
+vcgKmeans(x, k = 10, iter.max = 10, getClosest = FALSE, threads = 0)
 }
 \arguments{
 \item{x}{matrix containing coordinates or mesh3d}

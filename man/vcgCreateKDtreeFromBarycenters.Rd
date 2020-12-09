@@ -4,8 +4,7 @@
 \alias{vcgCreateKDtreeFromBarycenters}
 \title{create a KD-tree from Barycenters for multiple closest point searches on a mesh}
 \usage{
-vcgCreateKDtreeFromBarycenters(mesh, nofPointsPerCell = 16,
-  maxDepth = 64)
+vcgCreateKDtreeFromBarycenters(mesh, nofPointsPerCell = 16, maxDepth = 64)
 }
 \arguments{
 \item{mesh}{matrix or triangular mesh containing coordinates}

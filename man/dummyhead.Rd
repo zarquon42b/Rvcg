@@ -6,9 +6,11 @@
 \alias{dummyhead.mesh}
 \alias{dummyhead.lm}
 \title{dummyhead - dummy head and landmarks}
-\format{\code{dummyhead.mesh}: triangular mesh representing a dummyhead.
+\format{
+\code{dummyhead.mesh}: triangular mesh representing a dummyhead.
 
-\code{dummyhead.lm}: landmarks on mesh 'dummyhead'}
+\code{dummyhead.lm}: landmarks on mesh 'dummyhead'
+}
 \description{
 A triangular mesh representing a dummyhead - called by data(dummyhead)
 }

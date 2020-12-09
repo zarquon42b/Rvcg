@@ -4,8 +4,7 @@
 \alias{vcgWrlWrite}
 \title{Export meshes to WRL-files}
 \usage{
-vcgWrlWrite(mesh, filename = dataname, writeCol = TRUE,
-  writeNormals = TRUE)
+vcgWrlWrite(mesh, filename = dataname, writeCol = TRUE, writeNormals = TRUE)
 }
 \arguments{
 \item{mesh}{triangular mesh of class 'mesh3d' or a numeric matrix with 3-columns}
