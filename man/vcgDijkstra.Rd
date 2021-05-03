@@ -9,9 +9,9 @@ vcgDijkstra(x, vertpointer, tol = 1e+06)
 \arguments{
 \item{x}{triangular mesh of class \code{mesh3d}}
 
-\item{tol}{numeric: threshold for max distances to consider}
+\item{vertpointer}{integer: references indices of vertices on the mesh}
 
-\item{integervector}{references indices of vertices on the mesh}
+\item{tol}{numeric: threshold for max distances to consider}
 }
 \value{
 returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}
@@ -25,7 +25,7 @@ Make sure to have a clean manifold mesh.
 \examples{
 ## Compute geodesic distance between all mesh vertices and the first vertex of a mesh
 data(humface)
-humface <- vcgIsolated(vcgClean(humface,sel=0:6,iterate=T))
+humface <- vcgIsolated(vcgClean(humface,sel=0:6,iterate=TRUE))
 geo <- vcgDijkstra(humface,1)
 if (interactive()) {
 require(Morpho);require(rgl)

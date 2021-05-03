@@ -2,13 +2,13 @@
 #' 
 #' Compute geodesic distances on a triangular mesh
 #' @param x triangular mesh of class \code{mesh3d}
-#' @param integervector references indices of vertices on the mesh
+#' @param vertpointer integer: references indices of vertices on the mesh
 #' @param tol numeric: threshold for max distances to consider
 #' @return returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}
 #' @examples
 #' ## Compute geodesic distance between all mesh vertices and the first vertex of a mesh
 #' data(humface)
-#' humface <- vcgIsolated(vcgClean(humface,sel=0:6,iterate=T))
+#' humface <- vcgIsolated(vcgClean(humface,sel=0:6,iterate=TRUE))
 #' geo <- vcgDijkstra(humface,1)
 #' if (interactive()) {
 #' require(Morpho);require(rgl)
