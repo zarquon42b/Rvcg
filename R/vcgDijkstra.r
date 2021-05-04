@@ -42,9 +42,9 @@ vcgDijkstra <- function(x, vertpointer,tol=1e6) {
 #' @export
 vcgGeodist <- function(x,pt1,pt2) {
     if (length(pt1) == 1)
-        pt1 <- vert2points(x)[pt1,]
-    if (length(pt2) == 2)
-        pt2 <- vert2points(x)[pt2,]
+        pt1 <- x$vb[1:3,pt1]
+    if (length(pt2) == 1)
+        pt2 <- x$vb[1:3,pt2]
     mypts <- rbind(pt1,pt2)
     clost <- vcgKDtree(x,mypts,k=1)
     geo <- vcgDijkstra(x,vertpointer = clost$index[1,1])[clost$index[2,1]]
