@@ -9,9 +9,9 @@ vcgGeodist(x, pt1, pt2)
 \arguments{
 \item{x}{triangular mesh of class \code{mesh3d}}
 
-\item{pt1}{3D coordinate on mesh}
+\item{pt1}{3D coordinate on mesh or index of vertex}
 
-\item{pt2}{3D coordinate on mesh}
+\item{pt2}{3D coordinate on mesh or index of vertex}
 }
 \value{
 returns the geodesic distance between \code{pt1} and \code{pt2}.

@@ -30,8 +30,8 @@ vcgDijkstra <- function(x, vertpointer,tol=1e6) {
 #'
 #' Compute geodesic distance between two points on a mesh
 #' @param x triangular mesh of class \code{mesh3d}
-#' @param pt1 3D coordinate on mesh
-#' @param pt2 3D coordinate on mesh
+#' @param pt1 3D coordinate on mesh or index of vertex
+#' @param pt2 3D coordinate on mesh or index of vertex
 #' @return returns the geodesic distance between \code{pt1} and \code{pt2}.
 #' @note Make sure to have a clean manifold mesh.
 #' @examples
@@ -41,6 +41,10 @@ vcgDijkstra <- function(x, vertpointer,tol=1e6) {
 #' vcgGeodist(humface,pt1,pt2)
 #' @export
 vcgGeodist <- function(x,pt1,pt2) {
+    if (length(pt1) == 1)
+        pt1 <- vert2points(x)[pt1,]
+    if (length(pt2) == 2)
+        pt2 <- vert2points(x)[pt2,]
     mypts <- rbind(pt1,pt2)
     clost <- vcgKDtree(x,mypts,k=1)
     geo <- vcgDijkstra(x,vertpointer = clost$index[1,1])[clost$index[2,1]]
