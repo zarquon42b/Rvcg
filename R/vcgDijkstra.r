@@ -3,7 +3,6 @@
 #' Compute geodesic distances on a triangular mesh
 #' @param x triangular mesh of class \code{mesh3d}
 #' @param vertpointer integer: references indices of vertices on the mesh
-#' @param tol numeric: threshold for max distances to consider
 #' @return returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}
 #' @examples
 #' ## Compute geodesic distance between all mesh vertices and the first vertex of a mesh
@@ -17,11 +16,11 @@
 #' }
 #' @note Make sure to have a clean manifold mesh.
 #' @export
-vcgDijkstra <- function(x, vertpointer,tol=1e6) {
+vcgDijkstra <- function(x, vertpointer) {
     vertpointer <- as.integer(vertpointer-1)
     vb <- x$vb
     it <- x$it-1
-    out <- .Call("Rdijkstra",vb,it,vertpointer,tol)
+    out <- .Call("Rdijkstra",vb,it,vertpointer)
     return(out)
 }
 

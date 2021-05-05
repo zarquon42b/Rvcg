@@ -9,14 +9,13 @@ using namespace Rcpp;
 //using namespace std;
   
   
-RcppExport SEXP Rdijkstra(SEXP vb_, SEXP it_, SEXP verts_, SEXP tol_)
+RcppExport SEXP Rdijkstra(SEXP vb_, SEXP it_, SEXP verts_)
 {
   try {
   // declare Mesh and helper variables
   //int select = Rcpp::as<int>(type_);  
   IntegerVector verts(verts_);
   int n = verts.length();
-  double tol = Rcpp::as<double>(tol_);  
   int i, rem;
   MyMesh m;
   VertexIterator vi;
