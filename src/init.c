@@ -22,7 +22,7 @@ extern SEXP RclosestKD(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEX
 extern SEXP Rclost(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RCone(SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rcurvature(SEXP, SEXP);
-extern SEXP Rdijkstra(SEXP, SEXP, SEXP, SEXP);
+extern SEXP Rdijkstra(SEXP, SEXP, SEXP);
 extern SEXP RDodecahedron(SEXP);
 extern SEXP RgetEdge(SEXP, SEXP, SEXP);
 extern SEXP RHexahedron(SEXP);
@@ -70,7 +70,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rclost",                        (DL_FUNC) &Rclost,                         8},
     {"RCone",                         (DL_FUNC) &RCone,                          4},
     {"Rcurvature",                    (DL_FUNC) &Rcurvature,                     2},
-    {"Rdijkstra",                     (DL_FUNC) &Rdijkstra,                      4},
+    {"Rdijkstra",                     (DL_FUNC) &Rdijkstra,                      3},
     {"RDodecahedron",                 (DL_FUNC) &RDodecahedron,                  1},
     {"RgetEdge",                      (DL_FUNC) &RgetEdge,                       3},
     {"RHexahedron",                   (DL_FUNC) &RHexahedron,                    1},
