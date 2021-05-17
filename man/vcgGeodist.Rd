@@ -2,7 +2,7 @@
 % Please edit documentation in R/vcgDijkstra.r
 \name{vcgGeodist}
 \alias{vcgGeodist}
-\title{Compute geodesic distance between two points on a mesh}
+\title{Compute pseudo-geodesic distance between two points on a mesh}
 \usage{
 vcgGeodist(x, pt1, pt2)
 }
@@ -17,10 +17,10 @@ vcgGeodist(x, pt1, pt2)
 returns the geodesic distance between \code{pt1} and \code{pt2}.
 }
 \description{
-Compute geodesic distance between two points on a mesh
+Compute pseudo-geodesic distance between two points on a mesh
 }
 \note{
-Make sure to have a clean manifold mesh.
+Make sure to have a clean manifold mesh. Note that this computes the length of the pseudo-geodesic path (following the edges) between the two vertices closest to these points.
 }
 \examples{
 data(humface)

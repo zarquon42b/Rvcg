@@ -2,25 +2,23 @@
 % Please edit documentation in R/vcgDijkstra.r
 \name{vcgDijkstra}
 \alias{vcgDijkstra}
-\title{Compute geodesic distances on a triangular mesh}
+\title{Compute pseudo-geodesic distances on a triangular mesh}
 \usage{
-vcgDijkstra(x, vertpointer, tol = 1e+06)
+vcgDijkstra(x, vertpointer)
 }
 \arguments{
 \item{x}{triangular mesh of class \code{mesh3d}}
 
 \item{vertpointer}{integer: references indices of vertices on the mesh}
-
-\item{tol}{numeric: threshold for max distances to consider}
 }
 \value{
 returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}
 }
 \description{
-Compute geodesic distances on a triangular mesh
+Compute pseudo-geodesic distances on a triangular mesh
 }
 \note{
-Make sure to have a clean manifold mesh.
+Make sure to have a clean manifold mesh. Note that this computes the length of the pseudo-geodesic path (following the edges) between the two vertices.
 }
 \examples{
 ## Compute geodesic distance between all mesh vertices and the first vertex of a mesh
