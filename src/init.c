@@ -29,6 +29,7 @@ extern SEXP RHexahedron(SEXP);
 extern SEXP RIcosahedron(SEXP);
 extern SEXP Rintersect(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Risolated(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP RisotropicResampling(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rkdtree(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rkmeans(SEXP, SEXP, SEXP, SEXP);
 extern SEXP RMarchC(SEXP, SEXP);
@@ -77,6 +78,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"RIcosahedron",                  (DL_FUNC) &RIcosahedron,                   1},
     {"Rintersect",                    (DL_FUNC) &Rintersect,                     8},
     {"Risolated",                     (DL_FUNC) &Risolated,                      6},
+    {"RisotropicResampling",          (DL_FUNC) &RisotropicResampling,          13},
     {"Rkdtree",                       (DL_FUNC) &Rkdtree,                        6},
     {"Rkmeans",                       (DL_FUNC) &Rkmeans,                        4},
     {"RMarchC",                       (DL_FUNC) &RMarchC,                        2},
