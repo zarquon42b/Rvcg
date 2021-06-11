@@ -37,12 +37,4 @@ bbox <- function(x) {
     return(list(bbox=bbox,diag=dia))
 }
     
-vcgIsotropicResampling <- function(x,TargetLen=1, FeatureAngleDeg=10, MaxSurfDist=1, iterations=3, Adaptive=FALSE, splitFlag=TRUE, collapseFlag=TRUE, swapFlag=TRUE, smoothFlag=TRUE,projectFlag=TRUE, surfDistCheck=TRUE) {
-   
-    vb <- x$vb
-    it <- x$it-1
-    out <- .Call("RisotropicResampling",vb,it,TargetLen, FeatureAngleDeg, MaxSurfDist, iterations, Adaptive, splitFlag, collapseFlag, swapFlag, smoothFlag,projectFlag, surfDistCheck)
-   
-    class(out) <- "mesh3d"
-    return(out)
-}
+
