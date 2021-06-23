@@ -2,3 +2,4 @@
 *~
 *.rej
 .Rproj.user
+.Rhistory
