@@ -2,24 +2,28 @@
 % Please edit documentation in R/vcgDijkstra.r
 \name{vcgGeodesicPath}
 \alias{vcgGeodesicPath}
-\title{Compute geodesic path between vertices on a mesh}
+\title{Compute geodesic path and path length between vertices on a mesh}
 \usage{
 vcgGeodesicPath(x, source, targets, maxdist = 1e+06)
 }
 \arguments{
-\item{x}{triangular mesh of class \code{mesh3d}}
+\item{x}{triangular mesh of class \code{mesh3d} from the \code{rgl} package.}
 
-\item{source}{scalar positive integer, the source vertex index}
+\item{source}{scalar positive integer, the source vertex index.}
 
-\item{targets}{positive integer vector, the target vertex indices}
+\item{targets}{positive integer vector, the target vertex indices.}
+
+\item{maxdist}{numeric, the maximal distance to travel along the mesh edges during geodesic distance computation.}
 }
 \value{
-list of integer vectors, representing the paths.
+named list with two entries as follows. \code{'paths'}: list of integer vectors, representing the paths. \code{'geodist'}: double vector, the geodesic distances from the source vertex to all vertices in the graph.
 }
 \description{
-Compute geodesic path between vertices on a mesh
+Compute geodesic path and path length between vertices on a mesh
 }
 \examples{
 data(humface)
-vcgGeodesicPath(humface,1,c(5,10))
+p = vcgGeodesicPath(humface,50,c(500,5000))
+p$paths[[1]];   # The path 50..500
+p$geodist[500]; # Its path length.
 }
