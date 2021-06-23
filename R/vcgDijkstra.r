@@ -58,6 +58,13 @@ vcgGeodist <- function(x,pt1,pt2) {
 #' vcgGeodesicPath(humface,1,c(5,10))
 #' @export
 vcgGeodesicPath <- function(x, source, targets, maxdist=1e6) {
+  num_verts = ncol(x$vb);
+  if(source < 0L || source > num_verts) {
+    stop(sprintf("Parameter 'source' must be an integer in range %d to %d.\n", 0L, num_verts));
+  }
+  if(any(targets < 0L) | any(targets > num_verts)) {
+      stop(sprintf("All entries of parameter 'targets' must be integers in range %d to %d.\n", 0L, num_verts));
+  }
   vertpointer_source <- as.integer(source - 1L)
   vertpointer_targets <- as.integer(targets - 1L)
   vb <- x$vb
@@ -65,5 +72,8 @@ vcgGeodesicPath <- function(x, source, targets, maxdist=1e6) {
   out <- .Call("RGeodesicPath",vb,it,vertpointer_source,vertpointer_targets, maxdist)
   return(out)
 }
+
+# fsbrain::vis.fs.surface(fsbrain::tmesh3d.to.fs.surface(humface))
+# fsbrain::vis.path.along.verts(t(humface$vb[1:3,]), p$paths[[1]])
 
 
