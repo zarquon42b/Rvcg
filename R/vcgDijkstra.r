@@ -46,3 +46,24 @@ vcgGeodist <- function(x,pt1,pt2) {
     geo <- vcgDijkstra(x,vertpointer = clost$index[1,1])[clost$index[2,1]]
     return(geo)
 }
+
+
+#' @title Compute geodesic path between vertices on a mesh
+#' @param x triangular mesh of class \code{mesh3d}
+#' @param source scalar positive integer, the source vertex index
+#' @param targets positive integer vector, the target vertex indices
+#' @return list of integer vectors, representing the paths.
+#' @examples
+#' data(humface)
+#' vcgGeodesicPath(humface,1,c(5,10))
+#' @export
+vcgGeodesicPath <- function(x, source, targets, maxdist=1e6) {
+  vertpointer_source <- as.integer(source - 1L)
+  vertpointer_targets <- as.integer(targets - 1L)
+  vb <- x$vb
+  it <- x$it - 1L
+  out <- .Call("RGeodesicPath",vb,it,vertpointer_source,vertpointer_targets, maxdist)
+  return(out)
+}
+
+
