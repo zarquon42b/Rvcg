@@ -48,12 +48,12 @@ vcgGeodist <- function(x,pt1,pt2) {
 }
 
 
-#' @title Compute geodesic path between vertices on a mesh
-#' @param x triangular mesh of class \code{mesh3d}
-#' @param source scalar positive integer, the source vertex index
-#' @param targets positive integer vector, the target vertex indices
-#' @param maxdist numeric, the maximal distance to travel along the mesh edges during geodesic distance computation
-#' @return named list with two entries as follows. 'paths': list of integer vectors, representing the paths. 'geodist': double vector, the geodesic distances from the source vertex to all vertices in the graph.
+#' @title Compute geodesic path and path length between vertices on a mesh
+#' @param x triangular mesh of class \code{mesh3d} from the \code{rgl} package.
+#' @param source scalar positive integer, the source vertex index.
+#' @param targets positive integer vector, the target vertex indices.
+#' @param maxdist numeric, the maximal distance to travel along the mesh edges during geodesic distance computation.
+#' @return named list with two entries as follows. \code{'paths'}: list of integer vectors, representing the paths. \code{'geodist'}: double vector, the geodesic distances from the source vertex to all vertices in the graph.
 #' @examples
 #' data(humface)
 #' p = vcgGeodesicPath(humface,50,c(500,5000))
