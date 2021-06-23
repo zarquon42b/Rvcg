@@ -37,3 +37,4 @@ bbox <- function(x) {
     return(list(bbox=bbox,diag=dia))
 }
     
+
