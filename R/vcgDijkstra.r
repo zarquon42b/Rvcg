@@ -52,7 +52,8 @@ vcgGeodist <- function(x,pt1,pt2) {
 #' @param x triangular mesh of class \code{mesh3d}
 #' @param source scalar positive integer, the source vertex index
 #' @param targets positive integer vector, the target vertex indices
-#' @return list of integer vectors, representing the paths.
+#' @param maxdist numeric, the maximal distance to travel along the mesh edges during geodesic distance computation
+#' @return named list with two entries as follows. 'paths': list of integer vectors, representing the paths. 'geodist': double vector, the geodesic distances from the source vertex to all vertices in the graph.
 #' @examples
 #' data(humface)
 #' p = vcgGeodesicPath(humface,50,c(500,5000))
@@ -78,6 +79,8 @@ vcgGeodesicPath <- function(x, source, targets, maxdist=1e6) {
 # If you have fsbrain from the geodesic branch, try:
 # library("fsbrain"); library("Rvcg"); data(humface); p = vcgGeodesicPath(humface,50,as.integer(seq(1, ncol(humface$vb), length.out=10)));
 # fsbrain::vis.fs.surface(humface); fsbrain::vis.paths.along.verts(humface, p$paths);
+#
+# If not, you can install the mentioned fsbrain version like this: devtools::install_github('dfsp-spirit/fsbrain', ref='geodesic')
 
 
 
