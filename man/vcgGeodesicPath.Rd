@@ -21,6 +21,9 @@ named list with two entries as follows. \code{'paths'}: list of integer vectors,
 \description{
 Compute geodesic path and path length between vertices on a mesh
 }
+\note{
+Currently no reachability checks are performed, so you have to be sure that the mesh is connected, or at least that the source and target vertices are reachable from one another.
+}
 \examples{
 data(humface)
 p = vcgGeodesicPath(humface,50,c(500,5000))

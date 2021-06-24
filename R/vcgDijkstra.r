@@ -49,6 +49,7 @@ vcgGeodist <- function(x,pt1,pt2) {
 
 
 #' @title Compute geodesic path and path length between vertices on a mesh
+#' @note Currently no reachability checks are performed, so you have to be sure that the mesh is connected, or at least that the source and target vertices are reachable from one another.
 #' @param x triangular mesh of class \code{mesh3d} from the \code{rgl} package.
 #' @param source scalar positive integer, the source vertex index.
 #' @param targets positive integer vector, the target vertex indices.
