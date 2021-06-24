@@ -76,11 +76,5 @@ vcgGeodesicPath <- function(x, source, targets, maxdist=1e6) {
   return(out)
 }
 
-# If you have fsbrain from the geodesic branch, try:
-# library("fsbrain"); library("Rvcg"); data(humface); p = vcgGeodesicPath(humface,50,as.integer(seq(1, ncol(humface$vb), length.out=10)));
-# fsbrain::vis.fs.surface(humface); fsbrain::vis.paths.along.verts(humface, p$paths);
-#
-# If not, you can install the mentioned fsbrain version like this: devtools::install_github('dfsp-spirit/fsbrain', ref='geodesic')
-
 
 
