@@ -15,6 +15,9 @@ RcppExport SEXP ROneRing(SEXP vb_, SEXP it_, SEXP both_ = wrap(false))
     bool both = as<bool>(both_);
     MyMesh m;
     Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
+    m.face.EnableFFAdjacency();
+    m.face.EnableVFAdjacency();
+    m.vert.EnableVFAdjacency();
     tri::UpdateTopology<MyMesh>::FaceFace(m);
     tri::UpdateTopology<MyMesh>::VertexFace(m);
     NumericVector area(m.vn);
