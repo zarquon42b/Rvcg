@@ -1,3 +1,5 @@
 *.[ao]
 *~
 *.rej
+.Rproj.user
+.Rhistory

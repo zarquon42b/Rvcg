@@ -3,7 +3,7 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
-/* FIXME: 
+/* FIXME:
    Check these declarations against the C/Fortran source code.
 */
 
@@ -24,6 +24,7 @@ extern SEXP RCone(SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rcurvature(SEXP, SEXP);
 extern SEXP Rdijkstra(SEXP, SEXP, SEXP);
 extern SEXP RDodecahedron(SEXP);
+extern SEXP RGeodesicPath(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RgetEdge(SEXP, SEXP, SEXP);
 extern SEXP RHexahedron(SEXP);
 extern SEXP RIcosahedron(SEXP);
@@ -73,6 +74,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rcurvature",                    (DL_FUNC) &Rcurvature,                     2},
     {"Rdijkstra",                     (DL_FUNC) &Rdijkstra,                      3},
     {"RDodecahedron",                 (DL_FUNC) &RDodecahedron,                  1},
+    {"RGeodesicPath",                 (DL_FUNC) &RGeodesicPath,                  5},
     {"RgetEdge",                      (DL_FUNC) &RgetEdge,                       3},
     {"RHexahedron",                   (DL_FUNC) &RHexahedron,                    1},
     {"RIcosahedron",                  (DL_FUNC) &RIcosahedron,                   1},
