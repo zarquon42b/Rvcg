@@ -9,11 +9,12 @@
 #'
 #' @param include_self logical, whether the returned neighborhood for a vertex \code{i} should include \code{i} itself.
 #'
-#' @return list of integer vectors, the neighborhoods.
+#' @return list of positive integer vectors, the neighborhoods.
 #'
 #' @examples
 #' data(humface)
 #' adjacency_list <- vcgVertexNeighbors(humface)
+#' v500_5ring = vcgVertexNeighbors(humface, vi=c(500), numstep = 5)
 #'
 #' @export
 vcgVertexNeighbors <- function(x, vi=NULL, numstep=1L, include_self=FALSE) {
