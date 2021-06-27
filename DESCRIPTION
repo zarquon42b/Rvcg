@@ -5,7 +5,8 @@ Version: 0.19.2
 Date: 2021-01-11
 Authors@R: c(
     person("Stefan", "Schlager",, "zarquon42@gmail.com", c("aut", "cre", "cph")),
-    person("Girinon", "Francois",,, c("ctb"))
+    person("Girinon", "Francois",,, c("ctb")),
+    person("Tim", "Schaefer",, "ts+code@rcmd.org", c("ctb"))
     )
 Description: Operations on triangular meshes based on 'VCGLIB'. This package
     integrates nicely with the R-package 'rgl' to render the meshes processed by

@@ -46,3 +46,36 @@ vcgGeodist <- function(x,pt1,pt2) {
     geo <- vcgDijkstra(x,vertpointer = clost$index[1,1])[clost$index[2,1]]
     return(geo)
 }
+
+
+#' @title Compute geodesic path and path length between vertices on a mesh
+#' @note Currently no reachability checks are performed, so you have to be sure that the mesh is connected, or at least that the source and target vertices are reachable from one another.
+#' @param x triangular mesh of class \code{mesh3d} from the \code{rgl} package.
+#' @param source scalar positive integer, the source vertex index.
+#' @param targets positive integer vector, the target vertex indices.
+#' @param maxdist numeric, the maximal distance to travel along the mesh edges during geodesic distance computation.
+#' @return named list with two entries as follows. \code{'paths'}: list of integer vectors, representing the paths. \code{'geodist'}: double vector, the geodesic distances from the source vertex to all vertices in the graph.
+#' @examples
+#' data(humface)
+#' p = vcgGeodesicPath(humface,50,c(500,5000))
+#' p$paths[[1]];   # The path 50..500
+#' p$geodist[500]; # Its path length.
+#' @export
+vcgGeodesicPath <- function(x, source, targets, maxdist=1e6) {
+  num_verts = ncol(x$vb);
+  if(source < 1L || source > num_verts) {
+    stop(sprintf("Parameter 'source' must be an integer in range %d to %d.\n", 1L, num_verts));
+  }
+  if(any(targets < 1L) | any(targets > num_verts)) {
+      stop(sprintf("All entries of parameter 'targets' must be integers in range %d to %d.\n", 1L, num_verts));
+  }
+  vertpointer_source <- as.integer(source - 1L)
+  vertpointer_targets <- as.integer(targets - 1L)
+  vb <- x$vb
+  it <- x$it - 1L
+  out <- .Call("RGeodesicPath",vb,it,vertpointer_source,vertpointer_targets, maxdist)
+  return(out)
+}
+
+
+
