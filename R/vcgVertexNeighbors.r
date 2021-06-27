@@ -1,11 +1,13 @@
 
 #' @title Compute mesh adjacency list representation or the vertex neighborhoods of specific mesh vertices.
 #'
-#' @param x tmesh3d instance
+#' @description Compute the \code{k}-ring vertex neighborhood for all query vertex indices \code{vi}. If only a mesh is passed (parameter \code{x}) and the other parameters are left at their default values, this compute the adjacency list representation of the mesh.
 #'
-#' @param vi optional, vector of positive vertex indices for which to compute neighborhood. All vertices are used if left at the default value \code{NULL}.
+#' @param x tmesh3d instance from the \code{rgl} package
 #'
-#' @param numstep positive integer, the number of times to extend the neighborhood (the \code{k} for computing the k-ring neighborhood).
+#' @param vi optional, vector of positive vertex indices for which to compute the neighborhoods. All vertices are used if left at the default value \code{NULL}.
+#'
+#' @param numstep positive integer, the number of times to extend the neighborhood from the source vertices (the \code{k} for computing the \code{k}-ring neighborhood). Setting this to high values significantly increases the computational cost.
 #'
 #' @param include_self logical, whether the returned neighborhood for a vertex \code{i} should include \code{i} itself.
 #'
