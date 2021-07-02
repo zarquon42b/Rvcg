@@ -2,7 +2,7 @@
 % Please edit documentation in R/vcgUpdateNormals.r
 \name{vcgFaceNormals}
 \alias{vcgFaceNormals}
-\title{Compute face normals for a mesh.}
+\title{Compute normalized face normals for a mesh.}
 \usage{
 vcgFaceNormals(mesh)
 }
@@ -10,10 +10,10 @@ vcgFaceNormals(mesh)
 \item{mesh}{triangular mesh of class 'mesh3d', from \code{rgl}}
 }
 \value{
-nx3 matrix of face normals for the mesh
+3xn numeric matrix of face normals for the mesh, where \code{n} is the number of faces.
 }
 \description{
-Compute face normals for a mesh.
+Compute normalized face normals for a mesh.
 }
 \examples{
 data(humface);

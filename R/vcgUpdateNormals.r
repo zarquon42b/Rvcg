@@ -52,11 +52,11 @@ vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0), silent=FALSE)
 # fsbrain::highlight.points.spheres(t(hf$vb[1:3,1:200]), color="green", radius=0.5)
 # fsbrain::highlight.points.spheres(t(hf$normals[1:3,1:200])+t(hf$vb[1:3,1:200]), color="red", radius=0.5)
 
-#' @title Compute face normals for a mesh.
+#' @title Compute normalized face normals for a mesh.
 #'
 #' @param mesh triangular mesh of class 'mesh3d', from \code{rgl}
 #'
-#' @return nx3 matrix of face normals for the mesh
+#' @return 3xn numeric matrix of face normals for the mesh, where \code{n} is the number of faces.
 #'
 #' @examples
 #' data(humface);
