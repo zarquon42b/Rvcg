@@ -78,7 +78,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"RDodecahedron",                 (DL_FUNC) &RDodecahedron,                  1},
     {"RGeodesicPath",                 (DL_FUNC) &RGeodesicPath,                  5},
     {"RgetEdge",                      (DL_FUNC) &RgetEdge,                       3},
-    {"RgetFaceNormals",               (DL_FUNC) &RgetFaceNormals,                3},
+    {"RgetFaceNormals",               (DL_FUNC) &RgetFaceNormals,                2},
     {"RHexahedron",                   (DL_FUNC) &RHexahedron,                    1},
     {"RIcosahedron",                  (DL_FUNC) &RIcosahedron,                   1},
     {"Rintersect",                    (DL_FUNC) &Rintersect,                     8},
