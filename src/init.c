@@ -26,6 +26,7 @@ extern SEXP Rdijkstra(SEXP, SEXP, SEXP);
 extern SEXP RDodecahedron(SEXP);
 extern SEXP RGeodesicPath(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RgetEdge(SEXP, SEXP, SEXP);
+extern SEXP RgetFaceNormals(SEXP, SEXP);
 extern SEXP RHexahedron(SEXP);
 extern SEXP RIcosahedron(SEXP);
 extern SEXP Rintersect(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -77,6 +78,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"RDodecahedron",                 (DL_FUNC) &RDodecahedron,                  1},
     {"RGeodesicPath",                 (DL_FUNC) &RGeodesicPath,                  5},
     {"RgetEdge",                      (DL_FUNC) &RgetEdge,                       3},
+    {"RgetFaceNormals",               (DL_FUNC) &RgetFaceNormals,                2},
     {"RHexahedron",                   (DL_FUNC) &RHexahedron,                    1},
     {"RIcosahedron",                  (DL_FUNC) &RIcosahedron,                   1},
     {"Rintersect",                    (DL_FUNC) &Rintersect,                     8},

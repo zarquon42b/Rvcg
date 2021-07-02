@@ -13,7 +13,7 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_,
 {
   try {
     // declare Mesh and helper variables
-    int select = Rcpp::as<int>(type_);  
+    int select = Rcpp::as<int>(type_);
     Rcpp::IntegerVector pointcloud(pointcloud_);
     bool silent = as<bool>(silent_);
     MyMesh m;
@@ -42,9 +42,9 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_,
 	tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
       }
       tri::UpdateNormal<MyMesh>::NormalizePerVertex(m);
-     
+
       //write back
-     
+
     }
     vi=m.vert.begin();
     SimpleTempData<MyMesh::VertContainer,int> indiceout(m.vert);
@@ -56,17 +56,47 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_,
       }
       ++vi;
     }
-    
+
     return Rcpp::wrap(normals);
-  
+
   } catch (std::exception& e) {
     ::Rf_error( e.what());
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");
   }
-  
-}
- 
 
-    
+}
+
+
+// Compute the face normals for a mesh.
+RcppExport SEXP RgetFaceNormals(SEXP vb_, SEXP it_)
+ {
+   try {
+     // Declare Mesh and fill it
+     MyMesh m;
+     Rvcg::IOMesh<MyMesh>::RvcgReadR(m, vb_, it_);
+
+     // Compute face normals and normalize them
+     m.face.EnableNormal();
+     tri::UpdateNormal<MyMesh>::PerVertexPerFace(m);
+     tri::UpdateNormal<MyMesh>::NormalizePerFace(m);
+
+     // Store for R and return
+     Rcpp::NumericMatrix normals(3, m.fn);
+     for (int i=0;  i < m.fn; i++) {
+         normals(0,i) = m.face[i].N()[0];
+         normals(1,i) = m.face[i].N()[1];
+         normals(2,i) = m.face[i].N()[2];
+     }
+     return Rcpp::wrap(normals);
+
+   } catch (std::exception& e) {
+     ::Rf_error( e.what());
+     return wrap(1);
+   } catch (...) {
+     ::Rf_error("unknown exception");
+   }
+ }
+
+
