@@ -78,15 +78,15 @@ RcppExport SEXP RgetFaceNormals(SEXP vb_, SEXP it_)
      Rvcg::IOMesh<MyMesh>::RvcgReadR(m, vb_, it_);
 
      // Compute face normals and normalize them
-     tri::UpdateNormal<MyMesh>::PerVertexPerFace(cm);
+     tri::UpdateNormal<MyMesh>::PerVertexPerFace(m);
      tri::UpdateNormal<MyMesh>::NormalizePerFace(m);
 
      // Store for R and return
      Rcpp::NumericMatrix normals(3, m.fn);
      for (int i=0;  i < m.fn; i++) {
-         normals(0,i) = cm.face[i].N()[0];
-         normals(1,i) = cm.face[i].N()[1];
-         normals(2,i) = cm.face[i].N()[2];
+         normals(0,i) = m.face[i].N()[0];
+         normals(1,i) = m.face[i].N()[1];
+         normals(2,i) = m.face[i].N()[2];
      }
      return Rcpp::wrap(normals);
 

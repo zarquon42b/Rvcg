@@ -16,7 +16,7 @@
 #' \dontrun{
 #' pointcloud <- t(humface$vb[1:3,]) #get vertex coordinates
 #' pointcloud <- vcgUpdateNormals(pointcloud)
-#' 
+#'
 #' require(Morpho)
 #' plotNormals(pointcloud)#plot normals
 #' }
@@ -41,7 +41,26 @@ vcgUpdateNormals <- function(mesh,type = 0, pointcloud=c(10,0), silent=FALSE)
             stop("please set valid type")
         normals <- .Call("RupdateNormals", vb, it, type, pointcloud, silent)
         mesh$normals <- rbind(normals,1)
-        
+
         return(mesh)
     }
-    
+
+
+#' @title Compute face normals for a mesh.
+#'
+#' @param mesh triangular mesh of class 'mesh3d', from \code{rgl}
+#'
+#' @return nx3 matrix of face normals for the mesh
+#'
+#' @examples
+#' data(humface);
+#' hf_facenormals <- vcgFaceNormals(humface);
+#'
+#' @export
+vcgFaceNormals <- function(mesh) {
+    vb <- mesh$vb;
+    it <- mesh$it - 1L;
+    out <- .Call("RgetFaceNormals", vb, it);
+    return(out);
+}
+
