@@ -6,11 +6,14 @@
 using namespace tri;
 using namespace Rcpp;
 
-RcppExport SEXP Rdijkstra(SEXP vb_, SEXP it_, SEXP verts_)
+// Compute pseudo-geodesic distance from query verts_ to all others (or to those
+// within a maximal distance of maxdist_ if it is > 0).
+RcppExport SEXP Rdijkstra(SEXP vb_, SEXP it_, SEXP verts_, SEXP maxdist_)
 {
   try {
     // Declare Mesh and helper variables
     IntegerVector verts(verts_);
+    float maxdist = Rcpp::as<float>(maxdist_);
     int n = verts.length();
     int i, rem;
     MyMesh m;
@@ -34,7 +37,12 @@ RcppExport SEXP Rdijkstra(SEXP vb_, SEXP it_, SEXP verts_)
 
     // Compute pseudo-geodesic distance by summing dists along shortest path in graph.
     tri::EuclideanDistance<MyMesh> ed;
-    tri::Geodesic<MyMesh>::PerVertexDijkstraCompute(m,seedVec,ed);
+    if(maxdist > 0.0) {
+      tri::Geodesic<MyMesh>::PerVertexDijkstraCompute(m,seedVec,ed,maxdist);
+    } else {
+      tri::Geodesic<MyMesh>::PerVertexDijkstraCompute(m,seedVec,ed);
+    }
+
     std::vector<float> geodist;
     vi=m.vert.begin();
     for (int i=0; i < m.vn; i++) {

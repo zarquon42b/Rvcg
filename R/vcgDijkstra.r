@@ -1,8 +1,9 @@
 
 #' @title Compute pseudo-geodesic distances on a triangular mesh
 #' @param x triangular mesh of class \code{mesh3d}
-#' @param vertpointer integer: references indices of vertices on the mesh
-#' @return returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}
+#' @param vertpointer integer: references indices of vertices on the mesh, typically only a single query vertex.
+#' @param maxdist positive scalar double, the maximal distance to travel along the mesh when computing distances. Leave at \code{NULL} to traverse the full mesh. This can be used to speed up the computation if you are only interested in geodesic distances to neighbors within a limited distance around the query vertices.
+#' @return returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}. If \code{maxdis}t is in use (not \code{NULL}), the distance values for vertices outside the requested \code{maxdist} are not computed and appear as \code{0}.
 #' @examples
 #' ## Compute geodesic distance between all mesh vertices and the first vertex of a mesh
 #' data(humface)
@@ -15,11 +16,17 @@
 #' }
 #' @note Make sure to have a clean manifold mesh. Note that this computes the length of the pseudo-geodesic path (following the edges) between the two vertices.
 #' @export
-vcgDijkstra <- function(x, vertpointer) {
+vcgDijkstra <- function(x, vertpointer, maxdist=NULL) {
     vertpointer <- as.integer(vertpointer-1)
     vb <- x$vb
     it <- x$it-1
-    out <- .Call("Rdijkstra",vb,it,vertpointer)
+    if(is.null(maxdist)) {
+      maxdist = -1.0;
+    }
+    if(! (is.numeric(maxdist) && length(maxdist) == 1L)) {
+      stop("Parameter 'maxdist' must be NULL or a scalar double value.");
+    }
+    out <- .Call("Rdijkstra",vb,it,vertpointer, as.double(maxdist));
     return(out)
 }
 
