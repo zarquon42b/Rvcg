@@ -85,7 +85,7 @@ RcppExport SEXP RVVadj(SEXP vb_, SEXP it_, SEXP query_vertices_, SEXP numstep_, 
     // Collect indices of vertices.
     std::vector<int> neighidx;
     if(include_self) {
-      neighidx.push_back(qv);
+      neighidx.push_back(qv + 1); // return 1-based R indices.
     }
     for(int j=0; j<neigh.size(); j++) {
       neighidx.push_back(indices[neigh[j]] + 1); // return 1-based R indices.
