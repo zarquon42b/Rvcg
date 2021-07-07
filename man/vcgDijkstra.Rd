@@ -4,15 +4,17 @@
 \alias{vcgDijkstra}
 \title{Compute pseudo-geodesic distances on a triangular mesh}
 \usage{
-vcgDijkstra(x, vertpointer)
+vcgDijkstra(x, vertpointer, maxdist = NULL)
 }
 \arguments{
 \item{x}{triangular mesh of class \code{mesh3d}}
 
-\item{vertpointer}{integer: references indices of vertices on the mesh}
+\item{vertpointer}{integer: references indices of vertices on the mesh, typically only a single query vertex.}
+
+\item{maxdist}{positive scalar double, the maximal distance to travel along the mesh when computing distances. Leave at \code{NULL} to traverse the full mesh. This can be used to speed up the computation if you are only interested in geodesic distances to neighbors within a limited distance around the query vertices.}
 }
 \value{
-returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}
+returns a vector of shortest distances for each of the vertices to one of the vertices referenced in \code{vertpointer}. If \code{maxdis}t is in use (not \code{NULL}), the distance values for vertices outside the requested \code{maxdist} are not computed and appear as \code{0}.
 }
 \description{
 Compute pseudo-geodesic distances on a triangular mesh
