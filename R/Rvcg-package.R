@@ -6,8 +6,8 @@
 #' \tabular{ll}{
 #' Package: \tab Rvcg\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.19.2\cr
-#' Date: \tab 2021-01-11\cr
+#' Version: \tab 0.20.1\cr
+#' Date: \tab 2021-09-03\cr
 #' License: \tab GPL\cr
 #' LazyLoad: \tab yes\cr }
 #' 
@@ -29,10 +29,10 @@ NULL
 #' A triangular mesh representing a human face - called by data(humface)
 #' 
 #' @name humface
-#' @aliases humface humface.lm
+#' @aliases humface humface.lm humfaceClean
 #' @docType data
 #' @format \code{humface}: triangular mesh representing a human face.
-#'
+#' \code{humfaceClean}: triangular mesh representing a human face but without errors or isolated pieces.
 #' \code{humface.lm}: landmarks on mesh 'humface'- called by data(humface)
 #'
 #' @keywords datasets
