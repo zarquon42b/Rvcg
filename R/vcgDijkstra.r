@@ -7,7 +7,6 @@
 #' @examples
 #' ## Compute geodesic distance between all mesh vertices and the first vertex of a mesh
 #' data(humface)
-#' humface <- vcgIsolated(vcgClean(humface,sel=0:6,iterate=TRUE))
 #' geo <- vcgDijkstra(humface,1)
 #' if (interactive()) {
 #' require(Morpho);require(rgl)
