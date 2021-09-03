@@ -4,10 +4,11 @@
 \name{humface}
 \alias{humface}
 \alias{humface.lm}
+\alias{humfaceClean}
 \title{Example mesh and landmarks}
 \format{
 \code{humface}: triangular mesh representing a human face.
-
+\code{humfaceClean}: triangular mesh representing a human face but without errors or isolated pieces.
 \code{humface.lm}: landmarks on mesh 'humface'- called by data(humface)
 }
 \description{
