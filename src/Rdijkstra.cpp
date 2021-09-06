@@ -93,9 +93,9 @@ RcppExport SEXP RGeodesicPath(SEXP vb_, SEXP it_, SEXP source_, SEXP targets_, S
     seedVec.push_back(&*vi);
 
     std::vector<MyVertex*> inInterval;
-    typename MyMesh::template PerVertexAttributeHandle<VertexPointer> sourcesHandle;
+    MyMesh::PerVertexAttributeHandle<VertexPointer> sourcesHandle;
     sourcesHandle =  tri::Allocator<MyMesh>::AddPerVertexAttribute<MyMesh::VertexPointer> (m, "sources");
-    typename MyMesh::template PerVertexAttributeHandle<VertexPointer> parentHandle;
+    MyMesh::PerVertexAttributeHandle<VertexPointer> parentHandle;
     parentHandle =  tri::Allocator<MyMesh>::AddPerVertexAttribute<MyMesh::VertexPointer> (m, "parent");
 
     // Compute pseudo-geodesic distance by summing dists along shortest path in graph.
