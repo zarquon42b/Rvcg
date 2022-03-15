@@ -53,12 +53,12 @@ RcppExport SEXP RMeshWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP file
 	tri::UpdateNormal<MyMesh>::PerVertexAngleWeighted(m);
       } else {
 	Rcpp::IntegerVector pointcloud= IntegerVector::create(10,0);
-	PointCloudNormal<MyMesh>::Param p;
+	vcg::tri::PointCloudNormal<MyMesh>::Param p;
 	p.fittingAdjNum = pointcloud[0];
 	p.smoothingIterNum = pointcloud[1];
 	p.viewPoint = Point3f(0,0,0);
 	p.useViewPoint = false;
-	PointCloudNormal<MyMesh>::Compute(m,p);
+	vcg::tri::PointCloudNormal<MyMesh>::Compute(m,p);
       }
     }
     if ( addNormals || writeNormals)

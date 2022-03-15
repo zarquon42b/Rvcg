@@ -23,7 +23,7 @@ RcppExport SEXP createKDtree(SEXP target_, SEXP nofPointsPerCell_, SEXP maxDepth
 List searchKDtree(KdTree<float> kdtree, MyMesh &target, MyMesh &query, int k, int threads){
   try {
     KdTree<float>::PriorityQueue queue;
-    typedef pair<float,int> mypair;
+    typedef std::pair<float,int> mypair;
     IntegerMatrix result(query.vn,k);
     NumericMatrix distance(query.vn,k);
     std::fill(result.begin(), result.end(),-1);
@@ -33,7 +33,7 @@ List searchKDtree(KdTree<float> kdtree, MyMesh &target, MyMesh &query, int k, in
       kdtree.doQueryK(query.vert[i].cP(), k, queue);
       //int neighbours = tree.getNofFoundNeighbors();
       int neighbours = queue.getNofElements();
-      vector<mypair> sortit;
+      std::vector<mypair> sortit;
       for (int j=0; j < neighbours; j++) {      
 	int neightId = queue.getIndex(j);
 	float dist = Distance(query.vert[i].cP(),target.vert[neightId].cP());

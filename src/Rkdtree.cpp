@@ -16,7 +16,7 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP
     int threads = as<int>(threads_);
     unsigned int nofP = as<unsigned int >(nofP_);
     unsigned int mDepth = as<unsigned int >(mDepth_);
-    typedef pair<float,int> mypair;
+    typedef std::pair<float,int> mypair;
     PcMesh target, query;
     Rvcg::IOMesh<PcMesh>::RvcgReadR(target, vb0_);  
     Rvcg::IOMesh<PcMesh>::RvcgReadR(query, vb1_);
