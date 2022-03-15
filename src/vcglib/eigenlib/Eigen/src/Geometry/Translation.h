@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_TRANSLATION_H
 #define EIGEN_TRANSLATION_H
@@ -137,12 +137,6 @@ public:
 
   /** \returns the inverse translation (opposite) */
   Translation inverse() const { return Translation(-m_coeffs); }
-
-  Translation& operator=(const Translation& other)
-  {
-    m_coeffs = other.m_coeffs;
-    return *this;
-  }
 
   static const Translation Identity() { return Translation(VectorType::Zero()); }
 

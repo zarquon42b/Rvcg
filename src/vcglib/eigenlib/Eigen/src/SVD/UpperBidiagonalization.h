@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_BIDIAGONALIZATION_H
 #define EIGEN_BIDIAGONALIZATION_H
@@ -159,6 +159,8 @@ void upperbidiagonalization_blocked_helper(MatrixType& A,
                                                       traits<MatrixType>::Flags & RowMajorBit> > Y)
 {
   typedef typename MatrixType::Scalar Scalar;
+  typedef typename MatrixType::RealScalar RealScalar;
+  typedef typename NumTraits<RealScalar>::Literal Literal;
   enum { StorageOrder = traits<MatrixType>::Flags & RowMajorBit };
   typedef InnerStride<int(StorageOrder) == int(ColMajor) ? 1 : Dynamic> ColInnerStride;
   typedef InnerStride<int(StorageOrder) == int(ColMajor) ? Dynamic : 1> RowInnerStride;
@@ -263,7 +265,7 @@ void upperbidiagonalization_blocked_helper(MatrixType& A,
     SubMatType A10( A.block(bs,0, brows-bs,bs) );
     SubMatType A01( A.block(0,bs, bs,bcols-bs) );
     Scalar tmp = A01(bs-1,0);
-    A01(bs-1,0) = 1;
+    A01(bs-1,0) = Literal(1);
     A11.noalias() -= A10 * Y.topLeftCorner(bcols,bs).bottomRows(bcols-bs).adjoint();
     A11.noalias() -= X.topLeftCorner(brows,bs).bottomRows(brows-bs) * A01;
     A01(bs-1,0) = tmp;

@@ -20,11 +20,15 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-#ifndef __VCG_MESH
-#error "This file should not be included alone. It is automatically included by complex.h"
-#endif
+
 #ifndef __VCG_VERTEX_PLUS_COMPONENT
 #define __VCG_VERTEX_PLUS_COMPONENT
+
+#include <vector>
+#include <string>
+
+#include <vcg/space/color4.h>
+#include <vcg/space/texcoord2.h>
 
 namespace vcg {
 namespace vertex {
@@ -49,30 +53,35 @@ template <class TT> class EmptyCore: public TT {
 public:
   typedef int FlagType;
   int &Flags()       { assert(0); static int dummyflags(0);  return dummyflags; }
+  int  Flags() const { return 0; }
   int cFlags() const { return 0; }
   static bool HasFlags()   { return false; }
 
   typedef vcg::Point3f CoordType;
   typedef CoordType::ScalarType      ScalarType;
   CoordType &P()       { assert(0); static CoordType coord(0, 0, 0); return coord; }
+  CoordType  P() const { assert(0); static CoordType coord(0, 0, 0);  assert(0); return coord; }
   CoordType cP() const { assert(0); static CoordType coord(0, 0, 0);  assert(0); return coord; }
   static bool HasCoord()   { return false; }
   inline bool IsCoordEnabled() const { return TT::VertexType::HasCoord();}
 
   typedef vcg::Point3s NormalType;
   NormalType &N()       { assert(0); static NormalType dummy_normal(0, 0, 0); return dummy_normal; }
+  NormalType  N() const { assert(0); static NormalType dummy_normal(0, 0, 0); return dummy_normal; }
   NormalType cN() const { assert(0); static NormalType dummy_normal(0, 0, 0); return dummy_normal; }
   static bool HasNormal()    { return false; }
   inline bool IsNormalEnabled() const { return TT::VertexType::HasNormal();}
 
   typedef float QualityType;
   QualityType &Q()       { assert(0); static QualityType dummyQuality(0); return dummyQuality; }
+  QualityType  Q() const { assert(0); static QualityType dummyQuality(0); return dummyQuality; }
   QualityType cQ() const { assert(0); static QualityType dummyQuality(0); return dummyQuality; }
   static bool HasQuality()   { return false; }
   inline bool IsQualityEnabled() const { return TT::VertexType::HasQuality();}
 
   typedef vcg::Color4b ColorType;
   ColorType &C()       { static ColorType dumcolor(vcg::Color4b::White); assert(0); return dumcolor; }
+  ColorType  C() const { static ColorType dumcolor(vcg::Color4b::White);  assert(0); return dumcolor; }
   ColorType cC() const { static ColorType dumcolor(vcg::Color4b::White);  assert(0); return dumcolor; }
   static bool HasColor()   { return false; }
   inline bool IsColorEnabled() const { return TT::VertexType::HasColor();}
@@ -80,18 +89,21 @@ public:
   typedef int  MarkType;
   void InitIMark()    {  }
   int cIMark()  const { assert(0); static int tmp=-1; return tmp;}
+  int  IMark()  const { assert(0); static int tmp=-1; return tmp;}
   int &IMark()        { assert(0); static int tmp=-1; return tmp;}
   static bool HasMark()   { return false; }
   inline bool IsMarkEnabled() const { return TT::VertexType::HasMark();}
 
   typedef ScalarType RadiusType;
   RadiusType &R()       { static ScalarType v = 0.0; assert(0 && "the radius component is not available"); return v; }
+  RadiusType  R() const { static const ScalarType v = 0.0; assert(0 && "the radius component is not available"); return v; }
   RadiusType cR() const { static const ScalarType v = 0.0; assert(0 && "the radius component is not available"); return v; }
   static bool HasRadius()     { return false; }
   inline bool IsRadiusEnabled() const { return TT::VertexType::HasRadius();}
 
   typedef vcg::TexCoord2<float,1> TexCoordType;
   TexCoordType &T()       { static TexCoordType dummy_texcoord;  assert(0); return dummy_texcoord; }
+  TexCoordType  T() const { static TexCoordType dummy_texcoord;  assert(0); return dummy_texcoord; }
   TexCoordType cT() const { static TexCoordType dummy_texcoord;  assert(0); return dummy_texcoord; }
   static bool HasTexCoord()   { return false; }
   inline bool IsTexCoordEnabled() const { return TT::VertexType::HasTexCoord();}
@@ -99,6 +111,7 @@ public:
   typename TT::TetraPointer &VTp()        { static typename TT::TetraPointer tp = 0;  assert(0); return tp; }
   typename TT::TetraPointer cVTp() const  { static typename TT::TetraPointer tp = 0;  assert(0); return tp; }
   int &VTi()       { static int z = 0; assert(0); return z; }
+  int  VTi() const { static int z = 0; assert(0); return z; }
   int cVTi() const { static int z = 0; assert(0); return z; }
   static bool HasVTAdjacency() { return false; }
   bool IsVTInitialized() const {return static_cast<const typename TT::VertexType *>(this)->cVTi()!=-1;}
@@ -112,6 +125,7 @@ public:
   typename TT::FacePointer &VFp()       { static typename TT::FacePointer fp=0;  assert(0); return fp; }
   typename TT::FacePointer cVFp() const { static typename TT::FacePointer fp=0;  assert(0); return fp; }
   int &VFi()       { static int z=-1; assert(0); return z;}
+  int  VFi() const { static int z=-1; assert(0); return z;}
   int cVFi() const { static int z=-1; assert(0); return z;}
   bool IsNull() const { return true; }
   static bool HasVFAdjacency()   { return false; }
@@ -126,6 +140,7 @@ public:
   typename TT::EdgePointer &VEp()       { static typename TT::EdgePointer ep=0;  assert(0); return ep; }
   typename TT::EdgePointer cVEp() const { static typename TT::EdgePointer ep=0;  assert(0); return ep; }
   int &VEi()       { static int z=-1; return z;}
+  int  VEi() const { static int z=-1; return z;}
   int cVEi() const { static int z=-1; return z;}
   static bool HasVEAdjacency()   {   return false; }
   bool IsVEInitialized() const {return static_cast<const typename TT::VertexType *>(this)->cVEi()!=-1;}
@@ -138,32 +153,30 @@ public:
   typename TT::HEdgePointer &VHp()       { static typename TT::HEdgePointer ep=0;  assert(0); return ep; }
   typename TT::HEdgePointer cVHp() const { static typename TT::HEdgePointer ep=0;  assert(0); return ep; }
   int &VHi()       { static int z=0; return z;}
+  int  VHi() const { static int z=0; return z;}
   int cVHi() const { static int z=0; return z;}
   static bool HasVHAdjacency()   {   return false; }
 
   typedef float   CurScalarType;
-  typedef float   ScalarTypeCur;
   typedef Point3f CurVecType;
   typedef Point2f CurvatureType;
-  float &Kh()       { static float dummy = 0.f; assert(0);return dummy;}
-  float &Kg()       { static float dummy = 0.f; assert(0);return dummy;}
-  float cKh() const { static float dummy = 0.f; assert(0); return dummy;}
-  float cKg() const { static float dummy = 0.f; assert(0); return dummy;}
 
   typedef CurvatureDirBaseType<float> CurvatureDirType;
   CurVecType &PD1()       {static CurVecType v(0,0,0); assert(0);return v;}
   CurVecType &PD2()       {static CurVecType v(0,0,0); assert(0);return v;}
+  CurVecType  PD1() const {static CurVecType v(0,0,0); assert(0);return v;}
+  CurVecType  PD2() const {static CurVecType v(0,0,0); assert(0);return v;}
   CurVecType cPD1() const {static CurVecType v(0,0,0); assert(0);return v;}
   CurVecType cPD2() const {static CurVecType v(0,0,0); assert(0);return v;}
 
   CurScalarType &K1()       { static ScalarType v = 0.0;assert(0);return v;}
   CurScalarType &K2()       { static ScalarType v = 0.0;assert(0);return v;}
+  CurScalarType  K1() const {static ScalarType v = 0.0;assert(0);return v;}
+  CurScalarType  K2() const  {static ScalarType v = 0.0;assert(0);return v;}
   CurScalarType cK1() const {static ScalarType v = 0.0;assert(0);return v;}
   CurScalarType cK2() const  {static ScalarType v = 0.0;assert(0);return v;}
 
-  static bool HasCurvature()			{ return false; }
   static bool HasCurvatureDir()			{ return false; }
-  inline bool IsCurvatureEnabled() const { return TT::VertexType::HasCurvature();}
   inline bool IsCurvatureDirEnabled() const { return TT::VertexType::HasCurvatureDir();}
 
   template < class RightValueType>
@@ -406,46 +419,6 @@ template <class TT> class Qualityd: public Quality<double, TT> {
 public: static void Name(std::vector<std::string> & name){name.push_back(std::string("Qualityd"));TT::Name(name);}
 };
 
-  /*-------------------------- Curvature   ----------------------------------*/
-
-  /*! \brief \em Component: Per vertex basic \b curvature
-    This component keeps the mean an gaussian curvature for a vertex. Used by some of the algorithms of vcg::tri::UpdateCurvature to store the computed curvatures.
-      */
-  template <class A, class TT> class Curvature: public TT {
-  public:
-    typedef Point2<A> CurvatureType;
-    typedef typename CurvatureType::ScalarType ScalarTypeCur;
-    const ScalarTypeCur &Kh() const { return _hk[0]; }
-    const ScalarTypeCur &Kg() const { return _hk[1]; }
-          ScalarTypeCur &Kh()       { return _hk[0]; }
-          ScalarTypeCur &Kg()       { return _hk[1]; }
-          ScalarTypeCur cKh() const { return _hk[0]; }
-          ScalarTypeCur cKg() const { return _hk[1]; }
-
-          template < class RightValueType>
-          void ImportData(const RightValueType  & rVert ) {
-            if(rVert.IsCurvatureEnabled()) {
-              Kh() = rVert.cKh();
-              Kg() = rVert.cKg();
-            }
-            TT::ImportData( rVert);
-          }
-
-    static bool HasCurvature()   { return true; }
-    static void Name(std::vector<std::string> & name){name.push_back(std::string("Curvature"));TT::Name(name);}
-
-  private:
-    Point2<A> _hk;
-  };
-
-
-  template <class T> class Curvaturef: public Curvature< float, T> {
-  public:	static void Name(std::vector<std::string> & name){name.push_back(std::string("Curvaturef"));T::Name(name);}
-  };
-  template <class T> class Curvatured: public Curvature<double , T> {
-  public:	static void Name(std::vector<std::string> & name){name.push_back(std::string("Curvatured"));T::Name(name);}
-  };
-
 /*-------------------------- Curvature Direction ----------------------------------*/
 
   /*! \brief \em Component: Per vertex \b curvature \b directions
@@ -531,6 +504,7 @@ public:
   typename T::EdgePointer &VEp()       {return _ep; }
   typename T::EdgePointer cVEp() const {return _ep; }
   int &VEi()       {return _zp; }
+  int  VEi() const {return _zp; }
   int cVEi() const {return _zp; }
   template < class RightValueType>
   void ImportData(const RightValueType  & rVert ) {  T::ImportData( rVert); }
@@ -559,6 +533,7 @@ Note that if you use this component it is expected that on the Face you use also
     typename T::FacePointer &VFp()        { return _fp; }
     typename T::FacePointer cVFp() const  { return _fp; }
     int &VFi()       { return _zp; }
+    int  VFi() const { return _zp; }
     int cVFi() const { return _zp; }
     bool IsNull() const { return _zp==-1;}
     template < class RightValueType>
@@ -597,6 +572,7 @@ public:
     typename T::TetraPointer &VTp()       { return _tp; }
     typename T::TetraPointer cVTp() const { return _tp; }
     int &VTi() {return _zp; }
+    int  VTi() const { return _zp; }
     int cVTi() const { return _zp; }
     static bool HasVTAdjacency() { return true; }
     static void Name( std::vector< std::string > & name ) { name.push_back( std::string("VTAdj") ); T::Name(name); }

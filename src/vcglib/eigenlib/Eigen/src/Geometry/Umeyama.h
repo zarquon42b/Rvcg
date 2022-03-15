@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_UMEYAMA_H
 #define EIGEN_UMEYAMA_H
@@ -87,7 +87,7 @@ struct umeyama_transform_matrix_type
 * \f{align*}
 *   T = \begin{bmatrix} c\mathbf{R} & \mathbf{t} \\ \mathbf{0} & 1 \end{bmatrix}
 * \f}
-* minimizing the resudiual above. This transformation is always returned as an 
+* minimizing the residual above. This transformation is always returned as an 
 * Eigen::Matrix.
 */
 template <typename Derived, typename OtherDerived>

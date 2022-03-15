@@ -2,7 +2,7 @@ Index: vcglib/wrap/ply/plylib.cpp
 ===================================================================
 --- vcglib.orig/wrap/ply/plylib.cpp
 +++ vcglib/wrap/ply/plylib.cpp
-@@ -3663,7 +3663,7 @@ void interpret_texture_name(const char*a
+@@ -3685,7 +3685,7 @@ void interpret_texture_name(const char*a
  
  					// 3) append
  					output[io]=0;

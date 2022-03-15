@@ -218,34 +218,36 @@ public:
         // get the adjacent face
         const FaceType * fp = f.cFFp(edge);
 
-        //       v0
-        //      /|\
-        //     / | \
-        //    /  |  \
-        //   /   |   \
-        // va\   |   /vb
-        //    \  |  /
-        //     \ | /
-        //      \|/
-        //       v1
+        /*
+         *       v0
+         *      /|\
+         *     / | \
+         *    /  |  \
+         *   /   |   \
+         * va\   |   /vb
+         *    \  |  /
+         *     \ | /
+         *      \|/
+         *       v1
+         */
 
         ScalarT cotA = 0;
         ScalarT cotB = 0;
 
         // Get the edge (a pair of vertices)
-        VertexType * v0 = f.cV(edge);
-        VertexType * v1 = f.cV((edge+1)%f.VN());
+		const VertexType * v0 = f.cV(edge);
+		const VertexType * v1 = f.cV((edge+1)%f.VN());
 
         if (fp != NULL &&
             fp != &f)
         {
             // not a border edge
-            VertexType * vb = fp->cV((f.cFFi(edge)+2)%fp->VN());
+			const VertexType * vb = fp->cV((f.cFFi(edge)+2)%fp->VN());
             ScalarT angleB = ComputeAngle<ScalarT>(v0, vb, v1);
             cotB = vcg::math::Cos(angleB) / vcg::math::Sin(angleB);
         }
 
-        VertexType * va = f.cV((edge+2)%f.VN());
+		const VertexType * va = f.cV((edge+2)%f.VN());
         ScalarT angleA = ComputeAngle<ScalarT>(v0, va, v1);
         cotA = vcg::math::Cos(angleA) / vcg::math::Sin(angleA);
 
@@ -255,16 +257,17 @@ public:
     template <typename ScalarT>
     static ScalarT ComputeAngle(const VertexType * a, const VertexType * b, const VertexType * c)
     {
-        //       a
-        //      /
-        //     /
-        //    /
-        //   /  ___ compute the angle in b
-        // b \
-        //    \
-        //     \
-        //      \
-        //       c
+        /*       a
+         *      /
+         *     /
+         *    /
+         *   /  ___ compute the angle in b
+         * b \
+         *    \
+         *     \
+         *      \
+         *       c
+         */
         assert(a != NULL && b != NULL && c != NULL);
         Point3<ScalarT> A,B,C;
         A.Import(a->P());

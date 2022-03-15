@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_GENERAL_MATRIX_VECTOR_H
 #define EIGEN_GENERAL_MATRIX_VECTOR_H
@@ -183,8 +183,8 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,LhsMapper,C
     alignmentPattern = AllAligned;
   }
 
-  const Index offset1 = (FirstAligned && alignmentStep==1)?3:1;
-  const Index offset3 = (FirstAligned && alignmentStep==1)?1:3;
+  const Index offset1 = (alignmentPattern==FirstAligned && alignmentStep==1)?3:1;
+  const Index offset3 = (alignmentPattern==FirstAligned && alignmentStep==1)?1:3;
 
   Index columnBound = ((cols-skipColumns)/columnsAtOnce)*columnsAtOnce + skipColumns;
   for (Index i=skipColumns; i<columnBound; i+=columnsAtOnce)
@@ -457,8 +457,8 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,LhsMapper,R
     alignmentPattern = AllAligned;
   }
 
-  const Index offset1 = (FirstAligned && alignmentStep==1)?3:1;
-  const Index offset3 = (FirstAligned && alignmentStep==1)?1:3;
+  const Index offset1 = (alignmentPattern==FirstAligned && alignmentStep==1)?3:1;
+  const Index offset3 = (alignmentPattern==FirstAligned && alignmentStep==1)?1:3;
 
   Index rowBound = ((rows-skipRows)/rowsAtOnce)*rowsAtOnce + skipRows;
   for (Index i=skipRows; i<rowBound; i+=rowsAtOnce)

@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_PACKET_MATH_CUDA_H
 #define EIGEN_PACKET_MATH_CUDA_H
@@ -291,7 +291,7 @@ template<> EIGEN_DEVICE_FUNC inline double2 pabs<double2>(const double2& a) {
 
 EIGEN_DEVICE_FUNC inline void
 ptranspose(PacketBlock<float4,4>& kernel) {
-  double tmp = kernel.packet[0].y;
+  float tmp = kernel.packet[0].y;
   kernel.packet[0].y = kernel.packet[1].x;
   kernel.packet[1].x = tmp;
 

@@ -63,6 +63,7 @@ public:
 	typedef typename VertexType::QualityType VertQualityType;
 	typedef typename OpenMeshType::FaceType FaceType;
 	typedef typename FaceType::QualityType FaceQualityType;
+	typedef typename VertexType::TexCoordType::ScalarType TexScalarType;
 
 	typedef typename OpenMeshType::VertexIterator VertexIterator;
 	typedef typename OpenMeshType::FaceIterator FaceIterator;
@@ -159,7 +160,7 @@ public:
 		float k4;
 	};
 
-#define _VERTDESC_LAST_  32
+#define _VERTDESC_LAST_  34
 	static const  PropDescriptor &VertDesc(int i)
 	{
 		static const PropDescriptor pv[_VERTDESC_LAST_]={
@@ -189,14 +190,16 @@ public:
 		    /*22*/ {"vertex", "s",             ply::T_FLOAT, ply::T_FLOAT,         offsetof(LoadPly_VertAux<ScalarType>,u),0,0,0,0,0  ,0},
 		    /*23*/ {"vertex", "t",             ply::T_FLOAT, ply::T_FLOAT,         offsetof(LoadPly_VertAux<ScalarType>,v),0,0,0,0,0  ,0},
 		    // DOUBLE
-		    /*24*/ {"vertex", "x",             ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,p),0,0,0,0,0  ,0},
-		    /*25*/ {"vertex", "y",             ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,p) + sizeof(ScalarType)  ,0,0,0,0,0  ,0},
-		    /*26*/ {"vertex", "z",             ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,p) + 2*sizeof(ScalarType),0,0,0,0,0  ,0},
-		    /*27*/ {"vertex", "nx",            ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,n)                       ,0,0,0,0,0  ,0},
-		    /*28*/ {"vertex", "ny",            ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,n) + 1*sizeof(ScalarType),0,0,0,0,0  ,0},
-		    /*29*/ {"vertex", "nz",            ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,n) + 2*sizeof(ScalarType),0,0,0,0,0  ,0},
-		    /*30*/ {"vertex", "radius",        ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,radius),0,0,0,0,0  ,0},
-		    /*31*/ {"vertex", "quality",       ply::T_DOUBLE, PlyType<ScalarType>(),offsetof(LoadPly_VertAux<ScalarType>,q),0,0,0,0,0  ,0}
+		    /*24*/ {"vertex", "x",             ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,p),0,0,0,0,0  ,0},
+		    /*25*/ {"vertex", "y",             ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,p) + sizeof(ScalarType)  ,0,0,0,0,0  ,0},
+		    /*26*/ {"vertex", "z",             ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,p) + 2*sizeof(ScalarType),0,0,0,0,0  ,0},
+		    /*27*/ {"vertex", "nx",            ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,n)                       ,0,0,0,0,0  ,0},
+		    /*28*/ {"vertex", "ny",            ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,n) + 1*sizeof(ScalarType),0,0,0,0,0  ,0},
+		    /*29*/ {"vertex", "nz",            ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,n) + 2*sizeof(ScalarType),0,0,0,0,0  ,0},
+		    /*30*/ {"vertex", "radius",        ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,radius),0,0,0,0,0  ,0},
+		    /*31*/ {"vertex", "quality",       ply::T_DOUBLE, PlyType<ScalarType>(),    offsetof(LoadPly_VertAux<ScalarType>,q),0,0,0,0,0  ,0},
+		    /*32*/ {"vertex", "texture_u",     ply::T_DOUBLE, PlyType<TexScalarType>(), offsetof(LoadPly_VertAux<ScalarType>,u),0,0,0,0,0  ,0},
+		    /*33*/ {"vertex", "texture_v",     ply::T_DOUBLE, PlyType<TexScalarType>(), offsetof(LoadPly_VertAux<ScalarType>,v),0,0,0,0,0  ,0},
 		};
 		return pv[i];
 	}
@@ -254,10 +257,12 @@ public:
 
 	static const PropDescriptor &EdgeDesc(int i)
 	{
-		static const PropDescriptor qf[2]=
+		static const PropDescriptor qf[4]=
 		{
-		    {"edge","vertex1", ply::T_INT,  ply::T_INT,  offsetof(LoadPly_EdgeAux,v1),		  0,0,0,0,0  ,0},
-		    {"edge","vertex2", ply::T_INT,  ply::T_INT,  offsetof(LoadPly_EdgeAux,v2),		  0,0,0,0,0  ,0},
+			{"edge","vertex1", ply::T_INT,  ply::T_INT,  offsetof(LoadPly_EdgeAux,v1),		  0,0,0,0,0  ,0},
+			{"edge","vertex2", ply::T_INT,  ply::T_INT,  offsetof(LoadPly_EdgeAux,v2),		  0,0,0,0,0  ,0},
+			{"edge","vertex1", ply::T_UINT, ply::T_INT,  offsetof(LoadPly_EdgeAux,v1),		  0,0,0,0,0  ,0},
+			{"edge","vertex2", ply::T_UINT, ply::T_INT,  offsetof(LoadPly_EdgeAux,v2),		  0,0,0,0,0  ,0},
 		};
 		return qf[i];
 	}
@@ -326,7 +331,7 @@ public:
 
 			ply_error_msg[PlyInfo::E_NO_VERTEX      ]="No vertex field found";
 			ply_error_msg[PlyInfo::E_NO_FACE        ]="No face field found";
-			ply_error_msg[PlyInfo::E_SHORTFILE      ]="Unespected eof";
+			ply_error_msg[PlyInfo::E_SHORTFILE      ]="Unexpected EOF";
 			ply_error_msg[PlyInfo::E_NO_3VERTINFACE ]="Face with more than 3 vertices";
 			ply_error_msg[PlyInfo::E_BAD_VERT_INDEX ]="Bad vertex index in face";
 			ply_error_msg[PlyInfo::E_BAD_VERT_INDEX_EDGE ]="Bad vertex index in edge";
@@ -452,7 +457,8 @@ public:
 
 		}
 		// Optional flag descriptors
-		if(pf.AddToRead(EdgeDesc(0) )!= -1 && pf.AddToRead(EdgeDesc(1)) != -1 )
+		if((pf.AddToRead(EdgeDesc(0) )!= -1  || pf.AddToRead(EdgeDesc(2) )!= -1) && 
+			(pf.AddToRead(EdgeDesc(1)) != -1 || pf.AddToRead(EdgeDesc(3)) != -1))
 			pi.mask |= Mask::IOM_EDGEINDEX;
 
 		if(vcg::tri::HasPerVertexFlags(m) && pf.AddToRead(VertDesc(3))!=-1 )
@@ -508,6 +514,10 @@ public:
 				pi.mask |= Mask::IOM_VERTTEXCOORD;
 			}
 			if(( pf.AddToRead(VertDesc(18))!=-1 )&&  (pf.AddToRead(VertDesc(19))!=-1))
+			{
+				pi.mask |= Mask::IOM_VERTTEXCOORD;
+			}
+			if(( pf.AddToRead(VertDesc(32))!=-1 )&&  (pf.AddToRead(VertDesc(33))!=-1))
 			{
 				pi.mask |= Mask::IOM_VERTTEXCOORD;
 			}
@@ -970,7 +980,7 @@ public:
 							bufstr = c.substr(num_cols.length()+1);
 							RangeGridCols = atoi(bufstr.c_str());
 						}
-						if( num_rows == c.substr(0,num_cols.length()) )
+						if( num_rows == c.substr(0,num_rows.length()) )
 						{
 							bufstr = c.substr(num_rows.length()+1);
 							RangeGridRows = atoi(bufstr.c_str());
@@ -1194,6 +1204,9 @@ public:
 
 		if( pf.AddToRead(VertDesc(18))!=-1  &&
 		    pf.AddToRead(VertDesc(19))!=-1)    mask |= Mask::IOM_VERTTEXCOORD;
+
+		if( pf.AddToRead(VertDesc(32))!=-1  &&
+		    pf.AddToRead(VertDesc(33))!=-1)    mask |= Mask::IOM_VERTTEXCOORD;
 
 		if( pf.AddToRead(FaceDesc(0))!=-1 )    mask |= Mask::IOM_FACEINDEX;
 		if( pf.AddToRead(FaceDesc(1))!=-1 )    mask |= Mask::IOM_FACEFLAGS;

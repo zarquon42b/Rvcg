@@ -22,6 +22,7 @@
 ****************************************************************************/
 #include <vcg/math/histogram.h>
 #include <vcg/complex/algorithms/update/curvature.h>
+#include <wrap/io_trimesh/export.h>
 
 #ifndef VCG_TANGENT_FIELD_OPERATORS
 #define VCG_TANGENT_FIELD_OPERATORS
@@ -109,31 +110,35 @@ vcg::Point3<ScalarType> InterpolateNRosy3D(const std::vector<vcg::Point3<ScalarT
         NF.Normalize();
         CoordType Vect=V[i];
         Vect.Normalize();
-        //ScalarType Dot=fabs(Vect*NF);
-        //std::cout << "V[i] " << V[i].X() << " " << V[i].Y() << std::endl << std::flush;
+        ScalarType Dot=(Norm[i]*TargetN);
+        CoordType rotV=V[i];
+        //std::cout << "Dot " <<Dot<<std::endl;
+        if (Dot>-0.99999)
+        {
+            //std::cout << "V[i] " << V[i].X() << " " << V[i].Y() << std::endl << std::flush;
 
-        ///rotate the vector to become tangent to the reference plane
-        vcg::Matrix33<ScalarType> RotNorm=vcg::RotationMatrix(Norm[i],TargetN);
-        //std::cout << "Norm[i] " << Norm[i].X() << " " << Norm[i].Y() << " " << Norm[i].Z()<< std::endl;
-        //std::cout << "TargetN " << TargetN.X() << " " << TargetN.Y() << " " << TargetN.Z()<< std::endl<< std::flush;
+            ///rotate the vector to become tangent to the reference plane
+            vcg::Matrix33<ScalarType> RotNorm=vcg::RotationMatrix(Norm[i],TargetN);
+//                    std::cout << "Norm[i] " << Norm[i].X() << " " << Norm[i].Y() << " " << Norm[i].Z()<< std::endl;
+//                    std::cout << "TargetN " << TargetN.X() << " " << TargetN.Y() << " " << TargetN.Z()<< std::endl<< std::flush;
 
-        CoordType rotV=RotNorm*V[i];
-        //assert(fabs(rotV*TargetN)<0.000001);
-        rotV.Normalize();
-        //std::cout << "rotV " << rotV.X() << " " << rotV.Y() << " " << rotV.Z()<< std::endl<< std::flush;
+            rotV=RotNorm*V[i];
+            //assert(fabs(rotV*TargetN)<0.000001);
+            rotV.Normalize();
+            //std::cout << "rotV " << rotV.X() << " " << rotV.Y() << " " << rotV.Z()<< std::endl<< std::flush;
 
-        ///trassform to the reference frame
-        rotV=RotFrame*rotV;
-//        if (isnan(rotV.X())||isnan(rotV.Y()))
-//        {
-//            std::cout << "V[i] " << V[i].X() << " " << V[i].Y() << std::endl << std::flush;
-//            std::cout << "Norm[i] " << Norm[i].X() << " " << Norm[i].Y() << " " << Norm[i].Z()<< std::endl;
-//            std::cout << "TargetN " << TargetN.X() << " " << TargetN.Y() << " " << TargetN.Z()<< std::endl<< std::flush;
-//        }
+            ///trassform to the reference frame
+            rotV=RotFrame*rotV;
+            //        if (isnan(rotV.X())||isnan(rotV.Y()))
+            //        {
+            //            std::cout << "V[i] " << V[i].X() << " " << V[i].Y() << std::endl << std::flush;
+            //            std::cout << "Norm[i] " << Norm[i].X() << " " << Norm[i].Y() << " " << Norm[i].Z()<< std::endl;
+            //            std::cout << "TargetN " << TargetN.X() << " " << TargetN.Y() << " " << TargetN.Z()<< std::endl<< std::flush;
+            //        }
 
-        assert(!isnan(rotV.X()));
-        assert(!isnan(rotV.Y()));
-
+            assert(!isnan(rotV.X()));
+            assert(!isnan(rotV.Y()));
+        }
         //it's 2D from now on
         Cross2D.push_back(vcg::Point2<ScalarType>(rotV.X(),rotV.Y()));
 
@@ -533,9 +538,9 @@ public:
     static void InitBorderField(MeshType & mesh)
     {
         typedef typename MeshType::FaceType FaceType;
-//        typedef typename MeshType::VertexType VertexType;
+        //        typedef typename MeshType::VertexType VertexType;
         typedef typename MeshType::CoordType CoordType;
-//        typedef typename MeshType::ScalarType ScalarType;
+        //        typedef typename MeshType::ScalarType ScalarType;
 
         vcg::tri::UpdateTopology<MeshType>::FaceFace(mesh);
         for (size_t i=0;i<mesh.face.size();i++)
@@ -556,7 +561,8 @@ public:
     static void SmoothIterative(MeshType &mesh,int NDir=4,
                                 int NSteps=3,
                                 bool FixSelected=false,
-                                bool UseOnlyUnSelected=false)
+                                bool UseOnlyUnSelected=false,
+                                ScalarType weightByQ=false)
     {
 
         typedef typename MeshType::FaceType FaceType;
@@ -575,6 +581,7 @@ public:
                 std::vector<CoordType> TangVect;
                 std::vector<CoordType> Norms;
                 FaceType *f0=&mesh.face[i];
+                std::vector<ScalarType> Weights;
                 for (int j=0;j<f0->VN();j++)
                 {
                     FaceType *f1=f0->FFp(j);
@@ -583,9 +590,20 @@ public:
                     if (f0==f1)continue;
                     TangVect.push_back(f1->PD1());
                     Norms.push_back(f1->N());
+                    if (weightByQ)
+                        Weights.push_back(f1->Q());
+                    else
+                        Weights.push_back(1);
                 }
+
+                //add its own value
+                if (weightByQ)
+                    Weights.push_back(f0->Q());
+                else
+                    Weights.push_back(1);
+
                 assert(Norms.size()>0);
-                std::vector<ScalarType> Weights;
+
                 Weights.resize(Norms.size(),1/(ScalarType)Norms.size());
                 NewPD1[i]=InterpolateCrossField(TangVect,Weights,Norms,f0->N(),NDir);
             }
@@ -619,7 +637,7 @@ public:
         do
         {
             std::vector<int> new_queue;
-            for (int i=0; i<queue.size(); i++)
+            for (size_t i=0; i<queue.size(); i++)
             {
                 FaceType *f0=&(mesh.face[queue[i]]);
                 assert(!f0->IsD());
@@ -640,7 +658,7 @@ public:
         //restore selected flag
         vcg::tri::UpdateFlags<MeshType>::FaceClearS(mesh);
         for (int i=0; i<(int)Sel0.size(); i++)
-           mesh.face[Sel0[i]].SetS();
+            mesh.face[Sel0[i]].SetS();
     }
 
     static size_t FindSeparatrices(const typename vcg::face::Pos<FaceType> &vPos,
@@ -820,7 +838,12 @@ public:
     {
         ///first it rotate dir to match with f1
         CoordType dirS=CrossVector(f0,dir0);
-        CoordType dirR=vcg::tri::CrossField<MeshType>::Rotate(f0,f1,dirS);
+        ScalarType DotN=(f0.cN()*f1.cN());
+        CoordType dirR;
+        if (DotN<(-0.99999))
+            dirR=-dirS;
+        else
+            dirR=vcg::tri::CrossField<MeshType>::Rotate(f0,f1,dirS);
         ///then get the closest upf to K*PI/2 rotations
         //CoordType dir1=f1.cPD1();
         //int ret=I_K_PI(dir1,dirR,f1.cN());
@@ -1080,13 +1103,13 @@ public:
 
             if (fabs(rotatedDir*tF0)>fabs(rotatedDir*tF1))
             {
-                mag1+=fabs(f.V(i)->K1());
-                mag2+=fabs(f.V(i)->K2());
+                mag1+=(f.V(i)->K1());
+                mag2+=(f.V(i)->K2());
             }
             else
             {
-                mag1+=fabs(f.V(i)->K2());
-                mag2+=fabs(f.V(i)->K1());
+                mag1+=(f.V(i)->K2());
+                mag2+=(f.V(i)->K1());
             }
         }
 
@@ -1345,18 +1368,19 @@ public:
     }
 
 
+
     ///return true if a given vertex is singular,
     ///return also the missmatch
-    static bool IsSingularByCross(const VertexType &v,int &missmatch)
+    static bool IsSingularByCross(const VertexType &v,int &missmatch,bool BorderSing=false)
     {
         typedef typename VertexType::FaceType FaceType;
         ///check that is on border..
-        if (v.IsB())return false;
+        if (v.IsB()&& (!BorderSing))return false;
 
         std::vector<face::Pos<FaceType> > posVec;
         //SortedFaces(v,faces);
         face::Pos<FaceType> pos(v.cVFp(), v.cVFi());
-        vcg::face::VFOrderedStarFF(pos, posVec);
+        vcg::face::VFOrderedStarFF(pos, posVec,true);
 
         int curr_dir=0;
         for (unsigned int i=0;i<posVec.size();i++)
@@ -1372,7 +1396,7 @@ public:
     }
 
     ///select singular vertices
-    static void UpdateSingularByCross(MeshType &mesh)
+    static void UpdateSingularByCross(MeshType &mesh,bool addBorderSing=false)
     {
         bool hasSingular = vcg::tri::HasPerVertexAttribute(mesh,std::string("Singular"));
         bool hasSingularIndex = vcg::tri::HasPerVertexAttribute(mesh,std::string("SingularIndex"));
@@ -1393,10 +1417,8 @@ public:
         for (size_t i=0;i<mesh.vert.size();i++)
         {
             if (mesh.vert[i].IsD())continue;
-            //if (mesh.vert[i].IsB())continue;
-
             int missmatch;
-            if (IsSingularByCross(mesh.vert[i],missmatch))
+            if (IsSingularByCross(mesh.vert[i],missmatch,addBorderSing))
             {
                 Handle_Singular[i]=true;
                 Handle_SingularIndex[i]=missmatch;

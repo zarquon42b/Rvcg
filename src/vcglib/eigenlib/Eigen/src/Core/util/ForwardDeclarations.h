@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_FORWARDDECLARATIONS_H
 #define EIGEN_FORWARDDECLARATIONS_H
@@ -47,11 +47,7 @@ template<typename T> struct NumTraits;
 template<typename Derived> struct EigenBase;
 template<typename Derived> class DenseBase;
 template<typename Derived> class PlainObjectBase;
-
-
-template<typename Derived,
-         int Level = internal::accessors_level<Derived>::value >
-class DenseCoeffsBase;
+template<typename Derived, int Level> class DenseCoeffsBase;
 
 template<typename _Scalar, int _Rows, int _Cols,
          int _Options = AutoAlign |

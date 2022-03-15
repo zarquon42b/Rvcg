@@ -20,11 +20,16 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-#ifndef __VCG_MESH
-#error "This file should not be included alone. It is automatically included by complex.h"
-#endif
+
 #ifndef __VCG_EDGE_PLUS_COMPONENT
 #define __VCG_EDGE_PLUS_COMPONENT
+
+#include <cassert>
+#include <vector>
+#include <string>
+
+#include <vcg/space/color4.h>
+
 
 namespace vcg {
 namespace edge {
@@ -78,6 +83,7 @@ public:
 	typename T::EdgePointer &VEp(const int &  ) { static typename T::EdgePointer ep=0;  assert(0); return ep; }
 	typename T::EdgePointer cVEp(const int & ) const { static typename T::EdgePointer ep=0;  assert(0); return ep; }
 	int &VEi(const int &){static int z=0; assert(0); return z;}
+	int  VEi(const int &) const {static int z=0; assert(0); return z;}
 	int cVEi(const int &) const {static int z=0; assert(0); return z;}
 	static bool HasVEAdjacency()   {   return false; }
 
@@ -122,9 +128,10 @@ public:
 	inline typename T::VertexType * const & V( const int j ) const { assert(j>=0 && j<2); return v[j]; }
 	inline typename T::VertexType *  cV( const int j ) const { assert(j>=0 && j<2);	return v[j]; }
 
-	// Shortcut per accedere ai punti delle facce
-	inline       CoordType & P( const int j ) 	    {	assert(j>=0 && j<2);		return v[j]->P();	}
-	inline const CoordType &cP( const int j ) const	{	assert(j>=0 && j<2);		return v[j]->P(); }
+	/// Shortcuts to access points
+	inline       CoordType &  P( const int j )       { assert(j>=0 && j<2); return v[j]->P();}
+	inline const CoordType &  P( const int j ) const { assert(j>=0 && j<2); return v[j]->P();}
+	inline const CoordType & cP( const int j ) const { assert(j>=0 && j<2); return v[j]->P();}
 
 	/** Return the pointer to the ((j+1)%3)-th vertex of the face.
 		@param j Index of the face vertex.
@@ -136,7 +143,7 @@ public:
 	inline const typename T::VertexType * const & cV0( const int j ) const { return cV(j);}
 	inline const typename T::VertexType * const & cV1( const int j ) const { return cV((j+1)%2);}
 
-	/// Shortcut per accedere ai punti delle facce
+	/// Shortcuts to access points
 	inline       CoordType &  P0( const int j )       { return V(j)->P();}
 	inline       CoordType &  P1( const int j )       { return V((j+1)%2)->P();}
 	inline const CoordType &  P0( const int j ) const { return V(j)->P();}
@@ -278,6 +285,7 @@ public:
 	typename T::EdgePointer &VEp(const int & i) {return _ep[i]; }
 	typename T::EdgePointer cVEp(const int & i) const {return _ep[i]; }
 	int &VEi(const int & i){ return _zp[i];}
+	int  VEi(const int & i)const {return _zp[i];}
 	int cVEi(const int &i )const {return _zp[i];}
 
 	template < class LeftV>

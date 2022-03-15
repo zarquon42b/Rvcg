@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_INVERSE_IMPL_H
 #define EIGEN_INVERSE_IMPL_H
@@ -404,7 +404,7 @@ inline void MatrixBase<Derived>::computeInverseWithCheck(
     const RealScalar& absDeterminantThreshold
   ) const
 {
-  RealScalar determinant;
+  Scalar determinant;
   // i'd love to put some static assertions there, but SFINAE means that they have no effect...
   eigen_assert(rows() == cols());
   computeInverseAndDetWithCheck(inverse,determinant,invertible,absDeterminantThreshold);

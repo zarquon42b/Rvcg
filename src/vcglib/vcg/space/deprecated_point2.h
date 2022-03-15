@@ -127,14 +127,20 @@ public:
 		_v[0] = nx; _v[1] = ny;
 	}
 	/// copy constructor
-	inline Point2 ( const Point2 & p)
+	inline Point2 ( const Point2 & p) = default;
+	/// copy constructor
+	template<class Q>
+	inline Point2 ( const Point2<Q> & p)
 	{
-		_v[0]= p._v[0];    _v[1]= p._v[1];
+		_v[0]= p[0];    _v[1]= p[1];
 	}
 	/// copy
-	inline Point2 & operator =( const Point2 & p)
+	inline Point2 & operator =( const Point2 & p) = default;
+	/// copy
+	template<class Q>
+	inline Point2 & operator =( const Point2<Q> & p)
 	{
-		_v[0]= p._v[0]; _v[1]= p._v[1];
+		_v[0]= p[0]; _v[1]= p[1];
 		return *this;
 	}
 	/// sets the point to (0,0)
@@ -187,12 +193,19 @@ public:
 		_v[1] *= s;
 		return *this;
 	}
+
 	inline Point2 & operator /= ( const ScalarType s )
 	{
 		_v[0] /= s;
 		_v[1] /= s;
 		return *this;
 	}
+
+	inline Point2 operator - (void) const
+	{
+		return Point2(-_v[0], -_v[1]);
+	}
+
  //@}
 	/// returns the norm (Euclidian)
 	inline ScalarType Norm( void ) const
@@ -210,7 +223,8 @@ public:
 		_v[1] *= sy;
 		return * this;
 	}
-	/// normalizes, and returns itself as result
+
+	/// normalizes, and returns itself as result (nonsense)
 	inline Point2 & Normalize( void )
 	{
 		ScalarType n = math::Sqrt(_v[0]*_v[0] + _v[1]*_v[1]);
@@ -219,6 +233,19 @@ public:
 		}
 		return *this;
 	}
+
+	inline void normalize(void)
+	{
+		this->Normalize();
+	}
+
+	inline Point2 normalized(void) const
+	{
+		Point2<ScalarType> p = *this;
+		p.normalize();
+		return p;
+	}
+
 	/// points equality
 	inline bool operator == ( const Point2 & p ) const
 	{
@@ -325,6 +352,14 @@ public:
 		b[0]=_v[0];
 		b[1]=_v[1];
 	}
+	template <class EigenVector>
+	inline EigenVector ToEigenVector(void) const
+	{
+		assert(EigenVector::RowsAtCompileTime == 2);
+		EigenVector b;
+		b << _v[0], _v[1];
+		return b;
+	}
 	/// constructs a 2D points from an existing one of different type
 	template <class T>
 	static Point2 Construct( const Point2<T> & b )
@@ -360,42 +395,50 @@ inline T Angle( Point2<T> const & p0, Point2<T> const & p1 )
 }
 
 template <class T>
-inline Point2<T> operator - ( Point2<T> const & p ){
-	return Point2<T>( -p[0], -p[1] );
-}
-
-template <class T>
-inline Point2<T> operator * ( const T s, Point2<T> const & p ){
+inline Point2<T> operator * ( const T s, Point2<T> const & p )
+{
 	return Point2<T>( p[0] * s, p[1] * s );
 }
 
 template <class T>
-inline T Norm( Point2<T> const & p ){
+inline T Norm( Point2<T> const & p )
+{
 	return p.Norm();
 }
 
 template <class T>
-inline T SquaredNorm( Point2<T> const & p ){
+inline T SquaredNorm( Point2<T> const & p )
+{
 	return p.SquaredNorm();
 }
 
 template <class T>
-inline Point2<T> & Normalize( Point2<T> & p ){
+inline Point2<T> & Normalize( Point2<T> & p )
+{
 	return p.Normalize();
 }
 
+template <typename Scalar>
+inline Point2<Scalar> Normalized(const Point2<Scalar> & p )
+{
+	return p.normalized();
+}
+
 template <class T>
-inline T Distance( Point2<T> const & p1,Point2<T> const & p2 ){
+inline T Distance( Point2<T> const & p1,Point2<T> const & p2 )
+{
 	return Norm(p1-p2);
 }
 
 template <class T>
-inline T SquaredDistance( Point2<T> const & p1,Point2<T> const & p2 ){
+inline T SquaredDistance( Point2<T> const & p1,Point2<T> const & p2 )
+{
 	return SquaredNorm(p1-p2);
 }
 
 template <class T>
-inline Point2<T> Abs(const Point2<T> & p) {
+inline Point2<T> Abs(const Point2<T> & p)
+{
 	return (Point2<T>(math::Abs(p[0]), math::Abs(p[1])));
 }
 

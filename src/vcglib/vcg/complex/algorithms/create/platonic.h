@@ -639,11 +639,11 @@ void Torus(MeshType &m, float hRingRadius, float vRingRadius, int hRingDiv=24, i
 template <class ScalarType>
 static  ScalarType _SQfnC(ScalarType a, ScalarType b){
   return math::Sgn(cos(a))*pow(fabs(cos(a)),b);
-};
+}
 template <class ScalarType>
 static ScalarType _SQfnS(ScalarType a, ScalarType b){
   return math::Sgn(sin(a))*pow(fabs(sin(a)),b);
-};
+}
 
 
 /**
@@ -1125,7 +1125,7 @@ struct _SphUsedTypes : public UsedTypes<	Use<_SphVertex>   ::AsVertexType,
 
 class _SphVertex  : public Vertex<_SphUsedTypes,  vertex::Coord3f, vertex::Normal3f, vertex::BitFlags  >{};
 class _SphFace    : public Face< _SphUsedTypes,   face::VertexRef, face::Normal3f, face::BitFlags, face::FFAdj > {};
-class _SphMesh    : public tri::TriMesh< vector<_SphVertex>, vector<_SphFace>   > {};
+class _SphMesh    : public tri::TriMesh< std::vector<_SphVertex>, std::vector<_SphFace>   > {};
 
 
 template <class MeshType>

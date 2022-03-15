@@ -2,9 +2,9 @@ Index: vcglib/vcg/simplex/face/pos.h
 ===================================================================
 --- vcglib.orig/vcg/simplex/face/pos.h
 +++ vcglib/vcg/simplex/face/pos.h
-@@ -29,6 +29,8 @@
- #ifndef __VCG_FACE_POS
- #define __VCG_FACE_POS
+@@ -31,6 +31,8 @@
+ 
+ #include <cassert>
  
 +#include <cassert>
 +

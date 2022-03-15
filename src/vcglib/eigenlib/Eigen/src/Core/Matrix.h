@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_MATRIX_H
 #define EIGEN_MATRIX_H
@@ -274,8 +274,6 @@ class Matrix
       : Base(std::move(other))
     {
       Base::_check_template_params();
-      if (RowsAtCompileTime!=Dynamic && ColsAtCompileTime!=Dynamic)
-        Base::_set_noalias(other);
     }
     EIGEN_DEVICE_FUNC
     Matrix& operator=(Matrix&& other) EIGEN_NOEXCEPT_IF(std::is_nothrow_move_assignable<Scalar>::value)

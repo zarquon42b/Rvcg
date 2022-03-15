@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_SUPERLUSUPPORT_H
 #define EIGEN_SUPERLUSUPPORT_H
@@ -297,8 +297,8 @@ SluMatrix asSluMatrix(MatrixType& mat)
 template<typename Scalar, int Flags, typename Index>
 MappedSparseMatrix<Scalar,Flags,Index> map_superlu(SluMatrix& sluMat)
 {
-  eigen_assert((Flags&RowMajor)==RowMajor && sluMat.Stype == SLU_NR
-         || (Flags&ColMajor)==ColMajor && sluMat.Stype == SLU_NC);
+  eigen_assert(((Flags&RowMajor)==RowMajor && sluMat.Stype == SLU_NR)
+         || ((Flags&ColMajor)==ColMajor && sluMat.Stype == SLU_NC));
 
   Index outerSize = (Flags&RowMajor)==RowMajor ? sluMat.ncol : sluMat.nrow;
 

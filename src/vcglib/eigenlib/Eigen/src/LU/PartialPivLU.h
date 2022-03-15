@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_PARTIALLU_H
 #define EIGEN_PARTIALLU_H
@@ -519,7 +519,10 @@ void PartialPivLU<MatrixType>::compute()
   // the row permutation is stored as int indices, so just to be sure:
   eigen_assert(m_lu.rows()<NumTraits<int>::highest());
 
-  m_l1_norm = m_lu.cwiseAbs().colwise().sum().maxCoeff();
+  if(m_lu.cols()>0)
+    m_l1_norm = m_lu.cwiseAbs().colwise().sum().maxCoeff();
+  else
+    m_l1_norm = RealScalar(0);
 
   eigen_assert(m_lu.rows() == m_lu.cols() && "PartialPivLU is only for square (and moreover invertible) matrices");
   const Index size = m_lu.rows();

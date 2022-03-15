@@ -1009,7 +1009,7 @@ namespace vcg
                 * \return
                 */
              inline bool operator[](const typename UniformGrid::CellCoordinate &at)	{ return m_Mask[at.X()][at.Y()][at.Z()]; }
-             inline bool& GetFlag(const int i, const int j, const int k)const				{ return m_Mask[i][j][k]; }
+			 inline const bool& GetFlag(const int i, const int j, const int k)const				{ return m_Mask[i][j][k]; }
              inline void  SetFlat(const int i, const int j, const int k)						{ m_Mask[i][j][k] = true; }
 
 
@@ -1462,7 +1462,7 @@ namespace vcg
             m_OffsetTable.GetPreImageSortedPerCardinality(preimage_slots);
 
             char msg[128];
-            sprintf(msg, "Building offset table of resolution %d", m_OffsetTable.GetSize());
+            snprintf(msg, 128, "Building offset table of resolution %d", m_OffsetTable.GetSize());
             int	step = int(preimage_slots.size())/100;
             int number_of_slots = int(preimage_slots.size());
             int perc = 0;

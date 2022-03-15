@@ -35,6 +35,7 @@ sampling strategies (montecarlo, stratified etc).
 #ifndef __VCGLIB_POINT_SAMPLING
 #define __VCGLIB_POINT_SAMPLING
 
+#include <random>
 
 #include <vcg/math/random_generator.h>
 #include <vcg/complex/algorithms/closest.h>
@@ -501,6 +502,18 @@ static unsigned int RandomInt(unsigned int i)
     return (SamplingRandomGenerator().generate(i));
 }
 
+class MarsenneTwisterURBG
+{
+public:
+	typedef unsigned int result_type;
+	MarsenneTwisterURBG(result_type max){_max = max;}
+	static constexpr result_type min() {return 0;}
+	static constexpr result_type max() {return std::numeric_limits<result_type>::max();}
+	result_type operator()() {return SamplingRandomGenerator().generate(_max);}
+private:
+	result_type _max;
+};
+
 // Returns a random number in the [0,1) real interval using the improved Marsenne-Twister method.
 static double RandomDouble01()
 {
@@ -712,8 +725,11 @@ static void	FillAndShuffleFacePointerVector(MeshType & m, std::vector<FacePointe
 
     assert((int)faceVec.size()==m.fn);
 
-    unsigned int (*p_myrandom)(unsigned int) = RandomInt;
-    std::random_shuffle(faceVec.begin(),faceVec.end(), p_myrandom);
+    //unsigned int (*p_myrandom)(unsigned int) = RandomInt;
+    //std::random_device rd;
+    //std::mt19937 g(rd());
+    MarsenneTwisterURBG g(faceVec.size());
+    std::shuffle(faceVec.begin(),faceVec.end(), g);
 }
 static void	FillAndShuffleVertexPointerVector(MeshType & m, std::vector<VertexPointer> &vertVec)
 {
@@ -722,8 +738,11 @@ static void	FillAndShuffleVertexPointerVector(MeshType & m, std::vector<VertexPo
 
     assert((int)vertVec.size()==m.vn);
 
-    unsigned int (*p_myrandom)(unsigned int) = RandomInt;
-    std::random_shuffle(vertVec.begin(),vertVec.end(), p_myrandom);
+    //unsigned int (*p_myrandom)(unsigned int) = RandomInt;
+    //std::random_device rd;
+    //std::mt19937 g(rd());
+    MarsenneTwisterURBG g(vertVec.size());
+    std::shuffle(vertVec.begin(),vertVec.end(), g);
 }
 
 /// Sample the vertices in a uniform way. Each vertex has the same probabiltiy of being chosen.
@@ -1000,7 +1019,7 @@ static void AllEdge(MeshType & m, VertexSampler &ps)
 
 // Regular Uniform Edge sampling
 // Each edge is subdivided in a number of pieces proprtional to its length
-// Sample are choosen without touching the vertices.
+// Samples are chosen without touching the vertices.
 
 static void EdgeUniform(MeshType & m, VertexSampler &ps,int sampleNum, bool sampleFauxEdge=true)
 {
@@ -1928,8 +1947,12 @@ static void PoissonDiskPruning(VertexSampler &ps, MeshType &montecarloMesh,
     if(pp.adaptiveRadiusFlag)
         InitRadiusHandleFromQuality(montecarloMesh, rH, diskRadius, pp.radiusVariance, pp.invertQuality);
 
-    unsigned int (*p_myrandom)(unsigned int) = RandomInt;
-    std::random_shuffle(montecarloSHT.AllocatedCells.begin(),montecarloSHT.AllocatedCells.end(), p_myrandom);
+    //unsigned int (*p_myrandom)(unsigned int) = RandomInt;
+//    std::random_device rd;
+//    std::mt19937 g(rd());
+//    std::shuffle(montecarloSHT.AllocatedCells.begin(),montecarloSHT.AllocatedCells.end(), g);
+    MarsenneTwisterURBG g(montecarloSHT.AllocatedCells.size());
+    std::shuffle(montecarloSHT.AllocatedCells.begin(),montecarloSHT.AllocatedCells.end(), g);
     int t1 = clock();
     pp.pds.montecarloSampleNum = montecarloMesh.vn;
     pp.pds.sampleNum =0;
@@ -2062,13 +2085,17 @@ static void HierarchicalPoissonDisk(MeshType &origMesh, VertexSampler &ps, MeshT
             montecarloSHT.UpdateAllocatedCells();
         }
         // shuffle active cells
-        unsigned int (*p_myrandom)(unsigned int) = RandomInt;
-        std::random_shuffle(montecarloSHT.AllocatedCells.begin(),montecarloSHT.AllocatedCells.end(), p_myrandom);
+        //unsigned int (*p_myrandom)(unsigned int) = RandomInt;
+        std::random_device rd;
+//        std::mt19937 g(rd());
+//        std::shuffle(montecarloSHT.AllocatedCells.begin(),montecarloSHT.AllocatedCells.end(), g);
+        MarsenneTwisterURBG g(montecarloSHT.AllocatedCells.size());
+        std::shuffle(montecarloSHT.AllocatedCells.begin(),montecarloSHT.AllocatedCells.end(), g);
 
         // generate a sample inside C by choosing one of the contained pre-generated samples
         //////////////////////////////////////////////////////////////////////////////////////////
-    int removedCnt=montecarloSHT.hash_table.size();
-    int addedCnt=checkSHT.hash_table.size();
+        int removedCnt=montecarloSHT.hash_table.size();
+        int addedCnt=checkSHT.hash_table.size();
         for (int i = 0; i < montecarloSHT.AllocatedCells.size(); i++)
         {
             for(int j=0;j<4;j++)

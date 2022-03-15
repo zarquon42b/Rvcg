@@ -1,0 +1,10 @@
+--- vcg/complex/algorithms/point_sampling.h
++++ vcg/complex/algorithms/point_sampling.h
+@@ -48,6 +48,7 @@ sampling strategies (montecarlo, stratif
+ #include <vcg/complex/algorithms/update/flag.h>
+ #include <vcg/space/segment2.h>
+ #include <vcg/space/index/grid_static_ptr.h>
++#include <time.h>
+ namespace vcg
+ {
+ namespace tri

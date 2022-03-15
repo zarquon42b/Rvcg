@@ -100,6 +100,8 @@ public:
     ComputeQuality();
     ComputeAngle();
   }
+  // enforce virtual dtor for this class and all subclasses
+  virtual ~TrivialEar() = default;
 
   /// Compute the angle of the two edges of the ear.
   // it tries to make the computation in a precision safe way.
@@ -289,8 +291,8 @@ public:
   typename MESH::ScalarType aspectRatio;
   const char * Dump() {
     static char buf[200];
-    if(this->IsConcave()) sprintf(buf,"Dihedral -(deg) %6.2f Quality %6.2f\n",math::ToDeg(dihedralRad),aspectRatio);
-    else sprintf(buf,"Dihedral  (deg) %6.2f Quality %6.2f\n",math::ToDeg(dihedralRad),aspectRatio);
+    if(this->IsConcave()) snprintf(buf,200,"Dihedral -(deg) %6.2f Quality %6.2f\n",math::ToDeg(dihedralRad),aspectRatio);
+    else snprintf(buf,200,"Dihedral  (deg) %6.2f Quality %6.2f\n",math::ToDeg(dihedralRad),aspectRatio);
     return buf;
   }
 

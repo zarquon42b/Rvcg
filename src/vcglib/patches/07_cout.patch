@@ -2,7 +2,7 @@ Index: vcglib/vcg/complex/exception.h
 ===================================================================
 --- vcglib.orig/vcg/complex/exception.h
 +++ vcglib/vcg/complex/exception.h
-@@ -30,7 +30,7 @@ class MissingComponentException : public
+@@ -33,7 +33,7 @@ class MissingComponentException : public
  public:
    MissingComponentException(const std::string &err):std::runtime_error(err)
    {
@@ -11,7 +11,7 @@ Index: vcglib/vcg/complex/exception.h
    }
      virtual const char *what() const throw ()
      {
-@@ -44,7 +44,7 @@ class MissingCompactnessException : publ
+@@ -47,7 +47,7 @@ class MissingCompactnessException : publ
  public:
    MissingCompactnessException(const std::string &err):std::runtime_error(err)
    {
@@ -20,7 +20,7 @@ Index: vcglib/vcg/complex/exception.h
    }
      virtual const char *what() const throw ()
      {
-@@ -58,7 +58,7 @@ class MissingTriangularRequirementExcept
+@@ -61,7 +61,7 @@ class MissingTriangularRequirementExcept
  public:
    MissingTriangularRequirementException(const std::string &err):std::runtime_error(err)
    {
@@ -29,7 +29,7 @@ Index: vcglib/vcg/complex/exception.h
    }
  
      virtual const char *what() const throw ()
-@@ -73,7 +73,7 @@ class MissingPolygonalRequirementExcepti
+@@ -76,7 +76,7 @@ class MissingPolygonalRequirementExcepti
  public:
    MissingPolygonalRequirementException(const std::string &err):std::runtime_error(err)
    {
@@ -38,7 +38,7 @@ Index: vcglib/vcg/complex/exception.h
    }
  
      virtual const char *what() const throw ()
-@@ -103,7 +103,7 @@ class MissingPreconditionException : pub
+@@ -106,7 +106,7 @@ class MissingPreconditionException : pub
  public:
    MissingPreconditionException(const std::string &err):std::runtime_error(err)
    {

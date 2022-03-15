@@ -1,0 +1,11 @@
+--- vcg/space/tetra3.h
++++ vcg/space/tetra3.h
+@@ -378,7 +378,7 @@ class Tetra
+ 
+ 		CoordType n1 = ((p2 - p0) ^ (p1 - p0)).normalized();
+ 
+-		return M_PI - double(acos(n0 * n1));
++		return M_PI - double(std::acos(n0 * n1));
+ 	};
+ 
+ 	template <class TetraType>

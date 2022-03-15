@@ -7,7 +7,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_COMPLEX_SCHUR_H
 #define EIGEN_COMPLEX_SCHUR_H
@@ -283,7 +283,7 @@ typename ComplexSchur<MatrixType>::ComplexScalar ComplexSchur<MatrixType>::compu
   using std::abs;
   if (iter == 10 || iter == 20) 
   {
-    // exceptional shift, taken from http://www.netlib.org/eispack/comqr.f
+    // exceptional shift, taken from xxxp://www.netlib.org/eispack/comqr.f
     return abs(numext::real(m_matT.coeff(iu,iu-1))) + abs(numext::real(m_matT.coeff(iu-1,iu-2)));
   }
 
@@ -300,10 +300,13 @@ typename ComplexSchur<MatrixType>::ComplexScalar ComplexSchur<MatrixType>::compu
   ComplexScalar trace = t.coeff(0,0) + t.coeff(1,1);
   ComplexScalar eival1 = (trace + disc) / RealScalar(2);
   ComplexScalar eival2 = (trace - disc) / RealScalar(2);
-
-  if(numext::norm1(eival1) > numext::norm1(eival2))
+  RealScalar eival1_norm = numext::norm1(eival1);
+  RealScalar eival2_norm = numext::norm1(eival2);
+  // A division by zero can only occur if eival1==eival2==0.
+  // In this case, det==0, and all we have to do is checking that eival2_norm!=0
+  if(eival1_norm > eival2_norm)
     eival2 = det / eival1;
-  else
+  else if(eival2_norm!=RealScalar(0))
     eival1 = det / eival2;
 
   // choose the eigenvalue closest to the bottom entry of the diagonal

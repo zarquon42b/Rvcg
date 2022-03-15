@@ -1,0 +1,20 @@
+--- wrap/io_trimesh/import_stl.h
++++ wrap/io_trimesh/import_stl.h
+@@ -157,7 +157,7 @@ static bool IsSTLBinary(const char * fil
+   unsigned int facenum;
+   /* Check for binary or ASCII file */
+   fseek(fp, STL_LABEL_SIZE, SEEK_SET);
+-  fread(&facenum, sizeof(unsigned int), 1, fp);
++  size_t myunsuedvar = fread(&facenum, sizeof(unsigned int), 1, fp);
+   
+   int expected_file_size=STL_LABEL_SIZE + 4 + (sizeof(short)+sizeof(STLFacet) )*facenum ;
+   if(file_size ==  expected_file_size) 
+@@ -170,7 +170,7 @@ static bool IsSTLBinary(const char * fil
+   // lets'make a test to check that we find only ascii stuff before assuming it is ascii
+   unsigned char tmpbuf[1000];
+   int byte_to_read = std::min(int(sizeof(tmpbuf)), int(file_size - 80));
+-  fread(tmpbuf, byte_to_read,1,fp);
++  myunsuedvar = fread(tmpbuf, byte_to_read,1,fp);
+   fclose(fp);
+   for(int i = 0; i < byte_to_read; i++)
+     {

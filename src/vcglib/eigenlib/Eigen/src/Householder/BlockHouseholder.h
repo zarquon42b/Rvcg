@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_BLOCK_HOUSEHOLDER_H
 #define EIGEN_BLOCK_HOUSEHOLDER_H
@@ -87,7 +87,8 @@ void apply_block_householder_on_the_left(MatrixType& mat, const VectorsType& vec
   const TriangularView<const VectorsType, UnitLower> V(vectors);
 
   // A -= V T V^* A
-  Matrix<typename MatrixType::Scalar,VectorsType::ColsAtCompileTime,MatrixType::ColsAtCompileTime,0,
+  Matrix<typename MatrixType::Scalar,VectorsType::ColsAtCompileTime,MatrixType::ColsAtCompileTime,
+         (VectorsType::MaxColsAtCompileTime==1 && MatrixType::MaxColsAtCompileTime!=1)?RowMajor:ColMajor,
          VectorsType::MaxColsAtCompileTime,MatrixType::MaxColsAtCompileTime> tmp = V.adjoint() * mat;
   // FIXME add .noalias() once the triangular product can work inplace
   if(forward) tmp = T.template triangularView<Upper>()           * tmp;
