@@ -5,6 +5,5 @@
 17_fix_gcc_8_stl_export.patch
 18_fix_warn_unused_result
 19_fix_plylib_wstrict.patch
-20_include_assert.patch
 21_use_std_acos.patch
 22_isotropic_remeshing_missing_result.patch

@@ -31,8 +31,6 @@
 
 #include <cassert>
 
-#include <cassert>
-
 namespace vcg {
 namespace face {
 
