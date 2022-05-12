@@ -39,7 +39,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
  
            //end is the index of the last element of the leaf in mPoints
 -          unsigned int end = node.start + node.size;
-+          unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
++           unsigned int end = node.NodeU.myleaf.start+node.NodeU.myleaf.size;
            //adding the element of the leaf to the heap
 -          for (unsigned int i = node.start; i < end; ++i)
 +          for (unsigned int i=node.NodeU.myleaf.start ; i<end ; ++i)
@@ -49,7 +49,7 @@ Index: vcglib/vcg/space/index/kdtree/kdtree.h
          else
          {
            // the new offset is the distance between the searched point and the actual split coordinate
--          float new_off = queryPoint[node.dim] - node.splitValue;
+-          Scalar new_off = queryPoint[node.dim] - node.splitValue;
 +          float new_off = queryPoint[node.NodeU.mynode.dim] - node.NodeU.mynode.splitValue;
  
            //left sub-tree

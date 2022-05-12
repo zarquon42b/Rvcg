@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_ARRAYWRAPPER_H
 #define EIGEN_ARRAYWRAPPER_H
@@ -32,7 +32,8 @@ struct traits<ArrayWrapper<ExpressionType> >
   // Let's remove NestByRefBit
   enum {
     Flags0 = traits<typename remove_all<typename ExpressionType::Nested>::type >::Flags,
-    Flags = Flags0 & ~NestByRefBit
+    LvalueBitFlag = is_lvalue<ExpressionType>::value ? LvalueBit : 0,
+    Flags = (Flags0 & ~(NestByRefBit | LvalueBit)) | LvalueBitFlag
   };
 };
 }
@@ -129,7 +130,8 @@ struct traits<MatrixWrapper<ExpressionType> >
   // Let's remove NestByRefBit
   enum {
     Flags0 = traits<typename remove_all<typename ExpressionType::Nested>::type >::Flags,
-    Flags = Flags0 & ~NestByRefBit
+    LvalueBitFlag = is_lvalue<ExpressionType>::value ? LvalueBit : 0,
+    Flags = (Flags0 & ~(NestByRefBit | LvalueBit)) | LvalueBitFlag
   };
 };
 }

@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_SELFADJOINT_PRODUCT_H
 #define EIGEN_SELFADJOINT_PRODUCT_H
@@ -109,10 +109,10 @@ struct selfadjoint_product_selector<MatrixType,OtherType,UpLo,false>
     internal::general_matrix_matrix_triangular_product<Index,
       Scalar, OtherIsRowMajor ? RowMajor : ColMajor,   OtherBlasTraits::NeedToConjugate  && NumTraits<Scalar>::IsComplex,
       Scalar, OtherIsRowMajor ? ColMajor : RowMajor, (!OtherBlasTraits::NeedToConjugate) && NumTraits<Scalar>::IsComplex,
-      IsRowMajor ? RowMajor : ColMajor, UpLo>
+      IsRowMajor ? RowMajor : ColMajor, MatrixType::InnerStrideAtCompileTime, UpLo>
       ::run(size, depth,
             &actualOther.coeffRef(0,0), actualOther.outerStride(), &actualOther.coeffRef(0,0), actualOther.outerStride(),
-            mat.data(), mat.outerStride(), actualAlpha, blocking);
+            mat.data(), mat.innerStride(), mat.outerStride(), actualAlpha, blocking);
   }
 };
 

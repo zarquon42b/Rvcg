@@ -20,11 +20,17 @@
 * for more details.                                                         *
 *                                                                           *
 ****************************************************************************/
-#ifndef __VCG_MESH
-#error "This file should not be included alone. It is automatically included by complex.h"
-#endif
+
 #ifndef __VCG_COMPLEX_BASE
 #define __VCG_COMPLEX_BASE
+
+#include <typeindex>
+#include <set>
+
+#include <vcg/container/simple_temporary_data.h>
+
+#include "exception.h"
+#include "used_types.h"
 
 namespace vcg {
 
@@ -297,6 +303,25 @@ public:
 		void resize(size_t /*size*/) { };
 	};
 
+	template <class ATTR_TYPE, class CONT>
+	class ConstAttributeHandle{
+	public:
+		ConstAttributeHandle(){_handle=(SimpleTempData<CONT,ATTR_TYPE> *)nullptr;}
+		ConstAttributeHandle( const void *ah,const int & n):_handle ( (const SimpleTempData<CONT,ATTR_TYPE> *)ah ),n_attr(n){}
+
+
+		//pointer to the SimpleTempData that stores the attribute
+		const SimpleTempData<CONT,ATTR_TYPE> * _handle;
+
+		// its attribute number
+		int n_attr;
+
+		// access function
+		template <class RefType>
+		const ATTR_TYPE & operator [](const RefType  & i) const {return (*_handle)[i];}
+		void resize(size_t /*size*/) { };
+	};
+
 	template <class ATTR_TYPE>
 	class PerVertexAttributeHandle: public AttributeHandle<ATTR_TYPE,VertContainer>{
 	public:
@@ -304,6 +329,12 @@ public:
 		PerVertexAttributeHandle( void *ah,const int & n):AttributeHandle<ATTR_TYPE,VertContainer>(ah,n){}
 	};
 
+	template <class ATTR_TYPE>
+	class ConstPerVertexAttributeHandle: public ConstAttributeHandle<ATTR_TYPE,VertContainer>{
+	public:
+		ConstPerVertexAttributeHandle():ConstAttributeHandle<ATTR_TYPE,VertContainer>(){}
+		ConstPerVertexAttributeHandle( const void *ah,const int & n):ConstAttributeHandle<ATTR_TYPE,VertContainer>(ah,n){}
+	};
 
 	template <class ATTR_TYPE>
 	class PerFaceAttributeHandle: public AttributeHandle<ATTR_TYPE,FaceContainer>{
@@ -313,10 +344,24 @@ public:
 	};
 
 	template <class ATTR_TYPE>
+	class ConstPerFaceAttributeHandle: public ConstAttributeHandle<ATTR_TYPE,FaceContainer>{
+	public:
+		ConstPerFaceAttributeHandle():ConstAttributeHandle<ATTR_TYPE,FaceContainer>(){}
+		ConstPerFaceAttributeHandle( void *ah,const int & n):ConstAttributeHandle<ATTR_TYPE,FaceContainer>(ah,n){}
+	};
+
+	template <class ATTR_TYPE>
 	class PerEdgeAttributeHandle:  public AttributeHandle<ATTR_TYPE,EdgeContainer>{
 	public:
 		PerEdgeAttributeHandle():AttributeHandle<ATTR_TYPE,EdgeContainer>(){}
 		PerEdgeAttributeHandle( void *ah,const int & n):AttributeHandle<ATTR_TYPE,EdgeContainer>(ah,n){}
+	};
+
+	template <class ATTR_TYPE>
+	class ConstPerEdgeAttributeHandle:  public ConstAttributeHandle<ATTR_TYPE,EdgeContainer>{
+	public:
+		ConstPerEdgeAttributeHandle():ConstAttributeHandle<ATTR_TYPE,EdgeContainer>(){}
+		ConstPerEdgeAttributeHandle( void *ah,const int & n):ConstAttributeHandle<ATTR_TYPE,EdgeContainer>(ah,n){}
 	};
 
 	template <class ATTR_TYPE>
@@ -328,19 +373,38 @@ public:
 	};
 
 	template <class ATTR_TYPE>
+	class ConstPerTetraAttributeHandle : public ConstAttributeHandle<ATTR_TYPE, TetraContainer>
+	{
+	public:
+		ConstPerTetraAttributeHandle() : ConstAttributeHandle<ATTR_TYPE, TetraContainer>() {}
+		ConstPerTetraAttributeHandle(void *ah, const int &n) : ConstAttributeHandle<ATTR_TYPE, TetraContainer>(ah, n) {}
+	};
+
+	template <class ATTR_TYPE>
 	class PerMeshAttributeHandle{
 	public:
 		PerMeshAttributeHandle(){_handle=NULL;}
 		PerMeshAttributeHandle(void *ah,const int & n):_handle ( (Attribute<ATTR_TYPE> *)ah ),n_attr(n){}
-		PerMeshAttributeHandle operator = ( const PerMeshAttributeHandle & pva){
-			_handle = (Attribute<ATTR_TYPE> *)pva._handle;
-			n_attr = pva.n_attr;
-			return (*this);
-		}
+		//PerMeshAttributeHandle operator = ( const PerMeshAttributeHandle & pva){
+		//	_handle = (Attribute<ATTR_TYPE> *)pva._handle;
+		//	n_attr = pva.n_attr;
+		//	return (*this);
+		//}
 
 		Attribute<ATTR_TYPE> * _handle;
 		int n_attr;
-		ATTR_TYPE & operator ()(){ return *((Attribute<ATTR_TYPE> *)_handle)->attribute;}
+		ATTR_TYPE & operator ()(){ return *((ATTR_TYPE*) (_handle->DataBegin()));}
+	};
+
+	template <class ATTR_TYPE>
+	class ConstPerMeshAttributeHandle{
+	public:
+		ConstPerMeshAttributeHandle(){_handle=nullptr;}
+		ConstPerMeshAttributeHandle(const void *ah,const int & n):_handle ( (const Attribute<ATTR_TYPE> *)ah ),n_attr(n){}
+
+		const Attribute<ATTR_TYPE> * _handle;
+		int n_attr;
+		const ATTR_TYPE & operator ()(){ return *((const ATTR_TYPE*)(_handle->DataBegin()));}
 	};
 
 	// Some common Handle typedefs to simplify use
@@ -380,7 +444,7 @@ public:
 	}
 
 	/// destructor
-	~TriMesh()
+	virtual ~TriMesh()
 	{
 //		ClearAttributes();
 		Clear();
@@ -418,13 +482,14 @@ public:
 		face.clear();
 		edge.clear();
 		tetra.clear();
-		//    textures.clear();
-		//    normalmaps.clear();
+		textures.clear();
+		normalmaps.clear();
 		vn = 0;
 		en = 0;
 		fn = 0;
 		hn = 0;
 		tn = 0;
+		attrn = 0;
 		imark = 0;
 		C()=Color4b::Gray;
 	}
@@ -522,23 +587,23 @@ template <class MeshType> inline int & IMark(MeshType & m){return m.imark;}
 /** \brief Check if the vertex incremental mark matches the one of the mesh.
 	@param m the mesh containing the element
 	@param v Vertex pointer */
-template <class MeshType> inline bool IsMarked(MeshType & m, typename MeshType::ConstVertexPointer  v )  { return v->cIMark() == m.imark; }
+template <class MeshType> inline bool IsMarked(const MeshType & m, typename MeshType::ConstVertexPointer  v )  { return v->cIMark() == m.imark; }
 
 /** \brief Check if the edge incremental mark matches the one of the mesh.
 	@param m the mesh containing the element
 	@param e edge pointer */
-template <class MeshType> inline bool IsMarked(MeshType & m, typename MeshType::ConstEdgePointer e )  { return e->cIMark() == m.imark; }
+template <class MeshType> inline bool IsMarked(const MeshType & m, typename MeshType::ConstEdgePointer e )  { return e->cIMark() == m.imark; }
 
 /** \brief Check if the face incremental mark matches the one of the mesh.
 	@param m the mesh containing the element
 	@param f Face pointer */
-template <class MeshType> inline bool IsMarked( MeshType & m,typename MeshType::ConstFacePointer f )  { return f->cIMark() == m.imark; }
+template <class MeshType> inline bool IsMarked(const MeshType & m,typename MeshType::ConstFacePointer f )  { return f->cIMark() == m.imark; }
 
 /** \brief Check if the tetra incremental mark matches the one of the mesh.
 	@param m the mesh containing the element
 	@param t tetra pointer */
 template <class MeshType>
-inline bool IsMarked(MeshType &m, typename MeshType::ConstTetraPointer t) { return t->cIMark() == m.imark; }
+inline bool IsMarked(const MeshType &m, typename MeshType::ConstTetraPointer t) { return t->cIMark() == m.imark; }
 
 /** \brief Set the vertex incremental mark of the vertex to the one of the mesh.
 	@param m the mesh containing the element
@@ -601,7 +666,6 @@ template < class VertexType> bool VertexVectorHasPerVertexColor       (const std
 template < class VertexType> bool VertexVectorHasPerVertexMark        (const std::vector<VertexType> &) {  return VertexType::HasMark        (); }
 template < class VertexType> bool VertexVectorHasPerVertexFlags       (const std::vector<VertexType> &) {  return VertexType::HasFlags       (); }
 template < class VertexType> bool VertexVectorHasPerVertexRadius      (const std::vector<VertexType> &) {  return VertexType::HasRadius      (); }
-template < class VertexType> bool VertexVectorHasPerVertexCurvature   (const std::vector<VertexType> &) {  return VertexType::HasCurvature   (); }
 template < class VertexType> bool VertexVectorHasPerVertexCurvatureDir(const std::vector<VertexType> &) {  return VertexType::HasCurvatureDir(); }
 template < class VertexType> bool VertexVectorHasPerVertexTexCoord    (const std::vector<VertexType> &) {  return VertexType::HasTexCoord    (); }
 
@@ -611,7 +675,6 @@ template < class TriMeshType> bool HasPerVertexColor       (const TriMeshType &m
 template < class TriMeshType> bool HasPerVertexMark        (const TriMeshType &m) { return tri::VertexVectorHasPerVertexMark        (m.vert); }
 template < class TriMeshType> bool HasPerVertexFlags       (const TriMeshType &m) { return tri::VertexVectorHasPerVertexFlags       (m.vert); }
 template < class TriMeshType> bool HasPerVertexRadius      (const TriMeshType &m) { return tri::VertexVectorHasPerVertexRadius      (m.vert); }
-template < class TriMeshType> bool HasPerVertexCurvature   (const TriMeshType &m) { return tri::VertexVectorHasPerVertexCurvature   (m.vert); }
 template < class TriMeshType> bool HasPerVertexCurvatureDir(const TriMeshType &m) { return tri::VertexVectorHasPerVertexCurvatureDir(m.vert); }
 template < class TriMeshType> bool HasPerVertexTexCoord    (const TriMeshType &m) { return tri::VertexVectorHasPerVertexTexCoord    (m.vert); }
 
@@ -771,21 +834,21 @@ bool HasPerMeshAttribute(const MeshType &m,   std::string   name){
 	return (ai!= m.mesh_attr.end() ) ;
 }
 
-template <class MeshType> void RequireVertexCompactness (MeshType &m) {
+template <class MeshType> void RequireVertexCompactness (const MeshType &m) {
 	if(m.vert.size()!=size_t(m.vn)) throw vcg::MissingCompactnessException("Vertex Vector Contains deleted elements");
 }
-template <class MeshType> void RequireFaceCompactness   (MeshType &m) {
+template <class MeshType> void RequireFaceCompactness   (const MeshType &m) {
 	if(m.face.size()!=size_t(m.fn)) throw vcg::MissingCompactnessException("Face Vector Contains deleted elements");
 }
-template <class MeshType> void RequireEdgeCompactness   (MeshType &m) {
+template <class MeshType> void RequireEdgeCompactness   (const MeshType &m) {
 	if(m.edge.size()!=size_t(m.en)) throw vcg::MissingCompactnessException("Edge Vector Contains deleted elements");
 }
-template <class MeshType> void RequireTetraCompactness(MeshType &m) {
+template <class MeshType> void RequireTetraCompactness(const MeshType &m) {
 	if (m.tetra.size() != size_t(m.tn)) throw vcg::MissingCompactnessException("Tetra Vector Contains deleted elements");
 }
 
 template <class MeshType>
-void RequireCompactness(MeshType &m)
+void RequireCompactness(const MeshType &m)
 {
 	RequireVertexCompactness<MeshType>(m);
 	RequireFaceCompactness<MeshType>(m);
@@ -794,55 +857,54 @@ void RequireCompactness(MeshType &m)
 }
 
 //todo require tetramesh
-template <class MeshType> void RequireTriangularMesh (MeshType &m ) { if( tri::HasPolyInfo( m ) ) throw vcg::MissingTriangularRequirementException("");}
-template <class MeshType> void RequirePolygonalMesh (MeshType &m )  { if(!tri::HasPolyInfo( m ) ) throw vcg::MissingPolygonalRequirementException("");}
+template <class MeshType> void RequireTriangularMesh (const MeshType &m ) { if( tri::HasPolyInfo( m ) ) throw vcg::MissingTriangularRequirementException("");}
+template <class MeshType> void RequirePolygonalMesh (const MeshType &m )  { if(!tri::HasPolyInfo( m ) ) throw vcg::MissingPolygonalRequirementException("");}
 
-template <class MeshType> void RequireVFAdjacency    (MeshType &m) { if(!tri::HasVFAdjacency   (m)) throw vcg::MissingComponentException("VFAdjacency"); }
-template <class MeshType> void RequireVEAdjacency    (MeshType &m) { if(!tri::HasVEAdjacency   (m)) throw vcg::MissingComponentException("VEAdjacency"); }
-template <class MeshType> void RequireFFAdjacency    (MeshType &m) { if(!tri::HasFFAdjacency   (m)) throw vcg::MissingComponentException("FFAdjacency"); }
-template <class MeshType> void RequireEEAdjacency    (MeshType &m) { if(!tri::HasEEAdjacency   (m)) throw vcg::MissingComponentException("EEAdjacency"); }
-template <class MeshType> void RequireFEAdjacency    (MeshType &m) { if(!tri::HasFEAdjacency   (m)) throw vcg::MissingComponentException("FEAdjacency"); }
-template <class MeshType> void RequireFHAdjacency    (MeshType &m) { if(!tri::HasFHAdjacency   (m)) throw vcg::MissingComponentException("FHAdjacency"); }
-template <class MeshType> void RequireVTAdjacency    (MeshType &m) { if(!tri::HasVTAdjacency   (m)) throw vcg::MissingComponentException("VTAdjacency"); }
-template <class MeshType> void RequireTTAdjacency    (MeshType &m) { if(!tri::HasTTAdjacency   (m)) throw vcg::MissingComponentException("TTAdjacency"); }
+template <class MeshType> void RequireVFAdjacency    (const MeshType &m) { if(!tri::HasVFAdjacency   (m)) throw vcg::MissingComponentException("VFAdjacency"); }
+template <class MeshType> void RequireVEAdjacency    (const MeshType &m) { if(!tri::HasVEAdjacency   (m)) throw vcg::MissingComponentException("VEAdjacency"); }
+template <class MeshType> void RequireFFAdjacency    (const MeshType &m) { if(!tri::HasFFAdjacency   (m)) throw vcg::MissingComponentException("FFAdjacency"); }
+template <class MeshType> void RequireEEAdjacency    (const MeshType &m) { if(!tri::HasEEAdjacency   (m)) throw vcg::MissingComponentException("EEAdjacency"); }
+template <class MeshType> void RequireFEAdjacency    (const MeshType &m) { if(!tri::HasFEAdjacency   (m)) throw vcg::MissingComponentException("FEAdjacency"); }
+template <class MeshType> void RequireFHAdjacency    (const MeshType &m) { if(!tri::HasFHAdjacency   (m)) throw vcg::MissingComponentException("FHAdjacency"); }
+template <class MeshType> void RequireVTAdjacency    (const MeshType &m) { if(!tri::HasVTAdjacency   (m)) throw vcg::MissingComponentException("VTAdjacency"); }
+template <class MeshType> void RequireTTAdjacency    (const MeshType &m) { if(!tri::HasTTAdjacency   (m)) throw vcg::MissingComponentException("TTAdjacency"); }
 
-template <class MeshType> void RequirePerVertexQuality     (MeshType &m) { if(!tri::HasPerVertexQuality     (m)) throw vcg::MissingComponentException("PerVertexQuality     "); }
-template <class MeshType> void RequirePerVertexNormal      (MeshType &m) { if(!tri::HasPerVertexNormal      (m)) throw vcg::MissingComponentException("PerVertexNormal      "); }
-template <class MeshType> void RequirePerVertexColor       (MeshType &m) { if(!tri::HasPerVertexColor       (m)) throw vcg::MissingComponentException("PerVertexColor       "); }
-template <class MeshType> void RequirePerVertexMark        (MeshType &m) { if(!tri::HasPerVertexMark        (m)) throw vcg::MissingComponentException("PerVertexMark        "); }
-template <class MeshType> void RequirePerVertexFlags       (MeshType &m) { if(!tri::HasPerVertexFlags       (m)) throw vcg::MissingComponentException("PerVertexFlags       "); }
-template <class MeshType> void RequirePerVertexRadius      (MeshType &m) { if(!tri::HasPerVertexRadius      (m)) throw vcg::MissingComponentException("PerVertexRadius      "); }
-template <class MeshType> void RequirePerVertexCurvature   (MeshType &m) { if(!tri::HasPerVertexCurvature   (m)) throw vcg::MissingComponentException("PerVertexCurvature   "); }
-template <class MeshType> void RequirePerVertexCurvatureDir(MeshType &m) { if(!tri::HasPerVertexCurvatureDir(m)) throw vcg::MissingComponentException("PerVertexCurvatureDir"); }
-template <class MeshType> void RequirePerVertexTexCoord    (MeshType &m) { if(!tri::HasPerVertexTexCoord    (m)) throw vcg::MissingComponentException("PerVertexTexCoord    "); }
+template <class MeshType> void RequirePerVertexQuality     (const MeshType &m) { if(!tri::HasPerVertexQuality     (m)) throw vcg::MissingComponentException("PerVertexQuality     "); }
+template <class MeshType> void RequirePerVertexNormal      (const MeshType &m) { if(!tri::HasPerVertexNormal      (m)) throw vcg::MissingComponentException("PerVertexNormal      "); }
+template <class MeshType> void RequirePerVertexColor       (const MeshType &m) { if(!tri::HasPerVertexColor       (m)) throw vcg::MissingComponentException("PerVertexColor       "); }
+template <class MeshType> void RequirePerVertexMark        (const MeshType &m) { if(!tri::HasPerVertexMark        (m)) throw vcg::MissingComponentException("PerVertexMark        "); }
+template <class MeshType> void RequirePerVertexFlags       (const MeshType &m) { if(!tri::HasPerVertexFlags       (m)) throw vcg::MissingComponentException("PerVertexFlags       "); }
+template <class MeshType> void RequirePerVertexRadius      (const MeshType &m) { if(!tri::HasPerVertexRadius      (m)) throw vcg::MissingComponentException("PerVertexRadius      "); }
+template <class MeshType> void RequirePerVertexCurvatureDir(const MeshType &m) { if(!tri::HasPerVertexCurvatureDir(m)) throw vcg::MissingComponentException("PerVertexCurvatureDir"); }
+template <class MeshType> void RequirePerVertexTexCoord    (const MeshType &m) { if(!tri::HasPerVertexTexCoord    (m)) throw vcg::MissingComponentException("PerVertexTexCoord    "); }
 
-template <class MeshType> void RequirePerEdgeQuality (MeshType &m) { if(!tri::HasPerEdgeQuality (m)) throw vcg::MissingComponentException("PerEdgeQuality "); }
-template <class MeshType> void RequirePerEdgeNormal  (MeshType &m) { if(!tri::HasPerEdgeNormal  (m)) throw vcg::MissingComponentException("PerEdgeNormal  "); }
-template <class MeshType> void RequirePerEdgeColor   (MeshType &m) { if(!tri::HasPerEdgeColor   (m)) throw vcg::MissingComponentException("PerEdgeColor   "); }
-template <class MeshType> void RequirePerEdgeMark    (MeshType &m) { if(!tri::HasPerEdgeMark    (m)) throw vcg::MissingComponentException("PerEdgeMark    "); }
-template <class MeshType> void RequirePerEdgeFlags   (MeshType &m) { if(!tri::HasPerEdgeFlags   (m)) throw vcg::MissingComponentException("PerEdgeFlags   "); }
+template <class MeshType> void RequirePerEdgeQuality (const MeshType &m) { if(!tri::HasPerEdgeQuality (m)) throw vcg::MissingComponentException("PerEdgeQuality "); }
+template <class MeshType> void RequirePerEdgeNormal  (const MeshType &m) { if(!tri::HasPerEdgeNormal  (m)) throw vcg::MissingComponentException("PerEdgeNormal  "); }
+template <class MeshType> void RequirePerEdgeColor   (const MeshType &m) { if(!tri::HasPerEdgeColor   (m)) throw vcg::MissingComponentException("PerEdgeColor   "); }
+template <class MeshType> void RequirePerEdgeMark    (const MeshType &m) { if(!tri::HasPerEdgeMark    (m)) throw vcg::MissingComponentException("PerEdgeMark    "); }
+template <class MeshType> void RequirePerEdgeFlags   (const MeshType &m) { if(!tri::HasPerEdgeFlags   (m)) throw vcg::MissingComponentException("PerEdgeFlags   "); }
 
-template <class MeshType> void RequirePerFaceFlags       (MeshType &m) { if(!tri::HasPerFaceFlags       (m)) throw vcg::MissingComponentException("PerFaceFlags       "); }
-template <class MeshType> void RequirePerFaceNormal      (MeshType &m) { if(!tri::HasPerFaceNormal      (m)) throw vcg::MissingComponentException("PerFaceNormal      "); }
-template <class MeshType> void RequirePerFaceColor       (MeshType &m) { if(!tri::HasPerFaceColor       (m)) throw vcg::MissingComponentException("PerFaceColor       "); }
-template <class MeshType> void RequirePerFaceMark        (MeshType &m) { if(!tri::HasPerFaceMark        (m)) throw vcg::MissingComponentException("PerFaceMark        "); }
-template <class MeshType> void RequirePerFaceQuality     (MeshType &m) { if(!tri::HasPerFaceQuality     (m)) throw vcg::MissingComponentException("PerFaceQuality     "); }
-template <class MeshType> void RequirePerFaceCurvatureDir(MeshType &m) { if(!tri::HasPerFaceCurvatureDir(m)) throw vcg::MissingComponentException("PerFaceCurvatureDir"); }
+template <class MeshType> void RequirePerFaceFlags       (const MeshType &m) { if(!tri::HasPerFaceFlags       (m)) throw vcg::MissingComponentException("PerFaceFlags       "); }
+template <class MeshType> void RequirePerFaceNormal      (const MeshType &m) { if(!tri::HasPerFaceNormal      (m)) throw vcg::MissingComponentException("PerFaceNormal      "); }
+template <class MeshType> void RequirePerFaceColor       (const MeshType &m) { if(!tri::HasPerFaceColor       (m)) throw vcg::MissingComponentException("PerFaceColor       "); }
+template <class MeshType> void RequirePerFaceMark        (const MeshType &m) { if(!tri::HasPerFaceMark        (m)) throw vcg::MissingComponentException("PerFaceMark        "); }
+template <class MeshType> void RequirePerFaceQuality     (const MeshType &m) { if(!tri::HasPerFaceQuality     (m)) throw vcg::MissingComponentException("PerFaceQuality     "); }
+template <class MeshType> void RequirePerFaceCurvatureDir(const MeshType &m) { if(!tri::HasPerFaceCurvatureDir(m)) throw vcg::MissingComponentException("PerFaceCurvatureDir"); }
 
-template <class MeshType> void RequirePerFaceWedgeColor   (MeshType &m) { if(!tri::HasPerWedgeColor   (m)) throw vcg::MissingComponentException("PerFaceWedgeColor   "); }
-template <class MeshType> void RequirePerFaceWedgeNormal  (MeshType &m) { if(!tri::HasPerWedgeNormal  (m)) throw vcg::MissingComponentException("PerFaceWedgeNormal  "); }
-template <class MeshType> void RequirePerFaceWedgeTexCoord(MeshType &m) { if(!tri::HasPerWedgeTexCoord(m)) throw vcg::MissingComponentException("PerFaceWedgeTexCoord"); }
+template <class MeshType> void RequirePerFaceWedgeColor   (const MeshType &m) { if(!tri::HasPerWedgeColor   (m)) throw vcg::MissingComponentException("PerFaceWedgeColor   "); }
+template <class MeshType> void RequirePerFaceWedgeNormal  (const MeshType &m) { if(!tri::HasPerWedgeNormal  (m)) throw vcg::MissingComponentException("PerFaceWedgeNormal  "); }
+template <class MeshType> void RequirePerFaceWedgeTexCoord(const MeshType &m) { if(!tri::HasPerWedgeTexCoord(m)) throw vcg::MissingComponentException("PerFaceWedgeTexCoord"); }
 
-template <class MeshType> void RequirePerTetraFlags       (MeshType &m) { if(!tri::HasPerTetraFlags       (m)) throw vcg::MissingComponentException("PerTetraFlags       "); }
-template <class MeshType> void RequirePerTetraColor       (MeshType &m) { if(!tri::HasPerTetraColor       (m)) throw vcg::MissingComponentException("PerTetraColor       "); }
-template <class MeshType> void RequirePerTetraMark        (MeshType &m) { if(!tri::HasPerTetraMark        (m)) throw vcg::MissingComponentException("PerTetraMark        "); }
-template <class MeshType> void RequirePerTetraQuality     (MeshType &m) { if(!tri::HasPerTetraQuality     (m)) throw vcg::MissingComponentException("PerTetraQuality     "); }
+template <class MeshType> void RequirePerTetraFlags       (const MeshType &m) { if(!tri::HasPerTetraFlags       (m)) throw vcg::MissingComponentException("PerTetraFlags       "); }
+template <class MeshType> void RequirePerTetraColor       (const MeshType &m) { if(!tri::HasPerTetraColor       (m)) throw vcg::MissingComponentException("PerTetraColor       "); }
+template <class MeshType> void RequirePerTetraMark        (const MeshType &m) { if(!tri::HasPerTetraMark        (m)) throw vcg::MissingComponentException("PerTetraMark        "); }
+template <class MeshType> void RequirePerTetraQuality     (const MeshType &m) { if(!tri::HasPerTetraQuality     (m)) throw vcg::MissingComponentException("PerTetraQuality     "); }
 
-template <class MeshType> void RequirePerVertexAttribute(MeshType &m, const char *name) { if(!HasPerVertexAttribute(m,name)) throw vcg::MissingComponentException("PerVertex attribute"); }
-template <class MeshType> void RequirePerEdgeAttribute(MeshType &m, const char *name)   { if(!HasPerEdgeAttribute(m,name))   throw vcg::MissingComponentException("PerEdge attribute"); }
-template <class MeshType> void RequirePerFaceAttribute(MeshType &m, const char *name)   { if(!HasPerFaceAttribute(m,name))   throw vcg::MissingComponentException("PerFace attribute"); }
-template <class MeshType> void RequirePerTetraAttribute(MeshType &m, const char *name)  { if(!HasPerTetraAttribute(m,name))  throw vcg::MissingComponentException("PerTetra attribute"); }
-template <class MeshType> void RequirePerMeshAttribute(MeshType &m, const char *name)   { if(!HasPerMeshAttribute(m,name))   throw vcg::MissingComponentException("PerMesh attribute"); }
+template <class MeshType> void RequirePerVertexAttribute(const MeshType &m, const char *name) { if(!HasPerVertexAttribute(m,name)) throw vcg::MissingComponentException("PerVertex attribute"); }
+template <class MeshType> void RequirePerEdgeAttribute(const MeshType &m, const char *name)   { if(!HasPerEdgeAttribute(m,name))   throw vcg::MissingComponentException("PerEdge attribute"); }
+template <class MeshType> void RequirePerFaceAttribute(const MeshType &m, const char *name)   { if(!HasPerFaceAttribute(m,name))   throw vcg::MissingComponentException("PerFace attribute"); }
+template <class MeshType> void RequirePerTetraAttribute(const MeshType &m, const char *name)  { if(!HasPerTetraAttribute(m,name))  throw vcg::MissingComponentException("PerTetra attribute"); }
+template <class MeshType> void RequirePerMeshAttribute(const MeshType &m, const char *name)   { if(!HasPerMeshAttribute(m,name))   throw vcg::MissingComponentException("PerMesh attribute"); }
 
 /*@}*/
 /*@}*/

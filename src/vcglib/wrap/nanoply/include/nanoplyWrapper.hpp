@@ -553,7 +553,7 @@ namespace nanoply
             else
               tempProp[i] = p;
           }
-          unsigned int r = (bitType & (~tempProp[0].type));
+          unsigned int r = (bitType & (~tempProp[0].type)); (void)r;
           if (tempProp.size() > 1  && ((bitType & (~tempProp[0].type)) == 0))
           {
             if (tempProp.size() == 2)
@@ -670,6 +670,7 @@ namespace nanoply
 
       template <bool f = std::is_same<typename T::VertContainer, vcg::vertex::vector_ocf<VType>>::value>
       static unsigned int EnableVertexOcf(typename T::VertContainer& cont, unsigned int mask) {
+        (void)cont; (void)mask;
         return 0;
       }
 
@@ -718,6 +719,7 @@ namespace nanoply
 
       template <bool f = std::is_same<typename T::FaceContainer, vcg::face::vector_ocf<FType>>::value>
       static unsigned int EnableFaceOcf(typename T::FaceContainer& cont, unsigned int mask) {
+        (void)cont; (void)mask;
         return 0;
       }
 
@@ -773,6 +775,7 @@ namespace nanoply
 
       template <bool f = std::is_same<typename T::VertContainer, vcg::vertex::vector_ocf<VType>>::value>
       static unsigned int VertexOcfMask(typename T::VertContainer& cont) {
+        (void)cont;
         return 0;
       }
 
@@ -800,6 +803,7 @@ namespace nanoply
 
       template <bool f = std::is_same<typename T::FaceContainer, vcg::face::vector_ocf<FType>>::value>
       static unsigned int FaceOcfMask(typename T::FaceContainer& cont) {
+        (void)cont;
         return 0;
       }
 
@@ -852,8 +856,8 @@ namespace nanoply
             case NNP_DENSITY:  mask |= BitMask::IO_VERTRADIUS; break;
             case NNP_TEXTURE2D:
             case NNP_TEXTURE3D: mask |= BitMask::IO_VERTTEXCOORD; break;
-            case NNP_KH:
-            case NNP_KG: mask |= BitMask::IO_VERTCURV; break;
+//            case NNP_KH:
+//            case NNP_KG: mask |= BitMask::IO_VERTCURV; break;
             case NNP_K1:
             case NNP_K2:
             case NNP_K1DIR:
@@ -1008,21 +1012,21 @@ namespace nanoply
           else
             vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexType, 2, VertexTexScalar>(NNP_TEXTURE2D, (*mesh.vert.begin()).T().P().V()));
         }
-        if ((bitMask & BitMask::IO_VERTCURV) && vcg::tri::HasPerVertexCurvature(mesh))
-				{
-          if (ocfVertexMask & BitMask::IO_VERTCURV)
-          {
-            vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexCurType, 1, VertexCurScalar>(NNP_KG, &(*mesh.vert.begin()).Kg()));
-            vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexCurType, 1, VertexCurScalar>(NNP_KH, &(*mesh.vert.begin()).Kh()));
-          }
-          else
-          {
-            vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexType, 1, VertexCurScalar>(NNP_KG, &(*mesh.vert.begin()).Kg()));
-            vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexType, 1, VertexCurScalar>(NNP_KH, &(*mesh.vert.begin()).Kh()));
-          }
-				}
-				if ((bitMask & BitMask::IO_VERTCURVDIR) && vcg::tri::HasPerVertexCurvatureDir(mesh))
-				{
+//		if ((bitMask & BitMask::IO_VERTCURV) && vcg::tri::HasPerVertexCurvature(mesh))
+//		{
+//			if (ocfVertexMask & BitMask::IO_VERTCURV)
+//			{
+//				vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexCurType, 1, VertexCurScalar>(NNP_KG, &(*mesh.vert.begin()).Kg()));
+//				vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexCurType, 1, VertexCurScalar>(NNP_KH, &(*mesh.vert.begin()).Kh()));
+//			}
+//			else
+//			{
+//				vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexType, 1, VertexCurScalar>(NNP_KG, &(*mesh.vert.begin()).Kg()));
+//				vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexType, 1, VertexCurScalar>(NNP_KH, &(*mesh.vert.begin()).Kh()));
+//			}
+//		}
+		if ((bitMask & BitMask::IO_VERTCURVDIR) && vcg::tri::HasPerVertexCurvatureDir(mesh))
+		{
           if (ocfVertexMask & BitMask::IO_VERTCURVDIR)
           {
             vertexDescr.dataDescriptor.push_back(new DataDescriptor<VertexCurDirType, 1, VertexDirCurScalar>(NNP_K1, &(*mesh.vert.begin()).K1()));
@@ -1376,19 +1380,19 @@ namespace nanoply
           else
             PushDescriport<VertexType, VertexTexScalar, 2>(vertexProp, vertexDescr, NNP_TEXTURE2D, (*mesh.vert.begin()).T().P().V());
         }
-        if ((bitMask & BitMask::IO_VERTCURV) && vcg::tri::HasPerVertexCurvature(mesh))
-        {
-          if (ocfVertexMask & BitMask::IO_VERTTEXCOORD)
-          {
-            PushDescriport<VertexCurType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KG, &(*mesh.vert.begin()).Kg());
-            PushDescriport<VertexCurType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KH, &(*mesh.vert.begin()).Kh());
-          }
-          else
-          {
-            PushDescriport<VertexType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KG, &(*mesh.vert.begin()).Kg());
-            PushDescriport<VertexType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KH, &(*mesh.vert.begin()).Kh());
-          }
-        }
+//        if ((bitMask & BitMask::IO_VERTCURV) && vcg::tri::HasPerVertexCurvature(mesh))
+//        {
+//          if (ocfVertexMask & BitMask::IO_VERTTEXCOORD)
+//          {
+//            PushDescriport<VertexCurType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KG, &(*mesh.vert.begin()).Kg());
+//            PushDescriport<VertexCurType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KH, &(*mesh.vert.begin()).Kh());
+//          }
+//          else
+//          {
+//            PushDescriport<VertexType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KG, &(*mesh.vert.begin()).Kg());
+//            PushDescriport<VertexType, VertexCurScalar, 1>(vertexProp, vertexDescr, NNP_KH, &(*mesh.vert.begin()).Kh());
+//          }
+//        }
         if ((bitMask & BitMask::IO_VERTCURVDIR) && vcg::tri::HasPerVertexCurvatureDir(mesh))
         {
           if (ocfVertexMask & BitMask::IO_VERTCURVDIR)
@@ -1590,7 +1594,7 @@ namespace nanoply
             if (!userDescr)
               custom.CreateFaceAttribDescriptor(&(*ai));
           }
-          for (int i = 0; i < custom.faceAttrib.size(); i++)
+          for (size_t i = 0; i < custom.faceAttrib.size(); i++)
           {
             faceProp.push_back(custom.faceAttribProp[i]);
             faceDescr.dataDescriptor.push_back(custom.faceAttrib[i]);

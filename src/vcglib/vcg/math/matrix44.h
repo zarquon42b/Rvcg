@@ -29,6 +29,7 @@
 #include <vcg/space/point3.h>
 #include <vcg/space/point4.h>
 #include <vector>
+#include <array>
 #include <iostream>
 #include <Eigen/Core>
 #include <Eigen/LU>
@@ -73,7 +74,7 @@ for 'column' vectors.
     */
 template <class T> class Matrix44 {
 protected:
-    T _a[16];
+	std::array<T, 16> _a;
 
 public:
     typedef T ScalarType;
@@ -85,7 +86,7 @@ public:
     */
     Matrix44() {}
     ~Matrix44() {}
-    Matrix44(const Matrix44 &m);
+    //Matrix44(const Matrix44 &m);
     Matrix44(const T v[]);
 
     T &ElementAt(const int row, const int col);
@@ -159,6 +160,15 @@ public:
     }
 
     template <class EigenMatrix44Type>
+    EigenMatrix44Type ToEigenMatrix() const {
+        EigenMatrix44Type m;
+        for(int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
+                m(i,j)=(*this)[i][j];
+        return m;
+    }
+
+    template <class EigenMatrix44Type>
     void FromEigenMatrix(const EigenMatrix44Type & m){
         for(int i = 0; i < 4; i++)
             for(int j = 0; j < 4; j++)
@@ -192,7 +202,8 @@ public:
     template <class Q>
     static inline Matrix44 Construct( const Matrix44<Q> & b )
     {
-        Matrix44<T> tmp; tmp.FromMatrix(b);
+		Matrix44<T> tmp;
+		tmp.FromMatrix(b);
         return tmp;
     }
 
@@ -243,12 +254,14 @@ typedef Matrix44<double> Matrix44d;
 
 
 
-template <class T> Matrix44<T>::Matrix44(const Matrix44<T> &m) {
-    memcpy((T *)_a, (const T *)m._a, 16 * sizeof(T));
-}
+//template <class T> Matrix44<T>::Matrix44(const Matrix44<T> &m) {
+//    memcpy((T *)_a, (const T *)m._a, 16 * sizeof(T));
+//}
 
 template <class T> Matrix44<T>::Matrix44(const T v[]) {
-    memcpy((T *)_a, v, 16 * sizeof(T));
+//    memcpy((T *)_a, v, 16 * sizeof(T));
+	for (unsigned int i = 0; i < 16; ++i)
+		_a[i] = v[i];
 }
 
 template <class T> T &Matrix44<T>::ElementAt(const int row, const int col) {
@@ -274,15 +287,15 @@ template <class T> T Matrix44<T>::ElementAt(const int row, const int col) const 
 //}
 template <class T> T *Matrix44<T>::operator[](const int i) {
     assert(i >= 0 && i < 4);
-    return _a+i*4;
+    return &_a[i*4];
 }
 
 template <class T> const T *Matrix44<T>::operator[](const int i) const {
     assert(i >= 0 && i < 4);
-    return _a+i*4;
+    return &_a[i*4];
 }
-template <class T>  T *Matrix44<T>::V()  { return _a;}
-template <class T> const T *Matrix44<T>::V() const { return _a;}
+template <class T>  T *Matrix44<T>::V()  { return _a.data();}
+template <class T> const T *Matrix44<T>::V() const { return _a.data();}
 
 
 template <class T> Matrix44<T> Matrix44<T>::operator+(const Matrix44 &m) const {
@@ -411,7 +424,7 @@ void Matrix44<T>::FromEulerAngles(T alpha, T beta, T gamma)
 }
 
 template <class T> void Matrix44<T>::SetZero() {
-    memset((T *)_a, 0, 16 * sizeof(T));
+	_a.fill(0);
 }
 
 template <class T> void Matrix44<T>::SetIdentity() {
@@ -556,7 +569,7 @@ bool Decompose(Matrix44<T> &M, Point3<T> &ScaleV, Point3<T> &ShearV, Point3<T> &
         return false;
     if(math::Abs(M.Determinant())<1e-10) return false; // matrix should be at least invertible...
 
-    // First Step recover the traslation
+    // First Step recover the translation
     TranV=M.GetColumn3(3);
 
     // Second Step Recover Scale and Shearing interleaved

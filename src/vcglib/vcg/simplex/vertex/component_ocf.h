@@ -25,14 +25,16 @@
 OCF = Optional Component Fast (hopefully)
 compare with OCC(Optional Component Compact)
 */
-#ifndef __VCG_MESH
-#error "This file should not be included alone. It is automatically included by complex.h"
-#endif
+
 #ifndef __VCG_VERTEX_PLUS_COMPONENT_OCF
 #define __VCG_VERTEX_PLUS_COMPONENT_OCF
-#ifndef __VCG_MESH
-#error "This file should not be included alone. It is automatically included by complex.h"
-#endif
+
+#include <vector>
+#include <string>
+
+#include <vcg/space/color4.h>
+#include <vcg/space/texcoord2.h>
+
 
 namespace vcg {
     namespace vertex {
@@ -285,6 +287,10 @@ public:
         assert((*this).Base().VFAdjacencyEnabled);
         return (*this).Base().AV[(*this).Index()]._zp;
     }
+    int  VFi() const {
+        assert((*this).Base().VFAdjacencyEnabled);
+        return (*this).Base().AV[(*this).Index()]._zp;
+    }
     int cVFi() const {
         if(! (*this).Base().VFAdjacencyEnabled ) return -1;
         return (*this).Base().AV[(*this).Index()]._zp;
@@ -426,50 +432,6 @@ public:
 };
 
 
-///*-------------------------- CURVATURE  ----------------------------------*/
-
-template <class A, class TT> class CurvatureOcf: public TT {
-public:
-  typedef Point2<A> CurvatureType;
-  typedef typename CurvatureType::ScalarType ScalarTypeCur;
-
-  ScalarTypeCur &Kh(){ assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][0]; }
-  ScalarTypeCur &Kg(){ assert((*this).Base().CurvatureEnabled); return (*this).Base().CuV[(*this).Index()][1]; }
-  ScalarTypeCur cKh() const 
-  { 
-	  assert((*this).Base().CurvatureEnabled); 
-	  return (*this).Base().CuV[(*this).Index()][0]; 
-  }
-
-  ScalarTypeCur cKg() const 
-  { 
-	  assert((*this).Base().CurvatureEnabled); 
-	  return (*this).Base().CuV[(*this).Index()][1]; 
-  }
-
-  template <class RightVertexType>
-  void ImportData(const RightVertexType & rightV){
-    if((*this).IsCurvatureEnabled() && rightV.IsCurvatureEnabled())
-    {
-      (*this).Base().CuV[(*this).Index()][0] = rightV.cKh();
-      (*this).Base().CuV[(*this).Index()][1] = rightV.cKg();
-    }
-    TT::ImportData(rightV);
-  }
-
-  inline bool IsCurvatureEnabled( )    const  
-  { 
-	  return this->Base().IsCurvatureEnabled(); 
-  }
-
-  static bool HasCurvature() { return true; }
-  static bool HasCurvatureOcf()   { return true; }
-};
-
-template <class T> class CurvaturefOcf: public CurvatureOcf<float, T> {public: static void Name(std::vector<std::string> & name){name.push_back(std::string("CurvaturefOcf"));T::Name(name);} };
-template <class T> class CurvaturedOcf: public CurvatureOcf<double, T> {public: static void Name(std::vector<std::string> & name){name.push_back(std::string("CurvaturedOcf"));T::Name(name);} };
-
-
 ///*-------------------------- CURVATURE DIR ----------------------------------*/
 
 template <class S>
@@ -488,13 +450,17 @@ public:
   typedef typename CurvatureDirType::CurVecType CurVecType;
   typedef typename CurvatureDirType::CurScalarType CurScalarType;
 
-  CurVecType &PD1()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
-  CurVecType &PD2()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
-  CurVecType cPD1() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
-  CurVecType cPD2() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
+  CurVecType&        PD1()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
+  CurVecType&        PD2()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
+  const CurVecType& cPD1() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
+  const CurVecType& cPD2() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
+  const CurVecType&  PD1() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].max_dir;}
+  const CurVecType&  PD2() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].min_dir;}
 
-  CurScalarType &K1()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
-  CurScalarType &K2()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
+  CurScalarType& K1()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
+  CurScalarType& K2()       { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
+  CurScalarType  K1() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
+  CurScalarType  K2() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
   CurScalarType cK1() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k1;}
   CurScalarType cK2() const { assert((*this).Base().CurvatureDirEnabled); return (*this).Base().CuDV[(*this).Index()].k2;}
 

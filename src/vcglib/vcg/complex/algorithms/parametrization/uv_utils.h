@@ -8,7 +8,7 @@
 *                                                                    \      *
 * All rights reserved.                                                      *
 *                                                                           *
-* This program is free software; you can redistribute it and/or modify      *   
+* This program is free software; you can redistribute it and/or modify      *
 * it under the terms of the GNU General Public License as published by      *
 * the Free Software Foundation; either version 2 of the License, or         *
 * (at your option) any later version.                                       *
@@ -21,8 +21,8 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef VCG_UV_UTILS
-#define VCG_UV_UTILS
+#ifndef VCG_COMPLEX_ALGORITHMS_PARAMETRIZATION_UV_UTILS_H
+#define VCG_COMPLEX_ALGORITHMS_PARAMETRIZATION_UV_UTILS_H
 
 #include <vcg/space/point2.h>
 #include <vcg/space/box2.h>
@@ -30,7 +30,7 @@
 #include <vcg/space/triangle3.h>
 
 namespace vcg {
-namespace tri{
+namespace tri {
 template <class MeshType>
 class UV_Utils
 {
@@ -44,7 +44,7 @@ class UV_Utils
 
 public:
 
-    ///calculate the area in UV space
+    /// calculate the area in UV space
     static ScalarType PerVertUVArea(MeshType &m)
     {
         FaceIterator fi;
@@ -96,11 +96,10 @@ public:
     }
 
     ///calculate the BBox in UV space
-    static vcg::Box2<ScalarType> PerVertUVBox(MeshType &m)
+    static vcg::Box2<ScalarType> PerVertUVBox(const MeshType &m)
     {
         vcg::Box2<ScalarType> UVBox;
-        VertexIterator vi;
-        for (vi=m.vert.begin();vi!=m.vert.end();vi++)
+        for (auto vi=m.vert.begin();vi!=m.vert.end();vi++)
         {
             if ((*vi).IsD()) continue;
             UVBox.Add((*vi).T().P());
@@ -174,6 +173,23 @@ public:
         }
     }
 
+    static void GloballyRotatePerVert(MeshType &m,ScalarType Angle)
+    {
+        vcg::Box2<ScalarType> BB=PerVertUVBox(m);
+        UVCoordType Origin=BB.Center();
+        typename MeshType::VertexIterator vi;
+        for (vi=m.vert.begin();vi!=m.vert.end();vi++)
+        {
+            if ((*vi).IsD()) continue;
+            (*vi).T().P()-=Origin;
+            ScalarType X1=(*vi).T().P().X()*cos(Angle)-(*vi).T().P().Y()*sin(Angle);
+            ScalarType Y1=(*vi).T().P().X()*cos(Angle)+(*vi).T().P().Y()*sin(Angle);
+            (*vi).T().P().X()=X1;
+            (*vi).T().P().Y()=Y1;
+            (*vi).T().P()+=Origin;
+        }
+    }
+
     static void LaplacianUVVert(MeshType &m,bool fix_borders=false,int steps=3)
     {
         FaceIterator fi;
@@ -226,6 +242,7 @@ public:
         }
     }
 };
-} //End Namespace Tri
-} // End Namespace vcg
-#endif
+
+} // end Namespace tri
+} // end Namespace vcg
+#endif // VCG_COMPLEX_ALGORITHMS_PARAMETRIZATION_UV_UTILS_H

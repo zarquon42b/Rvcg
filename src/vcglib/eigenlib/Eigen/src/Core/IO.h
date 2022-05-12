@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_IO_H
 #define EIGEN_IO_H
@@ -108,20 +108,6 @@ class WithFormat
     typename ExpressionType::Nested m_matrix;
     IOFormat m_format;
 };
-
-/** \returns a WithFormat proxy object allowing to print a matrix the with given
-  * format \a fmt.
-  *
-  * See class IOFormat for some examples.
-  *
-  * \sa class IOFormat, class WithFormat
-  */
-template<typename Derived>
-inline const WithFormat<Derived>
-DenseBase<Derived>::format(const IOFormat& fmt) const
-{
-  return WithFormat<Derived>(derived(), fmt);
-}
 
 namespace internal {
 

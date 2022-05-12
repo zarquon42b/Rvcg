@@ -7,7 +7,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_TRANSFORM_H
 #define EIGEN_TRANSFORM_H
@@ -252,11 +252,11 @@ protected:
 public:
 
   /** Default constructor without initialization of the meaningful coefficients.
-    * If Mode==Affine, then the last row is set to [0 ... 0 1] */
+    * If Mode==Affine or Mode==Isometry, then the last row is set to [0 ... 0 1] */
   EIGEN_DEVICE_FUNC inline Transform()
   {
     check_template_params();
-    internal::transform_make_affine<(int(Mode)==Affine) ? Affine : AffineCompact>::run(m_matrix);
+    internal::transform_make_affine<(int(Mode)==Affine || int(Mode)==Isometry) ? Affine : AffineCompact>::run(m_matrix);
   }
 
   EIGEN_DEVICE_FUNC inline Transform(const Transform& other)

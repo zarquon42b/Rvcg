@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_PERMUTATIONMATRIX_H
 #define EIGEN_PERMUTATIONMATRIX_H
@@ -86,17 +86,6 @@ class PermutationBase : public EigenBase<Derived>
         applyTranspositionOnTheRight(k,tr.coeff(k));
       return derived();
     }
-
-    #ifndef EIGEN_PARSED_BY_DOXYGEN
-    /** This is a special case of the templated operator=. Its purpose is to
-      * prevent a default operator= from hiding the templated operator=.
-      */
-    Derived& operator=(const PermutationBase& other)
-    {
-      indices() = other.indices();
-      return derived();
-    }
-    #endif
 
     /** \returns the number of rows */
     inline Index rows() const { return Index(indices().size()); }
@@ -333,12 +322,6 @@ class PermutationMatrix : public PermutationBase<PermutationMatrix<SizeAtCompile
     inline PermutationMatrix(const PermutationBase<OtherDerived>& other)
       : m_indices(other.indices()) {}
 
-    #ifndef EIGEN_PARSED_BY_DOXYGEN
-    /** Standard copy constructor. Defined only to prevent a default copy constructor
-      * from hiding the other templated constructor */
-    inline PermutationMatrix(const PermutationMatrix& other) : m_indices(other.indices()) {}
-    #endif
-
     /** Generic constructor from expression of the indices. The indices
       * array has the meaning that the permutations sends each integer i to indices[i].
       *
@@ -372,17 +355,6 @@ class PermutationMatrix : public PermutationBase<PermutationMatrix<SizeAtCompile
     {
       return Base::operator=(tr.derived());
     }
-
-    #ifndef EIGEN_PARSED_BY_DOXYGEN
-    /** This is a special case of the templated operator=. Its purpose is to
-      * prevent a default operator= from hiding the templated operator=.
-      */
-    PermutationMatrix& operator=(const PermutationMatrix& other)
-    {
-      m_indices = other.m_indices;
-      return *this;
-    }
-    #endif
 
     /** const version of indices(). */
     const IndicesType& indices() const { return m_indices; }

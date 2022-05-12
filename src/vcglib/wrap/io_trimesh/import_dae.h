@@ -186,7 +186,7 @@ namespace io {
         static DAEError	LoadPolygonalListMesh(QDomNodeList& polylist,ColladaMesh& m,const size_t offset,InfoDAE& info,QMap<QString,QString> &materialBinding)
         {
             if(polylist.isEmpty()) return E_NOERROR;
-            QDEBUG("****** LoadPolygonalListMesh (initial mesh size %i %i)",m.vert.size(),m.fn);
+            QDEBUG("****** LoadPolygonalListMesh (initial mesh size %li %i)",m.vert.size(),m.fn);
             for(int tript = 0; tript < polylist.size();++tript)
             {
                 QString materialId =  polylist.at(tript).toElement().attribute(QString("material"));
@@ -271,7 +271,7 @@ namespace io {
                 }
 
             }
-            QDEBUG("****** LoadPolygonalListMesh (final  mesh size vn %i vertsize %i - fn %i facesize %i)",m.vn,m.vert.size(),m.fn,m.face.size());
+            QDEBUG("****** LoadPolygonalListMesh (final  mesh size vn %i vertsize %li - fn %i facesize %li)",m.vn,m.vert.size(),m.fn,m.face.size());
             return E_NOERROR;
         }
 
@@ -397,14 +397,33 @@ namespace io {
                     }
                 //	ind_txt = indexTextureByImgNode(*(info.doc),txt_node);
                 }
-                int faceAttributeNum = triNodeList.at(tript).toElement().elementsByTagName("input").size();
+                int triangleNumber = triNodeList.at(tript).toElement().attribute("count").toInt();
+
+                // A triangle can have multiple inputs that share a common offset. Therefore it's
+                // not sufficient to take the number of input to derive the stride from triangle to
+                // triangle. Instead, this heuristic uses the maximal offset found among inputs.
+                QDomNodeList attributes = triNodeList.at(tript).toElement().elementsByTagName("input");
+                int numTriangleAttributeIndices = 0;
+                for (int i = 0; i < attributes.size(); ++i) {
+                    QDomNode attr = attributes.at(i);
+                    int offset = attr.toElement().attribute("offset", "-1").toInt();
+                    numTriangleAttributeIndices = std::max(numTriangleAttributeIndices, offset+1);
+                }
 
                 QStringList face;
                 valueStringList(face,triNodeList.at(tript),"p");
+
+                // Ensure that the <p> array size is consistent with the number of triangles and the
+                // exprected stride.
+                if (face.size() != 3 * triangleNumber * numTriangleAttributeIndices) {
+                    QDEBUG("********* ERROR triangle count is inconsistent with input offsets and face index list");
+                    return E_INCOMPATIBLECOLLADA141FORMAT;
+                }
+
                 int offsetface = (int)m.face.size();
                 if (face.size() != 0)
                 {
-                    vcg::tri::Allocator<ColladaMesh>::AddFaces(m,face.size() / (faceAttributeNum * 3));
+                    vcg::tri::Allocator<ColladaMesh>::AddFaces(m, triangleNumber);
                     WedgeAttribute wa;
                     FindStandardWedgeAttributes(wa,triNodeList.at(tript),*(info.doc));
 
@@ -430,17 +449,17 @@ namespace io {
                                 WedgeTextureAttribute(m,face,ind_txt,wa.wt,wa.wtsrc,ff,jj + wa.offtx,tt,wa.stridetx);
                             }
 
-                            jj += faceAttributeNum;
+                            jj += numTriangleAttributeIndices;
                         }
                         if( ! ( (m.face[ff].V(0) != m.face[ff].V(1)) &&
                                         (m.face[ff].V(0) != m.face[ff].V(2)) &&
                                         (m.face[ff].V(1) != m.face[ff].V(2)) )  )
-                                        QDEBUG("********* WARNING face %i, (%i %i %i) is a DEGENERATE FACE!",ff, m.face[ff].V(0) - &m.vert.front(), m.face[ff].V(1) - &m.vert.front(), m.face[ff].V(2) - &m.vert.front());
+                                        QDEBUG("********* WARNING face %i, (%li %li %li) is a DEGENERATE FACE!",ff, m.face[ff].V(0) - &m.vert.front(), m.face[ff].V(1) - &m.vert.front(), m.face[ff].V(2) - &m.vert.front());
 
                     }
                 }
             }
-            QDEBUG("****** LoadTriangularMesh (final  mesh size %i %i - %i %i)",m.vn,m.vert.size(),m.fn,m.face.size());
+            QDEBUG("****** LoadTriangularMesh (final  mesh size %i %li - %i %li)",m.vn,m.vert.size(),m.fn,m.face.size());
             return E_NOERROR;
         }
 
@@ -589,8 +608,13 @@ namespace io {
                         }
 
                     }
-                    if (isTri && tripatch.isEmpty())
+                    if (isTri && tripatch.isEmpty()) {
                         tripatch=polylist;
+                        // Clear the polylist. Otherwise faces are loaded twice, once by
+                        // LoadTriangularMesh and another time by LoadPolygonalListMesh.
+                        polylist = QDomNodeList();
+                    }
+
                     if (tripatch.isEmpty()  && polypatch.isEmpty() && polylist.isEmpty())
                         return E_NOPOLYGONALMESH;
 
@@ -602,7 +626,7 @@ namespace io {
                     if (err != E_NOERROR)
                         return err;
                 }
-            QDEBUG("**** Loading a Geometry Mesh **** (final   mesh size %i %i - %i %i)",m.vn,m.vert.size(),m.fn,m.face.size());
+            QDEBUG("**** Loading a Geometry Mesh **** (final   mesh size %i %li - %i %li)",m.vn,m.vert.size(),m.fn,m.face.size());
             return E_NOERROR;
         }
 
@@ -637,7 +661,7 @@ namespace io {
                     QDomElement instGeomNode= geomNodeList.at(ch).toElement();
                     if(instGeomNode.parentNode()==node) // process only direct child
                     {
-                        QDEBUG("** instance_geometry with url %s (intial mesh size %i %i T = %i)",qPrintable(instGeomNode.attribute("url")),m.vn,m.fn,m.textures.size());
+                        QDEBUG("** instance_geometry with url %s (initial mesh size %i %i T = %li)",qPrintable(instGeomNode.attribute("url")),m.vn,m.fn,m.textures.size());
                         //assert(m.textures.size()>0 == HasPerWedgeTexCoord(m));
                         QString geomNode_url;
                         referenceToANodeAttribute(instGeomNode,"url",geomNode_url);
@@ -654,7 +678,7 @@ namespace io {
                         LoadGeometry(newMesh, info, refNode.toElement(),materialBindingMap);
                         tri::UpdatePosition<ColladaMesh>::Matrix(newMesh,curTr);
                         tri::Append<ColladaMesh,ColladaMesh>::Mesh(m,newMesh);
-                        QDEBUG("** instance_geometry with url %s (final mesh size %i %i - %i %i)",qPrintable(instGeomNode.attribute("url")),m.vn,m.vert.size(),m.fn,m.face.size());
+                        QDEBUG("** instance_geometry with url %s (final mesh size %i %li - %i %li)",qPrintable(instGeomNode.attribute("url")),m.vn,m.vert.size(),m.fn,m.face.size());
                     }
                 }
 
@@ -711,7 +735,7 @@ namespace io {
         }
 
 
-// Retrieve the transformation matrix that is defined in the childs of a node.
+// Retrieve the transformation matrix that is defined in the children of a node.
 // used during the recursive descent.
 static Matrix44f getTransfMatrixFromNode(const QDomElement parentNode)
 {

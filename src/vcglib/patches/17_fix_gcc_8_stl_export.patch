@@ -2,7 +2,7 @@ Index: vcglib/wrap/io_trimesh/export_stl.h
 ===================================================================
 --- vcglib.orig/wrap/io_trimesh/export_stl.h
 +++ vcglib/wrap/io_trimesh/export_stl.h
-@@ -96,7 +96,7 @@ static int Save(SaveMeshType &m, const c
+@@ -96,7 +96,7 @@ static int Save(const SaveMeshType &m, c
          if(objectname)	strncpy(header,objectname,80);
          if(magicsMode)
          {

@@ -6,7 +6,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_DIAGONAL_H
 #define EIGEN_DIAGONAL_H
@@ -21,7 +21,7 @@ namespace Eigen {
   * \param MatrixType the type of the object in which we are taking a sub/main/super diagonal
   * \param DiagIndex the index of the sub/super diagonal. The default is 0 and it means the main diagonal.
   *              A positive value means a superdiagonal, a negative value means a subdiagonal.
-  *              You can also use Dynamic so the index can be set at runtime.
+  *              You can also use DynamicIndex so the index can be set at runtime.
   *
   * The matrix is not required to be square.
   *
@@ -70,7 +70,10 @@ template<typename MatrixType, int _DiagIndex> class Diagonal
     EIGEN_DENSE_PUBLIC_INTERFACE(Diagonal)
 
     EIGEN_DEVICE_FUNC
-    explicit inline Diagonal(MatrixType& matrix, Index a_index = DiagIndex) : m_matrix(matrix), m_index(a_index) {}
+    explicit inline Diagonal(MatrixType& matrix, Index a_index = DiagIndex) : m_matrix(matrix), m_index(a_index)
+    {
+      eigen_assert( a_index <= m_matrix.cols() && -a_index <= m_matrix.rows() );
+    }
 
     EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Diagonal)
 

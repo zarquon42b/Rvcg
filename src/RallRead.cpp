@@ -78,7 +78,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
       // do texture processing
       bool tex = false;
       std::vector<float> texvec;
-      std::vector<string> texfile;
+      std::vector<std::string> texfile;
       if (m.textures.size() > 0 && colorread) {
 
 	if (!silent && clean)

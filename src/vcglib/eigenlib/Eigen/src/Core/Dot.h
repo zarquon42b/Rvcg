@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_DOT_H
 #define EIGEN_DOT_H
@@ -31,7 +31,8 @@ struct dot_nocheck
   typedef scalar_conj_product_op<typename traits<T>::Scalar,typename traits<U>::Scalar> conj_prod;
   typedef typename conj_prod::result_type ResScalar;
   EIGEN_DEVICE_FUNC
-  static inline ResScalar run(const MatrixBase<T>& a, const MatrixBase<U>& b)
+  EIGEN_STRONG_INLINE
+  static ResScalar run(const MatrixBase<T>& a, const MatrixBase<U>& b)
   {
     return a.template binaryExpr<conj_prod>(b).sum();
   }
@@ -43,7 +44,8 @@ struct dot_nocheck<T, U, true>
   typedef scalar_conj_product_op<typename traits<T>::Scalar,typename traits<U>::Scalar> conj_prod;
   typedef typename conj_prod::result_type ResScalar;
   EIGEN_DEVICE_FUNC
-  static inline ResScalar run(const MatrixBase<T>& a, const MatrixBase<U>& b)
+  EIGEN_STRONG_INLINE
+  static ResScalar run(const MatrixBase<T>& a, const MatrixBase<U>& b)
   {
     return a.transpose().template binaryExpr<conj_prod>(b).sum();
   }
@@ -65,6 +67,7 @@ struct dot_nocheck<T, U, true>
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_DEVICE_FUNC
+EIGEN_STRONG_INLINE
 typename ScalarBinaryOpTraits<typename internal::traits<Derived>::Scalar,typename internal::traits<OtherDerived>::Scalar>::ReturnType
 MatrixBase<Derived>::dot(const MatrixBase<OtherDerived>& other) const
 {
@@ -102,7 +105,7 @@ EIGEN_STRONG_INLINE typename NumTraits<typename internal::traits<Derived>::Scala
   * \sa lpNorm(), dot(), squaredNorm()
   */
 template<typename Derived>
-inline typename NumTraits<typename internal::traits<Derived>::Scalar>::Real MatrixBase<Derived>::norm() const
+EIGEN_STRONG_INLINE typename NumTraits<typename internal::traits<Derived>::Scalar>::Real MatrixBase<Derived>::norm() const
 {
   return numext::sqrt(squaredNorm());
 }
@@ -117,7 +120,7 @@ inline typename NumTraits<typename internal::traits<Derived>::Scalar>::Real Matr
   * \sa norm(), normalize()
   */
 template<typename Derived>
-inline const typename MatrixBase<Derived>::PlainObject
+EIGEN_STRONG_INLINE const typename MatrixBase<Derived>::PlainObject
 MatrixBase<Derived>::normalized() const
 {
   typedef typename internal::nested_eval<Derived,2>::type _Nested;
@@ -139,7 +142,7 @@ MatrixBase<Derived>::normalized() const
   * \sa norm(), normalized()
   */
 template<typename Derived>
-inline void MatrixBase<Derived>::normalize()
+EIGEN_STRONG_INLINE void MatrixBase<Derived>::normalize()
 {
   RealScalar z = squaredNorm();
   // NOTE: after extensive benchmarking, this conditional does not impact performance, at least on recent x86 CPU
@@ -160,7 +163,7 @@ inline void MatrixBase<Derived>::normalize()
   * \sa stableNorm(), stableNormalize(), normalized()
   */
 template<typename Derived>
-inline const typename MatrixBase<Derived>::PlainObject
+EIGEN_STRONG_INLINE const typename MatrixBase<Derived>::PlainObject
 MatrixBase<Derived>::stableNormalized() const
 {
   typedef typename internal::nested_eval<Derived,3>::type _Nested;
@@ -185,7 +188,7 @@ MatrixBase<Derived>::stableNormalized() const
   * \sa stableNorm(), stableNormalized(), normalize()
   */
 template<typename Derived>
-inline void MatrixBase<Derived>::stableNormalize()
+EIGEN_STRONG_INLINE void MatrixBase<Derived>::stableNormalize()
 {
   RealScalar w = cwiseAbs().maxCoeff();
   RealScalar z = (derived()/w).squaredNorm();
@@ -250,7 +253,7 @@ struct lpNorm_selector<Derived, Infinity>
   *
   * In all cases, if \c *this is empty, then the value 0 is returned.
   *
-  * \note For matrices, this function does not compute the <a href="https://en.wikipedia.org/wiki/Operator_norm">operator-norm</a>. That is, if \c *this is a matrix, then its coefficients are interpreted as a 1D vector. Nonetheless, you can easily compute the 1-norm and \f$\infty\f$-norm matrix operator norms using \link TutorialReductionsVisitorsBroadcastingReductionsNorm partial reductions \endlink.
+  * \note For matrices, this function does not compute the <a href="xxxps://en.wikipedia.org/wiki/Operator_norm">operator-norm</a>. That is, if \c *this is a matrix, then its coefficients are interpreted as a 1D vector. Nonetheless, you can easily compute the 1-norm and \f$\infty\f$-norm matrix operator norms using \link TutorialReductionsVisitorsBroadcastingReductionsNorm partial reductions \endlink.
   *
   * \sa norm()
   */

@@ -24,6 +24,12 @@
 #ifndef __VCG_TRI_UPDATE_TOPOLOGY
 #define __VCG_TRI_UPDATE_TOPOLOGY
 
+#include <cassert>
+
+#include <vcg/complex/base.h>
+#include <vcg/simplex/face/topology.h>
+#include <vcg/simplex/edge/pos.h>
+
 namespace vcg {
 namespace tri {
 /// \ingroup trimesh
@@ -76,9 +82,9 @@ public:
     assert (tp != 0);
     assert (nz >= 0 && nz < 4);
     
-    v[0] = tp->cV(Tetra::VofF(nz, 0));
-    v[1] = tp->cV(Tetra::VofF(nz, 1));
-    v[2] = tp->cV(Tetra::VofF(nz, 2));
+    v[0] = tp->V(Tetra::VofF(nz, 0));
+    v[1] = tp->V(Tetra::VofF(nz, 1));
+    v[2] = tp->V(Tetra::VofF(nz, 2));
     
     assert(v[0] != v[1] && v[1] != v[2]); //no degenerate faces
 
@@ -211,7 +217,7 @@ static void FillUniqueEdgeVector(MeshType &m, std::vector<PEdge> &edgeVec, bool 
             edgeVec[ i ].isBorder = true;
         for (size_t i=1; i<edgeVec.size(); i++) {
             if (edgeVec[i]==edgeVec[i-1])
-                edgeVec[i-1].isBorder = edgeVec[i-1].isBorder = false;
+                edgeVec[i].isBorder = edgeVec[i-1].isBorder = false;
         }
     }
 

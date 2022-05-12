@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_UNARY_FUNCTORS_H
 #define EIGEN_UNARY_FUNCTORS_H
@@ -768,7 +768,7 @@ struct scalar_sign_op<Scalar,true> {
     if (aa==real_type(0))
       return Scalar(0);
     aa = real_type(1)/aa;
-    return Scalar(real(a)*aa, imag(a)*aa );
+    return Scalar(a.real()*aa, a.imag()*aa );
   }
   //TODO
   //template <typename Packet>

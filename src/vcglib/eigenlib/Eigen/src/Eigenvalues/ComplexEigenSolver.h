@@ -7,7 +7,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_COMPLEX_EIGEN_SOLVER_H
 #define EIGEN_COMPLEX_EIGEN_SOLVER_H
@@ -250,7 +250,7 @@ template<typename _MatrixType> class ComplexEigenSolver
     EigenvectorType m_matX;
 
   private:
-    void doComputeEigenvectors(const RealScalar& matrixnorm);
+    void doComputeEigenvectors(RealScalar matrixnorm);
     void sortEigenvalues(bool computeEigenvectors);
 };
 
@@ -284,9 +284,11 @@ ComplexEigenSolver<MatrixType>::compute(const EigenBase<InputType>& matrix, bool
 
 
 template<typename MatrixType>
-void ComplexEigenSolver<MatrixType>::doComputeEigenvectors(const RealScalar& matrixnorm)
+void ComplexEigenSolver<MatrixType>::doComputeEigenvectors(RealScalar matrixnorm)
 {
   const Index n = m_eivalues.size();
+
+  matrixnorm = numext::maxi(matrixnorm,(std::numeric_limits<RealScalar>::min)());
 
   // Compute X such that T = X D X^(-1), where D is the diagonal of T.
   // The matrix X is unit triangular.

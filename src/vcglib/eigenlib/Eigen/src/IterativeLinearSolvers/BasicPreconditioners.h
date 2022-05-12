@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_BASIC_PRECONDITIONERS_H
 #define EIGEN_BASIC_PRECONDITIONERS_H
@@ -152,13 +152,28 @@ class LeastSquareDiagonalPreconditioner : public DiagonalPreconditioner<_Scalar>
     {
       // Compute the inverse squared-norm of each column of mat
       m_invdiag.resize(mat.cols());
-      for(Index j=0; j<mat.outerSize(); ++j)
+      if(MatType::IsRowMajor)
       {
-        RealScalar sum = mat.innerVector(j).squaredNorm();
-        if(sum>0)
-          m_invdiag(j) = RealScalar(1)/sum;
-        else
-          m_invdiag(j) = RealScalar(1);
+        m_invdiag.setZero();
+        for(Index j=0; j<mat.outerSize(); ++j)
+        {
+          for(typename MatType::InnerIterator it(mat,j); it; ++it)
+            m_invdiag(it.index()) += numext::abs2(it.value());
+        }
+        for(Index j=0; j<mat.cols(); ++j)
+          if(numext::real(m_invdiag(j))>RealScalar(0))
+            m_invdiag(j) = RealScalar(1)/numext::real(m_invdiag(j));
+      }
+      else
+      {
+        for(Index j=0; j<mat.outerSize(); ++j)
+        {
+          RealScalar sum = mat.col(j).squaredNorm();
+          if(sum>RealScalar(0))
+            m_invdiag(j) = RealScalar(1)/sum;
+          else
+            m_invdiag(j) = RealScalar(1);
+        }
       }
       Base::m_isInitialized = true;
       return *this;

@@ -49,7 +49,7 @@ namespace Rvcg
     }
     static  List KDtreeIO(MeshTarget &target, MeshQuery &query, int k, unsigned int nofPointsPerCell = 16, unsigned int maxDepth = 64, int threads = 1) {
       try {
-	typedef pair<float,int> mypair;
+	typedef std::pair<float,int> mypair;
 	IntegerMatrix result(query.vn,k);
 	NumericMatrix distance(query.vn,k);
 	std::fill(result.begin(), result.end(),-1);
@@ -62,7 +62,7 @@ namespace Rvcg
 	  tree.doQueryK(query.vert[i].cP(), k, queue);
 	  //int neighbours = tree.getNofFoundNeighbors();
 	  int neighbours = queue.getNofElements();
-	  vector<mypair> sortit;
+	  std::vector<mypair> sortit;
 	  for (int j=0; j < neighbours; j++) {      
 	    int neightId = queue.getIndex(j);
 	    float dist = Distance(query.vert[i].cP(),target.vert[neightId].cP());

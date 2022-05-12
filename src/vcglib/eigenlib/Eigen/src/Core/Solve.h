@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_SOLVE_H
 #define EIGEN_SOLVE_H
@@ -34,12 +34,12 @@ template<typename Decomposition, typename RhsType,typename StorageKind> struct s
 template<typename Decomposition, typename RhsType>
 struct solve_traits<Decomposition,RhsType,Dense>
 {
-  typedef Matrix<typename RhsType::Scalar,
+  typedef typename make_proper_matrix_type<typename RhsType::Scalar,
                  Decomposition::ColsAtCompileTime,
                  RhsType::ColsAtCompileTime,
                  RhsType::PlainObject::Options,
                  Decomposition::MaxColsAtCompileTime,
-                 RhsType::MaxColsAtCompileTime> PlainObject;  
+                 RhsType::MaxColsAtCompileTime>::type PlainObject;
 };
 
 template<typename Decomposition, typename RhsType>

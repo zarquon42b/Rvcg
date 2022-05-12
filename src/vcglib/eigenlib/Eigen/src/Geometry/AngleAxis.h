@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_ANGLEAXIS_H
 #define EIGEN_ANGLEAXIS_H
@@ -178,7 +178,7 @@ EIGEN_DEVICE_FUNC AngleAxis<Scalar>& AngleAxis<Scalar>::operator=(const Quaterni
   if (n != Scalar(0))
   {
     m_angle = Scalar(2)*atan2(n, abs(q.w()));
-    if(q.w() < 0)
+    if(q.w() < Scalar(0))
       n = -n;
     m_axis  = q.vec() / n;
   }

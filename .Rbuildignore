@@ -9,6 +9,7 @@ aclocal.m4$
 src/upOBJ.sh
 src/vcglib/patches
 src/vcglib/.pc
+src/vcglib/.github
 .travis.yml
 debian
 README.md

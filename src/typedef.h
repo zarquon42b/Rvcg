@@ -65,7 +65,7 @@ class MyVertex  : public Vertex< MyUsedTypes,
   vertex::Color4bOcf, 
   vertex::QualityfOcf,
   vertex::VFAdjOcf,
-  vertex::CurvaturefOcf,
+				 //vertex::CurvatureOcf,
   vertex::CurvatureDirfOcf,
   vertex::TexCoordfOcf 
   /*vertex::VFAdj,

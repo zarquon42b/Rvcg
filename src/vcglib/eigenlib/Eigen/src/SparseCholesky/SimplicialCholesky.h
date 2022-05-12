@@ -5,7 +5,7 @@
 //
 // This Source Code Form is subject to the terms of the Mozilla
 // Public License v. 2.0. If a copy of the MPL was not distributed
-// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// with this file, You can obtain one at the mozilla.org home page
 
 #ifndef EIGEN_SIMPLICIAL_CHOLESKY_H
 #define EIGEN_SIMPLICIAL_CHOLESKY_H
@@ -608,7 +608,7 @@ public:
       }
 
       if(Base::m_diag.size()>0)
-        dest = Base::m_diag.asDiagonal().inverse() * dest;
+        dest = Base::m_diag.real().asDiagonal().inverse() * dest;
 
       if (Base::m_matrix.nonZeros()>0) // otherwise I==I
       {
