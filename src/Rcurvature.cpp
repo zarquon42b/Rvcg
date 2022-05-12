@@ -45,10 +45,10 @@ RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
     vi=m.vert.begin();
     //for(i=0; i < m.vn; i++)
     auto KH = vcg::tri::Allocator<MyMesh>::GetPerVertexAttribute<ScalarType> (m, std::string("KH"));
-      auto KG = vcg::tri::Allocator<MyMesh>::GetPerVertexAttribute<ScalarType> (m, std::string("KG"));
-      gaussvb.push_back(KG[*vi]);
-    for(i=0; i < m.vn; i++) {
+    auto KG = vcg::tri::Allocator<MyMesh>::GetPerVertexAttribute<ScalarType> (m, std::string("KG"));
      
+    for(i=0; i < m.vn; i++) {
+      gaussvb.push_back(KG[*vi]);
       meanvb.push_back(KH[*vi]);
       RMSvb.push_back(vi->Q());
       K1.push_back(vi->K1());
@@ -69,11 +69,11 @@ RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
       tmpg = KG[(*fi).V(0)];
       tmpm = KH[(*fi).V(0)];
       for (j = 1; j < 3; j++) {
-	if (abs(tmpg) < KG[(*fi).V(j)])
+	if (abs(tmpg) < abs(KG[(*fi).V(j)]))
 	  tmpg = KG[(*fi).V(j)];
-	if (abs(tmpm) < KG[(*fi).V(j)])
-	  tmpm = KG[(*fi).V(j)];
-    }
+	if (abs(tmpm) < abs(KH[(*fi).V(j)]))
+	  tmpm = KH[(*fi).V(j)];
+      }
       //write borderinfo
       if ((*fi).IsS())
 	borderit.push_back(1);
