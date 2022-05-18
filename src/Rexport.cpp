@@ -74,6 +74,7 @@ RcppExport SEXP RMeshWrite(SEXP mesh_, SEXP binary_, SEXP addNormals_, SEXP file
 	  (*vi).C()[0] = colvec(0, i);
 	  (*vi).C()[1] = colvec(1, i);
 	  (*vi).C()[2] = colvec(2, i);
+	  (*vi).C()[3] = 255;
 	  ++vi;
 	}
       }
