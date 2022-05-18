@@ -44,9 +44,10 @@ RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
     std::vector<int> bordervb, borderit;
     vi=m.vert.begin();
     //for(i=0; i < m.vn; i++)
+    auto KH = vcg::tri::Allocator<MyMesh>::GetPerVertexAttribute<ScalarType> (m, std::string("KH"));
+    auto KG = vcg::tri::Allocator<MyMesh>::GetPerVertexAttribute<ScalarType> (m, std::string("KG"));
+     
     for(i=0; i < m.vn; i++) {
-      auto KH = vcg::tri::Allocator<MyMesh>::GetPerVertexAttribute<ScalarType> (m, std::string("KH"));
-      auto KG = vcg::tri::Allocator<MyMesh>::GetPerVertexAttribute<ScalarType> (m, std::string("KG"));
       gaussvb.push_back(KG[*vi]);
       meanvb.push_back(KH[*vi]);
       RMSvb.push_back(vi->Q());
@@ -63,17 +64,16 @@ RcppExport SEXP Rcurvature( SEXP vb_, SEXP it_)
     fi=m.face.begin();
     float tmpg, tmpm;
     for(i=0; i < m.fn; i++)  {// get max curvature of vertices per face
-      auto KH = vcg::tri::Allocator<MyMesh>::GetPerFaceAttribute<ScalarType> (m, std::string("KH"));
-      auto KG = vcg::tri::Allocator<MyMesh>::GetPerFaceAttribute<ScalarType> (m, std::string("KG"));
-      tmpg = (KG[*fi]);
-      tmpm = KH[*fi];
-    
-      // for (j = 1; j < 3; j++) {
-      // 	if (abs(tmpg) < (*fi).V(j)->Kg())
-      // 	  tmpg = (*fi).V(j)->Kg();
-      // 	if (abs(tmpm) < (*fi).V(j)->Kh())
-      // 	  tmpm = (*fi).V(j)->Kh();
-      // }
+      //auto KH = vcg::tri::Allocator<MyMesh>::GetPerFaceAttribute<ScalarType> (m, std::string("KH"));
+      //auto KG = vcg::tri::Allocator<MyMesh>::GetPerFaceAttribute<ScalarType> (m, std::string("KG"));
+      tmpg = KG[(*fi).V(0)];
+      tmpm = KH[(*fi).V(0)];
+      for (j = 1; j < 3; j++) {
+	if (abs(tmpg) < abs(KG[(*fi).V(j)]))
+	  tmpg = KG[(*fi).V(j)];
+	if (abs(tmpm) < abs(KH[(*fi).V(j)]))
+	  tmpm = KH[(*fi).V(j)];
+      }
       //write borderinfo
       if ((*fi).IsS())
 	borderit.push_back(1);
