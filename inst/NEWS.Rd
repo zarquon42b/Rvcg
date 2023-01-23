@@ -2,6 +2,14 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.22 (2022-10-31)}{
+  \subsection{bug fixed}{
+    \itemize{
+      \item vcgPlyWrite (C++): set alpha channel to 255. Fixes #34
+      \item vcgCurve: fixed max per-face value issues.
+    }
+  }
+}
 
 \section{Changes in Rvcg version 0.20.1 (2021-09-01)}{
   \subsection{bug fixed}{
