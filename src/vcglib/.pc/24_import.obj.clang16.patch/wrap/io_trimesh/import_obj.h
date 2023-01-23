@@ -419,7 +419,7 @@ public:
             // verifying validity of vertex indices
             std::vector<int> tmp = ff.v;
             std::sort(tmp.begin(),tmp.end());
-            auto dummyreturn = std::unique(tmp.begin(),tmp.end());
+            std::unique(tmp.begin(),tmp.end());
             if(tmp.size() != ff.v.size()) {
               result = E_VERTICES_WITH_SAME_IDX_IN_FACE;
               extraTriangles--;
