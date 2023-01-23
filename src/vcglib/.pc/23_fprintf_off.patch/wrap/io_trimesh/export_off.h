@@ -112,7 +112,7 @@ public:
         {
           fprintf(fpout,"%d ", int(polygon.size()) );
           for (size_t i=0; i<polygon.size(); i++)
-            fprintf(fpout,"%zu ", tri::Index(m,polygon[i]));
+            fprintf(fpout,"%lu ", tri::Index(m,polygon[i]));
           if( tri::HasPerFaceColor(m)  && (mask & io::Mask::IOM_FACECOLOR) )
             fprintf(fpout,"%i %i %i", fi->C()[0],fi->C()[1],fi->C()[2] );
           fprintf(fpout,"\n");
@@ -126,7 +126,7 @@ public:
         {
           fprintf(fpout,"%i ",fi->VN());
           for(int i=0;i<fi->VN();++i)
-              fprintf(fpout,"%zu ",tri::Index(m,fi->V(i)));
+              fprintf(fpout,"%lu ",tri::Index(m,fi->V(i)));
           if( tri::HasPerFaceColor(m)  && (mask & io::Mask::IOM_FACECOLOR) )
             fprintf(fpout,"%i %i %i", fi->C()[0],fi->C()[1],fi->C()[2] );
           fprintf(fpout,"\n");
