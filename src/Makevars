@@ -2,6 +2,5 @@ OBJECTS=vcglib/wrap/ply/plylib.o checkListNames.o init.o RallRead.o Rarea.o Rbal
 
 PKG_CPPFLAGS=-Ivcglib -I.
 PKG_LIBS= $(SHLIB_OPENMP_CXXFLAGS)
-CXX_STD = CXX11
 PKG_CXXFLAGS= $(SHLIB_OPENMP_CXXFLAGS)
 
