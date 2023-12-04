@@ -90,7 +90,7 @@ RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP 
 			      );
 
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");

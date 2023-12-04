@@ -18,7 +18,7 @@ RcppExport SEXP RSphere(SEXP subdiv_ = wrap(3),SEXP normals_ = wrap(true)) {
     List out = Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
     return out;
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -41,7 +41,7 @@ RcppExport SEXP RSphericalCap(SEXP angleRad_,SEXP subdiv_ = wrap(3), SEXP normal
     List out = Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
     return out;
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -56,7 +56,7 @@ RcppExport SEXP RTetrahedron(SEXP normals_ = wrap(true)) {
       tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
     return Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -79,7 +79,7 @@ RcppExport SEXP ROctahedron(SEXP normals_ = wrap(true)) {
       tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
     return Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -94,7 +94,7 @@ RcppExport SEXP RIcosahedron(SEXP normals_ = wrap(true)) {
       tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
     return Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -111,7 +111,7 @@ RcppExport SEXP RHexahedron(SEXP normals_ = wrap(true)) {
       tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
     return Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -126,7 +126,7 @@ RcppExport SEXP RSquare(SEXP normals_ = wrap(true)) {
       tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
     return Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -145,7 +145,7 @@ RcppExport SEXP RBox(SEXP mesh_,SEXP normals_ = wrap(true)) {
       tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
     return Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -163,7 +163,7 @@ RcppExport SEXP RCone(SEXP r1_, SEXP r2_, SEXP h_, SEXP normals_ = wrap(true)) {
       tri::UpdateNormal<MyMesh>::PerVertexNormalized(m);
     return Rvcg::IOMesh<MyMesh>::RvcgToR(m,normals);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }

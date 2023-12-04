@@ -104,7 +104,7 @@ walker.BuildMesh<MyMarchingCubes>(m, volume, mc, thresh);
 			    Rcpp::Named("normals") = normals
 			      );
  } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }

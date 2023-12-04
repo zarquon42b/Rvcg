@@ -52,11 +52,11 @@ RcppExport SEXP Rdijkstra(SEXP vb_, SEXP it_, SEXP verts_, SEXP maxdist_)
     return wrap(geodist);
 
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; // -Wall
 }
 
 
@@ -128,10 +128,10 @@ RcppExport SEXP RGeodesicPath(SEXP vb_, SEXP it_, SEXP source_, SEXP targets_, S
     List L = List::create(Named("paths") = paths , _["geodist"] = geodist);
     return L;
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; // -Wall
 }
 

@@ -50,7 +50,7 @@ List searchKDtree(KdTree<float> kdtree, MyMesh &target, MyMesh &query, int k, in
 			Named("distance") = distance)
       ;
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -68,7 +68,7 @@ RcppExport SEXP RsearchKDtree(SEXP kdtree_,SEXP target_, SEXP query_, SEXP k_, S
     return out;
     // start searching
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
   }
@@ -106,7 +106,7 @@ RcppExport SEXP RsearchKDtreeForClosestPoints(SEXP kdtree_,SEXP bary_, SEXP targ
     return out;
     
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");

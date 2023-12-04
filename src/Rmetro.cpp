@@ -8,7 +8,7 @@
 using namespace Rcpp;
 using namespace vcg;
 typedef  CMeshMetro::VertexIterator VertexIterator;
-
+#include "R.h"
 
 RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_, SEXP faceSamp_, SEXP unrefVert_, SEXP samplingType_, SEXP nSamples_, SEXP nSamplesArea_, SEXP from_, SEXP to_, SEXP searchStruct_, SEXP colormeshes_, SEXP silent_)
 {
@@ -82,7 +82,7 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
       NumberOfSamples = true;
       n_samples_target = 10 * max(m0.fn,m1.fn);
       if (!silent && faceSamp)
-	Rprintf("Number of samples set to %i\n",n_samples_target);// take 10 samples per face
+	Rprintf("Number of samples set to %lu\n",n_samples_target);// take 10 samples per face
     }
 
     // compute face information
@@ -243,9 +243,10 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     return out;
   }
   catch (std::exception& e) {
-    ::Rf_error( e.what());
+     forward_exception_to_r( e );
   }
   catch (...) {
     ::Rf_error("unknown exception");
   }
+  return R_NilValue; // -Wall
 }

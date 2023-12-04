@@ -84,10 +84,10 @@ namespace Rvcg
 	  return -1;
 	}
       } catch (std::exception& e) {
-	::Rf_error( e.what());
+	forward_exception_to_r( e );
       } catch (...) {
 	::Rf_error("unknown exception");
-      }
+      } return 1;  // -Wall
     };
    
     static Rcpp::List RvcgToR(MeshType &m, bool exnormals=false) {
@@ -131,10 +131,10 @@ namespace Rvcg
 	return out;
       
       } catch (std::exception& e) {
-	::Rf_error( e.what());
+	forward_exception_to_r( e );
       } catch (...) {
 	::Rf_error("unknown exception");
-      }
+      } return R_NilValue; // -Wall
     };
     
     static int mesh3d2Rvcg(MeshType &m, SEXP mesh_,bool zerobegin=false,bool readnormals=true,bool readfaces=true) {
