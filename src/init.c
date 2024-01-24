@@ -47,6 +47,7 @@ extern SEXP Rsample(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RsearchKDtree(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RsearchKDtreeForClosestPoints(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP Rsmooth(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP RsmoothImplicit(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP RSphere(SEXP, SEXP);
 extern SEXP RSphericalCap(SEXP, SEXP, SEXP);
 extern SEXP RSquare(SEXP);
@@ -99,6 +100,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"RsearchKDtree",                 (DL_FUNC) &RsearchKDtree,                  5},
     {"RsearchKDtreeForClosestPoints", (DL_FUNC) &RsearchKDtreeForClosestPoints, 12},
     {"Rsmooth",                       (DL_FUNC) &Rsmooth,                        7},
+    {"RsmoothImplicit",               (DL_FUNC) &RsmoothImplicit,                9},
     {"RSphere",                       (DL_FUNC) &RSphere,                        2},
     {"RSphericalCap",                 (DL_FUNC) &RSphericalCap,                  3},
     {"RSquare",                       (DL_FUNC) &RSquare,                        1},

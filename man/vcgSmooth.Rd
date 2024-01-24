@@ -52,7 +52,7 @@ The additional parameters for taubin smooth are hardcoded to the
 default values of meshlab, as they appear to be the least distorting
 }
 \examples{
- 
+
 data(humface)
 smoothface <- vcgSmooth(humface)
 ## view

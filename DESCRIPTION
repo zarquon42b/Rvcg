@@ -6,7 +6,8 @@ Date: 2023-01-23
 Authors@R: c(
     person("Stefan", "Schlager",, "zarquon42@gmail.com", c("aut", "cre", "cph")),
     person("Girinon", "Francois",,, c("ctb")),
-    person("Tim", "Schaefer",, "ts+code@rcmd.org", c("ctb"))
+    person("Tim", "Schaefer",, "ts+code@rcmd.org", c("ctb")),
+    person("Zhengjia", "Wang",, "dipterix.wang@gmail.com", c("ctb"))
     )
 Description: Operations on triangular meshes based on 'VCGLIB'. This package
     integrates nicely with the R-package 'rgl' to render the meshes processed by
@@ -38,4 +39,4 @@ LazyLoad: yes
 Biarch: yes
 URL: https://github.com/zarquon42b/Rvcg, https://github.com/cnr-isti-vclab/vcglib
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1

@@ -2,8 +2,8 @@
 % Please edit documentation in R/Rvcg-package.R
 \docType{package}
 \name{Rvcg-package}
-\alias{Rvcg-package}
 \alias{Rvcg}
+\alias{Rvcg-package}
 \title{Interface between R and vcglib libraries for mesh operations}
 \description{
 Provides meshing functionality from vcglib (meshlab) for R. E.g. mesh
@@ -20,6 +20,15 @@ LazyLoad: \tab yes\cr }
 }
 \references{
 To be announced
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/zarquon42b/Rvcg}
+  \item \url{https://github.com/cnr-isti-vclab/vcglib}
+  \item Report bugs at \url{https://github.com/zarquon42b/Rvcg/issues}
+}
+
 }
 \author{
 Stefan Schlager
