@@ -144,7 +144,6 @@ RcppExport SEXP RsmoothImplicit(
     vcg::ImplicitSmoother<MyMesh>::Compute(m, par);
 
     Rcpp::checkUserInterrupt();
-    ::Rprintf("smooth done");
 
     vcg::tri::Allocator<MyMesh>::CompactVertexVector(m);
     vcg::tri::Allocator<MyMesh>::CompactFaceVector(m);
@@ -157,8 +156,6 @@ RcppExport SEXP RsmoothImplicit(
     SimpleTempData<MyMesh::VertContainer,int>indices(m.vert);
 
     Rcpp::checkUserInterrupt();
-    ::Rprintf("Alloc done");
-
     // write back updated mesh
     vi=m.vert.begin();
     for (i=0; i < m.vn; i++) {
