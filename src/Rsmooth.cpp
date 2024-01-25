@@ -121,7 +121,7 @@ RcppExport SEXP RsmoothImplicit(
     //the set of faces for barycentric constraints
     // std::vector<FaceConstraint> ConstrainedF;
     //the degree of laplacian
-    int degree = Rcpp::as<int>(useMassMatrix_);
+    int degree = Rcpp::as<int>(degree_);
     //use this weight for the laplacian when the cotangent one is not used
     ScalarType lapWeight = Rcpp::as<float>(lapWeight_);
     //this is to say if we smooth the positions or the quality
