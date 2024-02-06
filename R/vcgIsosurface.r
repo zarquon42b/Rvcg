@@ -11,7 +11,7 @@
 #' @param direction a 3x3 direction matrix
 #' @param IJK2RAS 4x4 IJK2RAS transformation matrix
 #' @param as.int logical: if TRUE, the array will be stored as integer (might decrease RAM usage)
-#' 
+#'
 #' @return returns a triangular mesh of class "mesh3d"
 #' @examples
 #' #this is the example from the package "misc3d"
@@ -40,7 +40,7 @@ vcgIsosurface <- function(vol,threshold,from=NULL,to=NULL,spacing=NULL, origin=N
         vol <- tmpvol
         as.int <- TRUE
         threshold <- 255
-        
+
     }
     mirr <- FALSE
     mvol <- max(vol)
@@ -50,7 +50,7 @@ vcgIsosurface <- function(vol,threshold,from=NULL,to=NULL,spacing=NULL, origin=N
     else if (threshold > mvol || threshold < minvol)
         stop("threshold is outside volume values")
 
-   
+
     if (as.int)
         storage.mode(vol) <- "integer"
     volmesh <- .Call("RMarchC",vol,threshold)
@@ -69,7 +69,7 @@ vcgIsosurface <- function(vol,threshold,from=NULL,to=NULL,spacing=NULL, origin=N
             mirr <- TRUE
     }
     volmesh <- applyTransform(volmesh,IJK2RAS)
-    
+
     if (!is.null(origin))
             volmesh$vb[1:3,] <- volmesh$vb[1:3,]+origin
     if (mirr)
@@ -91,6 +91,7 @@ invertFaces <- function (mesh) {
 
 applyTransform <- function(x,trafo,inverse)UseMethod("applyTransform")
 
+#' @export
 applyTransform.matrix <- function(x,trafo,inverse=FALSE) {
     if (is.matrix(trafo)) {
         if (ncol(trafo) == 3 && ncol(x) ==3)
@@ -104,13 +105,14 @@ applyTransform.matrix <- function(x,trafo,inverse=FALSE) {
     return(out)
 }
 
+#' @export
 applyTransform.mesh3d <- function(x,trafo,inverse=FALSE) {
-    
+
     x$vb[1:3,] <- t(applyTransform(t(x$vb[1:3,]),trafo,inverse = inverse))
     ## case affine transformation
     reflect <- FALSE
     if (is.matrix(trafo)) {
-        if (det(trafo) < 0) 
+        if (det(trafo) < 0)
             reflect <- TRUE
     } else {
        stop("trafo must be a matrix")

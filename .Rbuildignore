@@ -17,3 +17,5 @@ src/vcglib/.appveyor.yml
 src/vcglib/wrap/openfbx/.clang-format
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.github$
+^adhoc$
