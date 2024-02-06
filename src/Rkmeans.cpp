@@ -33,7 +33,7 @@ List fastSubsetMeans(mat &x, uvec &inds, int k, int threads) {
     forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 }
 
 
@@ -103,5 +103,5 @@ RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
     forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 }

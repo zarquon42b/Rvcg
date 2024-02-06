@@ -117,7 +117,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
     forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 }
 
 

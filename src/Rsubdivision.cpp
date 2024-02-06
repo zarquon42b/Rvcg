@@ -69,7 +69,7 @@ RcppExport SEXP Rsubdivision(SEXP mesh_ ,SEXP iterations_, SEXP threshold_,SEXP 
     forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 }
 
 

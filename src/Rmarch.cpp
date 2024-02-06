@@ -107,7 +107,7 @@ walker.BuildMesh<MyMarchingCubes>(m, volume, mc, thresh);
     forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 
 }
  

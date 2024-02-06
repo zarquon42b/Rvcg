@@ -141,7 +141,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
     forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 }
     
 
