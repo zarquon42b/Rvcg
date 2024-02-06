@@ -81,7 +81,7 @@ RcppExport SEXP RisotropicResampling(SEXP vb_, SEXP it_, SEXP TargetLen_, SEXP F
 		
 		return Rvcg::IOMesh<MyMesh>::RvcgToR(baseMesh);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");

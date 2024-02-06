@@ -352,8 +352,8 @@ namespace vcg
 	n_samples_decimal -= (double) n_samples;
 
         // print progress information
-        if(!(++cnt % print_every_n_elements) && ((Flags&SamplingFlags::SILENT) == 0))
-	  Rprintf("Sampling edge %lu%%\r", (100 * cnt/Edges.size()));
+        //if(!(++cnt % print_every_n_elements) && ((Flags&SamplingFlags::SILENT) == 0))
+	  //Rprintf("Sampling edge %lu%%\r", (100 * cnt/Edges.size()));
       }
     if ((Flags&SamplingFlags::SILENT) == 0)
       Rprintf("                     \r");

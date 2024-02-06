@@ -30,10 +30,10 @@ List fastSubsetMeans(mat &x, uvec &inds, int k, int threads) {
 				
     return out;
   }  catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 }
 
 
@@ -100,8 +100,8 @@ RcppExport SEXP Rkmeans(SEXP mesh_, SEXP k_, SEXP itermax_, SEXP threads_) {
   return List::create(Named("centers") = centers,
 		      Named("class") = clostinds);
    }  catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } return R_NilValue; 
 }

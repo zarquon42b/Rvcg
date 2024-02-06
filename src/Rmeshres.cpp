@@ -45,7 +45,7 @@ RcppExport SEXP Rmeshres(SEXP vb_ , SEXP it_) {
 			      Rcpp::Named("edgelength") = edgelength
 			      );
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");

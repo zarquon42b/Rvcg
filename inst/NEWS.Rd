@@ -2,6 +2,14 @@
 \title{News for Package Rvcg}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rvcg version 0.22.2 (2022-12-04)}{
+  \subsection{bug fixed}{
+    \itemize{
+      \item adapted C++ code to avoid CRAN compiler warnings
+    }
+  }
+}
+
 \section{Changes in Rvcg version 0.22 (2022-10-31)}{
   \subsection{bug fixed}{
     \itemize{

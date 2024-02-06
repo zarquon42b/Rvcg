@@ -79,7 +79,7 @@ RcppExport  SEXP RgetEdge(SEXP vb_, SEXP it_, SEXP unique_)
 			      Rcpp::Named("border") = border
 			      );
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");

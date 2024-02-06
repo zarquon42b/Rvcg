@@ -149,9 +149,9 @@ RcppExport SEXP Rclost(SEXP mesh_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, S
      
     
     } catch (std::exception& e) {
-      ::Rf_error( e.what());
+      forward_exception_to_r( e );
     } catch (...) {
       ::Rf_error("unknown exception");
-    }
+    } return R_NilValue; // -Wall
   }
 

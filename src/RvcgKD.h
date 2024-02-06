@@ -37,18 +37,15 @@ namespace Rvcg
     typedef typename MeshQuery::FaceContainer  FaceContainerQuery;
 
     static KdTree<float> KDTreeCreate(MeshTarget &target, unsigned int nofPointsPerCell, unsigned int maxDepth) {
-      try {
+      
 	VertexConstDataWrapper<MeshTarget> ww(target);
 	KdTree<float> tree(ww, nofPointsPerCell, maxDepth);
 	return tree;
-      } catch (std::exception& e) {
-	::Rf_error( e.what());
-      } catch (...) {
-	::Rf_error("unknown exception");
-      }
+     
     }
+
     static  List KDtreeIO(MeshTarget &target, MeshQuery &query, int k, unsigned int nofPointsPerCell = 16, unsigned int maxDepth = 64, int threads = 1) {
-      try {
+      
 	typedef std::pair<float,int> mypair;
 	IntegerMatrix result(query.vn,k);
 	NumericMatrix distance(query.vn,k);
@@ -78,11 +75,7 @@ namespace Rvcg
 	return List::create(Named("index") = result,
 			    Named("distance") = distance)
 	  ;
-      } catch (std::exception& e) {
-	::Rf_error( e.what());
-      } catch (...) {
-	::Rf_error("unknown exception");
-      }
+     
     }
     
     static void getBary(MeshTarget &inmesh, MeshQuery &outmesh) {
@@ -230,10 +223,10 @@ namespace Rvcg
 	return out;
 			   
       } catch (std::exception& e) {
-	::Rf_error( e.what());
+	forward_exception_to_r( e );
       } catch (...) {
 	::Rf_error("unknown exception");
-      }
+      } return R_NilValue; 
     }
   };
 }

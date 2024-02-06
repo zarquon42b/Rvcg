@@ -9,8 +9,9 @@ std::vector<bool> checkListNames(List mylist, Rcpp::CharacterVector mychar) {
     std::vector<bool> out = Rcpp::as<std::vector<bool> >(log);
     return out;
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
   } catch (...) {
     ::Rf_error("unknown exception");
-  }
+  } std::vector<bool> out;
+    return(out);
 }

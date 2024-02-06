@@ -60,7 +60,7 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_,
     return Rcpp::wrap(normals);
 
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");
@@ -92,7 +92,7 @@ RcppExport SEXP RgetFaceNormals(SEXP vb_, SEXP it_)
      return Rcpp::wrap(normals);
 
    } catch (std::exception& e) {
-     ::Rf_error( e.what());
+     forward_exception_to_r( e );
      return wrap(1);
    } catch (...) {
      ::Rf_error("unknown exception");

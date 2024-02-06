@@ -85,7 +85,7 @@ RcppExport SEXP RuniformResampling(SEXP vb_, SEXP it_, SEXP voxelSize_, SEXP off
   
   return wrap(0);
   } catch (std::exception& e) {
-    ::Rf_error( e.what());
+    forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
     ::Rf_error("unknown exception");

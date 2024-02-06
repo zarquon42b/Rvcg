@@ -70,7 +70,7 @@ if colormeshes == TRUE
 Implementation of the command line tool "metro" to evaluate the difference between two triangular meshes.
 }
 \note{
-this is a straightforward implementation of the command line tool metro \url{http://vcg.isti.cnr.it/vcglib/metro.html}
+this is a straightforward implementation of the command line tool metro \url{https://vcg.isti.cnr.it/vcglib/metro.html}
 }
 \examples{
 
