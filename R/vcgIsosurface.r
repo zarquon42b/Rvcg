@@ -91,7 +91,6 @@ invertFaces <- function (mesh) {
 
 applyTransform <- function(x,trafo,inverse)UseMethod("applyTransform")
 
-#' @export
 applyTransform.matrix <- function(x,trafo,inverse=FALSE) {
     if (is.matrix(trafo)) {
         if (ncol(trafo) == 3 && ncol(x) ==3)
@@ -105,7 +104,6 @@ applyTransform.matrix <- function(x,trafo,inverse=FALSE) {
     return(out)
 }
 
-#' @export
 applyTransform.mesh3d <- function(x,trafo,inverse=FALSE) {
 
     x$vb[1:3,] <- t(applyTransform(t(x$vb[1:3,]),trafo,inverse = inverse))
