@@ -1083,7 +1083,7 @@ public:
 
 
 	// Caricamento camera da un ply
-  /*	int LoadCamera(const char * filename)
+	int LoadCamera(const char * filename)
 	{
 		vcg::ply::PlyFile pf;
 		if( pf.Open(filename,vcg::ply::PlyFile::MODE_READ)==-1 )
@@ -1153,14 +1153,14 @@ public:
 		}
 
 		return 0;
-	}*/
+	}
 
 
 	static bool LoadMask(const char * filename, int &mask)
 	{
 		PlyInfo pi;
 		return LoadMask(filename, mask,pi);
-		}
+	}
 	static bool LoadMask(const char * filename, int &mask, PlyInfo &pi)
 	{
 		mask=0;

@@ -9,3 +9,4 @@
 22_isotropic_remeshing_missing_result.patch
 23_fprintf_off.patch
 24_import.obj.clang16.patch
+25_remove.camera.patch
