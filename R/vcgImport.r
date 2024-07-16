@@ -80,7 +80,7 @@ vcgImport <- function(file, updateNormals = TRUE, readcolor=FALSE, clean = TRUE,
     
     out$vb <- rbind(matrix(tmp$vb,3,length(tmp$vb)/3),1)
     if (length(tmp$it))
-        out$it <- matrix(tmp$it,3,(length(tmp$it)/3))+1
+        out$it <- matrix(tmp$it,3,(length(tmp$it)/3))+1L
     if (length(tmp$normals))
         out$normals <- rbind(matrix(tmp$normals,3,length(tmp$normals)/3),1)
     if (readcolor) {
