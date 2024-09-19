@@ -48,7 +48,7 @@
 #' ## create custom heatmaps based on distances
 #' mD <- meshDist(humfalign$mesh,distvec=samp$distances1)
 #' }
-#' @note this is a straightforward implementation of the command line tool metro \url{https://vcg.isti.cnr.it/vcglib/metro.html}
+#' @note this is a straightforward implementation of the command line tool metro \url{http://vcglib.net/metro.html}
 #' @references
 #' P. Cignoni, C. Rocchini and R. Scopigno. Metro: measuring error on simplified surfaces. Computer Graphics Forum, Blackwell Publishers, vol. 17(2), June 1998, pp 167-174
 #' @export
