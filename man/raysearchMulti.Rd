@@ -35,15 +35,17 @@ data(humface)
 humface1 <- scalemesh(humface,size=1.1)
 mesh <- mergeMeshes(humface,humface1)     #get normals of landmarks
 x <- vcgClost(humface.lm, humface)
+# offset landmarks along their normals for a negative amount of -5mm
 x$vb[1:3,] <- x$vb[1:3,]+x$normals[1:3,]*-5
 
 myint <- raysearchMulti(x,mesh)
 wire3d(mesh,col="white")
 spheres3d(vert2points(x),radius=0.5,col=3)
 plotNormals(x,length=55,lwd=2)
-for (i in 1:length(myintersects$intersects))
+for (i in 1:length(myint$intersects)) {
  spheres3d(vert2points(myint$intersects[[i]])[which(as.logical(myint$intersects[[i]]$quality)),]
                        ,col=i)
+}
 }
 }
 \seealso{
