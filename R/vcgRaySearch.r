@@ -109,12 +109,13 @@ setRays <- function(coords, dirs) {
      # offset landmarks along their normals for a negative amount of -5mm
 #' x$vb[1:3,] <- x$vb[1:3,]+x$normals[1:3,]*-5
 #'
-#' myintersects <- raysearchMulti(x,mesh)
+#' myint <- raysearchMulti(x,mesh)
 #' wire3d(mesh,col="white")
 #' spheres3d(vert2points(x),radius=0.5,col=3)
 #' plotNormals(x,length=55,lwd=2)
 #' for (i in 1:length(myintersects$intersects))
-#'    spheres3d(vert2points(myintersects$intersects[[i]])[which(as.logical(myintersects$intersects[[i]]$quality)),],col=i)
+#'  spheres3d(vert2points(myint$intersects[[i]])[which(as.logical(myint$intersects[[i]]$quality)),]
+#'                        ,col=i)
 #' }
 #' @seealso \code{\link{vcgRaySearch}}
 #' @export
