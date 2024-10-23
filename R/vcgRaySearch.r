@@ -85,3 +85,52 @@ setRays <- function(coords, dirs) {
     class(raylist) <- "mesh3d"
     return(raylist)
 }
+
+#' Find all intersections of rays and a mesh
+#'
+#' Find all intersections by tracing rays through mesh
+                                        #
+#' @param x a triangular mesh of class 'mesh3d' or a list containing vertices and vertex normals (fitting the naming conventions of 'mesh3d'). In the second case x must contain x$vb = 3 x n matrix containing 3D-coordinates and x$normals = 3 x n matrix containing normals associated with x$vb.
+#' @param mesh triangular mesh to be intersected.
+#' @param maxtol maximum distance to search along ray
+#' @param threads number of threads used during search.
+#' @details This function iteratively uses \code{\link{vcgRaySearch}} to find all intersections of rays and a given surface mesh.
+#'  @return list with following items:
+#'  \item{intersects }{a list containing the result of \code{\link{vcgRaySearch}} at each step of the intersection search}
+#' \item{hits }{Vector containging number of intersections for each ray}
+#' @examples
+#' \dontrun{
+#' require(Morpho); require(rgl)
+#' data(humface)
+#' humface1 <- scalemesh(humface,size=1.1)
+#' mesh <- mergeMeshes(humface,humface1)     #get normals of landmarks
+#' x <- vcgClost(humface.lm, humface)
+     # offset landmarks along their normals for a negative amount of -5mm
+#' x$vb[1:3,] <- x$vb[1:3,]+x$normals[1:3,]*-5
+#'
+#' myintersects <- raysearchMulti(x,mesh)
+#' wire3d(mesh,col="white")
+#' spheres3d(vert2points(x),radius=0.5,col=3)
+#' plotNormals(x,length=55,lwd=2)
+#' for (i in 1:length(myintersects$intersects))
+#'    spheres3d(vert2points(myintersects$intersects[[i]])[which(as.logical(myintersects$intersects[[i]]$quality)),],col=i)
+#' }
+#' @seealso \code{\link{vcgRaySearch}}
+#' @export
+raysearchMulti <- function(x,mesh, maxtol=1e15,threads=1,offset=1e-3) {
+      
+    intersect <- vcgRaySearch(x,mesh,mintol=0,maxtol=maxtol)
+    intersect$normals <- x$normals
+    nhit <- sum(intersect$quality)
+    outlist <- list(intersect)
+    while(nhit > 0) {
+        intersect$vb <- intersect$vb+offset*x$normals
+        intersect$normals <- x$normals
+        intersect <- vcgRaySearch(intersect,mesh,mintol=0,maxtol=maxtol)     
+        nhit <- sum(intersect$quality)
+        if (nhit)
+            outlist <- append(outlist,list(intersect))
+    }
+    hits <-  rowSums(sapply(outlist,function(x) x <- x$quality))
+    return(list(intersects=outlist,hits=hits))
+}
