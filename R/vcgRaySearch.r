@@ -93,6 +93,7 @@ setRays <- function(coords, dirs) {
 #' @param mesh triangular mesh to be intersected.
 #' @param maxtol maximum distance to search along ray
 #' @param threads number of threads used during search.
+#' @param offset amount to offset the hit points along the ray to find the next intersection. This is needed to avoid finding the same intersection over and over again.
 #' @details This function iteratively uses \code{\link{vcgRaySearch}} to find all intersections of rays and a given surface mesh.
 #' 
 #' @return list with following items:

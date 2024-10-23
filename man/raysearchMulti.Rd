@@ -14,6 +14,8 @@ raysearchMulti(x, mesh, maxtol = 1e+15, threads = 1, offset = 0.001)
 \item{maxtol}{maximum distance to search along ray}
 
 \item{threads}{number of threads used during search.}
+
+\item{offset}{amount to offset the hit points along the ray to find the next intersection. This is needed to avoid finding the same intersection over and over again.}
 }
 \value{
 list with following items:
