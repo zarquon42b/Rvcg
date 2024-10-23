@@ -1,5 +1,5 @@
 
-Rvcg ![Unit Tests](https://github.com/zarquon42b/Rvcg/actions/workflows/R-CMD-check.yaml/badge.svg)  [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  [![Downloads](https://cranlogs.r-pkg.org/badges/last-month/Rvcg?color=brightgreen)](https://cranlogs.r-pkg.org/badges/last-month/Rvcg)
+Rvcg [![Unit Tests](https://github.com/zarquon42b/Rvcg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/zarquon42b/Rvcg/actions/workflows/R-CMD-check.yaml)  [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)  [![Downloads](https://cranlogs.r-pkg.org/badges/last-month/Rvcg?color=brightgreen)](https://cranlogs.r-pkg.org/badges/last-month/Rvcg)
 ====
 __Rvcg__ is an R-package providing methods for manipulations on triangular meshes by using the API of the [VCGLIB](http://vcg.sf.net/) library.
 
