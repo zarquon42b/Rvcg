@@ -15,14 +15,16 @@ raysearchMulti(x, mesh, maxtol = 1e+15, threads = 1, offset = 0.001)
 
 \item{threads}{number of threads used during search.}
 }
+\value{
+list with following items:
+\item{intersects }{a list containing the result of \code{\link{vcgRaySearch}} at each step of the intersection search}
+\item{hits }{Vector containging number of intersections for each ray}
+}
 \description{
-Find all intersections by tracing rays through mesh
+Find all intersections by tracing rays through mesh                                       #
 }
 \details{
 This function iteratively uses \code{\link{vcgRaySearch}} to find all intersections of rays and a given surface mesh.
- @return list with following items:
- \item{intersects }{a list containing the result of \code{\link{vcgRaySearch}} at each step of the intersection search}
-\item{hits }{Vector containging number of intersections for each ray}
 }
 \examples{
 \dontrun{

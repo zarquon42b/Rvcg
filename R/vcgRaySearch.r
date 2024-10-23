@@ -88,15 +88,15 @@ setRays <- function(coords, dirs) {
 
 #' Find all intersections of rays and a mesh
 #'
-#' Find all intersections by tracing rays through mesh
-                                        #
+#' Find all intersections by tracing rays through mesh                                       #
 #' @param x a triangular mesh of class 'mesh3d' or a list containing vertices and vertex normals (fitting the naming conventions of 'mesh3d'). In the second case x must contain x$vb = 3 x n matrix containing 3D-coordinates and x$normals = 3 x n matrix containing normals associated with x$vb.
 #' @param mesh triangular mesh to be intersected.
 #' @param maxtol maximum distance to search along ray
 #' @param threads number of threads used during search.
 #' @details This function iteratively uses \code{\link{vcgRaySearch}} to find all intersections of rays and a given surface mesh.
-#'  @return list with following items:
-#'  \item{intersects }{a list containing the result of \code{\link{vcgRaySearch}} at each step of the intersection search}
+#' 
+#' @return list with following items:
+#' \item{intersects }{a list containing the result of \code{\link{vcgRaySearch}} at each step of the intersection search}
 #' \item{hits }{Vector containging number of intersections for each ray}
 #' @examples
 #' \dontrun{
