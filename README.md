@@ -29,3 +29,9 @@ Run the following command in R:
         require(devtools)
         install_github("zarquon42b/Rvcg", local=FALSE)
     
+#### Conda Version 
+Rvcg has been ported to the python packaging system Conda thanks to [@dipterix](https://github.com/username@dipterix) and can be found here [https://anaconda.org/conda-forge/r-rvcg](https://anaconda.org/conda-forge/r-rvcg)
+
+From an active conda enironment, it can be installed with the command
+ 
+ ```conda install conda-forge::r-rvcg ```
