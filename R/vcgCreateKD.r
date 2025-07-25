@@ -1,7 +1,7 @@
 
-#' create a KD-tree
+#' Create a KD-tree
 #'
-#' create a KD-tree
+#' Create a KD-tree.
 #' @param mesh matrix or triangular mesh containing coordinates
 #' @param nofPointsPerCell number of points per kd-cell
 #' @param maxDepth maximum tree depth
@@ -28,11 +28,13 @@ vcgCreateKDtree <- function(mesh, nofPointsPerCell=16,maxDepth=64) {
     return(out)
 }
 
-#' search an existing KD-tree
+#' Search an existing KD-tree
 #'
-#' search an existing KD-tree
+#' The search iterates over all points/vertices of the query matrix/mesh and returns a list objects
+#' with indices of query points/vertices and distances from those to the closest points/vertices
+#' on the matrix/mesh that is represented as a KD-tree.
 #' @param kdtree object of class vcgKDtree
-#' @param query atrix or triangular mesh containing coordinates
+#' @param query matrix or triangular mesh containing coordinates
 #' @param k number of k-closest neighbours to query
 #' @param threads integer: number of threads to use
 #' @return
@@ -68,9 +70,9 @@ vcgSearchKDtree <- function(kdtree, query,k ,threads=0) {
     return(out)
 }
 
-#' create a KD-tree from Barycenters for multiple closest point searches on a mesh
+#' Create a KD-tree from Barycenters for multiple closest point searches on a mesh
 #'
-#' create a KD-tree from Barycenters for multiple closest point searches on a mesh
+#' Create a KD-tree from Barycenters for multiple closest point searches on a mesh.
 #' @param mesh matrix or triangular mesh containing coordinates
 #' @param nofPointsPerCell number of points per kd-cell
 #' @param maxDepth maximum tree depth
@@ -93,9 +95,9 @@ vcgCreateKDtreeFromBarycenters <- function(mesh, nofPointsPerCell=16,maxDepth=64
     return(out)
 }
 
-#' search a KD-tree from Barycenters for multiple closest point searches on a mesh
+#' Search a KD-tree from Barycenters for multiple closest point searches on a mesh
 #'
-#' search a KD-tree from Barycenters for multiple closest point searches on a mesh
+#' Search a KD-tree from Barycenters for multiple closest point searches on a mesh.
 #' @param x object of class "vcgKDtreeWithBarycenters"
 #' @param query matrix or triangular mesh containing coordinates
 #' @param k integer: check the kdtree for the\code{k} closest faces (using faces' barycenters).
