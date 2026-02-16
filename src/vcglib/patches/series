@@ -12,3 +12,4 @@
 24_import.obj.clang16.patch
 25_remove.camera.patch
 clang19-Template.patch
+callback-stackaddress
