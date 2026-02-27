@@ -24,7 +24,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
     m.face.EnableFFAdjacency();
     m.face.EnableVFAdjacency();
     if (check != 0) {
-      ::Rf_error("mesh has no faces and/or no vertices, nothing done");
+      Rcpp::stop("mesh has no faces and/or no vertices, nothing done");
     }  else {
       
       double diameter = Rcpp::as<double>(diam_);
@@ -116,7 +116,7 @@ RcppExport SEXP Risolated(SEXP vb_ , SEXP it_, SEXP diam_, SEXP facenum_,SEXP si
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 

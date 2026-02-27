@@ -101,7 +101,7 @@ RcppExport SEXP RQEdecim(SEXP mesh_, SEXP Finsize_, SEXP boolparams_, SEXP doubl
     bool silent = as<bool>(silent_);
     int check = Rvcg::IOMesh<CMeshDec>::mesh3d2Rvcg(m,mesh_);
     if (check == 1) {
-      ::Rf_error("mesh has no faces");
+      Rcpp::stop("mesh has no faces");
     }  else {
       Rcpp::LogicalVector boolparams(boolparams_); 
       Rcpp::NumericVector doubleparams(doubleparams_);
@@ -162,7 +162,7 @@ RcppExport SEXP RQEdecim(SEXP mesh_, SEXP Finsize_, SEXP boolparams_, SEXP doubl
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; // -Wall
 }
    

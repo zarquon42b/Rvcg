@@ -29,7 +29,7 @@ RcppExport SEXP Rmeshvol(SEXP mesh_) {
     FManifold = Clean<MyMesh>::CountNonManifoldEdgeFF(m);
     
     if ((VManifold>0) || (FManifold>0)) {
-      ::Rf_error("Mesh is not manifold\n");
+      Rcpp::stop("Mesh is not manifold\n");
     }
       
      
@@ -52,6 +52,6 @@ RcppExport SEXP Rmeshvol(SEXP mesh_) {
 } catch (std::exception& e) {
   forward_exception_to_r( e );
  } catch (...) {
-  ::Rf_error("unknown exception");
+  Rcpp::stop("unknown exception");
  } return R_NilValue; 
 }

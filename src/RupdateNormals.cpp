@@ -23,7 +23,7 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_,
     int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     Rcpp::NumericMatrix normals(3,m.vn);
     if (check < 0) {
-      ::Rf_error("mesh has no faces and/or no vertices");
+      Rcpp::stop("mesh has no faces and/or no vertices");
       return wrap(1);
     } else if (check == 1) {
       if (!silent)
@@ -63,7 +63,7 @@ RcppExport SEXP RupdateNormals(SEXP vb_, SEXP it_, SEXP type_, SEXP pointcloud_,
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 
 }
@@ -95,7 +95,7 @@ RcppExport SEXP RgetFaceNormals(SEXP vb_, SEXP it_)
      forward_exception_to_r( e );
      return wrap(1);
    } catch (...) {
-     ::Rf_error("unknown exception");
+     Rcpp::stop("unknown exception");
    }
  }
 

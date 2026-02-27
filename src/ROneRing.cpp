@@ -68,6 +68,6 @@ RcppExport SEXP ROneRing(SEXP vb_, SEXP it_, SEXP both_ = wrap(false))
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 }

@@ -56,7 +56,7 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     case 1 : flags |=  SamplingFlags::SUBDIVISION_SAMPLING; break;
     case 2 : flags |=  SamplingFlags::SIMILAR_SAMPLING ; break;
       //case 3 : flags |=  SamplingFlags::NO_SAMPLING ; break;
-     default : ::Rf_error("%s\n","samplingType unknown" );
+     default : Rcpp::stop("%s\n","samplingType unknown" );
       
     }
 
@@ -70,7 +70,7 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
     case 1 : flags |= SamplingFlags::USE_STATIC_GRID; break;
     case 2 : flags |= SamplingFlags::USE_HASH_GRID; break;
     case 3 : flags |= SamplingFlags::USE_OCTREE; break;
-      //default : ::Rf_error("%s\n","searchStruct unknown" );
+      //default : Rcpp::stop("%s\n","searchStruct unknown" );
      
     }
 
@@ -246,7 +246,7 @@ RcppExport SEXP Rmetro( SEXP mesh0_, SEXP mesh1_, SEXP vertSamp_, SEXP edgeSamp_
      forward_exception_to_r( e );
   }
   catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
   return R_NilValue; // -Wall
 }

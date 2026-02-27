@@ -26,7 +26,7 @@ RcppExport SEXP Rkdtree(SEXP vb0_, SEXP vb1_, SEXP k_ ,SEXP nofP_= wrap(16),SEXP
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
   
 }
@@ -73,7 +73,7 @@ RcppExport SEXP RclosestKD(SEXP target_, SEXP query_, SEXP k_, SEXP sign_, SEXP 
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -96,6 +96,6 @@ RcppExport SEXP Rbarycenter(SEXP mesh_) {
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }

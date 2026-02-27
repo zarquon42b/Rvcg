@@ -24,7 +24,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
     int threads = as<int>(threads_);
     int check = Rvcg::IOMesh<MyMesh>::RvcgReadR(m,vb_,it_);
     if (check != 0) {
-      ::Rf_error("mesh has no faces or no vertices, nothing done");
+      Rcpp::stop("mesh has no faces or no vertices, nothing done");
     }  else {
       //Allocate target
       typedef MyMesh::VertexPointer VertexPointer;
@@ -121,7 +121,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
   
 	int f_i = vcg::tri::Index(m, f_ptr);
 	if (!f_ptr)
-	  Rf_error("nothing found within search radius, objects are too far away from each other.");
+	  Rcpp::stop("nothing found within search radius, objects are too far away from each other.");
 	MyMesh::CoordType ti = (m.face[f_i].V(0)->N()+m.face[f_i].V(1)->N()+m.face[f_i].V(2)->N()).normalized();//the smoothed normal at that point
 
 	ioclost(0,i) = clost[0];
@@ -140,7 +140,7 @@ RcppExport SEXP Rintersect(SEXP vb_ , SEXP it_, SEXP ioclost_, SEXP normals_, SE
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
     

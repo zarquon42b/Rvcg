@@ -79,7 +79,7 @@ RcppExport SEXP Rsample(SEXP mesh_, SEXP SampleNum_, SEXP type_, SEXP MCsamp_, S
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 }
  

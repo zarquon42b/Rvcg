@@ -198,7 +198,7 @@ RcppExport SEXP RallRead(SEXP filename_, SEXP updateNormals_, SEXP colorread_, S
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 
 }

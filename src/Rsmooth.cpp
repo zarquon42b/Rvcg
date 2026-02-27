@@ -94,7 +94,7 @@ RcppExport SEXP Rsmooth(SEXP vb_, SEXP it_, SEXP iteration_, SEXP method_, SEXP 
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 }
 
@@ -191,7 +191,7 @@ RcppExport SEXP RsmoothImplicit(
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 }
 

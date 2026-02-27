@@ -25,7 +25,7 @@ RcppExport SEXP RuniformResampling(SEXP vb_, SEXP it_, SEXP voxelSize_, SEXP off
   MyMesh m, baseMesh, offsetMesh;
   int checkit = Rvcg::IOMesh<MyMesh>::RvcgReadR(baseMesh,vb_,it_);
   if (baseMesh.fn==0) {
-    ::Rf_error( "This filter requires a mesh with some faces,<br> it does not work on PointSet"); 
+    Rcpp::stop( "This filter requires a mesh with some faces,<br> it does not work on PointSet"); 
 
   }
   tri::UpdateBounding<MyMesh>::Box(baseMesh);
@@ -88,6 +88,6 @@ RcppExport SEXP RuniformResampling(SEXP vb_, SEXP it_, SEXP voxelSize_, SEXP off
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 }

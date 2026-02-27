@@ -20,7 +20,7 @@ RcppExport SEXP RSphere(SEXP subdiv_ = wrap(3),SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -43,7 +43,7 @@ RcppExport SEXP RSphericalCap(SEXP angleRad_,SEXP subdiv_ = wrap(3), SEXP normal
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -58,7 +58,7 @@ RcppExport SEXP RTetrahedron(SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -81,7 +81,7 @@ RcppExport SEXP ROctahedron(SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -96,7 +96,7 @@ RcppExport SEXP RIcosahedron(SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -113,7 +113,7 @@ RcppExport SEXP RHexahedron(SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -128,7 +128,7 @@ RcppExport SEXP RSquare(SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -147,7 +147,7 @@ RcppExport SEXP RBox(SEXP mesh_,SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 
@@ -165,6 +165,6 @@ RcppExport SEXP RCone(SEXP r1_, SEXP r2_, SEXP h_, SEXP normals_ = wrap(true)) {
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }

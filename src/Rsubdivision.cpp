@@ -29,13 +29,13 @@ RcppExport SEXP Rsubdivision(SEXP mesh_ ,SEXP iterations_, SEXP threshold_,SEXP 
     m.face.EnableFFAdjacency();
     m.face.EnableVFAdjacency();
     if (check != 0) {
-      ::Rf_error("mesh has no faces and/or no vertices, nothing done");
+      Rcpp::stop("mesh has no faces and/or no vertices, nothing done");
     }  else {
       
       tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
       tri::UpdateTopology<MyMesh>::FaceFace(m);
       if (tri::Clean<MyMesh>::CountNonManifoldEdgeFF(m) > 0)
-	::Rf_error("Mesh has some not 2 manifoldfaces, subdivision surfaces require manifoldness");
+	Rcpp::stop("Mesh has some not 2 manifoldfaces, subdivision surfaces require manifoldness");
       if (threshold < 0) {
 	tri::UpdateBounding<MyMesh>::Box(m);
 	threshold = m.bbox.Diag()*0.01;
@@ -68,7 +68,7 @@ RcppExport SEXP Rsubdivision(SEXP mesh_ ,SEXP iterations_, SEXP threshold_,SEXP 
   } catch (std::exception& e) {
     forward_exception_to_r( e );
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; 
 }
 

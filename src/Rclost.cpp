@@ -27,7 +27,7 @@ RcppExport SEXP Rclost(SEXP mesh_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, S
     // section read from input
     int checkit = Rvcg::IOMesh<MyMesh>::mesh3d2Rvcg(m,mesh_);
     if (checkit == 1)
-      ::Rf_error("target mesh has no faces, nothing done");
+      Rcpp::stop("target mesh has no faces, nothing done");
     
     Rvcg::IOMesh<PcMesh>::RvcgReadR(refmesh, ioclost_);
       
@@ -151,7 +151,7 @@ RcppExport SEXP Rclost(SEXP mesh_, SEXP ioclost_, SEXP sign_, SEXP borderchk_, S
     } catch (std::exception& e) {
       forward_exception_to_r( e );
     } catch (...) {
-      ::Rf_error("unknown exception");
+      Rcpp::stop("unknown exception");
     } return R_NilValue; // -Wall
   }
 

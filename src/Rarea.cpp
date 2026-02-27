@@ -43,7 +43,7 @@ RcppExport SEXP Rarea(SEXP mesh_, SEXP report_= wrap(true)) {
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   } return R_NilValue; // -Wall
 }
 

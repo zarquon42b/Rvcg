@@ -34,7 +34,7 @@ RcppExport SEXP RisotropicResampling(SEXP vb_, SEXP it_, SEXP TargetLen_, SEXP F
     MyMesh  baseMesh, toProjectCopy;
     int checkit = Rvcg::IOMesh<MyMesh>::RvcgReadR(baseMesh,vb_,it_);
     if (baseMesh.fn==0) {
-      ::Rf_error( "This filter requires a mesh with some faces,<br> it does not work on PointSet"); 
+      Rcpp::stop( "This filter requires a mesh with some faces,<br> it does not work on PointSet"); 
       
     }
 
@@ -84,6 +84,6 @@ RcppExport SEXP RisotropicResampling(SEXP vb_, SEXP it_, SEXP TargetLen_, SEXP F
     forward_exception_to_r( e );
     return wrap(1);
   } catch (...) {
-    ::Rf_error("unknown exception");
+    Rcpp::stop("unknown exception");
   }
 }
