@@ -39,4 +39,4 @@ LazyLoad: yes
 Biarch: yes
 URL: https://github.com/zarquon42b/Rvcg, https://github.com/cnr-isti-vclab/vcglib
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2

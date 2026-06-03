@@ -20,13 +20,13 @@ vcgSample(
 
 \item{SampleNum}{integer: number of sampled points (see \code{details} below)}
 
-\item{type}{character: seclect sampling type ("mc"=MonteCarlo Sampling, "pd"=PoissonDisk Sampling,"km"=kmean clustering)}
+\item{type}{character: select sampling type ("mc"=MonteCarlo Sampling, "pd"=PoissonDisk Sampling,"km"=kmean clustering)}
 
-\item{MCsamp}{integer: MonteCarlo sample iterations used in PoissonDisk sampling.}
+\item{MCsamp}{integer: MonteCarlo oversampling factor.}
 
-\item{geodes}{logical: maximise geodesic distance between sample points (only for Poisson Disk sampling)}
+\item{geodes}{logical: maximize geodesic distance between sample points (only for Poisson Disk sampling)}
 
-\item{strict}{logical: if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},  the resulting coordinates will be subsampled again by kmean clustering to reach the requested number.}
+\item{strict}{logical: if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},the resulting coordinates will be subsampled again by kmeans clustering to reach the requested number (Euclidean distances used).}
 
 \item{iter.max}{integer: maximum iterations to use in k-means clustering.}
 
@@ -39,7 +39,7 @@ sampled points
 Subsamples surface of a triangular mesh and returns a set of points located on that mesh
 }
 \details{
-Poisson disk subsampling will not generate the exact amount of coordinates specified in \code{SampleNum}, depending on \code{MCsamp} the result will contain more or less coordinates.
+The Poisson disk method uses MonteCarlo oversampling followed by Poisson disk pruning. The Poisson disk approach will not generate the exact amount of coordinates specified in \code{SampleNum}, depending on \code{MCsamp} the result will contain more or less coordinates.
 }
 \examples{
 

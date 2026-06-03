@@ -3,16 +3,16 @@
 #' Subsamples surface of a triangular mesh and returns a set of points located on that mesh
 #' @param mesh triangular mesh of class 'mesh3d'
 #' @param SampleNum integer: number of sampled points (see \code{details} below)
-#' @param type character: seclect sampling type ("mc"=MonteCarlo Sampling, "pd"=PoissonDisk Sampling,"km"=kmean clustering)
-#' @param MCsamp integer: MonteCarlo sample iterations used in PoissonDisk sampling.
-#' @param geodes logical: maximise geodesic distance between sample points (only for Poisson Disk sampling)
-#' @param strict logical: if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},  the resulting coordinates will be subsampled again by kmean clustering to reach the requested number.
+#' @param type character: select sampling type ("mc"=MonteCarlo Sampling, "pd"=PoissonDisk Sampling,"km"=kmean clustering)
+#' @param MCsamp integer: MonteCarlo oversampling factor.
+#' @param geodes logical: maximize geodesic distance between sample points (only for Poisson Disk sampling)
+#' @param strict logical: if \code{type="pd"} and the amount of coordinates exceeds \code{SampleNum},the resulting coordinates will be subsampled again by kmeans clustering to reach the requested number (Euclidean distances used).
 #' @param iter.max integer: maximum iterations to use in k-means clustering.
 #' @param threads integer number of threads to use for k-means clustering
-#' @details Poisson disk subsampling will not generate the exact amount of coordinates specified in \code{SampleNum}, depending on \code{MCsamp} the result will contain more or less coordinates.
+#' @details The Poisson disk method uses MonteCarlo oversampling followed by Poisson disk pruning. The Poisson disk approach will not generate the exact amount of coordinates specified in \code{SampleNum}, depending on \code{MCsamp} the result will contain more or less coordinates.
 #' @return sampled points
 #' @examples
-#' 
+#'
 #' data(humface)
 #' ss <- vcgSample(humface,SampleNum = 500, type="km",threads=1)
 #' \dontrun{
@@ -51,5 +51,6 @@ vcgSample <- function(mesh, SampleNum=100,type=c("km","pd","mc"),MCsamp=20,geode
             if (!noit)
                 tmp <- t(vcgClostKD(tmp, mesh,sign=FALSE,threads=threads)$vb[1:3,])
         }
+        gc()
         return(tmp)
     }
